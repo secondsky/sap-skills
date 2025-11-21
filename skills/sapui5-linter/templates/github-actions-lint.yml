@@ -1,0 +1,67 @@
+# GitHub Actions Workflow for UI5 Linter
+#
+# Place this file in: .github/workflows/ui5-lint.yml
+#
+# Documentation: https://github.com/UI5/linter
+
+name: UI5 Lint
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    name: Lint UI5 Code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run UI5 Linter
+        run: npm run lint -- --quiet --format json > lint-results.json
+        continue-on-error: true
+
+      - name: Display Lint Results
+        if: always()
+        run: cat lint-results.json
+
+      - name: Upload Lint Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: lint-results
+          path: lint-results.json
+
+      - name: Generate HTML Report
+        if: always()
+        run: npm run lint -- --format html --details > lint-report.html
+
+      - name: Upload HTML Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: lint-report
+          path: lint-report.html
+
+      - name: Check Lint Results
+        run: |
+          ERROR_COUNT=$(jq '[.[].errorCount] | add' lint-results.json)
+          if [ "$ERROR_COUNT" -gt 0 ]; then
+            echo "❌ Found $ERROR_COUNT linting errors"
+            exit 1
+          else
+            echo "✅ No linting errors found"
+          fi

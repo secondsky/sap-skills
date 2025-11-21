@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+# Pre-commit hook using Husky and lint-staged
+#
+# Setup Instructions:
+# 1. Install Husky and lint-staged:
+#    npm install --save-dev husky lint-staged
+#
+# 2. Initialize Husky:
+#    npx husky install
+#
+# 3. Add this pre-commit hook:
+#    npx husky add .husky/pre-commit "npx lint-staged"
+#
+# 4. Add lint-staged configuration to package.json:
+#    {
+#      "lint-staged": {
+#        "webapp/**/*.{js,xml,json}": [
+#          "ui5lint"
+#        ]
+#      }
+#    }
+#
+# Documentation: https://github.com/UI5/linter
+
+. "$(dirname -- "$0")/_/husky.sh"
+
+npx lint-staged

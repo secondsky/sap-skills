@@ -1,0 +1,19 @@
+{
+  "name": "your-ui5-app",
+  "version": "1.0.0",
+  "description": "Your UI5 Application",
+  "scripts": {
+    "lint": "ui5lint",
+    "lint:fix": "ui5lint --fix",
+    "lint:details": "ui5lint --details",
+    "lint:ci": "ui5lint --quiet --format json > lint-results.json",
+    "lint:report": "ui5lint --format html --details > lint-report.html"
+  },
+  "devDependencies": {
+    "@ui5/linter": "^1.20.5"
+  },
+  "engines": {
+    "node": ">=20.11.0 || >=22.0.0",
+    "npm": ">=8.0.0"
+  }
+}
