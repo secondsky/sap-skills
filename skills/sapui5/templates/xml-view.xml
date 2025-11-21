@@ -1,0 +1,114 @@
+<mvc:View
+    controllerName="{{namespace}}.controller.{{ControllerName}}"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page
+        id="page"
+        title="{i18n>{{pageTitle}}}">
+
+        <headerContent>
+            <Button
+                icon="sap-icon://refresh"
+                press=".onRefresh"
+                tooltip="{i18n>refreshTooltip}"/>
+        </headerContent>
+
+        <content>
+            <Table
+                id="table"
+                inset="false"
+                items="{
+                    path: '/{{EntitySet}}',
+                    sorter: {
+                        path: '{{SortField}}'
+                    }
+                }"
+                growing="true"
+                growingThreshold="20"
+                mode="SingleSelectMaster"
+                selectionChange=".onSelectionChange">
+
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title
+                            text="{i18n>{{tableTitle}}}"
+                            level="H2"/>
+                        <ToolbarSpacer/>
+                        <SearchField
+                            width="50%"
+                            search=".onSearch"
+                            placeholder="{i18n>searchPlaceholder}"/>
+                        <Button
+                            icon="sap-icon://add"
+                            press=".onAdd"
+                            tooltip="{i18n>addTooltip}"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column
+                        width="12em">
+                        <Text text="{i18n>{{column1}}}"/>
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                        hAlign="End">
+                        <Text text="{i18n>{{column2}}}"/>
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true">
+                        <Text text="{i18n>{{column3}}}"/>
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem
+                        type="Navigation"
+                        press=".onPress">
+                        <cells>
+                            <ObjectIdentifier
+                                title="{{{Field1}}}"
+                                text="{{{Field2}}}"/>
+                            <ObjectNumber
+                                number="{
+                                    path: '{{Field3}}',
+                                    type: 'sap.ui.model.type.Float',
+                                    formatOptions: {
+                                        minFractionDigits: 2,
+                                        maxFractionDigits: 2
+                                    }
+                                }"
+                                unit="{{{CurrencyField}}}"/>
+                            <ObjectStatus
+                                text="{
+                                    path: '{{StatusField}}',
+                                    formatter: '.formatter.statusText'
+                                }"
+                                state="{
+                                    path: '{{StatusField}}',
+                                    formatter: '.formatter.statusState'
+                                }"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <Button
+                    text="{i18n>deleteButton}"
+                    icon="sap-icon://delete"
+                    type="Reject"
+                    press=".onDelete"
+                    enabled="{= ${view>/selectedItemsCount} > 0}"/>
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>
