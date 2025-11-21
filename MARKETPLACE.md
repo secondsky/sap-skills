@@ -9,7 +9,7 @@ Welcome to the **sap-skills** marketplace - a curated collection of production-t
 **Step 1: Add the marketplace**
 
 ```bash
-/plugin marketplace add https://github.com/eddie/sap-skills
+/plugin marketplace add https://github.com/secondsky/sap-skills
 ```
 
 **Step 2: Install skills**
@@ -139,7 +139,7 @@ Add to `.claude/settings.json` for automatic marketplace availability:
   "extraKnownMarketplaces": [
     {
       "name": "sap-skills",
-      "url": "https://github.com/eddie/sap-skills"
+      "url": "https://github.com/secondsky/sap-skills"
     }
   ]
 }
@@ -155,7 +155,7 @@ If you prefer manual installation or want to contribute:
 
 ```bash
 # Clone repository
-git clone https://github.com/eddie/sap-skills.git
+git clone https://github.com/secondsky/sap-skills.git
 cd sap-skills
 
 # Skills are ready to use from the skills/ directory
@@ -167,7 +167,7 @@ See [README.md](README.md) for development workflow.
 
 ## Support
 
-**Issues**: https://github.com/eddie/sap-skills/issues
+**Issues**: https://github.com/secondsky/sap-skills/issues
 **Documentation**: See individual skill directories for detailed guides
 
 ---

@@ -40,7 +40,7 @@ SAP-specific skills for:
 
 ```bash
 # Add the marketplace
-/plugin marketplace add https://github.com/eddie/sap-skills
+/plugin marketplace add https://github.com/secondsky/sap-skills
 
 # Install skills
 /plugin install skill-review@sap-skills
@@ -52,7 +52,7 @@ See [MARKETPLACE.md](MARKETPLACE.md) for complete marketplace documentation.
 
 ```bash
 # Clone the repository
-git clone https://github.com/eddie/sap-skills.git ~/Documents/sap-skills
+git clone https://github.com/secondsky/sap-skills.git ~/Documents/sap-skills
 
 # Skills are ready to use from the skills/ directory
 ```
@@ -265,7 +265,7 @@ MIT License - See [LICENSE](LICENSE)
 
 - **Claude Code**: https://claude.com/claude-code
 - **SAP Developer Center**: https://developers.sap.com/
-- **Issues**: https://github.com/eddie/sap-skills/issues
+- **Issues**: https://github.com/secondsky/sap-skills/issues
 
 ---
 

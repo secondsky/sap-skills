@@ -2,7 +2,7 @@
   "name": "sap-skills",
   "version": "1.0.0",
   "description": "Production-ready skills for SAP development with Claude Code CLI",
-  "repository": "https://github.com/eddie/sap-skills",
+  "repository": "https://github.com/secondsky/sap-skills",
   "plugins": [
     {
       "name": "skill-review",

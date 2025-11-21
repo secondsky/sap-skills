@@ -11,7 +11,7 @@ metadata:
   last_verified: 2025-11-21
   token_savings: ~80%
   errors_prevented: 31+
-  official_docs: https://github.com/eddie/sap-skills
+  official_docs: https://github.com/secondsky/sap-skills
   triggers:
     - "review this skill"
     - "review the X skill"
@@ -504,7 +504,7 @@ This skill references:
 ## Additional Resources
 
 - **Full Process Guide**: `planning/SKILL_REVIEW_PROCESS.md`
-- **Repository**: https://github.com/eddie/sap-skills
+- **Repository**: https://github.com/secondsky/sap-skills
 - **Example Audit**: See process guide Appendix B (better-auth v2.0.0)
 
 ---

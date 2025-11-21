@@ -169,7 +169,7 @@ A: Compare against https://github.com/anthropics/skills/blob/main/agent_skills_s
 
 1. Check [ONE_PAGE_CHECKLIST.md](ONE_PAGE_CHECKLIST.md) for common requirements
 2. Look at `skills/skill-review/` for a working example
-3. Open an issue: https://github.com/eddie/sap-skills/issues
+3. Open an issue: https://github.com/secondsky/sap-skills/issues
 
 ---
 

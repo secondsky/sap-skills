@@ -1,7 +1,7 @@
 <coding_guidelines>
 # SAP Skills - Project Context
 
-**Repository**: https://github.com/eddie/sap-skills
+**Repository**: https://github.com/secondsky/sap-skills
 **Purpose**: Production-ready skills for SAP development with Claude Code CLI
 **Owner**: SAP Skills Maintainers
 **Status**: Active Development | 1 Skill Complete
@@ -297,7 +297,7 @@ Use [ONE_PAGE_CHECKLIST.md](ONE_PAGE_CHECKLIST.md) to verify:
 - Review working examples in `skills/` directory
 
 **Technical Issues?**
-- Open issue: https://github.com/eddie/sap-skills/issues
+- Open issue: https://github.com/secondsky/sap-skills/issues
 - Check official SAP documentation
 
 **Want to Contribute?**
@@ -340,5 +340,5 @@ Use [ONE_PAGE_CHECKLIST.md](ONE_PAGE_CHECKLIST.md) to verify:
 
 **Last Updated**: 2025-11-21
 **Next Review**: 2026-02-21 (Quarterly)
-**Maintainer**: SAP Skills Maintainers | https://github.com/eddie/sap-skills
+**Maintainer**: SAP Skills Maintainers | https://github.com/secondsky/sap-skills
 </coding_guidelines>
