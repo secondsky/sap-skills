@@ -20,6 +20,8 @@ The UI5 Linter project itself uses a comprehensive CI pipeline that demonstrates
 
 **File**: `.github/workflows/ci.yml`
 
+**Note**: This is the actual CI workflow used by the UI5 Linter project itself, demonstrating production best practices.
+
 ```yaml
 name: CI
 
@@ -43,7 +45,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20.11.0'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
@@ -132,8 +134,8 @@ jobs:
   lint:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        node: ['20.11.0', '22.0.0']
+        os: [ubuntu-24.04, macos-latest, windows-latest]
+        node: ['24', '22']
 
     runs-on: ${{ matrix.os }}
 
@@ -171,24 +173,24 @@ on: [push, pull_request]
 jobs:
   lint-ui5:
     name: UI5 Linter
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
       - run: npm ci
       - run: npm run lint
 
   lint-js:
     name: ESLint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
       - run: npm ci
       - run: npm run eslint
@@ -196,12 +198,12 @@ jobs:
   test:
     name: Tests
     needs: [lint-ui5, lint-js]  # Only run if linting passes
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
       - run: npm ci
       - run: npm test
@@ -210,7 +212,7 @@ jobs:
     name: Deploy
     needs: test  # Only deploy if tests pass
     if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
       - run: echo "Deploy to production"
@@ -230,7 +232,7 @@ Optimize workflow performance with caching:
 ```yaml
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v5
@@ -238,11 +240,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'  # Automatic npm cache
 
       - name: Cache UI5 Linter results
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .ui5lint-cache
           key: ui5lint-${{ hashFiles('webapp/**/*.js', 'webapp/**/*.xml', 'ui5lint.config.*') }}
@@ -441,22 +443,22 @@ Save lint results as artifacts:
 ```yaml
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
       - run: npm ci
 
       - name: Run UI5 Linter (JSON output)
-        run: npm run lint -- --format json > lint-results.json
+        run: npm run lint -- --format json 2>&1 | tee lint-results.json
         continue-on-error: true
 
       - name: Run UI5 Linter (HTML report)
-        run: npm run lint -- --format html > lint-report.html
+        run: npm run lint -- --format html 2>&1 | tee lint-report.html
         continue-on-error: true
 
       - name: Upload JSON results
@@ -465,6 +467,7 @@ jobs:
         with:
           name: lint-results-json
           path: lint-results.json
+          retention-days: 30
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v5
@@ -472,10 +475,19 @@ jobs:
         with:
           name: lint-report-html
           path: lint-report.html
+          retention-days: 30
 
       - name: Check for errors
         run: |
-          ERROR_COUNT=$(jq '[.[].errorCount] | add' lint-results.json)
+          if [ ! -f lint-results.json ]; then
+            echo "❌ Lint results file not found"
+            exit 1
+          fi
+          ERROR_COUNT=$(jq '[.[].errorCount] | add' lint-results.json || echo "0")
+          if [ $? -ne 0 ]; then
+            echo "❌ Failed to parse lint-results.json"
+            exit 1
+          fi
           if [ "$ERROR_COUNT" -gt 0 ]; then
             echo "❌ Found $ERROR_COUNT linting errors"
             exit 1
@@ -713,7 +725,7 @@ on: [push, pull_request]
 
 jobs:
   find-apps:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
@@ -725,7 +737,7 @@ jobs:
 
   lint:
     needs: find-apps
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         app: ${{ fromJson(needs.find-apps.outputs.matrix) }}
@@ -733,7 +745,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
           cache-dependency-path: '${{ matrix.app }}/package-lock.json'
 

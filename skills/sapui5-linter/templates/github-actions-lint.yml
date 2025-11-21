@@ -2,6 +2,11 @@
 #
 # Place this file in: .github/workflows/ui5-lint.yml
 #
+# Prerequisites:
+#   - Package.json must have a 'lint' script that runs ui5lint
+#   - UI5 Linter must be installed as a dev dependency
+#   - UI5 Linter CLI supports: --quiet, --format (json/html), --details flags
+#
 # Documentation: https://github.com/UI5/linter
 
 name: UI5 Lint
@@ -15,7 +20,7 @@ on:
 jobs:
   lint:
     name: Lint UI5 Code
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout code
@@ -24,14 +29,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
       - name: Run UI5 Linter
-        run: npm run lint -- --quiet --format json > lint-results.json
+        run: npm run lint -- --quiet --format json 2>&1 | tee lint-results.json
         continue-on-error: true
 
       - name: Display Lint Results
@@ -44,10 +49,11 @@ jobs:
         with:
           name: lint-results
           path: lint-results.json
+          retention-days: 7
 
       - name: Generate HTML Report
         if: always()
-        run: npm run lint -- --format html --details > lint-report.html
+        run: npm run lint -- --format html --details 2>&1 | tee lint-report.html
 
       - name: Upload HTML Report
         if: always()
@@ -55,10 +61,19 @@ jobs:
         with:
           name: lint-report
           path: lint-report.html
+          retention-days: 7
 
       - name: Check Lint Results
         run: |
-          ERROR_COUNT=$(jq '[.[].errorCount] | add' lint-results.json)
+          if [ ! -f lint-results.json ]; then
+            echo "❌ Lint results file not found"
+            exit 1
+          fi
+          ERROR_COUNT=$(jq '[.[].errorCount] | add' lint-results.json || echo "0")
+          if [ $? -ne 0 ]; then
+            echo "❌ Failed to parse lint-results.json"
+            exit 1
+          fi
           if [ "$ERROR_COUNT" -gt 0 ]; then
             echo "❌ Found $ERROR_COUNT linting errors"
             exit 1
