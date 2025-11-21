@@ -214,11 +214,14 @@ This main skill file provides essential workflows and quick reference. For detai
 
 ### Advanced Topics
 - **`references/extensibility.md`**: Custom tasks, middleware, and project shims with complete API documentation
+- **`references/filesystem-api.md`**: Complete FileSystem API for custom task/middleware development
 - **`references/build-process.md`**: Complete build process including tasks, minification, source maps, and bundling
 - **`references/server-features.md`**: Complete server documentation with middleware stack, HTTP/2, SSL, and CSP
 - **`references/code-analysis.md`**: Dependency analyzers, JSDoc generation, and code analysis features
+- **`references/es-support.md`**: Complete ECMAScript version support, restrictions, and module format requirements
 
-### Migration & Troubleshooting
+### Performance & Troubleshooting
+- **`references/benchmarking.md`**: Performance testing and benchmarking with hyperfine
 - **`references/migration-guides.md`**: Complete version migration guides (v1→v2→v3→v4)
 - **`references/troubleshooting.md`**: Common issues, errors, and solutions with exact error messages
 
