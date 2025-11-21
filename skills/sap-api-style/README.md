@@ -1,4 +1,4 @@
-# SAP API Style Guide - Claude Code Skill
+# SAP API Style Guide – Skill
 
 **Version**: 1.0.0
 **License**: MIT
