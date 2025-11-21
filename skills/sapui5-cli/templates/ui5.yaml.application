@@ -1,0 +1,68 @@
+# UI5 Application Project Configuration Template
+# Save as: ui5.yaml in your project root
+# Official Schema: https://ui5.github.io/cli/schema/ui5.yaml.json
+
+specVersion: "4.0"
+type: application
+metadata:
+  name: my.company.app                          # REQUIRED: Replace with your app ID (lowercase)
+  copyright: "© ${currentYear} My Company"      # Optional: Copyright notice
+
+framework:
+  name: SAPUI5                                  # or OpenUI5
+  version: "1.120.0"                            # Framework version
+  libraries:
+    - name: sap.ui.core                         # Core library (always required)
+    - name: sap.m                               # Mobile/responsive controls
+    - name: sap.ui.table                        # Table controls
+    - name: themelib_sap_horizon                # Horizon theme
+      optional: true                            # Optional theme
+    - name: sap.ui.qunit                        # Testing library
+      development: true                         # Development-only
+
+resources:
+  configuration:
+    paths:
+      webapp: webapp                            # Path to web resources (default)
+    propertiesFileSourceEncoding: UTF-8         # Encoding for .properties files
+
+builder:
+  resources:
+    excludes:
+      - "/resources/my/company/app/test/**"     # Exclude test resources
+      - "**/*.md"                               # Exclude markdown files
+
+  componentPreload:
+    namespaces:
+      - "my/company/app"                        # Component namespace
+    excludes:
+      - "my/company/app/thirdparty/**"          # Exclude third-party libs
+
+  minification:
+    excludes:
+      - "my/company/app/thirdparty/**"          # Don't minify third-party
+
+  cachebuster:
+    signatureType: hash                         # Use content hash for caching
+
+server:
+  settings:
+    httpPort: 8080                              # HTTP port
+    httpsPort: 8443                             # HTTPS port (when using --h2)
+
+# Example custom task configuration (optional)
+# builder:
+#   customTasks:
+#     - name: transpile-typescript
+#       beforeTask: generateComponentPreload
+#       configuration:
+#         target: ES2020
+
+# Example custom middleware configuration (optional)
+# server:
+#   customMiddleware:
+#     - name: api-proxy
+#       mountPath: /api
+#       afterMiddleware: compression
+#       configuration:
+#         target: https://api.example.com

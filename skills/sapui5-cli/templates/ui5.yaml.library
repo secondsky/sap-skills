@@ -1,0 +1,72 @@
+# UI5 Library Project Configuration Template
+# Save as: ui5.yaml in your library root
+# Official Schema: https://ui5.github.io/cli/schema/ui5.yaml.json
+
+specVersion: "4.0"
+type: library
+metadata:
+  name: my.company.library                     # REQUIRED: Library name (lowercase)
+  copyright: "© ${currentYear} My Company"      # Optional: Copyright notice
+
+framework:
+  name: SAPUI5                                  # or OpenUI5
+  version: "1.120.0"                            # Framework version
+  libraries:
+    - name: sap.ui.core                         # Core library (always required)
+    - name: sap.m                               # If you use sap.m controls
+      optional: true                            # Mark as optional if not always needed
+
+resources:
+  configuration:
+    paths:
+      src: src                                  # Maps to /resources at runtime
+      test: test                                # Maps to /test-resources at runtime
+    propertiesFileSourceEncoding: UTF-8         # Encoding for .properties files
+
+builder:
+  resources:
+    excludes:
+      - "/test-resources/**"                    # Exclude test resources from build
+
+  libraryPreload:
+    excludes:
+      - "my/company/library/thirdparty/**"      # Exclude third-party from preload
+
+  minification:
+    excludes:
+      - "my/company/library/thirdparty/**"      # Don't minify third-party
+
+  cachebuster:
+    signatureType: hash                         # Use content hash for caching
+
+server:
+  settings:
+    httpPort: 8080                              # HTTP port
+    httpsPort: 8443                             # HTTPS port (when using --h2)
+
+# Example: JSDoc generation (optional)
+# Run with: ui5 build jsdoc
+# builder:
+#   jsdoc:
+#     excludes:
+#       - "my/company/library/thirdparty/**"
+
+# Directory structure for libraries:
+# src/
+#   my/
+#     company/
+#       library/
+#         library.js                           # Library initialization
+#         .library                             # Library metadata
+#         manifest.json                        # Library manifest (optional)
+#         Component1.js                        # Your components
+#         Component2.js
+#         themes/
+#           base/                              # Base theme
+#           sap_horizon/                       # Horizon theme
+# test/
+#   my/
+#     company/
+#       library/
+#         qunit/                               # QUnit tests
+#         integration/                         # Integration tests

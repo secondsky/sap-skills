@@ -1,0 +1,81 @@
+# UI5 Workspace Configuration Template
+# Save as: ui5-workspace.yaml in your project root (alongside ui5.yaml)
+# Use for: Monorepo setups and local dependency development
+# Official Docs: https://ui5.github.io/cli/stable/pages/Workspace/
+
+specVersion: workspace/1.0
+metadata:
+  name: default                                 # Workspace name (auto-activated when named "default")
+
+dependencyManagement:
+  resolutions:
+    # Point to local project directories (relative paths only)
+    - path: ../my-reuse-library                 # Local library
+    - path: ../another-library                  # Another local library
+    - path: ./packages/shared-components        # Monorepo package
+
+---
+# Optional: Additional workspace configurations
+# Activate with: ui5 serve --workspace extended
+
+specVersion: workspace/1.0
+metadata:
+  name: extended                                # Named workspace
+
+dependencyManagement:
+  resolutions:
+    - path: ../my-reuse-library
+    - path: ../another-library
+    - path: ../experimental-library             # Additional library for extended workspace
+    - path: ./packages/shared-components
+
+# Notes:
+# 1. Paths must be relative to ui5-workspace.yaml
+# 2. Paths must point to directories containing package.json
+# 3. Use forward slashes (/) not backslashes (\)
+# 4. Absolute paths are NOT allowed
+# 5. Home directory paths (~/) are NOT allowed
+# 6. Symbolic links are followed
+# 7. Workspace resolution only applies to root project
+# 8. Dependencies discovered through resolutions take precedence over npm resolution
+
+# Example monorepo structure:
+# my-monorepo/
+#   ├── ui5-workspace.yaml                     # This file
+#   ├── ui5.yaml                               # Root project config
+#   ├── package.json                           # Root package.json
+#   └── packages/
+#       ├── main-app/
+#       │   ├── ui5.yaml
+#       │   ├── package.json
+#       │   └── webapp/
+#       ├── shared-components/
+#       │   ├── ui5.yaml
+#       │   ├── package.json
+#       │   └── src/
+#       └── theme-library/
+#           ├── ui5.yaml
+#           ├── package.json
+#           └── src/
+
+# Example package.json for monorepo support:
+# {
+#   "name": "my-monorepo",
+#   "workspaces": [
+#     "packages/*"
+#   ]
+# }
+# or
+# {
+#   "name": "my-monorepo",
+#   "ui5": {
+#     "workspaces": [
+#       "packages/*"
+#     ]
+#   }
+# }
+
+# Usage:
+# ui5 serve                                    # Uses "default" workspace
+# ui5 serve --workspace extended               # Uses "extended" workspace
+# ui5 build --workspace extended --all         # Build with extended workspace
