@@ -1,0 +1,66 @@
+{
+  "_comment": "SAP XSUAA Configuration Template for Job Scheduling Service",
+  "_documentation": "https://help.sap.com/docs/job-scheduling/sap-job-scheduling-service/define-and-grant-scopes-to-sap-job-scheduling-service",
+  "_instructions": [
+    "1. Replace [APP_NAME] with your application name",
+    "2. Replace [JOBSCHEDULER_INSTANCE] with your Job Scheduling service instance name",
+    "3. Remove all _comment and _instructions fields before deployment",
+    "4. Create/update XSUAA: cf create-service xsuaa application my-xsuaa -c xs-security.json",
+    "5. Bind to app: cf bind-service my-app my-xsuaa && cf restage my-app"
+  ],
+
+  "xsappname": "[APP_NAME]",
+  "tenant-mode": "dedicated",
+
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.JOBSCHEDULER",
+      "description": "Job Scheduler Scope - Allows Job Scheduling service to invoke action endpoints",
+      "grant-as-authority-to-apps": [
+        "$XSSERVICENAME([JOBSCHEDULER_INSTANCE])"
+      ]
+    }
+  ],
+
+  "authorities": [
+    "$XSAPPNAME.JOBSCHEDULER"
+  ],
+
+  "_additional_scopes_example": {
+    "_comment": "Add more scopes if your app needs different permission levels",
+    "scopes": [
+      {
+        "name": "$XSAPPNAME.JobRead",
+        "description": "Read job data",
+        "grant-as-authority-to-apps": ["$XSSERVICENAME([JOBSCHEDULER_INSTANCE])"]
+      },
+      {
+        "name": "$XSAPPNAME.JobWrite",
+        "description": "Write job data",
+        "grant-as-authority-to-apps": ["$XSSERVICENAME([JOBSCHEDULER_INSTANCE])"]
+      }
+    ]
+  },
+
+  "_multitenant_example": {
+    "_comment": "For multitenant applications",
+    "tenant-mode": "shared",
+    "scopes": [
+      {
+        "name": "$XSAPPNAME.JOBSCHEDULER",
+        "description": "Job Scheduler Scope",
+        "grant-as-authority-to-apps": ["$XSSERVICENAME([JOBSCHEDULER_INSTANCE])"]
+      },
+      {
+        "name": "$XSAPPNAME.Callback",
+        "description": "Tenant callback scope",
+        "grant-as-authority-to-apps": ["sap-provisioning"]
+      }
+    ]
+  },
+
+  "_variable_reference": {
+    "$XSAPPNAME": "Resolves to the value of xsappname field",
+    "$XSSERVICENAME(name)": "Resolves to the service instance identifier"
+  }
+}

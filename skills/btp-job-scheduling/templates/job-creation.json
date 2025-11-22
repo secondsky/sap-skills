@@ -1,0 +1,76 @@
+{
+  "_comment": "SAP BTP Job Scheduling Service - Job Creation Template",
+  "_documentation": "https://help.sap.com/docs/job-scheduling/sap-job-scheduling-service/create-job",
+  "_instructions": [
+    "1. Replace all [PLACEHOLDER] values with your actual values",
+    "2. Remove _comment, _documentation, _instructions fields before submitting",
+    "3. Choose ONE scheduling mode per schedule: cron, time, repeatInterval, or repeatAt",
+    "4. Use HTTPS for action endpoints in production",
+    "5. All times are interpreted as UTC"
+  ],
+
+  "name": "[JOB_NAME]",
+  "description": "[JOB_DESCRIPTION]",
+  "action": "https://[YOUR_APP].[LANDSCAPE].hana.ondemand.com/api/[ENDPOINT]",
+  "active": true,
+  "httpMethod": "POST",
+
+  "startTime": {
+    "date": "[YYYY-MM-DD]",
+    "format": "YYYY-MM-DD"
+  },
+
+  "endTime": null,
+
+  "schedules": [
+    {
+      "_comment_schedule_type": "OPTION 1: Recurring with cron (7-field SAP format)",
+      "_cron_format": "SAP format: [Year] [Month] [Day] [DayOfWeek] [Hour] [Minute] [Second]",
+      "active": true,
+      "description": "[SCHEDULE_DESCRIPTION]",
+      "cron": "* * * * [HOUR] [MINUTE] [SECOND]",
+      "startTime": {
+        "date": "[YYYY-MM-DD]",
+        "format": "YYYY-MM-DD"
+      },
+      "data": {
+        "_comment": "Custom payload sent to action endpoint",
+        "param1": "value1"
+      }
+    }
+  ],
+
+  "_alternative_schedule_types": {
+    "one_time": {
+      "time": "now",
+      "_or": "2025-12-31T23:59:59Z",
+      "_or_human": "tomorrow at 4pm"
+    },
+    "repeat_interval": {
+      "repeatInterval": "2 hours",
+      "_examples": ["5 minutes", "1 day", "2 weeks"]
+    },
+    "repeat_at": {
+      "repeatAt": "6.00am",
+      "_examples": ["4.40pm", "18:30", "6.20am"]
+    },
+    "cron_examples": {
+      "daily_9am": "* * * * 9 0 0",
+      "every_monday_10am": "* * * mon 10 0 0",
+      "last_sunday_monthly": "* * * -1.sun 9 0 0",
+      "every_30_min_10_to_12": "* * * * 10:12 0,30 0",
+      "first_of_month_6pm": "* * 1 * 18 0 0"
+    }
+  },
+
+  "ansConfig": {
+    "_comment": "SAP Alert Notification Service (Cloud Foundry only)",
+    "onSuccess": false,
+    "onError": true
+  },
+
+  "calmConfig": {
+    "_comment": "SAP Cloud ALM monitoring",
+    "enabled": true
+  }
+}
