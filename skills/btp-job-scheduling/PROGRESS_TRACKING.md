@@ -38,11 +38,14 @@
 
 ---
 
-## 10---What-s-New/ Directory
+## 10---What-s-New/ Directory (4 files)
 
-| Status | File | Coverage | Notes |
-|--------|------|----------|-------|
-| ✅ | Directory contents | 100% | Version updates documented in maintenance section |
+| Status | File | Coverage | Incorporated Into | Notes |
+|--------|------|----------|-------------------|-------|
+| ✅ | `what-s-new-for-sap-job-scheduling-service-35dd2f8.md` | 100% | references/changelog.md | 2025 updates |
+| ✅ | `2023-what-s-new-for-sap-job-scheduling-service-archive-8ff6481.md` | 100% | references/changelog.md | 2023 archive |
+| ✅ | `2022-what-s-new-for-sap-job-scheduling-service-archive-cd1964a.md` | 100% | references/changelog.md | 2022 archive |
+| ✅ | `2021-what-s-new-for-sap-job-scheduling-service-archive-78f6a4b.md` | 100% | references/changelog.md | 2021 archive |
 
 ---
 
@@ -108,14 +111,14 @@
 | Section | Files | Status |
 |---------|-------|--------|
 | Root Documentation | 15 | ✅ Complete |
-| 10---What-s-New | 3 | ✅ Complete |
+| 10---What-s-New | 4 | ✅ Complete |
 | 20---Concepts | 6 | ✅ Complete |
 | 40---Using | 25 | ✅ Complete |
 | 50---Security | 4 | ✅ Complete |
 
 ### Overall Progress
-- **Total Files**: 53
-- **Extracted**: 53 (100%)
+- **Total Files**: 54
+- **Extracted**: 54 (100%)
 - **Coverage**: Complete
 
 ---
@@ -231,7 +234,7 @@ The skill follows Anthropic best practices with three-level loading:
 
 ## Verification Checklist
 
-- ✅ All source files extracted: 53/53 (100%)
+- ✅ All source files extracted: 54/54 (100%)
 - ✅ All sections covered: 5/5 directories (100%)
 - ✅ No duplicated content: Proper organization into reference files
 - ✅ No missing information: Complete extraction verified
