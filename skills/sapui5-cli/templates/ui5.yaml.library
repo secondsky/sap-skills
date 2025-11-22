@@ -10,7 +10,7 @@ metadata:
 
 framework:
   name: SAPUI5                                  # or OpenUI5
-  version: "1.120.0"                            # Framework version
+  version: "1.120.0"                            # Framework version (example - check https://ui5.sap.com for latest)
   libraries:
     - name: sap.ui.core                         # Core library (always required)
     - name: sap.m                               # If you use sap.m controls
@@ -41,8 +41,8 @@ builder:
 
 server:
   settings:
-    httpPort: 8080                              # HTTP port
-    httpsPort: 8443                             # HTTPS port (when using --h2)
+    httpPort: 8080                              # HTTP port (optional - defaults to 8080)
+    httpsPort: 8443                             # HTTPS port (optional - defaults to 8443 when using --h2)
 
 # Example: JSDoc generation (optional)
 # Run with: ui5 build jsdoc

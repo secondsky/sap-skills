@@ -59,6 +59,7 @@ brew install hyperfine
 
 **Ubuntu/Debian**:
 ```bash
+# Check https://github.com/sharkdp/hyperfine/releases for latest version
 wget https://github.com/sharkdp/hyperfine/releases/download/v1.18.0/hyperfine_1.18.0_amd64.deb
 sudo dpkg -i hyperfine_1.18.0_amd64.deb
 ```

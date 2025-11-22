@@ -112,8 +112,9 @@ npm install --save-dev ui5-task-babel
 ```javascript
 import MarkdownIt from "markdown-it";
 
-export default async function({workspace, options, log}) {
+export default async function({workspace, options, taskUtil, log}) {
     const md = new MarkdownIt();
+    const {resourceFactory} = taskUtil;
 
     // Read all markdown files
     const markdownResources = await workspace.byGlob("**/*.md");
@@ -122,12 +123,14 @@ export default async function({workspace, options, log}) {
         const markdown = await resource.getString();
         const html = md.render(markdown);
 
-        // Create new HTML resource
+        // Create new HTML resource using resourceFactory
         const htmlPath = resource.getPath().replace(".md", ".html");
-        const htmlResource = await workspace.write({
+        const htmlResource = resourceFactory.createResource({
             path: htmlPath,
             string: html
         });
+
+        await workspace.write(htmlResource);
 
         log.info(`Converted ${resource.getPath()} to ${htmlPath}`);
     }

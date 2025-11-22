@@ -79,7 +79,7 @@ export async function determineRequiredDependencies({
  * @param {module:@ui5/builder.tasks.TaskUtil} params.taskUtil - Task utilities (Spec v2.2+)
  * @returns {Promise<undefined>}
  */
-export default async function({workspace, dependencies, log, options, taskUtil}) {
+export default async function({workspace, dependencies, log, options = {}, taskUtil}) {
     const {configuration = {}} = options;
 
     log.info("Starting custom task...");

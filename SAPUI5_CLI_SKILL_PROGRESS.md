@@ -1,6 +1,6 @@
 # SAPUI5 CLI Skill Development Progress Tracker
 
-**Skill Name**: sapui5-cli
+**Skill Name**: managing-sapui5-cli
 **Created**: 2025-11-21
 **Status**: In Development
 **Target Location**: `/home/user/sap-skills/skills/sapui5-cli/`
@@ -65,7 +65,13 @@ skills/sapui5-cli/
 ├── references/
 │   ├── cli-commands.md           # Complete CLI command reference
 │   ├── configuration.md          # ui5.yaml configuration guide
-│   ├── project-types.md          # Project types and structure
+│   ├── project-structures.md     # Project types and structure
+│   ├── build-process.md          # Build process and tasks
+│   ├── server-features.md        # Development server features
+│   ├── code-analysis.md          # Code analysis and JSDoc
+│   ├── filesystem-api.md         # FileSystem API reference
+│   ├── es-support.md             # ECMAScript support
+│   ├── benchmarking.md           # Performance benchmarking
 │   ├── extensibility.md          # Custom tasks and middleware
 │   ├── troubleshooting.md        # Common issues and solutions
 │   └── migration-guides.md       # Version migration guides
@@ -73,7 +79,7 @@ skills/sapui5-cli/
 ├── templates/
 │   ├── ui5.yaml.application      # Template for applications
 │   ├── ui5.yaml.library          # Template for libraries
-│   ├── ui5.yaml.workspace        # Template for workspace/monorepo
+│   ├── ui5-workspace.yaml        # Template for workspace/monorepo
 │   ├── custom-task-template.js   # Custom task example
 │   └── custom-middleware-template.js  # Custom middleware example
 │
