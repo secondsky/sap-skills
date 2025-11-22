@@ -216,7 +216,7 @@ Optional Fields: HireDate, Salary
 |---|---|---|---|---|
 | FirstName | Required | String | Employee's first name | 1-50 characters, alphanumeric + spaces |
 | LastName | Required | String | Employee's last name | 1-50 characters, alphanumeric + spaces |
-| Email | Required | String | Corporate email address | Must be unique, valid email format (RFC 5321) |
+| Email | Required | String | Corporate email address | Must be unique, valid email format (RFC 5322) |
 | Department | Required | String | Department code | Valid: "SALES", "ENGINEERING", "FINANCE", "HR", "OPERATIONS" |
 | HireDate | Optional | Date | Hire date in YYYY-MM-DD format | Cannot be future date, ISO 8601 format |
 | Salary | Optional | Decimal | Annual salary in USD | Minimum: 20000, maximum: 10000000, 2 decimal places |

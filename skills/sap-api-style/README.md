@@ -1,9 +1,47 @@
 # SAP API Style Guide – Skill
 
 **Version**: 1.0.0
-**License**: MIT
 **Last Updated**: 2025-11-21
-**Source**: https://github.com/SAP-docs/api-style-guide
+
+---
+
+## Attribution & License
+
+### Upstream Content
+
+This skill incorporates content from the **SAP API Style Guide**:
+
+- **Upstream Repository**: [SAP-docs/api-style-guide](https://github.com/SAP-docs/api-style-guide)
+- **Source Commit**: main branch as of 2025-11-21
+- **Upstream License**: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (Creative Commons Attribution 4.0 International)
+- **License Summary**: Permits sharing and adaptation with attribution; requires attribution to SAP and indication of changes
+
+### Content Usage
+
+**Verbatim Content** (directly copied from upstream):
+- Core documentation examples and patterns from SAP API Style Guide
+- Code sample structures and formatting guidelines
+- Terminology definitions and standards references
+
+**Adapted Content** (modified from upstream):
+- All reference files in `references/` - consolidated from multiple upstream files, reorganized for progressive disclosure
+- All template files in `templates/` - enhanced with additional examples and Claude Code-specific guidance
+- SKILL.md - restructured from upstream documentation into decision trees and quick references
+
+**Original Content** (created for this skill):
+- Progressive disclosure architecture and file organization
+- Claude Code skill-specific metadata and trigger keywords
+- Cross-references and navigation structure optimized for LLM consumption
+
+### SPDX License Identifiers
+
+- Upstream SAP content: `CC-BY-4.0`
+- Skill packaging and structure: `MIT`
+
+### Full License Text
+
+- CC BY 4.0: https://creativecommons.org/licenses/by/4.0/legalcode
+- MIT: See LICENSE file in repository root
 
 ---
 
@@ -356,12 +394,12 @@ This skill saves massive token overhead by:
 ### Version 1.0.0 (2025-11-21)
 
 **Initial Release**:
-- Complete extraction of 76 SAP API Style Guide files
-- 8 comprehensive reference guides
-- 5 ready-to-use templates
+- Complete extraction from SAP API Style Guide (16 source files verified)
+- 8 comprehensive reference guides (consolidated and adapted)
+- 5 ready-to-use templates (enhanced with examples)
 - Full coverage of REST, OData, Java, JavaScript, .NET, C/C++
-- Progressive disclosure structure
-- Production-tested templates
+- Progressive disclosure structure optimized for Claude Code
+- Production-tested templates and examples
 
 **Next Quarterly Review**: 2026-02-21
 
