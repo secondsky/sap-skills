@@ -1,0 +1,91 @@
+{
+  "$schema": "https://sap.github.io/data-intelligence/schemas/replication-flow.json",
+  "name": "abap_to_hana_replication",
+  "description": "Replication flow from ABAP system to HANA Cloud",
+  "version": "1.0.0",
+  "source": {
+    "type": "ABAP",
+    "connection": "${abap_connection}",
+    "properties": {
+      "extractionType": "CDS",
+      "packageSize": 50000
+    }
+  },
+  "target": {
+    "type": "HANA",
+    "connection": "${hana_connection}",
+    "properties": {
+      "schema": "${target_schema}",
+      "writeMode": "UPSERT",
+      "batchSize": 10000
+    }
+  },
+  "tasks": [
+    {
+      "name": "customer_master",
+      "source": {
+        "object": "I_Customer",
+        "type": "CDS_VIEW",
+        "filter": ""
+      },
+      "target": {
+        "table": "CUSTOMER_MASTER",
+        "keyColumns": ["Customer"]
+      },
+      "mapping": {
+        "mode": "auto",
+        "customMappings": []
+      },
+      "loadType": {
+        "initial": true,
+        "delta": true
+      }
+    },
+    {
+      "name": "sales_orders",
+      "source": {
+        "object": "I_SalesOrder",
+        "type": "CDS_VIEW",
+        "filter": "CreationDate ge datetime'2024-01-01T00:00:00'"
+      },
+      "target": {
+        "table": "SALES_ORDERS",
+        "keyColumns": ["SalesOrder"]
+      },
+      "mapping": {
+        "mode": "auto",
+        "customMappings": [
+          {
+            "source": "SalesOrder",
+            "target": "SALES_ORDER_ID"
+          },
+          {
+            "source": "SoldToParty",
+            "target": "CUSTOMER_ID"
+          }
+        ]
+      },
+      "loadType": {
+        "initial": true,
+        "delta": true
+      }
+    }
+  ],
+  "schedule": {
+    "enabled": false,
+    "cron": "0 0 * * * *",
+    "timezone": "UTC"
+  },
+  "settings": {
+    "parallelTasks": 4,
+    "errorHandling": "CONTINUE",
+    "logging": "INFO"
+  },
+  "notes": [
+    "Configure ABAP and HANA connections before deployment.",
+    "Modify CDS view names for your specific data.",
+    "Adjust filters based on data volume requirements.",
+    "Enable schedule after successful initial load.",
+    "Uses UPSERT for exactly-once delivery semantics."
+  ]
+}

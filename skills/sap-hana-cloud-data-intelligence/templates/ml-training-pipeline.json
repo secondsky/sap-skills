@@ -1,0 +1,99 @@
+{
+  "$schema": "https://sap.github.io/data-intelligence/schemas/graph.json",
+  "name": "ml_training_pipeline",
+  "description": "Machine learning training pipeline template",
+  "version": "1.0.0",
+  "properties": {
+    "autoRecovery": {
+      "enabled": true,
+      "snapshotInterval": "120s"
+    }
+  },
+  "parameters": [
+    {
+      "name": "dataset_path",
+      "type": "string",
+      "description": "Training dataset path",
+      "default": "/ml/datasets/training.parquet"
+    },
+    {
+      "name": "model_output_path",
+      "type": "string",
+      "description": "Model output path",
+      "default": "/ml/models/"
+    },
+    {
+      "name": "test_split",
+      "type": "float64",
+      "description": "Test data split ratio",
+      "default": 0.2
+    },
+    {
+      "name": "n_estimators",
+      "type": "int32",
+      "description": "Number of estimators for RandomForest",
+      "default": 100
+    },
+    {
+      "name": "max_depth",
+      "type": "int32",
+      "description": "Maximum tree depth",
+      "default": 10
+    }
+  ],
+  "operators": [
+    {
+      "name": "data_loader",
+      "component": "com.sap.system.structuredFileConsumer",
+      "config": {
+        "connection": "${data_connection}",
+        "path": "${dataset_path}",
+        "format": "parquet"
+      }
+    },
+    {
+      "name": "trainer",
+      "component": "com.sap.system.python3Operator",
+      "config": {
+        "script": "# ML Training Script\nimport pandas as pd\nimport pickle\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import accuracy_score, f1_score\nfrom sapdi import tracking\n\ndef on_input(msg_id, header, body):\n    # Get parameters\n    test_split = float(api.config.test_split)\n    n_estimators = int(api.config.n_estimators)\n    max_depth = int(api.config.max_depth)\n    \n    # Load data\n    df = pd.DataFrame(body)\n    \n    # Prepare features and target\n    X = df.drop('target', axis=1)\n    y = df['target']\n    \n    # Split data\n    X_train, X_test, y_train, y_test = train_test_split(\n        X, y, test_size=test_split, random_state=42\n    )\n    \n    # Train model\n    model = RandomForestClassifier(\n        n_estimators=n_estimators,\n        max_depth=max_depth,\n        random_state=42\n    )\n    model.fit(X_train, y_train)\n    \n    # Evaluate\n    y_pred = model.predict(X_test)\n    accuracy = accuracy_score(y_test, y_pred)\n    f1 = f1_score(y_test, y_pred, average='weighted')\n    \n    # Track with ML Scenario Manager\n    with tracking.start_run(run_name='rf_training') as run:\n        run.log_param('algorithm', 'RandomForest')\n        run.log_param('n_estimators', n_estimators)\n        run.log_param('max_depth', max_depth)\n        run.log_param('test_split', test_split)\n        run.log_metric('accuracy', accuracy)\n        run.log_metric('f1_score', f1)\n        run.log_artifact('model.pkl', pickle.dumps(model))\n    \n    # Send results\n    result = {\n        'accuracy': accuracy,\n        'f1_score': f1,\n        'model_path': f'{api.config.model_output_path}model.pkl'\n    }\n    api.send('output', api.Message(result))\n\napi.set_port_callback('input', on_input)"
+      }
+    },
+    {
+      "name": "metrics_logger",
+      "component": "com.sap.ml.submitMetrics",
+      "config": {
+        "metricsType": "training"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "source": {
+        "operator": "data_loader",
+        "port": "output"
+      },
+      "target": {
+        "operator": "trainer",
+        "port": "input"
+      }
+    },
+    {
+      "source": {
+        "operator": "trainer",
+        "port": "output"
+      },
+      "target": {
+        "operator": "metrics_logger",
+        "port": "input"
+      }
+    }
+  ],
+  "notes": [
+    "This is a machine learning training pipeline template.",
+    "Customize the Python script for your specific model.",
+    "Configure dataset path and model parameters.",
+    "Metrics are automatically tracked in ML Scenario Manager.",
+    "Model artifacts are logged for versioning and deployment.",
+    "Adjust test_split, n_estimators, max_depth as needed."
+  ]
+}

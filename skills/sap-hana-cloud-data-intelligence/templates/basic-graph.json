@@ -1,0 +1,89 @@
+{
+  "$schema": "https://sap.github.io/data-intelligence/schemas/graph.json",
+  "name": "basic_data_pipeline",
+  "description": "Basic data processing pipeline template",
+  "version": "1.0.0",
+  "properties": {
+    "autoRecovery": {
+      "enabled": true,
+      "snapshotInterval": "60s"
+    }
+  },
+  "parameters": [
+    {
+      "name": "source_path",
+      "type": "string",
+      "description": "Source file path",
+      "default": "/data/input/"
+    },
+    {
+      "name": "target_path",
+      "type": "string",
+      "description": "Target file path",
+      "default": "/data/output/"
+    },
+    {
+      "name": "batch_size",
+      "type": "int32",
+      "description": "Processing batch size",
+      "default": 10000
+    }
+  ],
+  "operators": [
+    {
+      "name": "source",
+      "component": "com.sap.system.structuredFileConsumer",
+      "config": {
+        "connection": "${source_connection}",
+        "path": "${source_path}",
+        "format": "csv",
+        "header": true
+      }
+    },
+    {
+      "name": "transform",
+      "component": "com.sap.dataTransform",
+      "config": {
+        "transformations": []
+      }
+    },
+    {
+      "name": "target",
+      "component": "com.sap.system.structuredFileProducer",
+      "config": {
+        "connection": "${target_connection}",
+        "path": "${target_path}",
+        "format": "parquet",
+        "compression": "SNAPPY"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "source": {
+        "operator": "source",
+        "port": "output"
+      },
+      "target": {
+        "operator": "transform",
+        "port": "input"
+      }
+    },
+    {
+      "source": {
+        "operator": "transform",
+        "port": "output"
+      },
+      "target": {
+        "operator": "target",
+        "port": "input"
+      }
+    }
+  ],
+  "notes": [
+    "This is a basic Gen2 pipeline template.",
+    "Configure source and target connections before running.",
+    "Customize transformations in the Data Transform operator.",
+    "Auto-recovery is enabled with 60-second snapshot intervals."
+  ]
+}
