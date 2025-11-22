@@ -70,13 +70,14 @@ sap-cloud-sdk-ai/
 ├── README.md                     # This file
 ├── EXTRACTION_PROGRESS.md        # Documentation coverage tracking
 └── references/
-    ├── orchestration-guide.md    # Full orchestration API details
+    ├── orchestration-guide.md    # Full orchestration API details (900+ lines)
     ├── langchain-guide.md        # LangChain integration
     ├── spring-ai-guide.md        # Spring AI integration
     ├── ai-core-api-guide.md      # AI Core management APIs
     ├── agentic-workflows.md      # Agent/workflow patterns
     ├── connecting-to-ai-core.md  # Connection configuration
-    └── error-handling.md         # Error patterns and solutions
+    ├── error-handling.md         # Error patterns and solutions
+    └── v1-to-v2-migration.md     # V1 to V2 migration guide
 ```
 
 ## Supported Languages

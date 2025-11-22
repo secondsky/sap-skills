@@ -235,6 +235,7 @@ For detailed guidance:
 - **Agentic workflows**: `references/agentic-workflows.md`
 - **Connection options**: `references/connecting-to-ai-core.md`
 - **Error handling**: `references/error-handling.md`
+- **V1 to V2 migration**: `references/v1-to-v2-migration.md`
 
 ## Version Information
 

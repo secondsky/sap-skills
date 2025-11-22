@@ -120,11 +120,25 @@ const client = new OrchestrationClient({
 ```
 
 ```java
-// Java
+// Java - using parameter constants
+import static com.sap.ai.sdk.orchestration.OrchestrationAiModel.*;
+
+var customGPT4O = OrchestrationAiModel.GPT_4O
+    .withParam(MAX_TOKENS, 50)
+    .withParam(TEMPERATURE, 0.1)
+    .withParam(FREQUENCY_PENALTY, 0)
+    .withParam(PRESENCE_PENALTY, 0)
+    .withVersion("2024-05-13");
+
 var config = new OrchestrationModuleConfig()
-    .withLlmConfig(OrchestrationAiModel.GPT_4O
-        .withParam("max_tokens", 1000)
-        .withParam("temperature", 0.7));
+    .withLlmConfig(customGPT4O);
+```
+
+### Custom Headers (Java)
+
+```java
+// Add headers to individual requests
+var result = client.withHeader("foo", "bar").chatCompletion(prompt, config);
 ```
 
 ---
@@ -161,14 +175,32 @@ setTimeout(() => controller.abort(), 5000);
 ### Java
 
 ```java
-// Blocking stream
-client.streamChatCompletion(prompt, config)
-    .forEach(chunk -> System.out.print(chunk.getDeltaContent()));
+// Blocking stream with try-with-resources
+var msg = "Can you give me the first 100 numbers of the Fibonacci sequence?";
+var prompt = new OrchestrationPrompt(msg);
+try (Stream<String> stream = client.streamChatCompletion(prompt, config)) {
+    stream.forEach(deltaString -> {
+        System.out.print(deltaString);
+        System.out.flush();
+    });
+}
 
 // Non-blocking with callback
 AtomicReference<String> result = new AtomicReference<>("");
 client.streamChatCompletion(prompt, config)
     .forEach(chunk -> result.updateAndGet(s -> s + chunk.getDeltaContent()));
+```
+
+### Stream Configuration (Java)
+
+```java
+// Configure stream behavior
+var streamConfig = new OrchestrationStreamConfig()
+    .withFilterOverlap(100)        // preceding characters for content filtering
+    .withChunkSize(500)            // tokens per chunk
+    .withDelimiters(List.of("\n")); // custom chunk delimiters
+
+var configWithStream = config.withStreamConfig(streamConfig);
 ```
 
 ---
@@ -223,13 +255,49 @@ const client = new OrchestrationClient({
 ```
 
 ```java
-// Java - by ID
-var prompt = new OrchestrationPrompt()
-    .withTemplateRef("template-uuid-here");
+// Java - by ID using TemplateConfig
+var template = TemplateConfig.reference()
+    .byId("21cb1358-0bf1-4f43-870b-00f14d0f9f16");
+var configWithTemplate = config.withTemplateConfig(template);
 
 // Java - by name/scenario/version
-var prompt = new OrchestrationPrompt()
-    .withTemplateRef("my-template", "customer-support", "1.0.0");
+var template = TemplateConfig.reference()
+    .byName("my-template")
+    .scenario("customer-support")
+    .version("1.0.0");
+```
+
+### Java Template Configuration
+
+```java
+// Inline template with placeholders
+var message = Message.user("Reply with 'Orchestration Service is working!' in {{?language}}");
+var templatingConfig = TemplateConfig.create().withMessages(message);
+var configWithTemplate = config.withTemplateConfig(templatingConfig);
+
+// Execute with placeholder values
+var inputParams = Map.of("language", "German");
+var prompt = new OrchestrationPrompt(inputParams);
+var result = client.chatCompletion(prompt, configWithTemplate);
+```
+
+### Local YAML Templates (Java)
+
+```java
+// Load template from YAML file (useful for testing before registry upload)
+String promptTemplate = Files.readString(Path.of("path/to/prompt-template.yaml"));
+var template = TemplateConfig.create().fromYaml(promptTemplate);
+var configWithTemplate = config.withTemplateConfig(template);
+```
+
+### Multiple Text Inputs (Java)
+
+```java
+// Add additional context to messages
+var message = Message.user("What is chess about?");
+var newMessage = message.withText("Answer in two sentences.");
+
+// Note: User and system messages support multiple text inputs
 ```
 
 ---
@@ -328,17 +396,45 @@ const client = new OrchestrationClient({
 ### Java Content Filtering
 
 ```java
+// Azure Content Filter with Prompt Shield
+var filterStrict = new AzureContentFilter()
+    .hate(AzureThreshold.ALLOW_SAFE)
+    .selfHarm(AzureThreshold.ALLOW_SAFE)
+    .sexual(AzureThreshold.ALLOW_SAFE)
+    .violence(AzureThreshold.ALLOW_SAFE)
+    .promptShield(true);  // Enable jailbreak detection
+
+// Llama Guard Filter
+var llamaGuardFilter = new LlamaGuardFilter()
+    .config(LlamaGuard38b.create().selfHarm(true));
+
+// Combined filtering
 var config = new OrchestrationModuleConfig()
     .withLlmConfig(OrchestrationAiModel.GPT_4O)
-    .withInputFiltering(AzureContentFilter.builder()
-        .hate(AzureThreshold.ALLOW_SAFE)
-        .selfHarm(AzureThreshold.ALLOW_SAFE)
-        .sexual(AzureThreshold.ALLOW_SAFE)
-        .violence(AzureThreshold.ALLOW_SAFE)
-        .build())
-    .withOutputFiltering(AzureContentFilter.builder()
-        .hate(AzureThreshold.ALLOW_SAFE_LOW_MEDIUM)
-        .build());
+    .withInputFiltering(filterStrict)
+    .withOutputFiltering(filterStrict, llamaGuardFilter);
+```
+
+### Filter Exception Handling (Java)
+
+```java
+try {
+    var result = client.chatCompletion(prompt, configWithFilter);
+
+    // Output filter violations throw on getContent()
+    try {
+        String content = result.getContent();
+    } catch (OrchestrationFilterException.Output e) {
+        System.err.println("Output blocked by filter");
+        // Access filter details
+        var details = result.getFilterDetails();
+        var azureInput = result.getAzureContentSafetyInput();
+        var azureOutput = result.getAzureContentSafetyOutput();
+    }
+} catch (OrchestrationFilterException.Input e) {
+    // Input filter violations throw immediately
+    System.err.println("Input blocked by filter: " + e.getMessage());
+}
 ```
 
 ---
@@ -391,15 +487,26 @@ const client = new OrchestrationClient({
 ### Java Data Masking
 
 ```java
+// Standard entity masking
 var config = new OrchestrationModuleConfig()
     .withLlmConfig(OrchestrationAiModel.GPT_4O)
     .withMasking(DpiMasking.anonymization()
         .withEntities(
-            DpiEntity.EMAIL,
-            DpiEntity.PERSON,
-            DpiEntity.PHONE,
-            DpiEntity.ADDRESS
+            DPIEntities.EMAIL,
+            DPIEntities.PERSON,
+            DPIEntities.PHONE,
+            DPIEntities.ADDRESS,
+            DPIEntities.LOCATION,
+            DPIEntities.SENSITIVE_DATA
         ));
+
+// Custom regex masking
+var maskingConfig = DpiMasking.anonymization()
+    .withRegex("patient_id_[0-9]+", "REDACTED_PATIENT_ID");
+
+// Pseudonymization (reversible)
+var pseudoMasking = DpiMasking.pseudonymization()
+    .withEntities(DPIEntities.EMAIL, DPIEntities.PERSON);
 ```
 
 ---
@@ -448,12 +555,50 @@ const client = new OrchestrationClient({
 ### Java Grounding
 
 ```java
-var config = new OrchestrationModuleConfig()
-    .withLlmConfig(OrchestrationAiModel.GPT_4O)
-    .withGrounding(Grounding.create()
-        .dataRepository(VectorRepository.create("my-repo-id"))
-        .inputVariable("question")
-        .outputVariable("context"));
+// Vector repository with metadata
+var documentMetadata = SearchDocumentKeyValueListPair.create()
+    .key("my-collection")
+    .value("value");
+
+var databaseFilter = DocumentGroundingFilter.create()
+    .id("")
+    .dataRepositoryType(DataRepositoryType.VECTOR)
+    .addDocumentMetadataItem(documentMetadata);
+
+var groundingConfig = Grounding.create().filter(databaseFilter);
+var prompt = groundingConfig.createGroundingPrompt("What does Joule do?");
+```
+
+### SharePoint Integration (Java)
+
+```java
+var dataRepositoryId = "SharePoint ID here";
+var filter = DocumentGroundingFilter.create()
+    .dataRepositoryType(DataRepositoryType.VECTOR)
+    .dataRepositories(List.of(dataRepositoryId));
+
+var groundingConfig = Grounding.create().filters(filter);
+```
+
+### SAP Help Portal Grounding (Java)
+
+```java
+var groundingHelpSapCom = DocumentGroundingFilter.create()
+    .dataRepositoryType(DataRepositoryType.HELP_SAP_COM);
+
+var groundingConfig = Grounding.create().filters(groundingHelpSapCom);
+```
+
+### Masked Grounding with Allowlist (Java)
+
+```java
+// Mask sensitive data in grounding but allow specific terms
+var maskingConfig = DpiMasking.anonymization()
+    .withEntities(DPIEntities.SENSITIVE_DATA)
+    .withMaskGroundingEnabled()
+    .withAllowList(List.of("SAP", "Joule"));  // Terms to NOT mask
+
+var maskedGroundingConfig = groundingConfig.withMaskingConfig(maskingConfig);
 ```
 
 ---
@@ -477,9 +622,39 @@ const client = new OrchestrationClient({
 ### Java
 
 ```java
+// Simple translation
 var config = new OrchestrationModuleConfig()
     .withLlmConfig(OrchestrationAiModel.GPT_4O)
     .withTranslation("auto", "en"); // input auto-detect, output English
+```
+
+### Advanced Translation Configuration (Java)
+
+```java
+// Full translation configuration
+var prompt = new OrchestrationPrompt("Quelle est la couleur de la tour Eiffel?");
+
+// Input translation config
+var inputConfig = SAPDocumentTranslationInputConfig.create()
+    .targetLanguage("en-US")
+    .applyTo(null);  // Apply to all
+
+var inputTranslation = SAPDocumentTranslationInput.create()
+    .type(SAPDocumentTranslationInput.TypeEnum.SAP_DOCUMENT_TRANSLATION)
+    .config(inputConfig);
+
+// Output translation config
+var outputConfig = SAPDocumentTranslationOutputConfig.create()
+    .targetLanguage(SAPDocumentTranslationOutputTargetLanguage.create("de-DE"));
+
+var outputTranslation = SAPDocumentTranslationOutput.create()
+    .type(SAPDocumentTranslationOutput.TypeEnum.SAP_DOCUMENT_TRANSLATION)
+    .config(outputConfig);
+
+// Apply to config
+var configWithTranslation = config
+    .withInputTranslationConfig(inputTranslation)
+    .withOutputTranslationConfig(outputTranslation);
 ```
 
 ---
@@ -607,16 +782,54 @@ const client = new OrchestrationClient({
 ### Java Response Format
 
 ```java
-var config = new OrchestrationModuleConfig()
-    .withLlmConfig(OrchestrationAiModel.GPT_4O)
-    .withResponseFormat(ResponseFormat.jsonSchema(WeatherResponse.class));
-
-// WeatherResponse class with @JsonProperty annotations
+// Using Java class with annotations
+@JsonProperty
 public record WeatherResponse(
     @JsonProperty(required = true) String city,
     @JsonProperty(required = true) double temperature,
     @JsonProperty(required = true) String conditions
 ) {}
+
+var schema = ResponseJsonSchema.fromType(WeatherResponse.class)
+    .withDescription("Output schema for weather data.")
+    .withStrict(true);
+
+var configWithSchema = config.withTemplateConfig(
+    TemplateConfig.create().withJsonSchemaResponse(schema)
+);
+
+// Parse response to object
+WeatherResponse response = client.chatCompletion(prompt, configWithSchema)
+    .asEntity(WeatherResponse.class);
+```
+
+### JSON Schema from Map (Java)
+
+```java
+// Define schema using Map (without Java class)
+var schemaMap = Map.ofEntries(
+    entry("type", "object"),
+    entry("properties", Map.ofEntries(
+        entry("language", Map.of("type", "string")),
+        entry("translation", Map.of("type", "string"))
+    )),
+    entry("required", List.of("language", "translation")),
+    entry("additionalProperties", false)
+);
+
+var schemaFromMap = ResponseJsonSchema.fromMap(schemaMap, "Translator-Schema");
+var configWithMapSchema = config.withTemplateConfig(
+    TemplateConfig.create().withJsonSchemaResponse(schemaFromMap)
+);
+```
+
+### JSON Object Response (Unstructured)
+
+```java
+// Return valid JSON without strict schema
+var configWithJsonResponse = config.withTemplateConfig(
+    TemplateConfig.create().withJsonResponse()
+);
 ```
 
 ---
@@ -663,12 +876,20 @@ const response = await client.chatCompletion({
 ### Java
 
 ```java
-var prompt = new OrchestrationPrompt()
-    .addUserMessage(ImageMessage.create(
-        "What is in this image?",
-        "https://example.com/image.jpg",
-        ImageDetail.AUTO
-    ));
+// Basic image message
+var message = Message.user("Describe the following image");
+var newMessage = message.withImage("https://url.to/image.jpg");
+
+// With detail level (LOW, HIGH, AUTO)
+var messageWithDetail = message.withImage(
+    "https://url.to/image.jpg",
+    ImageItem.DetailLevel.LOW
+);
+
+// Using ImageItem directly
+var imageMessage = Message.user(new ImageItem("https://url.to/image.jpg"));
+
+// Note: Only user messages support image attachments currently
 ```
 
 ---
