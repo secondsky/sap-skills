@@ -244,6 +244,8 @@ For comprehensive information on specific topics, see:
 - **String Processing**: `references/string-processing.md` - String functions, regex
 - **Numeric Operations**: `references/numeric-operations.md` - Math functions, big integers
 - **Bits and Bytes**: `references/bits-bytes.md` - Binary operations, CASTING
+- **Program Flow**: `references/program-flow.md` - IF, CASE, LOOP, DO, WHILE, control statements
+- **Built-in Functions**: `references/builtin-functions.md` - String, numeric, table, logical functions
 
 ### Object Orientation
 - **Object Orientation**: `references/object-orientation.md` - Classes, interfaces, inheritance
@@ -255,6 +257,7 @@ For comprehensive information on specific topics, see:
 - **CDS Views**: `references/cds-views.md` - Core Data Services
 - **ABAP Cloud**: `references/cloud-development.md` - Cloud-ready development
 - **Released Classes**: `references/released-classes.md` - Released API catalog
+- **AMDP**: `references/amdp.md` - ABAP Managed Database Procedures, SQLScript
 
 ### Testing and Security
 - **Unit Testing**: `references/unit-testing.md` - ABAP Unit framework
@@ -263,7 +266,13 @@ For comprehensive information on specific topics, see:
 
 ### Data and Types
 - **ABAP Dictionary**: `references/abap-dictionary.md` - Data elements, domains, tables
+- **Date and Time**: `references/date-time.md` - Type d, t, utclong, timestamps, XCO
+- **XML/JSON Processing**: `references/xml-json.md` - iXML, sXML, CALL TRANSFORMATION
 - **Generative AI**: `references/generative-ai.md` - AI SDK, LLM integration
+
+### Transactions and Performance
+- **SAP LUW**: `references/sap-luw.md` - Logical Unit of Work, COMMIT, ROLLBACK
+- **Performance**: `references/performance.md` - Database access, internal table optimization
 
 ---
 
