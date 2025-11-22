@@ -158,18 +158,22 @@ Create one-time schedule with:
 
 **Correct:** SAP cron format (7 fields):
 ```
-Year Month Day DayOfWeek Hour Minute Second
+[Year] [Month] [Day] [DayOfWeek] [Hour] [Minute] [Second]
 ```
 
-**Example:**
+**Example with field mapping:**
 ```
-* * * * 9 0 0    // Daily at 9:00 AM (SAP format)
+*      *       *     *          9      0        0
+Year   Month   Day   DayOfWeek  Hour   Minute   Second
+// Daily at 9:00:00 AM UTC (SAP format)
 ```
 
 NOT:
 ```
-0 9 * * *        // Linux format - will NOT work
+0 9 * * *        // Linux format (5 fields) - will NOT work
 ```
+
+**Note:** `*` is a wildcard meaning "any value" for that field.
 
 ### Timezone Issues
 

@@ -116,7 +116,7 @@ An app or script that runs independently in its own container. Always executes a
 
 | Format | Example | Use Case |
 |--------|---------|----------|
-| Cron | `* * * 10:12 */30 0` | Every 30 min between 10:00-12:00 |
+| Cron | `* * * * 10:12 0,30 0` | Every 30 min between 10:00-12:00 |
 | Date/Time | `2025-10-20T04:30:00Z` | ISO-8601 one-time execution |
 | Human-readable | `tomorrow at 4pm` | Natural language scheduling |
 | repeatInterval | `2 hours`, `5 minutes` | Recurring at fixed intervals |

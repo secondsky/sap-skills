@@ -25,6 +25,7 @@
   "schedules": [
     {
       "_comment_schedule_type": "OPTION 1: Recurring with cron (7-field SAP format)",
+      "_cron_format": "SAP format: [Year] [Month] [Day] [DayOfWeek] [Hour] [Minute] [Second]",
       "active": true,
       "description": "[SCHEDULE_DESCRIPTION]",
       "cron": "* * * * [HOUR] [MINUTE] [SECOND]",
@@ -57,7 +58,7 @@
       "daily_9am": "* * * * 9 0 0",
       "every_monday_10am": "* * * mon 10 0 0",
       "last_sunday_monthly": "* * * -1.sun 9 0 0",
-      "every_30_min_10_to_12": "* * * * 10:12 */30 0",
+      "every_30_min_10_to_12": "* * * * 10:12 0,30 0",
       "first_of_month_6pm": "* * 1 * 18 0 0"
     }
   },
