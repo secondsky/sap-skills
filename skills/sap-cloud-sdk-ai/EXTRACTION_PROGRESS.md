@@ -234,6 +234,7 @@
 | File | Purpose | Lines |
 |------|---------|-------|
 | orchestration-guide.md | Complete orchestration API | 900+ |
+| foundation-models-guide.md | Direct OpenAI model access | 500+ |
 | langchain-guide.md | LangChain/LangGraph integration | 500+ |
 | spring-ai-guide.md | Spring AI integration (Java) | 400+ |
 | ai-core-api-guide.md | AI Core management APIs | 400+ |
@@ -263,3 +264,13 @@ After initial extraction, the following enhancements were made:
    - Filter function updates
    - Type import changes
    - Complete migration checklist
+
+3. **Foundation Models Guide**: Created dedicated reference file for direct OpenAI access:
+   - API version details (2024-10-21 default)
+   - Java version-specific features (v1.0.0 deprecated vs v1.4.0+ recommended)
+   - Java v1.8.0+ tool calling with `OpenAiTool`
+   - JavaScript client initialization patterns
+   - Streaming with `streamChatCompletionDeltas()` method
+   - Function calling examples for both JS and Java
+   - Embedding client usage
+   - Model versioning with `withVersion()` method

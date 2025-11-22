@@ -229,6 +229,7 @@ response.getAllMessages();    // Full message history
 
 For detailed guidance:
 - **Orchestration features**: `references/orchestration-guide.md`
+- **Foundation models (direct OpenAI)**: `references/foundation-models-guide.md`
 - **LangChain integration**: `references/langchain-guide.md`
 - **Spring AI integration**: `references/spring-ai-guide.md`
 - **AI Core management**: `references/ai-core-api-guide.md`

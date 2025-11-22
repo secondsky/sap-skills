@@ -71,6 +71,7 @@ sap-cloud-sdk-ai/
 ├── EXTRACTION_PROGRESS.md        # Documentation coverage tracking
 └── references/
     ├── orchestration-guide.md    # Full orchestration API details (900+ lines)
+    ├── foundation-models-guide.md # Direct OpenAI model access
     ├── langchain-guide.md        # LangChain integration
     ├── spring-ai-guide.md        # Spring AI integration
     ├── ai-core-api-guide.md      # AI Core management APIs
