@@ -381,7 +381,15 @@ Security event logging in SAP AI Core.
 
 ## ServingTemplate Schema
 
-API schema for serving templates (KServe integration).
+API schema for serving templates (KServe integration) for model deployment.
+
+### Quotas and Limits
+
+| Limit | Value |
+|-------|-------|
+| **Max ServingTemplates per tenant** | 50 |
+| **Max WorkflowTemplates per tenant** | 50 |
+| **Bulk operations** | Requires `bulkUpdates` annotation |
 
 ### Resource Structure
 
@@ -395,6 +403,7 @@ metadata:
     scenarios.ai.sap.com/name: "scenario-name"
     executables.ai.sap.com/description: "Description of executable"
     executables.ai.sap.com/name: "executable-name"
+    ai.sap.com/bulkUpdates: "true"  # Enable bulk operations
   labels:
     ai.sap.com/version: "1.0.0"
     scenarios.ai.sap.com/id: "unique-scenario-id"
@@ -415,6 +424,29 @@ spec:
         containers:
           - name: kserve-container
             image: "{{inputs.parameters.image}}"
+            env:
+              - name: STORAGE_URI
+                value: "{{inputs.artifacts.model}}"
+```
+
+### Model Path Configuration
+
+| Environment Variable | Description |
+|---------------------|-------------|
+| `STORAGE_URI` | Points to artifact location for model download |
+| **Mounted Path** | `/mnt/models` (hardcoded by KServe) |
+
+**Important:** Models are automatically downloaded from object store to `/mnt/models`. Your inference code must read from this path:
+
+```python
+import os
+
+# Models are always at /mnt/models
+MODEL_PATH = "/mnt/models"
+
+def load_model():
+    """Load model from KServe-mounted path."""
+    return load_from_path(MODEL_PATH)
 ```
 
 ### Annotations Reference
@@ -425,6 +457,7 @@ spec:
 | `scenarios.ai.sap.com/name` | Scenario display name |
 | `executables.ai.sap.com/description` | Executable description |
 | `executables.ai.sap.com/name` | Executable display name |
+| `ai.sap.com/bulkUpdates` | Enable bulk stop/delete operations |
 
 ### Labels Reference
 
@@ -440,6 +473,31 @@ Only `string` type is supported for input parameters.
 ### Placeholder Syntax
 
 Use `{{inputs.parameters.ParameterName}}` and `{{inputs.artifacts.ArtifactName}}` in template spec.
+
+### Bulk Operations
+
+When `ai.sap.com/bulkUpdates: "true"` is set:
+
+```bash
+# Bulk stop deployments
+curl -X PATCH "$AI_API_URL/v2/lm/deployments" \
+  -H "Authorization: Bearer $AUTH_TOKEN" \
+  -H "AI-Resource-Group: default" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "targetStatus": "STOPPED",
+    "deploymentIds": ["deploy-1", "deploy-2", "deploy-3"]
+  }'
+
+# Bulk delete deployments
+curl -X DELETE "$AI_API_URL/v2/lm/deployments" \
+  -H "Authorization: Bearer $AUTH_TOKEN" \
+  -H "AI-Resource-Group: default" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "deploymentIds": ["deploy-1", "deploy-2", "deploy-3"]
+  }'
+```
 
 ---
 
