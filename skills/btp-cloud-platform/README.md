@@ -42,7 +42,7 @@ btp-cloud-platform/
 ├── SKILL.md              # Main skill content (584 lines)
 ├── README.md             # This file
 ├── PROGRESS_TRACKING.md  # Documentation coverage tracking
-└── references/           # 12 comprehensive reference files
+└── references/           # 13 comprehensive reference files
     ├── glossary.md           # Complete terminology (40+ terms)
     ├── cloud-foundry.md      # CF environment, CLI, buildpacks
     ├── kyma.md               # Kyma modules, Kubernetes, serverless
@@ -53,13 +53,14 @@ btp-cloud-platform/
     ├── tools.md              # btp CLI, CF CLI, kubectl, Terraform
     ├── extensions.md         # S/4HANA, SuccessFactors, formations
     ├── administration.md     # Account management, entitlements
+    ├── operations.md         # Monitoring, logging, alerting, health
     ├── regions-endpoints.md  # All regions and API endpoints
     └── troubleshooting.md    # Common issues and solutions
 ```
 
 ## Coverage
 
-This skill extracts and organizes content from **1683 documentation files** in the official SAP BTP documentation repository, with **12 reference files** totaling **6,500+ lines**:
+This skill extracts and organizes content from **1683 documentation files** in the official SAP BTP documentation repository, with **13 reference files** totaling **7,000+ lines**:
 
 | Section | Coverage | Reference File |
 |---------|----------|----------------|
@@ -73,6 +74,7 @@ This skill extracts and organizes content from **1683 documentation files** in t
 | Regions & Endpoints | 100% | `regions-endpoints.md` |
 | Development Patterns | 90% | `development.md` |
 | Connectivity | 90% | `connectivity.md` |
+| Operations & Monitoring | 90% | `operations.md` |
 | Tools & CLI | 95% | `tools.md` |
 | Troubleshooting | 85% | `troubleshooting.md` |
 
