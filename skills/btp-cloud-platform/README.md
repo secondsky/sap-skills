@@ -39,33 +39,42 @@ SAP BTP, SAP Business Technology Platform, Cloud Foundry, CF, Kyma, ABAP environ
 
 ```
 btp-cloud-platform/
-├── SKILL.md              # Main skill content
+├── SKILL.md              # Main skill content (584 lines)
 ├── README.md             # This file
 ├── PROGRESS_TRACKING.md  # Documentation coverage tracking
-└── references/
-    ├── glossary.md       # Complete terminology (40+ terms)
-    ├── cloud-foundry.md  # CF-specific guidance
-    ├── kyma.md           # Kyma runtime details
-    ├── security.md       # Authentication/authorization
-    ├── connectivity.md   # Destinations, Cloud Connector
-    ├── development.md    # Development patterns, MTA
-    └── tools.md          # CLI and tool references
+└── references/           # 12 comprehensive reference files
+    ├── glossary.md           # Complete terminology (40+ terms)
+    ├── cloud-foundry.md      # CF environment, CLI, buildpacks
+    ├── kyma.md               # Kyma modules, Kubernetes, serverless
+    ├── abap.md               # ABAP environment, RAP, CDS, ADT
+    ├── security.md           # Authentication, XSUAA, role collections
+    ├── connectivity.md       # Destinations, Cloud Connector
+    ├── development.md        # MTA, CAP, Application Router, CI/CD
+    ├── tools.md              # btp CLI, CF CLI, kubectl, Terraform
+    ├── extensions.md         # S/4HANA, SuccessFactors, formations
+    ├── administration.md     # Account management, entitlements
+    ├── regions-endpoints.md  # All regions and API endpoints
+    └── troubleshooting.md    # Common issues and solutions
 ```
 
 ## Coverage
 
-This skill extracts and organizes content from **1600+ documentation files** in the official SAP BTP documentation repository, covering:
+This skill extracts and organizes content from **1683 documentation files** in the official SAP BTP documentation repository, with **12 reference files** totaling **6,500+ lines**:
 
-| Section | Coverage |
-|---------|----------|
-| Platform Concepts | 100% |
-| Account Model | 100% |
-| Environments (CF, Kyma, ABAP) | 95% |
-| Security & Identity | 90% |
-| Connectivity | 85% |
-| Development Patterns | 85% |
-| Administration | 80% |
-| Operations | 75% |
+| Section | Coverage | Reference File |
+|---------|----------|----------------|
+| Platform Concepts | 100% | `SKILL.md` |
+| Account Model & Entitlements | 100% | `administration.md` |
+| Cloud Foundry Environment | 95% | `cloud-foundry.md` |
+| Kyma Environment | 95% | `kyma.md` |
+| ABAP Environment | 95% | `abap.md` |
+| Security & Identity | 95% | `security.md` |
+| Extensions & Formations | 90% | `extensions.md` |
+| Regions & Endpoints | 100% | `regions-endpoints.md` |
+| Development Patterns | 90% | `development.md` |
+| Connectivity | 90% | `connectivity.md` |
+| Tools & CLI | 95% | `tools.md` |
+| Troubleshooting | 85% | `troubleshooting.md` |
 
 ## Token Efficiency
 
