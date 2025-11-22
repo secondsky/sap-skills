@@ -1,0 +1,21 @@
+{
+  "VCAP_SERVICES": {
+    "hana": [
+      {
+        "name": "hana-db",
+        "label": "hana",
+        "tags": ["hana", "database", "relational"],
+        "credentials": {
+          "host": "<hostname>",
+          "port": "<port>",
+          "user": "<username>",
+          "password": "<password>",
+          "schema": "<schema>",
+          "encrypt": true,
+          "sslValidateCertificate": true,
+          "sslTrustStore": "<path-to-certificate>"
+        }
+      }
+    ]
+  }
+}

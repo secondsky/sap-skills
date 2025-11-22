@@ -210,6 +210,15 @@
       "category": "tooling",
       "keywords": ["ui5 linter", "static analysis", "deprecated api", "csp violations", "autofix", "ui5 2.x migration"],
       "license": "MIT"
+    },
+    {
+      "name": "sap-hana-cli",
+      "source": "skills/sap-hana-cli",
+      "description": "SAP HANA Developer CLI (hana-cli) for database development and administration. Covers 91 commands, 17+ output formats, HDI container management, CDS/EDMX/OpenAPI conversion, cloud operations, and BTP integration.",
+      "version": "1.0.0",
+      "category": "tooling",
+      "keywords": ["hana-cli", "hana developer cli", "hdi containers", "inspectTable", "massConvert", "cds conversion", "hana cloud", "btp cli", "querySimple", "database metadata"],
+      "license": "MIT"
     }
   ]
 }

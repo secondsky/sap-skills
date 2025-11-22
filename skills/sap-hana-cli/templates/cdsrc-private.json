@@ -1,0 +1,15 @@
+{
+  "requires": {
+    "db": {
+      "kind": "hana",
+      "binding": {
+        "type": "cf",
+        "apiEndpoint": "https://api.cf.<region>.hana.ondemand.com",
+        "org": "<org-name>",
+        "space": "<space-name>",
+        "instance": "<hdi-service-instance-name>",
+        "key": "<service-key-name>"
+      }
+    }
+  }
+}
