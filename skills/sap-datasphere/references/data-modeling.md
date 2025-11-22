@@ -471,23 +471,46 @@ restriction: region = 'US'
 
 ## Business Builder
 
-Create business-oriented semantic models.
+Create business-oriented semantic models for consumption by SAP Analytics Cloud and Microsoft Excel.
+
+### Business Builder Purpose
+
+The Business Builder "combines, refines, and enriches Data Builder objects" with these benefits:
+- **Loose Coupling**: Data source switching without disrupting reporting
+- **Measure Enrichment**: Add derived, calculated measures and new attributes
+- **Reusability**: Single business entities used across multiple models
 
 ### Business Builder Objects
 
 | Object | Purpose | Contains |
 |--------|---------|----------|
 | Business Entity | Reusable component | Attributes, associations |
-| Fact Model | Transactional model | Facts, dimensions |
-| Consumption Model | Analytics model | Business entities, measures |
+| Fact Model | Intermediate layer (optional) | Facts, dimensions |
+| Consumption Model | Star schema for analytics | Business entities, measures |
+| Perspective | Exposed view for BI tools | Selected measures/dimensions |
+
+### Workflow
+
+```
+Data Builder Objects
+        ↓
+Business Entities (consume Data Builder entities)
+        ↓
+Fact Models (optional intermediate layer)
+        ↓
+Consumption Models (star schemas)
+        ↓
+Perspectives (expose to SAP Analytics Cloud, Excel, BI clients)
+```
 
 ### Creating Business Entities
 
 1. Business Builder > New Business Entity
-2. Select data source
+2. Select data source (from Data Builder)
 3. Define key
 4. Add attributes
 5. Define associations
+6. **Loose coupling**: Can switch data source later without breaking reports
 
 ### Business Entity Types
 
@@ -519,10 +542,19 @@ Create business-oriented semantic models.
 
 ### Perspectives
 
-Define views of consumption model:
-- Selected measures
-- Selected dimensions
-- Default filters
+Perspectives expose data to external tools:
+- SAP Analytics Cloud
+- Microsoft Excel
+- Other BI clients
+- OData API consumers
+
+**Creating Perspectives**:
+1. Open consumption model
+2. Create new perspective
+3. Select measures to expose
+4. Select dimensions to include
+5. Configure default filters
+6. Deploy
 
 ### Authorization Scenarios
 

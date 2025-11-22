@@ -43,6 +43,55 @@ SAP Datasphere supports 40+ connection types for data integration.
 | Replication Flows | Data replication |
 | Model Import | BW model transfer |
 
+### Complete Connection Feature Matrix
+
+| Connection Type | Remote Tables | Replication Flows | Data Flows | Model Import |
+|-----------------|---------------|-------------------|------------|--------------|
+| **SAP Systems** |
+| SAP S/4HANA Cloud | Yes | Yes (source) | Yes | Yes |
+| SAP S/4HANA On-Premise | Yes | Yes (source) | Yes | Yes |
+| SAP ABAP | Yes | Yes (source) | Yes | No |
+| SAP BW | Yes | Via ABAP | Yes | No |
+| SAP BW/4HANA Model Transfer | No | No | No | Yes |
+| SAP BW Bridge | Yes | No | No | Yes |
+| SAP ECC | Yes | Via ABAP | Yes | No |
+| SAP HANA | Yes | Yes (source+target) | Yes | No |
+| SAP HANA Cloud Data Lake Files | No | Yes (source+target) | Yes | No |
+| SAP HANA Cloud Data Lake Relational Engine | Yes | No | Yes | No |
+| SAP SuccessFactors | Yes | No | Yes | No |
+| SAP Fieldglass | Yes | No | Yes | No |
+| SAP Marketing Cloud | Yes | No | Yes | No |
+| SAP Signavio | No | Yes (target) | No | No |
+| **Cloud Platforms** |
+| Amazon S3 | No | Yes (source+target) | Yes | No |
+| Amazon Athena | Yes | No | No | No |
+| Amazon Redshift | Yes | No | Yes | No |
+| Google Cloud Storage | No | Yes (source+target) | Yes | No |
+| Google BigQuery | Yes | Yes (target) | Yes | No |
+| Microsoft Azure Blob Storage | No | No | Yes | No |
+| Microsoft Azure Data Lake Gen2 | No | Yes (source+target) | Yes | No |
+| Microsoft Azure SQL Database | Yes | Yes (source) | Yes | No |
+| Microsoft SQL Server | Yes | Yes (source) | Yes | No |
+| Microsoft OneLake | No | Yes (source) | No | No |
+| **Databases** |
+| Oracle | Yes | No | Yes | No |
+| Generic JDBC | Yes | No | No | No |
+| **Streaming** |
+| Apache Kafka | No | Yes (target) | No | No |
+| Confluent | No | Yes (source+target) | No | No |
+| **Generic** |
+| Generic OData | Yes | No | Yes | No |
+| Generic HTTP | No | No | No | No |
+| Generic SFTP | No | Yes (source+target) | Yes | No |
+| Open Connectors | No | No | Yes | No |
+| Hadoop HDFS | No | No | Yes | No |
+| Cloud Data Integration | Yes | No | Yes | No |
+| **Partner** |
+| Adverity | Push* | No | No | No |
+| Precog | Push* | No | No | No |
+
+*Push = Data pushed via database user SQL Interface
+
 ### Creating Connections
 
 1. Connections > Create
@@ -65,19 +114,43 @@ SAP Datasphere supports 40+ connection types for data integration.
 
 ### SAP S/4HANA Cloud
 
-**Prerequisites**:
-- Communication arrangement in S/4HANA
-- Integration scenario: SAP_COM_0532
-- Business user with authorization
+**Communication Arrangement Scenarios**:
+| Scenario | Purpose | Required For |
+|----------|---------|--------------|
+| SAP_COM_0531 | OData Services | Remote tables (legacy) |
+| SAP_COM_0532 | CDS View Replication | Data flows, Replication flows |
+| SAP_COM_0722 | Model Transfer | BW model import |
+
+**Important**: The same communication user must be added to all communication arrangements used for the connection.
+
+**Prerequisites by Feature**:
+
+*Remote Tables (Recommended)*:
+- ABAP SQL service exposure for federated CDS view access
+- Or: Data Provisioning Agent with CloudDataIntegrationAdapter + SAP_COM_0531
+
+*Data Flows*:
+- Communication arrangement for SAP_COM_0532
+
+*Replication Flows*:
+- ABAP SQL service exposure (recommended)
+- Communication arrangement for SAP_COM_0532
+- Optional: RFC fast serialization (SAP Note 3486245)
+
+*Model Import*:
+- Data Provisioning Agent with CloudDataIntegrationAdapter
+- Communication arrangements: SAP_COM_0532, SAP_COM_0531, SAP_COM_0722
 
 **Authentication**:
 - OAuth 2.0 (recommended)
 - Basic authentication
+- X.509 Client Certificate (see SAP Note 2801396 for approved CAs)
 
-**Supported Features**:
-- Remote tables (CDS views)
-- Replication flows (ODP)
-- Real-time replication
+**X.509 Certificate Setup**:
+1. Generate certificate using OpenSSL or SAP Cloud Identity Services
+2. Upload certificate to communication user
+3. Add user to communication system with "SSL Client Certificate" authentication
+4. Create required communication arrangements
 
 **Connection Properties**:
 ```yaml

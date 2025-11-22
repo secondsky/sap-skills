@@ -23,6 +23,16 @@
 
 Data flows provide ETL capabilities for data transformation and loading.
 
+### Prerequisites
+
+**Required Privileges**:
+- Data Warehouse General (`-R------`) - SAP Datasphere access
+- Connection (`-R------`) - Read connections
+- Data Warehouse Data Builder (`CRUD----`) - Create/edit/delete flows
+- Space Files (`CRUD----`) - Manage space objects
+- Data Warehouse Data Integration (`-RU-----`) - Run flows
+- Data Warehouse Data Integration (`-R--E---`) - Schedule flows
+
 ### Creating a Data Flow
 
 1. Navigate to Data Builder
@@ -31,6 +41,29 @@ Data flows provide ETL capabilities for data transformation and loading.
 4. Add transformation operators
 5. Add target operator
 6. Save and deploy
+
+### Key Limitations
+
+- **No delta processing**: Use replication flows for delta/CDC data instead
+- **Single target table** only per data flow
+- **Local tables only**: Data flows load exclusively to local tables in the repository
+- **Double quotes unsupported** in identifiers (column/table names)
+- **Spatial data types** not supported
+- **ABAP source preview** unavailable (except CDS views and LTR objects)
+- **Transformation operators** cannot be previewed
+
+### Advanced Properties
+
+**Dynamic Memory Allocation**:
+| Setting | Memory Range | Use Case |
+|---------|--------------|----------|
+| Small | 1-2 GB | Low volume |
+| Medium | 2-3 GB | Standard volume |
+| Large | 3-5 GB | High volume |
+
+**Additional Options**:
+- Automatic restart on failure
+- Input parameters support
 
 ### Data Flow Operators
 
@@ -171,9 +204,29 @@ Replicate data from source systems to SAP Datasphere or external targets.
 
 ### Configuration Options
 
+**Flow-Level Properties**:
+| Property | Description | Default |
+|----------|-------------|---------|
+| Delta Load Frequency | Interval for delta changes | Configurable |
+| Skip Unmapped Target Columns | Ignore unmapped columns | Optional |
+| Merge Data Automatically | Auto-merge for file space targets | Requires consent |
+| Source Thread Limit | Parallel threads for source (1-160) | 16 |
+| Target Thread Limit | Parallel threads for target (1-160) | 16 |
+| Content Type | Template or Native format | Template |
+
+**Object-Level Properties**:
+| Property | Description |
+|----------|-------------|
+| Load Type | Initial Only, Initial+Delta, Delta Only |
+| Delta Capture | Enable CDC tracking |
+| ABAP Exit | Custom projection logic |
+| Object Thread Count | Thread count for delta operations |
+| Delete Before Load | Clear target before loading |
+
 **Filters**:
 - Define row-level filters on source
 - Multiple filter conditions with AND/OR
+- **Important**: For ODP-CDS, filters must apply to primary key fields only
 
 **Mappings**:
 - Automatic column mapping
@@ -184,13 +237,20 @@ Replicate data from source systems to SAP Datasphere or external targets.
 - Custom SQL expressions
 - Column transformations
 - Calculated columns
+- ABAP Exit for custom projection logic
 
 ### Sizing and Performance
+
+**Thread Configuration**:
+- Source/Target Thread Limits: 1-160 (default: 16)
+- Higher values = more parallelism but more resources
+- Consider source system capacity
 
 **Capacity Planning**:
 - Estimate data volume per table
 - Consider network bandwidth
 - Plan for parallel execution
+- RFC fast serialization (SAP Note 3486245) for improved performance
 
 **Load Balancing**:
 - Distribute across multiple flows
@@ -202,6 +262,8 @@ Replicate data from source systems to SAP Datasphere or external targets.
 - BLOB, CLOB (large objects)
 - Spatial data types
 - Custom ABAP types
+- Virtual Tables (SAP HANA Smart Data Access)
+- Row Tables (use COLUMN TABLE only)
 
 ---
 
@@ -390,27 +452,59 @@ Orchestrate multiple data integration tasks.
 
 ### Supported Task Types
 
+**Repository Objects**:
+| Task Type | Activity | Description |
+|-----------|----------|-------------|
+| Remote Tables | Replicate | Replicate remote table data |
+| Views | Persist | Persist view data to storage |
+| Intelligent Lookups | Run | Execute intelligent lookup |
+| Data Flows | Run | Execute data flow |
+| Replication Flows | Run | Run with load type *Initial Only* |
+| Transformation Flows | Run | Execute transformation flow |
+| Local Tables | Delete Records | Delete records with Change Type "Deleted" |
+| Local Tables (File) | Merge | Merge delta files |
+| Local Tables (File) | Optimize | Compact files |
+| Local Tables (File) | Delete Records | Remove data |
+
+**Non-Repository Objects**:
 | Task Type | Description |
 |-----------|-------------|
-| Data Flow | Run data flow |
-| Replication Flow | Run replication flow |
-| Transformation Flow | Run transformation flow |
-| Remote Table Replication | Replicate remote table |
-| View Persistence | Persist view data |
-| Open SQL Procedure | Execute SQL procedure |
-| API Task | Call external API |
-| BW Bridge Process Chain | Run BW process |
-| Task Chain | Nested task chain |
+| Open SQL Procedure | Execute SAP HANA schema procedures |
+| BW Bridge Process Chain | Run SAP BW Bridge processes |
+
+**Toolbar-Only Objects**:
+| Task Type | Description |
+|-----------|-------------|
+| API Task | Call external REST APIs |
+| Notification Task | Send email notifications |
+
+**Nested Objects**:
+| Task Type | Description |
+|-----------|-------------|
+| Task Chain | Reference locally-created or shared task chains |
 
 ### Execution Control
 
 **Sequential Execution**:
 - Tasks run one after another
-- Failure stops chain
+- Succeeding task runs only when previous completes with *completed* status
+- Failure stops chain execution
 
 **Parallel Execution**:
 - Multiple branches run simultaneously
+- Completion condition options:
+  - **ANY**: Succeeds when any parallel task completes
+  - **ALL**: Succeeds only when all parallel tasks complete
 - Synchronization at join points
+
+**Layout Options**:
+- Top-Bottom orientation
+- Left-Right orientation
+- Drag tasks to reorder
+
+**Apache Spark Settings**:
+- Override default Apache Spark Application Settings per task
+- Configure memory and executor settings
 
 ### Input Parameters
 

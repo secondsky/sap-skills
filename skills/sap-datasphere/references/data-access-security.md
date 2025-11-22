@@ -60,10 +60,33 @@ Result Set
 - User attributes for matching
 - Operators for comparison
 
-**Permissions Table**:
+**Permissions Entity**:
 - Maps users to allowed values
-- Supports wildcards
+- User IDs must be in the form required by your identity provider
+- Supports wildcards (`*` for all records)
 - Hierarchy node references
+- **Cannot** be protected by data access controls themselves
+- **Cannot** contain protected sources
+- Must be encapsulated in views when shared across spaces
+
+### Performance Considerations
+
+| Factor | Recommendation |
+|--------|----------------|
+| Source table size | Replicate tables exceeding 500,000 rows |
+| Permissions per user | Avoid exceeding 5,000 records for Operator/Values controls |
+| Wildcard operator | Use `*` for all-records access |
+| Persisted views | Views with protected sources **cannot** be persisted |
+
+### Security Enforcement Scope
+
+**Important**: Row-level security can be circumvented while the view remains in its original space.
+
+Security is enforced only when the view is:
+1. **Shared to another space**
+2. **Consumed outside the space** (e.g., in SAP Analytics Cloud)
+
+Controls filter results in data previews based on current user within the space.
 
 ---
 

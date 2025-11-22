@@ -23,6 +23,17 @@
 
 Create views visually using drag-and-drop operations.
 
+### Prerequisites
+
+**Required Scoped Role Privileges**:
+| Privilege | Access | Description |
+|-----------|--------|-------------|
+| Data Warehouse General | `-R------` | System access |
+| Data Warehouse Data Builder | `CRUD----` | Create/edit/delete views |
+| Space Files | `CRUD----` | Manage space objects |
+
+The **DW Modeler** role template includes these privileges.
+
 ### Creating a Graphical View
 
 1. Data Builder > New Graphical View
@@ -30,6 +41,36 @@ Create views visually using drag-and-drop operations.
 3. Add transformation nodes
 4. Configure output columns
 5. Save and deploy
+
+### Output Node Properties
+
+**Required Properties**:
+- Business Name (display name)
+- Technical Name (immutable after saving)
+- Package assignment (immutable after selection)
+
+**Semantic Usage Options**:
+| Type | Purpose | Use Case |
+|------|---------|----------|
+| Fact | Transactional data with measures | Sales, orders |
+| Dimension | Master data for categorization | Products, customers |
+| Hierarchy | Hierarchical structure | Org chart, geography |
+| Text | Language-dependent labels | Translations |
+| Relational Dataset | Generic relational data | Any data |
+| Analytical Dataset | Analytics-ready (deprecated) | Legacy models |
+
+**Exposure for Consumption**:
+- Enable OData, ODBC, JDBC access
+- Required for external BI tools
+- **Note**: DW Viewer role users can only preview if this is enabled
+
+**Analytical Mode Option**:
+- Optimized for analytical queries
+- Automatic aggregation behavior
+
+### Key Constraint
+
+**Operator Limitation**: You can only create ONE of each operator type (Filter, Projection, Calculated Columns, Aggregation) per source or join.
 
 ### Adding Sources
 

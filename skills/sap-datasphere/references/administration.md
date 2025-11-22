@@ -130,22 +130,43 @@ Add external IdP for authentication:
 
 ### Space Properties
 
-| Property | Description |
-|----------|-------------|
-| Technical Name | Unique identifier |
-| Business Name | Display name |
-| Storage | Disk allocation |
-| In-Memory | Memory allocation |
+**Initial Creation Fields**:
+| Property | Specifications |
+|----------|----------------|
+| Space Name | Maximum 30 characters; allows spaces and special characters |
+| Space ID | Maximum 20 UPPERCASE letters/numbers; underscores only |
+| Storage Type | SAP HANA Database (Disk and In-Memory) |
 
-### Technical Naming Rules
+**General Settings (Read-Only)**:
+- Space Status (newly-created spaces are active)
+- Space Type (SAP Datasphere only)
+- Created By/On timestamps
+- Deployment Status and Deployed On
 
-**Valid Names**:
-- Lowercase letters, numbers, underscores
-- Start with letter
-- 3-30 characters
+**Optional Configuration**:
+| Setting | Description |
+|---------|-------------|
+| Data Access | Exposure for consumption defaults |
+| Database User | Create for external tool connections |
+| HDI Container | Associate HDI container |
+| Time Data | Generate standardized time tables/dimensions |
+| Auditing | Enable read/change action logging |
+
+**Deployment**: Spaces require deployment after creation and re-deployment after modifications.
+
+### Technical Naming Rules (Space ID)
+
+**Valid Space IDs**:
+- UPPERCASE letters, numbers, underscores only
+- Maximum 20 characters
 - No spaces or special characters
 
-**Example**: `sales_analytics_2024`
+**Reserved Prefixes (Avoid)**:
+- `_SYS` - System reserved
+- `DWC_` - Datasphere reserved
+- `SAP_` - SAP reserved
+
+**Example**: `SALES_ANALYTICS_2024`
 
 ### Storage Allocation
 

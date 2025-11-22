@@ -176,18 +176,64 @@ The Data Integration Monitor provides visibility into data integration activitie
 
 ## Real-Time Replication
 
+### Source Requirements
+
+**Connection Support**:
+Real-time/trigger-based replication depends on the connection type. Check connection documentation for support.
+
+**Source Object Requirements**:
+- Objects must be enabled for Change Data Capture (CDC)
+- If previously deployed without real-time capability, re-deploy the table
+- Source views: **Not supported**
+- ABAP Dictionary tables: **Not supported**
+
+### ABAP ODP Source Requirements
+
+**ODP-BW** (SAP BW sources):
+Only InfoProviders with change logs:
+| Object Type | Requirements |
+|-------------|--------------|
+| DataStore objects (advanced) - ADSO | Data activation with change log |
+| Standard DataStore objects (classic) - ODSO | Must have change log |
+| InfoObjects | Must support delta |
+
+**Version Requirements**: SAP BW 7.4 SP23+ or SAP BW 7.5 SP17+
+
+**ODP-CDS** (CDS views):
+- All ABAP CDS views with primary key AND delta-enabled
+- **Important**: Filters must apply to primary key fields only
+- Non-key field filters risk inconsistent deletion propagation
+
+**ODP-SAPI** (Extractors):
+- Delta-enabled extractors with primary keys
+- ADD* methods excluded
+
+### SAP HANA Smart Data Access Requirements
+
+- Remote objects must be **COLUMN TABLE** type
+- Row Tables: **Not supported**
+- Virtual Tables: **Not supported**
+- Some data types and table features restricted
+- Replication **cannot be paused**
+
+### SAP HANA CDI Adapter
+
+- Recommended: DP Agent version 2.6.1 or higher
+
 ### Enabling Real-Time
 
-**Requirements**:
-- Supported source system
-- CDC enabled on source
-- Network connectivity
-
 **Enable Steps**:
-1. Select remote table
-2. Enable real-time replication
-3. Configure settings
-4. Start replication
+1. Navigate to Data Integration Monitor
+2. Select relevant space
+3. Access Remote Tables section
+4. Select target remote table
+5. If switching from scheduled to real-time:
+   - Execute "Remove Replicated Data" first
+   - Clear existing replica
+   - Delete existing schedule
+6. Select "Enable Real-Time Data Replication"
+
+**Important**: No logs are generated when data is replicated in real-time mode
 
 ### Replication Status
 
