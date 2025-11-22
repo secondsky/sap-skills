@@ -10,7 +10,10 @@ Complete reference for SOAP-based integrations with SAP Master Data Integration.
 https://one-mds.cfapps.{region}.hana.ondemand.com/businesspartner/v0/soap/
 ```
 
-Regions: eu10, us10, ap10, ap11
+**Regions**: For the complete, current list of SAP BTP Cloud Foundry regions and API endpoints, see:
+- [SAP Help: Regions and API Endpoints Available for the Cloud Foundry Environment](https://help.sap.com/docs/btp/sap-business-technology-platform/regions-and-api-endpoints-available-for-cloud-foundry-environment)
+
+Note: New regions are added periodically (e.g., cn20 for China, additional AWS regions). Always consult SAP Help for the current list.
 
 ## Authentication Methods
 
@@ -225,32 +228,60 @@ Maximum 6 destinations per unique client connection.
 
 ## SOAP Events (SAP Cloud ALM)
 
-### Successful Operations
-- BuPaConfirmationSent
-- BuPaSent
-- BuPaRelConfirmationSent
-- BuPaRelSent
-- KmConfirmationSent
-- KmSent
+### Inbound Event (1)
+| Code | Description |
+|------|-------------|
+| BuPaDuplicateAddressId | Business Partner with given Address ID already exists |
 
-### Send Failures
-- BuPaSendFailed / BuPaRelSendFailed / KmSendFailed
-- BuPaSendFailedDestinationNotFound
-- BuPaSendFailedHttpsSchemeExpected
-- BuPaSendFailedWrongSchemeConfigured
+### Outbound Success Events (6)
+| Code | Description |
+|------|-------------|
+| BuPaSent | BusinessPartner successfully sent to destination |
+| BuPaRelSent | BusinessPartnerRelationship successfully sent |
+| KmSent | KeyMapping successfully sent |
+| BuPaConfirmationSent | BusinessPartner confirmation sent |
+| BuPaRelConfirmationSent | BusinessPartnerRelationship confirmation sent |
+| KmConfirmationSent | KeyMapping confirmation sent |
 
-### Confirmation Failures
-- BuPaConfirmationSendFailed
-- BuPaConfirmationSendFailedHttpsSchemeExpected
-- BuPaConfirmationFailedWrongSchemeConfigured
+### Confirmation Received Events (3)
+| Code | Description |
+|------|-------------|
+| BupaConfirmationReceivedSuccessful | BusinessPartner confirmation processed successfully |
+| BuPaRelConfirmationReceivedSuccessful | BusinessPartnerRelationship confirmation processed |
+| KmConfirmationReceivedSuccessful | KeyMapping confirmation processed |
 
-### Inbound Events
-- BuPaDuplicateAddressId (only inbound event)
+### Send Failure Events (9)
+| Code | Description |
+|------|-------------|
+| BuPaSendFailed | Failed BusinessPartner transmission |
+| BuPaRelSendFailed | Failed BusinessPartnerRelationship transmission |
+| KmSendFailed | Failed KeyMapping transmission |
+| BuPaSendFailedDestinationNotFound | Destination not configured |
+| BuPaRelSendFailedDestinationNotFound | Destination not configured |
+| KmSendFailedDestinationNotFound | Destination not configured |
+| BuPaSendFailedHttpsSchemeExpected | HTTPS required (Internet ProxyType) |
+| BuPaRelSendFailedHttpsSchemeExpected | HTTPS required (Internet ProxyType) |
+| KmSendFailedHttpsSchemeExpected | HTTPS required (Internet ProxyType) |
 
-### Confirmation Received
-- BupaConfirmationReceivedSuccessful
-- BuPaRelConfirmationReceivedSuccessful
-- KmConfirmationReceivedSuccessful
+### Wrong Scheme Configuration Events (6)
+| Code | Description |
+|------|-------------|
+| BuPaSendFailedWrongSchemeConfigured | HTTP/HTTPS required (OnPremise ProxyType) |
+| BuPaRelSendFailedWrongSchemeConfigured | HTTP/HTTPS required (OnPremise ProxyType) |
+| KmSendFailedWrongSchemeConfigured | HTTP/HTTPS required (OnPremise ProxyType) |
+| BuPaConfirmationFailedWrongSchemeConfigured | Wrong scheme for confirmation |
+| BuPaRelConfirmationFailedWrongSchemeConfigured | Wrong scheme for confirmation |
+| KmConfirmationFailedWrongSchemeConfigured | Wrong scheme for confirmation |
+
+### Confirmation Send Failure Events (6)
+| Code | Description |
+|------|-------------|
+| BuPaConfirmationSendFailed | Failed to send confirmation |
+| BuPaRelConfirmationSendFailed | Failed to send confirmation |
+| KmConfirmationSendFailed | Failed to send confirmation |
+| BuPaConfirmationSendFailedHttpsSchemeExpected | HTTPS required for confirmation |
+| BuPaRelConfirmationFailedHttpsSchemeExpected | HTTPS required for confirmation |
+| KmConfirmationFailedHttpsSchemeExpected | HTTPS required for confirmation |
 
 ---
 

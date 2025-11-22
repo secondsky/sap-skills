@@ -130,28 +130,33 @@ SAP provides compliance features but does not advise on best methods for specifi
 
 ## Deletion of Master Data
 
-### Retention Period
-**28 days** for deleted master data
+### Retention and Lifecycle Management
 
-- Complete records and individual attributes deleted permanently after 28 days
-- Delta tokens also expire after 28 days
-- Clients must perform full reload if not synchronized within 28 days
+Master data retention and deletion are **customer-configurable** via SAP Information Lifecycle Management (ILM) and Retention Management.
+
+**Key Points**:
+- Retention periods are defined by customer policy, not fixed by SAP
+- Blocking and residence rules are set per customer requirements
+- Delta token expiry depends on customer-configured retention settings
+- Clients must perform full reload if retention settings result in token expiration
 
 ### General Master Data Deletion
 1. Client triggers deletion through MDI
-2. Service processes deletion
+2. Service processes deletion per configured retention policy
 3. Service notifies all downstream clients
-4. Each client removes data from local systems
+4. Each client removes data from local systems per their retention settings
 
 ### Business Partner Deletion
-Different pathway via blocking requests:
-- Triggered when personal data processing no longer required
-- Only SAP S/4HANA clients can initiate
-- Uses SAP Data Retention Manager service
+Uses SAP Data Retention Manager with ILM controls:
+- Triggered when personal data processing no longer required per policy
+- Blocking requests initiate the deletion workflow
+- SAP S/4HANA clients can initiate via Data Retention Manager
+- Retention periods governed by ILM residence rules
 
 ### Client Disconnection
 - Data not automatically removed when client disconnects
-- Proactively identify and delete unneeded data
+- Apply ILM/retention policies to manage data lifecycle
+- Proactively identify and delete unneeded data per policy
 - Consider impact on remaining connected clients
 
 ---
