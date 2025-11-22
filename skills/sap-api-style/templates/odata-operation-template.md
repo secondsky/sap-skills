@@ -375,7 +375,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 | 401 Unauthorized | Authentication required | Missing/invalid token | Error object |
 | 403 Forbidden | Insufficient permissions | User lacks required role | Error object |
 | 404 Not Found | Resource doesn't exist | Invalid ID | Error object |
-| 409 Conflict | Concurrent update conflict | ETag mismatch | Error object |
+| 412 Precondition Failed | Optimistic concurrency failure | If-Match ETag mismatch | Error object |
 | 500 Internal Server Error | Server error | Database error | Error object |
 ```
 

@@ -198,7 +198,7 @@ Additional method-specific headers:
 |---|---|---|---|
 | firstName | Required | String | Employee's first name. Length: 1-50 characters. Alphanumeric and spaces only. |
 | lastName | Required | String | Employee's last name. Length: 1-50 characters. Alphanumeric and spaces only. |
-| email | Required | String | Corporate email address. Must be unique across system. Must be valid email format (RFC 5321). |
+| email | Required | String | Corporate email address. Must be unique across system. Must be valid email format (RFC 5322). |
 | department | Required | String | Department code. Valid: "SALES", "ENGINEERING", "FINANCE", "HR", "OPERATIONS". Example: "ENGINEERING" |
 | hireDate | Optional | Date (YYYY-MM-DD) | Hire date of employee. Format: ISO 8601 date. Cannot be future date. Example: "2024-01-15" |
 | salary | Optional | Decimal | Annual salary in USD. Minimum: 20000. Maximum: 10000000. Two decimal places. Example: 95000.00 |

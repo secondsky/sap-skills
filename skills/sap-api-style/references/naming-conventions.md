@@ -662,10 +662,11 @@ NOT: httpRequest (though acceptable), HTTPSConnection
 
 #### Classes and Interfaces
 
-**Interfaces**:
-- Start with capital "I": `IProperty`, `IResource`, `IIterator`
-- Use noun phrases: `IDataProvider`, `IEventListener`
-- UpperCamelCase throughout
+**Interfaces** (Java-specific):
+- Use descriptive noun-based names in UpperCamelCase
+- Do NOT use "I" prefix (discouraged in Java style guides)
+- Examples: `Comparable`, `Serializable`, `DataProvider`, `EventListener`
+- If disambiguation is needed, use descriptive suffixes: `DataProviderInterface` (rare)
 
 **Abstract Classes**:
 - Start with "Abstract": `AbstractProcessor`, `AbstractFactory`
@@ -1489,23 +1490,35 @@ public class Address { }
 
 ---
 
-#### 19. Interface Names Without "I" Prefix
+#### 19. Interface Naming (Language-Specific)
 
-**Problem**: Not prefixing interfaces with "I" in languages that expect it (Java, .NET, C++).
+**C#/.NET Convention**: Use "I" prefix for interfaces.
 
 ```
-❌ BAD (Java):
-public interface DataProvider { }
-public interface OrderRepository { }
-
-✅ GOOD (Java):
+✅ GOOD (.NET):
 public interface IDataProvider { }
 public interface IOrderRepository { }
 ```
 
-**Why**: "I" prefix is convention in these languages for interface identification.
+**Java Convention**: Do NOT use "I" prefix (actively discouraged).
 
-**How to Fix**: Add "I" prefix for all interfaces in Java, .NET, C++.
+```
+✅ GOOD (Java):
+public interface DataProvider { }
+public interface OrderRepository { }
+public interface Comparable { }
+```
+
+**C++ Convention**: Follow project style guide (no universal rule).
+- Preferred: Descriptive names or Abstract/Factory prefixes
+- Examples: `DataProvider`, `AbstractProvider`, `ProviderFactory`
+
+**Why**: Different languages have different established conventions. Java style guides (including Google Java Style Guide, Oracle conventions) discourage the "I" prefix as redundant.
+
+**How to Fix**: Apply language-specific conventions:
+- **C#/.NET**: Add "I" prefix
+- **Java**: Use descriptive names without prefix
+- **C++**: Follow project style guide
 
 ---
 

@@ -1,12 +1,14 @@
 # REST and OData API Documentation Guide
 
+**Attribution & License**:
+- **Upstream Source**: [SAP API Style Guide](https://github.com/SAP-docs/api-style-guide)
+- **Source Commit**: main branch as of 2025-11-21
+- **Upstream License**: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (Creative Commons Attribution 4.0 International - permits sharing and adaptation with attribution)
+- **Content Usage**: Core documentation and examples are derived from the upstream repository. Material has been consolidated from multiple files (section 30), reorganized for progressive disclosure architecture, and enhanced with additional examples and cross-references for Claude Code skill usage.
+
 **Source**: https://github.com/SAP-docs/api-style-guide/tree/main/docs/30-rest-and-odata-api-documentation
 
 **Last Verified**: 2025-11-21
-
-**Attribution**: Content derived from [SAP API Style Guide](https://github.com/SAP-docs/api-style-guide) (Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/))
-
-**Changes**: Consolidated from multiple source files, reorganized for progressive disclosure, added examples and templates.
 
 **Comprehensive Reference**: All 12 markdown files from section 30 consolidated and organized
 

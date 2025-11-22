@@ -210,7 +210,7 @@ All HTTP status codes that can be returned by methods in this API are documented
 
 - [API Style Guide - Manual REST and OData Documentation](https://github.com/SAP-docs/api-style-guide)
 - [OAuth 2.0 Authentication](https://oauth.net/2/)
-- [HTTP Status Codes Reference](https://httpwg.org/specs/rfc7231.html#status.codes)
+- [HTTP Status Codes Reference (RFC 9110)](https://www.rfc-editor.org/rfc/rfc9110.html#status.codes)
 
 **Template Version**: 1.0
 **Last Updated**: 2025-11-21

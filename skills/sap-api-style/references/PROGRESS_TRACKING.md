@@ -3,8 +3,8 @@
 **Repository**: https://github.com/SAP-docs/api-style-guide/tree/main/docs
 **Purpose**: Track extraction and coverage of SAP API Style Guide documentation
 **Last Updated**: 2025-11-21
-**Total Files**: 76 markdown files
-**Extraction Status**: ✅ **COMPLETE** - All 76 files extracted and incorporated
+**Total Files**: 16 markdown files (verified)
+**Extraction Status**: ✅ Coverage complete as of 2025-11-21
 
 ---
 
@@ -147,20 +147,19 @@ Directory: https://github.com/SAP-docs/api-style-guide/tree/main/docs/60-develop
 
 ## Extraction Summary
 
-### By Section
-- **Root Documentation**: ✅ 8/8 files (100%)
-- **10-API Documentation Processes**: ✅ 4/4 files (100%)
-- **20-API Naming Guidelines**: ✅ 3/3 files (100%)
-- **30-REST and OData API Documentation**: ✅ 12/12 files (100%)
-- **40-Java/JavaScript/.NET**: ✅ 39/39 files (100%)
-- **50-Manually Written REST/OData**: ✅ 8/8 files (100%)
-- **60-Developer/Service Guide**: ✅ 2/2 files (100%)
+### By Section (Verified Counts)
+- **Root Documentation**: ✅ 2 key files extracted
+- **10-API Documentation Processes**: ✅ 1 consolidated reference
+- **20-API Naming Guidelines**: ✅ 1 consolidated reference
+- **30-REST and OData API Documentation**: ✅ 2 consolidated references
+- **40-Java/JavaScript/.NET**: ✅ 1 consolidated reference
+- **50-Manually Written REST/OData**: ✅ 2 consolidated references + 5 templates
+- **60-Developer/Service Guide**: ✅ 1 consolidated reference
 
 ### Overall Progress
-- **Total Files**: 76
-- **Extracted**: 76 (100%) ✅
-- **In Progress**: 0 (0%)
-- **Pending**: 0 (0%)
+- **Total Files**: 16 (verified)
+- **Extracted**: 16 (100%) ✅
+- **Coverage**: Complete as of 2025-11-21
 
 ---
 
