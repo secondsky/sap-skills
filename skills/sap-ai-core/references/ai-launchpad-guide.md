@@ -23,6 +23,7 @@ Comprehensive reference for SAP AI Launchpad features and operations.
 13. [Datasets and Artifacts](#datasets-and-artifacts)
 14. [Model Comparison](#model-comparison)
 15. [Applications](#applications)
+16. [Meta API and Custom Runtime Capabilities](#meta-api-and-custom-runtime-capabilities)
 
 ---
 
@@ -510,6 +511,46 @@ Create chat interfaces using deployed models:
 2. Configure model deployment
 3. Set disclaimer (optional)
 4. Share application URL
+
+---
+
+## Meta API and Custom Runtime Capabilities
+
+The Meta API identifies which capabilities apply to a given AI runtime, allowing SAP AI Launchpad to display only relevant features.
+
+### Purpose
+
+| Function | Description |
+|----------|-------------|
+| **Capability Management** | Enable/disable capabilities based on AI use case |
+| **UI Streamlining** | Hide unnecessary features to reduce confusion |
+| **API Decoupling** | Reduce impact of backend API changes |
+
+### Supported Capabilities
+
+| Capability | Description |
+|------------|-------------|
+| `userDeployments` | Allows users to create custom deployments |
+| `userExecutions` | Enables execution functionality |
+| `staticDeployments` | System-managed deployments |
+| `timeToLiveDeployments` | TTL-based deployment limits |
+| `bulkUpdates` | Bulk operations support |
+| `executionSchedules` | Scheduling functionality |
+| `analytics` | Analytics dashboard |
+
+### Metadata Refresh
+
+- **Automatic**: Refreshed periodically on schedule
+- **On-demand**: Users can trigger manual refresh
+- **Administration**: SAP Runtime team manages active capabilities
+
+### Custom Runtime Usage
+
+Custom runtimes can selectively implement only necessary capabilities, creating a tailored experience:
+
+```
+AI Runtime → Meta API Query → Capability List → Filtered UI
+```
 
 ---
 

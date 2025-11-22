@@ -6,6 +6,50 @@ Complete reference for all SAP AI Core orchestration modules.
 
 ---
 
+## Orchestration V2 API
+
+### Endpoint
+
+**V2 Endpoint:** `POST {{deployment_url}}/v2/completion`
+
+### V1 to V2 Migration
+
+If migrating from V1 to V2:
+
+1. Update endpoint from `/completion` to `/v2/completion`
+2. Modify payload structure to use `config.modules` format
+3. Test with existing orchestration configurations
+
+### V2 Request Structure
+
+```json
+{
+  "config": {
+    "modules": {
+      "prompt_templating": { /* template config */ },
+      "llm": { /* model config */ },
+      "grounding": { /* optional */ },
+      "filtering": { /* optional */ },
+      "masking": { /* optional */ },
+      "translation": { /* optional */ }
+    }
+  },
+  "placeholder_values": {
+    "variable_name": "value"
+  }
+}
+```
+
+### Key V2 Changes
+
+| Aspect | V1 | V2 |
+|--------|----|----|
+| Endpoint | `/completion` | `/v2/completion` |
+| Module structure | `module_configurations` | `config.modules` |
+| Embeddings | Not available | `POST /v2/embeddings` |
+
+---
+
 ## Module Execution Order
 
 The orchestration pipeline executes modules in this fixed order:

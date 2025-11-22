@@ -80,6 +80,52 @@ User Query → Embedding → Vector Search → Retrieved Chunks → LLM Context
 
 ---
 
+## Data Management APIs
+
+Three primary APIs for document processing and retrieval:
+
+### Pipelines API
+
+Creates data management pipelines that fetch documents from supported data sources.
+
+| Feature | Description |
+|---------|-------------|
+| **Purpose** | Automated document fetching, preprocessing, chunking, embedding |
+| **Best for** | Documents in external repositories |
+| **Output** | Vectors stored in HANA Vector Store |
+| **Note** | No need to call Vector API after using Pipelines API |
+
+### Vector API
+
+REST APIs for direct document ingestion and retrieval using vector embeddings.
+
+| Feature | Description |
+|---------|-------------|
+| **Purpose** | Manual document upload and embedding |
+| **Best for** | Directly uploaded/managed documents |
+| **Process** | Preprocesses chunks and stores semantic embeddings |
+
+### Retrieval API
+
+Performs similarity searches on the vector database.
+
+| Feature | Description |
+|---------|-------------|
+| **Purpose** | Information retrieval using semantic search |
+| **Works with** | Repositories (Pipelines API) or collections (Vector API) |
+| **Output** | Ranked relevant document chunks |
+
+### API Comparison
+
+| Use Case | Recommended API |
+|----------|-----------------|
+| Documents in SharePoint/S3/SFTP | Pipelines API |
+| Direct file uploads | Vector API |
+| Custom chunking needed | Vector API |
+| Full automation | Pipelines API |
+
+---
+
 ## Implementation Options
 
 ### Option 1: Pipeline API

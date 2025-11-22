@@ -236,9 +236,39 @@ Prompt Optimization takes an input prompt template and a dataset of desirable re
 
 ### Prerequisites
 
-- Prompt template in prompt registry
-- JSON dataset in object store with desired responses
-- Metrics tracked in ML Tracking Service
+- Required roles: `genai_manager` or `custom_evaluation`
+- Service plan: `extended` tier required
+- Object store named `default` must be registered
+- Prompt template saved in prompt registry
+- Dataset artifact prepared and registered
+
+### Dataset Preparation
+
+| Requirement | Value |
+|-------------|-------|
+| **Minimum samples** | 25 |
+| **Maximum samples** | 200 |
+| **Format** | JSON array |
+
+#### Dataset Structure
+
+```json
+[
+  {
+    "fields": {
+      "input": "Customer complaint about delivery delay",
+      "category": "logistics"
+    },
+    "answer": {
+      "sentiment": "negative",
+      "urgency": "high",
+      "category": "delivery"
+    }
+  }
+]
+```
+
+**Important:** Placeholder names in `fields` must match those in the template exactly. Do not include confidential or personally identifiable information.
 
 ### Process
 
@@ -247,6 +277,16 @@ Prompt Optimization takes an input prompt template and a dataset of desirable re
 3. Evaluates variations against target metric
 4. Returns optimized prompt to registry
 5. Stores additional results in object store
+
+### Launchpad UI Flow (7 Steps)
+
+1. **Access**: Connect to SAP AI Core via Workspaces app
+2. **Navigate**: Generative AI Hub → Optimization
+3. **Initiate**: Create → Prompt Optimization
+4. **Configure Artifacts**: Select template, models, and dataset
+5. **Select Metric**: Choose evaluation metric
+6. **Advanced Settings**: Configure template name/version (optional)
+7. **Review & Deploy**: Verify and start job
 
 ### Limitations
 
