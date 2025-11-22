@@ -136,11 +136,13 @@ sap-btp-cias/
 ├── references/
 │   ├── setup-guide.md          # Complete setup procedures
 │   ├── security-guide.md       # Security and IdP configuration
-│   ├── integration-scenarios.md # Supported integration scenarios
+│   ├── integration-scenarios.md # 100+ scenarios with codes (1M1, 22K, etc.)
 │   ├── troubleshooting.md      # Detailed troubleshooting guide
-│   └── maintenance-planner.md  # Maintenance Planner integration
+│   ├── maintenance-planner.md  # Maintenance Planner integration
+│   ├── task-ui-guide.md        # Task UI controls, tabs, behaviors
+│   └── whats-new.md            # Release notes 2021-2025
 └── templates/
-    ├── destination-config.md   # Destination configuration templates
+    ├── destination-config.md   # Destination templates by target system
     └── role-assignment.md      # Role assignment procedures
 ```
 

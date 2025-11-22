@@ -233,15 +233,38 @@ Use generated client ID and client secret to create OAuth JWT token for API auth
 | **Retention Period** | Time from last business activity through data deletion |
 | **Blocking** | Restricting access to data whose primary business purpose has ended |
 
+## Task UI Controls Quick Reference
+
+### Automation Task Controls
+
+| Control | Function |
+|---------|----------|
+| **Refresh** | Update automation statuses |
+| **Expand All** | Show all parameter panels |
+| **Collapse All** | Hide all parameter panels |
+| **Show/Hide Read-Only Parameters** | Toggle read-only visibility |
+| **Save Parameters** | Preserve current values |
+| **Logs** | View execution records |
+| **Information** | Parameter descriptions |
+| **Execute Step** | Run automation (async) |
+
+### Error Recovery
+
+After automation failure:
+- **Only Failed Automations** - Retry failed steps only
+- **All Automations** - Retry entire sequence
+
 ## Related Reference Files
 
 For detailed information, load these reference files as needed:
 
 - `references/setup-guide.md` - Complete subscription and OAuth2 configuration
 - `references/security-guide.md` - Security architecture, IdP, roles in detail
-- `references/integration-scenarios.md` - Full list of supported integration scenarios
+- `references/integration-scenarios.md` - Full list of 100+ supported scenarios with codes
 - `references/troubleshooting.md` - Detailed troubleshooting procedures
 - `references/maintenance-planner.md` - Using Maintenance Planner for workflow invocation
+- `references/task-ui-guide.md` - Complete task UI controls and tab details
+- `references/whats-new.md` - Complete release notes 2021-2025
 
 ## Documentation Sources
 

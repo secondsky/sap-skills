@@ -185,13 +185,15 @@ docs/
 ### Level 2: Reference Files (Loaded on Demand)
 - `references/setup-guide.md` - Complete subscription and configuration steps
 - `references/security-guide.md` - Security architecture and IdP configuration
-- `references/integration-scenarios.md` - Full list of supported scenarios
+- `references/integration-scenarios.md` - COMPLETE list of 100+ scenarios with codes (1M1, 22K, 4A1, etc.)
 - `references/troubleshooting.md` - Detailed troubleshooting guide
-- `references/api-guide.md` - OAuth2 API access configuration
+- `references/maintenance-planner.md` - Maintenance Planner integration
+- `references/task-ui-guide.md` - Complete task UI controls, tabs, and behaviors
+- `references/whats-new.md` - Complete release notes 2021-2025
 
 ### Level 3: Template Files (Loaded on Demand)
-- `templates/destination-config.md` - Destination configuration templates
-- `templates/role-assignment.md` - Role assignment procedures
+- `templates/destination-config.md` - Destination configuration templates by target system
+- `templates/role-assignment.md` - Role assignment procedures and checklists
 
 ---
 

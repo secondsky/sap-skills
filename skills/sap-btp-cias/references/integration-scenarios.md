@@ -1,271 +1,384 @@
-# SAP BTP CIAS Integration Scenarios
+# SAP BTP CIAS Integration Scenarios - Complete Reference
 
-Complete list of supported integration scenarios in Cloud Integration Automation Service.
+Complete list of ALL supported integration scenarios in Cloud Integration Automation Service with scenario codes.
 
-**Source**: https://github.com/SAP-docs/btp-cloud-integration-automation-service/tree/main/docs
-
----
-
-## Overview
-
-Cloud Integration Automation Service delivers guided workflows to integrate SAP cloud solutions with on-premise and other SAP cloud solutions. The service supports both manual task instructions and automated technical configuration.
+**Source**: https://github.com/SAP-docs/btp-cloud-integration-automation-service/blob/main/docs/what-is-cloud-integration-automation-service-35fbf2a.md
 
 ---
 
 ## SAP BTP Services
 
-### Asset and Performance Management
-- **SAP Business Network Asset Collaboration Setup**
-- **SAP Asset Performance Management**
-
-### Financial Services
-- **SAP Group Reporting Data Collection**
+| Scenario | Description |
+|----------|-------------|
+| SAP Business Network Asset Collaboration Setup on BTP | Asset collaboration setup |
+| SAP Asset Performance Management | APM configuration |
+| SAP Group Reporting Data Collection | Financial data collection |
 
 ---
 
 ## SAP BTP ABAP Environment
 
-### Code Migration
-- **Custom Code Migration App configuration**
-  - Configure Custom Code Migration app for ABAP environment
-
-### S/4HANA Integration
-- **ABAP Environment and S/4HANA Cloud integration**
-  - Connect ABAP environment to S/4HANA Cloud
+| Scenario | Description |
+|----------|-------------|
+| Configuring the ABAP Environment to Use the Custom Code Migration App | Custom code migration setup |
+| SAP BTP, ABAP Environment, and SAP S/4HANA Cloud: Integration | ABAP-S/4HANA Cloud integration |
 
 > **Note**: ABAP automation scenarios require OAuth2 service plan subscription.
 
 ---
 
-## Intelligent Enterprise Scenarios
+## Intelligent Enterprise - Design to Operate - Plan to Fulfill
 
-### Design to Operate
-
-**Subcontracting**:
-- Design to Operate (Subcontracting) integration workflows
-
-### Lead to Cash
-
-**Commerce Integration**:
-- SAP Commerce integration scenarios
-
-**Marketing Integration**:
-- SAP Marketing Cloud integration
-
-**Customer Data Cloud**:
-- SAP Customer Data Cloud integration scenarios
-
-### Recruit to Retire
-
-**Payroll**:
-- SAP Payroll integration
-
-**Workforce Management**:
-- SAP Workforce solutions
-
-**Travel**:
-- SAP Concur Travel integration
-
-**External Workforce**:
-- External workforce management integration
-
-### Source to Pay
-
-**Contracts**:
-- Contract management integration
-
-**Buying**:
-- Procurement and buying workflows
-
-**Sourcing**:
-- Strategic sourcing integration
-
-**Supplier Collaboration**:
-- SAP Business Network supplier collaboration
+| Code | Scenario |
+|------|----------|
+| 5I2 | Subcontracting with SAP Business Network |
 
 ---
 
-## Communication Management
+## Intelligent Enterprise - Lead to Cash - Contact to Lead
 
-### Migration Scenarios
-- **Communication Management Migration (2SL to 3SL)**
-  - Migrate from 2-system landscape to 3-system landscape
+| Scenario | Description |
+|----------|-------------|
+| Onboard Company: Integration Commerce Cloud with S/4 Cloud (S4HC) | Commerce-S/4 onboarding |
+| Capture Interaction: Integrate SAP Commerce Cloud with SAP Marketing Cloud | Commerce-Marketing integration |
+| SAP Customer Data Cloud Integration with SAP S/4HANA Cloud | CDC-S/4HANA Cloud integration |
+
+---
+
+## Intelligent Enterprise - Lead to Cash - Lead to Opportunity
+
+| Code | Scenario |
+|------|----------|
+| 1J9 | SAP Marketing Cloud Integration with SAP Cloud for Customer |
+
+---
+
+## Intelligent Enterprise - Lead to Cash - Master Data
+
+| Code | Scenario |
+|------|----------|
+| MDM MC | MDM Business Partner Integration with Marketing Cloud |
+| MDI C4C | MDI Business Partner Integration with SAP Cloud for Customer |
+| MDI BP | MDI Business Partner Integration with S/4HANA Cloud |
+| - | SAP Master Data Service for Business Partners Integration with SAP Commerce Cloud |
+| MDM FSM | MDM Business Partner Integration with Field Service Management |
+| - | SAP Customer Data Cloud Integration with SAP Master Data Service for Business Partners |
+| - | SAP Configure Price Quote with SAP Master Data Service for Business Partners |
+| - | SAP Customer Data Cloud Integration with SAP Commerce Cloud (B2B Scenario) |
+| - | SAP Customer Data Cloud Integration with SAP Commerce Cloud (B2C Scenario) |
+
+---
+
+## Intelligent Enterprise - Lead to Cash - Order to Cash
+
+| Code | Scenario |
+|------|----------|
+| 49X | Service Order Processing with SAP Field Service Management |
+| 1UG | Orchestrate Fulfillment Process: Order Management Data Replication to SAP Marketing Cloud |
+| SB | Orchestrate Fulfillment Process: Integration Commerce Cloud with Subscription Billing |
+| 5IK | Subscription Management with Convergent Invoicing |
+| BP SB | Subscription Management with Sales Billing |
+| 2TY (2021) | On-Premise: B2B Order Fulfillment with SAP Commerce Cloud |
+| 2TY (2022) | On-Premise: B2B Order Fulfillment with SAP Commerce Cloud |
+
+---
+
+## Intelligent Enterprise - Lead to Cash - Opportunity to Quote
+
+| Code | Scenario |
+|------|----------|
+| 1J9 | SAP Marketing Cloud Integration with SAP Cloud for Customer |
+| 1VP | Opportunity-to-Order with SAP Cloud for Customer |
+| - | Integration SAP CPQ Quote 2.0 - SAP Cloud for Customer |
+
+---
+
+## Intelligent Enterprise - Lead to Cash - Quote to Order
+
+| Code | Scenario |
+|------|----------|
+| - | SAP Commerce Cloud Integration with SAP CPQ for Quote 2.0 |
+| 4A1 | Automation of Order-to-Invoice with SAP Business Network |
+
+---
+
+## Intelligent Enterprise - Recruit to Retire - Hire to Retire
+
+| Code | Scenario | Year |
+|------|----------|------|
+| 1NL | Payroll Processing with SAP SuccessFactors Employee Central Payroll | Cloud |
+| 3UP | Payroll Processing with SAP ERP HCM Payroll | Cloud |
+| - | Workforce Management with SAP Master Data Integration (Inbound) | Cloud |
+| 1NL (2020) | On-Premise: Setting up Payroll Processing with SAP SuccessFactors Employee Central Payroll | 2020 |
+| 1NL (2021) | On-Premise: Setting up Payroll Processing with SAP SuccessFactors Employee Central Payroll | 2021 |
+| - (2020) | On-Premise: Workforce Integration in SAP S/4HANA | 2020 |
+| - (2021) | On-Premise: Workforce Integration in SAP S/4HANA | 2021 |
+| - (2022) | On-Premise: Workforce Integration in SAP S/4HANA | 2022 |
+| JB1 | Core HR with SAP SuccessFactors Employee Central | Cloud |
+
+---
+
+## Intelligent Enterprise - Recruit to Retire - Travel to Reimburse
+
+| Code | Scenario |
+|------|----------|
+| 1M1 | Travel Expense Processing with SAP Concur Expense Professional |
+| 1NL | Payroll Processing with SAP SuccessFactors Employee Central Payroll |
+| - | SAP S/4HANA-Concur-Payroll Integration |
+
+---
+
+## Intelligent Enterprise - Recruit to Retire - External Workforce
+
+| Code | Scenario | Year |
+|------|----------|------|
+| 22K | External Workforce Procurement via SAP Fieldglass | Cloud |
+| 22K (2021) | On-Premise: External Workforce Procurement via SAP Fieldglass | 2021 |
+| 22K (2022) | On-Premise: External Workforce Procurement via SAP Fieldglass | 2022 |
+
+---
+
+## Intelligent Enterprise - Source to Pay - Contract
+
+| Code | Scenario | Year |
+|------|----------|------|
+| 4AZ | Contract Management with SAP Ariba Contracts | Cloud |
+| 4AZ (2020) | On-Premise: Contract Management with SAP Ariba Contracts | 2020 |
+| 4AZ (2021) | On-Premise: Contract Management with SAP Ariba Contracts | 2021 |
+| 4B0 | Contract for Central Procurement with SAP Ariba Contracts | Cloud |
+| 4B0 (2021) | On-Premise: Contract for Central Procurement with SAP Ariba Contracts | 2021 |
+
+---
+
+## Intelligent Enterprise - Source to Pay - Guided Buying
+
+| Code | Scenario | Year |
+|------|----------|------|
+| 2NV | Guided Buying Capability with SAP Ariba Buying | Cloud |
+| 2NV (2021) | On-Premise: Guided Buying Capability with SAP Ariba Buying | 2021 |
+| 3EN | Guided Buying for Central Procurement with SAP Ariba Buying | Cloud |
+| 3EN (2021) | On-Premise: Guided Buying for Central Procurement with SAP Ariba Buying | 2021 |
+| 4A1 (2020) | On-Premise: Automation of Order-to-Invoice with SAP Business Network | 2020 |
+| 4A1 (2021) | On-Premise: Automation of Order-to-Invoice with SAP Business Network | 2021 |
+
+---
+
+## Intelligent Enterprise - Source to Pay - Sourcing
+
+| Code | Scenario | Year |
+|------|----------|------|
+| 4BL | Sourcing with SAP Ariba Sourcing | Cloud |
+| 4BL (2020) | On-Premise: Sourcing with SAP Ariba Sourcing | 2020 |
+| 4BL (2021) | On-Premise: Sourcing with SAP Ariba Sourcing | 2021 |
+| 4QN | Central Sourcing with Ariba Sourcing | Cloud |
+| 4QN (2021) | On-Premise: Central Sourcing with Ariba Sourcing | 2021 |
+
+---
+
+## Intelligent Enterprise - Source to Pay - Supplier Collaboration/Network
+
+| Code | Scenario | Year |
+|------|----------|------|
+| 5JT | Automation of Central Procurement Quotes with Ariba Network | Cloud |
+| 5JT (2021) | On-Premise: Automation of Central Procurement Quotes with Ariba Net | 2021 |
+| 42K | Automation of Source-to-Pay with SAP Business Network | Cloud |
+| 42K (2020) | On-Premise: Automation of Source-to-Pay with SAP Business Network | 2020 |
+| 42K (2021) | On-Premise: Automation of Source-to-Pay with SAP Business Network | 2021 |
+| 5I2 | Subcontracting with SAP Business Network | Cloud |
+| 4R2 | Services Procurement with SAP Business Network and SAP Fieldglass | Cloud |
+
+---
+
+## Communication Management Migration
+
+| Scenario | Description |
+|----------|-------------|
+| Migrate Communication Management Entities from 2SL to 3SL | 2-System to 3-System Landscape migration |
+| 3SL Migration Precheck of S/4 - CIAS Connection | Pre-migration validation check |
 
 ---
 
 ## SAP Cloud Connector
 
-### Configuration Scenarios
-- **SAP Cloud Connector configuration**
-  - Configure Cloud Connector for hybrid connectivity
-  - Set up secure tunnels between on-premise and cloud
+| Scenario | Description |
+|----------|-------------|
+| Configuration of SAP Cloud Connector with Principal Propagation | Secure Cloud Connector setup |
 
 ---
 
 ## SAP Integrated Business Planning (IBP)
 
-### Real-Time Integration (RTI)
-- **RTI connectivity setup** (Added 2023-11-10)
-  - Enable real-time integration for IBP
-  - Master data integration from SAP S/4HANA
-  - Transactional data integration from SAP ERP
-  - Eliminates need for batch jobs
+| Scenario | Description | Added |
+|----------|-------------|-------|
+| Configuring Real-Time Integration (RTI) in SAP IBP | Real-time master/transactional data integration from S/4HANA or ERP to IBP without batch jobs | 2023-11-10 |
 
 ---
 
 ## SAP Build
 
-### Provisioning
-- **SAP Build provisioning**
-  - Set up SAP Build environment
-
-### Work Zone Integration
-- **SAP Build Work Zone integration**
-  - Integrate SAP Build with Work Zone
+| Scenario | Description |
+|----------|-------------|
+| Provision SAP Build on SAP BTP | SAP Build environment setup |
+| Provision SAP Build on SAP BTP with S/4HANA Cloud Private Edition Integration | SAP Build with S/4HANA PE |
 
 ---
 
-## S/4HANA Cloud
+## SAP Build Work Zone Integration
 
-### S/4HANA Cloud Public Edition
-- **100+ integration scenarios** covering:
-  - Finance integration
-  - Supply chain integration
-  - Manufacturing integration
-  - Sales integration
-  - Procurement integration
-  - Asset management integration
-  - Project management integration
-
-### S/4HANA Cloud Private Edition
-- **Private Edition specific scenarios**
-  - Custom integration workflows
-  - Hybrid deployment configurations
+| Scenario | Description |
+|----------|-------------|
+| SAP Build Work Zone Standard Edition Integration with SAP S/4HANA | On-premise S/4HANA integration |
+| SAP Build Work Zone Standard Edition Integration with SAP S/4HANA Cloud | Cloud S/4HANA integration |
 
 ---
 
-## S/4HANA On-Premise
+## SAP S/4HANA Cloud Private Edition Integration
 
-### On-Premise Integration
-- **50+ integration scenarios** including:
-  - ERP to cloud integration
-  - Hybrid deployment scenarios
-  - Legacy system migration
-  - Data synchronization workflows
+| Code | Scenario |
+|------|----------|
+| 7HB | Solution Quotation Management with SAP CPQ |
 
 ---
 
-## SAP SuccessFactors
+## SAP S/4HANA Cloud Integration (Complete List)
 
-### Employee Central Integration
-- **SuccessFactors Employee Central integration**
-  - HR data synchronization
-  - Employee master data integration
-  - Organizational structure integration
+| Code | Scenario |
+|------|----------|
+| 1M1 | Travel Expense Processing with SAP Concur Expense Professional |
+| 1S4 | Automatic Market Rates Management |
+| 1NL | Payroll Processing with SAP SuccessFactors Employee Central Payroll |
+| 1RY | Credit Agency Integration |
+| 1S0 | Customer Payments |
+| 1S2 | Digital Payments |
+| 1VP | Opportunity-to-Order with SAP Cloud for Customer |
+| 1WE | Restricted Party Screening with SAP Watch List Screening |
+| 1XV | SAP S/4HANA for Enterprise Contract Management |
+| 1YB | Import Connection setup with SAP Analytics Cloud |
+| 1Z1 | Digital Payments Sales |
+| 1Z6 | External Billing |
+| 1ZQ | Logistics with Third-Party Warehouse Management |
+| 22K | External Workforce Procurement via SAP Fieldglass |
+| 2EJ | Integration of Procurement with External Suppliers |
+| 2EL | Integration of Sales with External Buyers |
+| 2MB | Integration of Payment Advice with Buyers and Suppliers |
+| 2NV | Guided Buying Capability with SAP Ariba Buying |
+| 2OH | Continuous Control Monitoring with SAP Process Control |
+| 2OQ | Integration to SAP S/4HANA Cloud for Enterprise Contract Assembly |
+| - | International Trade Management with SAP GTS |
+| 2U2 | Key Risk Indicator Monitoring with SAP Risk Management |
+| 3AB | Automated Provisioning via SAP Cloud Identity Access Governance |
+| 3EN | Guided Buying for Central Procurement with SAP Ariba Buying |
+| 3UP | Payroll Processing with SAP ERP HCM Payroll |
+| 3W3 | Third-Party Shop Floor Execution - Process Industry |
+| 3W4 | Third-Party Shop Floor Execution - Discrete Industry |
+| 49X | Service Order Processing with SAP Field Service Management |
+| 42K | Automation of Source-to-Pay with SAP Business Network |
+| 4A1 | Automation of Order-to-Invoice with SAP Business Network |
+| - | Workforce Management with SAP Master Data Integration (Inbound) |
+| 4AI | Setting Up SAP Ariba Buying |
+| 4AZ | Contract Management with SAP Ariba Contracts |
+| 4B0 | Contract for Central Procurement with Ariba Contracts |
+| 4BL | Sourcing with SAP Ariba Sourcing |
+| 4N6 | SAP Central Invoice Management |
+| 4QN | Central Procurement with SAP Ariba Sourcing |
+| 4R2 | Services Procurement with SAP Business Network and SAP Fieldglass |
+| 53V | Digital Payments Foundation |
+| 53L | ABAP Core Data Services Extraction for SAP Datasphere |
+| 57Z | Subscription Management with Sales Billing |
+| 5I2 | Subcontracting with SAP Business Network |
+| 5IK | Subscription Management with Convergent Invoicing |
+| 5JT | Automation of Central Procurement Quotes with Ariba Network |
+| 5VX | Real Estate Integration between S/4HANA cloud with C4RE |
+| JB1 | Core HR with SAP SuccessFactors Employee Central |
+| 65D | MRP Change Request Integration with SAP Business Network |
+| 6BV | Solution Order Quotation Management with SAP CPQ |
+| 6JO | Resource Management capability in SAP Project and Resource Management |
+| 6KO | Integrate SAP S/4HCE with SAP Sales and Service Cloud |
+| 6JN | S/4HANA Cloud for Projects, Collaborative Project Management |
+| 6V2 | Integration to Icertis for Contract Assembly |
+| - | 3SL Migration Precheck of S/4 - CIAS Connection |
+
+---
+
+## SAP S/4HANA On-Premise Integration (Complete List)
+
+| Code | Scenario | Year |
+|------|----------|------|
+| - | Configuration for Connectivity S/4HANA to SAP Digital Manufacturing Cloud | - |
+| - | Asset Intelligence Network integration with S/4HANA On-Premise | - |
+| 2EL | On-Premise: Integration of Sales with External Buyers | 2022, 2023 |
+| 2EJ | On-Premise: Integration of Procurement with External Suppliers | 2022, 2023 |
+| 22K | On-Premise: External Workforce Procurement via SAP Fieldglass | 2022, 2023 |
+| 2TY | On-Premise: B2B Order Fulfillment with SAP Commerce Cloud | 2022 |
+| 4A1 | On-Premise: Automation of Order-to-Invoice with SAP Business Network | 2022, 2023 |
+| 42K | On-Premise: Set Up Automation of Source-to-Pay with SAP Business Network | 2022, 2023 |
+| 5I2 | On-Premise: Subcontracting with SAP Business Network | 2022, 2023 |
+| 4QN | On-Premise: Central Procurement with SAP Ariba Sourcing | 2022, 2023 |
+| 4BL | On-Premise: Sourcing with SAP Ariba Sourcing | 2022, 2023 |
+| 4R2 | On-Premise: Services Procurement with SAP Business Network and SAP Fieldglass | 2022, 2023 |
+| 4AZ | On-Premise: Contract Management with SAP Ariba Contracts | 2022, 2023 |
+| 65D | On-Premise: MRP Change Request Integration with SAP Business Network | 2022, 2023 |
+| 4B0 | On-Premise: Contract for Central Procurement with SAP Ariba Contracts | 2022, 2023 |
+| 3EN | On-Premise: Guided Buying for Central Procurement with SAP Ariba Buying | 2022, 2023 |
+| 5JT | On-Premise: Automation of Central Procurement Quotes with Ariba Net | 2022, 2023 |
+| 2NV | On-Premise: Guided Buying Capability with SAP Ariba Buying | 2022, 2023 |
+| - | On-Premise: Workforce Integration in SAP S/4HANA | 2022, 2023 |
+| - | On-Premise: Workforce Integration in SAP S/4HANA as Producer | 2022, 2023 |
+| - | On-Premise: SAP Business Network Asset Collaboration Integration with S/4HANA | - |
+
+---
+
+## SAP SuccessFactors Employee Central with SAP S/4HANA On-Premise
+
+| Scenario | Description |
+|----------|-------------|
+| Replicating Cost Centers from SAP S/4HANA On-Premise to SAP SuccessFactors Employee Central | Cost center replication |
+| Migrating Employee and Organizational Data from SAP S/4HANA On-Premise to SAP SuccessFactors Employee Central | Employee data migration |
+| Basic System Setup for Data Replication from SAP SuccessFactors Employee Central to SAP S/4HANA On-Premise | Basic replication setup |
+
+---
+
+## SAP SuccessFactors Employee Central Payroll
+
+| Scenario | Description |
+|----------|-------------|
+| Configure Pay Statement (Direct) Integration in SFEC and ECP | Pay statement integration |
 
 ---
 
 ## Two-Tier Accelerator
 
-### Multi-Tier Deployment
-- **Two-Tier Accelerator setup**
-  - Configure two-tier ERP deployment
-  - Central and local system integration
+| Scenario | Description |
+|----------|-------------|
+| Integration of S/4HANA Cloud Public Edition with S/4HANA On-Premise using BTP | Two-tier ERP deployment |
 
 ---
 
 ## Business Transformation Center
 
-### Setup Scenarios
-- **Business Transformation Center setup**
-  - Configure transformation workflows
-  - Migration planning and execution
+| Scenario | Description |
+|----------|-------------|
+| Setup Integration of Business Transformation Center with ECC and S/4HANA On-Premise | BTC integration setup |
 
 ---
 
-## Scenario Planning Process
+## Scenario Code Quick Reference
 
-### Using Cloud Integration Automation Service UI
+### By Product Area
 
-1. **Access the service**
-   - Navigate to Instances and Subscription tab in SAP BTP subaccount
-   - Click application icon to launch
-
-2. **Open Plan for Integration**
-   - Select the "Plan for Integration" tile
-
-3. **Browse Solutions**
-   - View available solutions in Solutions tab
-   - Use search box to filter options
-
-4. **Select Scenario**
-   - Choose appropriate scenario
-   - Select scenario option from available choices
-
-5. **Designate Systems**
-   - Systems listed by customer number from global account
-   - Manual entry available if systems not visible
-
-6. **Configure Workflow**
-   - Confirm cross-landscape integration if applicable
-   - Designate target subaccount
-   - Specify SAP BTP Workflow Users
-   - Name the transaction
-
-7. **Generate Workflow**
-   - Workflow appears in My Inbox tile
-
-### Using Maintenance Planner
-
-**Prerequisites**:
-- S-User assigned to customer ID for maintenance planner access
-
-**Steps**:
-1. Access: https://maintenanceplanner.cfapps.eu10.hana.ondemand.com
-2. Select "Plan for Cloud Integration Scenario" tile
-3. Choose solution from Solutions tab
-4. Select scenario and scenario option
-5. Pick systems for integration (by S-User customer number)
-6. Configure workflow invocation:
-   - SAP BTP Region (data center)
-   - SAP BTP Account Technical Name
-   - Workflow users list
-   - Transaction name
-7. Confirm (may require cross-landscape confirmation)
-8. Launch CIAS from generated link
-
----
-
-## Execution Scope Options
-
-When executing scenarios, you can select scope:
-
-| Option | Description |
-|--------|-------------|
-| **Don't perform optional tasks** | Execute mandatory tasks only |
-| **Perform optional tasks** | Execute all tasks including optional |
-
-> **Warning**: Execution scope cannot be changed after confirmation.
-
----
-
-## Scenario Execution Summary
-
-### Completion Process
-
-1. Complete all scenario tasks
-2. View Execution Summary screen (final task)
-3. Click **Complete Execution** to finalize
-
-> Once you click Complete Execution, the scenario no longer appears in Scenario Execution Monitoring.
-
-### PDF Export
-
-**From My Inbox**:
-- After completing all tasks, use "Export to PDF" button on Execution Summary screen
-
-**From Scenario Execution Monitoring**:
-- Export current execution state at any time via "Export to PDF" button
+**Concur**: 1M1
+**SuccessFactors**: 1NL, JB1, 3UP
+**Fieldglass**: 22K, 4R2
+**Ariba**: 2NV, 3EN, 4AI, 4AZ, 4B0, 4BL, 4QN, 5JT
+**Business Network**: 4A1, 42K, 5I2, 65D
+**Cloud for Customer**: 1VP, 1J9
+**Marketing Cloud**: 1J9, 1UG
+**Commerce Cloud**: 2TY
+**Analytics Cloud**: 1YB
+**CPQ**: 6BV, 7HB
+**GTS**: International Trade Management
+**Process Control**: 2OH
+**Risk Management**: 2U2
 
 ---
 
@@ -273,6 +386,3 @@ When executing scenarios, you can select scope:
 
 - What is CIAS: https://github.com/SAP-docs/btp-cloud-integration-automation-service/blob/main/docs/what-is-cloud-integration-automation-service-35fbf2a.md
 - Using CIAS: https://github.com/SAP-docs/btp-cloud-integration-automation-service/blob/main/docs/using-cloud-integration-automation-service-5ccb2ce.md
-- Maintenance Planner: https://github.com/SAP-docs/btp-cloud-integration-automation-service/blob/main/docs/using-maintenance-planner-2ad4326.md
-- Execution Scope: https://github.com/SAP-docs/btp-cloud-integration-automation-service/blob/main/docs/selecting-execution-scope-444db93.md
-- Summary: https://github.com/SAP-docs/btp-cloud-integration-automation-service/blob/main/docs/summary-71f9a64.md
