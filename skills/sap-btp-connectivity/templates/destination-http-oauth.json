@@ -1,6 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$comment": "SAP BTP HTTP Destination with OAuth2ClientCredentials - Template",
+  "$comment": "SAP BTP HTTP Destination Templates - Example configurations for various authentication types. This is a template file with placeholder values, not a JSON Schema.",
 
   "destinations": [
     {
@@ -53,11 +52,15 @@
       "URL": "https://api.example.com",
       "ProxyType": "Internet",
       "Authentication": "OAuth2JWTBearer",
-      "Description": "Token exchange destination",
+      "Description": "Token exchange destination - exchanges user JWT for new access token",
 
+      "$comment_auth": "OAuth2JWTBearer Authentication Properties (Required)",
       "clientId": "<your-client-id>",
       "clientSecret": "<your-client-secret>",
-      "tokenServiceURL": "https://auth.example.com/oauth/token"
+      "tokenServiceURL": "https://auth.example.com/oauth/token",
+
+      "$comment_optional": "Optional Properties - uncomment if needed",
+      "$_tokenServiceURLType": "Dedicated"
     },
     {
       "$comment": "======== BASIC AUTHENTICATION ========",
@@ -111,6 +114,13 @@
       "2. Select Import Destination",
       "3. Upload JSON file"
     ],
-    "import_via_api": "POST /destination-configuration/v1/subaccountDestinations"
+    "import_via_api": "POST /destination-configuration/v1/subaccountDestinations",
+    "security_best_practices": [
+      "NEVER commit actual secrets (clientSecret, KeyStorePassword) to version control",
+      "Use environment variables or secrets management for sensitive values",
+      "Store KeyStore files (.p12, .jks) in secure locations only",
+      "Rotate credentials regularly according to security policies",
+      "Use service-specific credentials with minimal required permissions"
+    ]
   }
 }

@@ -90,14 +90,12 @@ Username: Administrator
 Password: manage
 ```
 
-**CRITICAL SECURITY REQUIREMENT**: Change password immediately after first login.
-
-⚠️ **Do not proceed with subaccount configuration until the default password is changed.**
+**CRITICAL SECURITY REQUIREMENT**: Complete password change before proceeding to subaccount configuration.
 
 ### Setup Wizard
 
 1. Accept license agreement
-2. Change administrator password
+2. **Change administrator password** (mandatory - do not skip)
 3. Select installation mode:
    - **Master**: Primary instance
    - **Shadow**: Backup for high availability
