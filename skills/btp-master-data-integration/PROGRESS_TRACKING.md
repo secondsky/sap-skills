@@ -156,9 +156,11 @@
 |------|---------|-------|
 | SKILL.md | Main skill instructions | ~280 |
 | README.md | Discovery keywords | ~130 |
-| references/integration-models.md | ODM types and versions | ~100 |
+| references/glossary-and-pricing.md | Complete glossary, pricing, maintenance windows | ~200 |
+| references/integration-models.md | ODM types and versions | ~130 |
 | references/integration-guides.md | System-specific guides | ~280 |
-| references/soap-api-reference.md | SOAP API details | ~280 |
+| references/soap-api-reference.md | SOAP API with complete field mappings | ~500 |
+| references/features-complete.md | All features, REST/SOAP events, Local ID APIs | ~350 |
 | references/security-and-privacy.md | Security and privacy | ~230 |
 | references/extensibility.md | Custom extensions | ~150 |
 | references/monitoring.md | Monitoring/troubleshooting | ~230 |

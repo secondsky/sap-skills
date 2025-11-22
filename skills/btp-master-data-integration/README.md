@@ -77,9 +77,11 @@ btp-master-data-integration/
 ├── README.md                         # This file (discovery keywords)
 ├── PROGRESS_TRACKING.md              # Documentation extraction tracking
 └── references/
+    ├── glossary-and-pricing.md       # Complete glossary, pricing, maintenance windows
     ├── integration-models.md         # Complete ODM types and versions
     ├── integration-guides.md         # System-specific integration guides
-    ├── soap-api-reference.md         # SOAP web services details
+    ├── soap-api-reference.md         # SOAP web services with field mappings
+    ├── features-complete.md          # All features, REST/SOAP events, APIs
     ├── security-and-privacy.md       # Security, data protection, filtering
     ├── extensibility.md              # Custom extensions, WSDL generation
     └── monitoring.md                 # Monitoring and troubleshooting

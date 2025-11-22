@@ -284,3 +284,222 @@ Maximum 6 destinations per unique client connection.
 **SAP Business Accelerator Hub**: https://api.sap.com (filter: SAP Master Data Integration)
 
 Note: Hub specifications are not tenant-specific and exclude custom extensions.
+
+---
+
+## Detailed Business Partner Service Nodes
+
+### 1. BusinessPartner Node (Core)
+
+| Field | Description | Necessity |
+|-------|-------------|-----------|
+| UUID | System identifier in receiver (empty on first replication) | Optional |
+| CategoryCode | Organization/Natural person/Group classification | Optional |
+| BlockedIndicator | Central blocking status | Optional |
+| ReleasedIndicator | Business process eligibility | Optional |
+| AuthorizationGroup | Authorization group assignment | Optional |
+| ContactPermission | Contact permission controls | Optional |
+
+### 2. Person Node (Natural Persons)
+
+**Demographics**:
+- Gender, Nationality, BirthDate, BirthPlace, DeathDate
+
+**Communication Preferences**:
+- VerbalCommunicationLanguageCode, WrittenCommunicationLanguageCode
+
+**Personal Details**:
+- MaritalStatus, Employer, Occupation
+
+**Name Components**:
+- GivenName, FamilyName, MiddleName, NickName, BirthName
+- AcademicTitle, Prefix, Suffix (multiple supported)
+
+### 3. Organization Node (Legal Entities)
+
+| Field | Description |
+|-------|-------------|
+| FoundationDate | Date of establishment |
+| LiquidationDate | Date of dissolution |
+| LegalFormCode | Legal form classification |
+| GlobalLocationNumber | GLN identifier |
+| Name1-4 | Multi-line name fields |
+| IndustrySector | Industry with classification system codes |
+
+### 4. Identification Node
+
+| Field | Description | Necessity |
+|-------|-------------|-----------|
+| IDNumber | Identification number | Optional |
+| IDTypeCode | Type classification | Optional |
+| EntryDate | Date of entry | Optional |
+| ValidityStartDate/EndDate | Validity period | Optional |
+| CountryCode | Geographic validity | Optional |
+| RegionCode | Regional validity | Optional |
+| IssuingAuthority | Authority reference | Optional |
+
+### 5. BankDetails Node
+
+| Field | Description | Necessity |
+|-------|-------------|-----------|
+| BankAccountID | Bank account identifier | **Mandatory** |
+| ID | Account ID | **Mandatory** |
+| CountryCode | Bank country | Optional |
+| BankRoutingID | Routing number | Optional |
+| IBAN | International bank account number | Optional |
+| AccountHolderName | Name on account | Optional |
+| ValidityStartDate/EndDate | Validity period | Optional |
+
+### 6. TaxNumber Node
+
+| Field | Description |
+|-------|-------------|
+| TaxIDNumber | Tax identification number |
+| TaxNumberTypeCode | Type categorization |
+| Multiple tax numbers supported per entity |
+
+### 7. Role Node
+
+| Field | Description |
+|-------|-------------|
+| RoleCode | Business function assignment |
+| ValidityStartDate | Role start date |
+| ValidityEndDate | Role end date |
+| Multiple concurrent roles supported |
+
+### 8. Business Partner Group Node
+
+| Field | Description |
+|-------|-------------|
+| GroupTypeCode | Group type classification |
+| PrimaryGroupName | Primary group identifier |
+| SecondaryGroupName | Secondary group identifier |
+| FormOfAddress | Address form specification |
+
+### 9. Address Data Node (Comprehensive)
+
+**Communication Elements**:
+
+| Element | Fields |
+|---------|--------|
+| Email | Address, ValidityStartDate/EndDate, DefaultIndicator |
+| Phone | CountryCode, SubscriberID, Extension, SMSCapability |
+| Fax | CountryCode, DialingCode, Number |
+| Website | URI, URITypeCode |
+| Preferences | CommunicationLanguageCode, CommunicationMedium |
+
+**Postal Components**:
+
+| Category | Fields |
+|----------|--------|
+| Street | StreetName, StreetPrefix, StreetSuffix |
+| Building | HouseNumber, HouseNumberSupplement, Building, Floor, RoomNumber |
+| Postal | PostalCode (Street), POBoxPostalCode |
+| Location | City, Region, County, District, CountryCode |
+| Additional | CareOfName, TimeZone, TaxJurisdiction, TransportationZone |
+
+**PO Box Address**:
+- POBox, POBoxDeviatingCity, POBoxDeviatingRegion
+- POBoxDeviatingCountry, DeliveryServiceType
+
+**Script Variants**:
+- AddressRepresentationCode (different character sets)
+
+**Priority Rule**: When both CompanyPostalCode and POBoxPostalCode exist, CompanyPostalCode takes precedence.
+
+### 10. Customer Node (Sales & Distribution)
+
+**Classification**:
+| Field | Description |
+|-------|-------------|
+| AccountGroupCode | Customer account group |
+| CustomerGroupCode | Customer grouping |
+| NielsenRegionCode | Nielsen region |
+| IndustryCode1-5 | Industry classifications (up to 5) |
+| BusinessTypeCode | Business type designation |
+
+**Business Controls**:
+| Field | Description |
+|-------|-------------|
+| OrderBlockReasonCode | Order blocking reason |
+| BillingBlockReasonCode | Billing blocking reason |
+| DeliveryBlockReasonCode | Delivery blocking reason |
+| SalesSupportBlockReasonCode | Sales support block |
+| PostingBlockReasonCode | Posting block |
+| CentralDeletionFlag | Central deletion indicator |
+
+**Financial**:
+| Field | Description |
+|-------|-------------|
+| TaxGroupCode | Tax classification |
+| AnnualSalesVolume | Annual sales with currency |
+| AnnualSalesVolumeYear | Reference year |
+| VATLiabilityIndicator | VAT liability |
+| EqualizationTaxRelevance | Equalization tax |
+
+**Condition Groups**: ConditionGroup1-5 (pricing)
+
+**Extension Fields**: ExtensionCode1-10 (custom codes)
+
+**Sales Arrangements**:
+| Field | Description |
+|-------|-------------|
+| Incoterms | Delivery terms |
+| TransferLocation | Transfer point |
+| PartialDeliveryControl | Partial delivery settings |
+| CompleteDeliveryControl | Complete delivery settings |
+| SalesOrganizationGrouping | Sales org grouping |
+| PriceGroupCode | Price group |
+| CurrencyCode | Transaction currency |
+| SalesGroupCode | Sales group |
+
+### 11. Supplier Node (Procurement)
+
+Similar structure to Customer node with procurement-specific attributes:
+- Purchasing organization assignments
+- Vendor classification codes
+- Payment terms and conditions
+- Procurement blocking reasons
+
+---
+
+## BP Relationship Service Detail
+
+### BusinessPartnerRelationship Node
+
+| Field | Description | Necessity |
+|-------|-------------|-----------|
+| RoleCode | Relationship category | Optional |
+| StartDate | Validity start | Optional |
+| EndDate | Validity end | Optional |
+| RelationshipBusinessPartnerUUID | Related partner UUID | Optional |
+| DefaultIndicator | Default when multiple exist | Optional |
+
+### ContactPerson Node
+
+**Contact Details**:
+- BusinessPartnerFunctionalAreaCode (department)
+- ContactPersonNote (comments)
+- VIPReasonCode (importance indicator)
+- BusinessPartnerFunctionTypeCode (job function)
+- PowerOfAttorneyTypeCode (authority level)
+
+**Receiver IDs**:
+- SupplierContactPersonID
+- CustomerContactPersonID
+
+**Workplace Address**:
+- DepartmentName, FunctionalTitle
+- Building, Floor, Room
+- CorrespondenceShortName
+
+**Communication** (same structure as Address Data):
+- Email, Telephone, Facsimile, WebURL
+
+---
+
+## Documentation Links
+
+- **SOAP APIs**: https://help.sap.com/docs/master-data-integration/sap-master-data-integration/soap-apis-for-business-partners
+- **Endpoints**: https://help.sap.com/docs/master-data-integration/sap-master-data-integration/endpoints-for-soap-replication
+- **Partial Data Handling**: https://help.sap.com/docs/master-data-integration/sap-master-data-integration/support-for-partial-data-handling

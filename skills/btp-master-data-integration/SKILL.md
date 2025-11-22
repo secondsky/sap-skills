@@ -226,9 +226,11 @@ Check SAP Trust Center: https://www.sap.com/about/cloud-trust-center/
 ## Reference Files
 
 For detailed information:
+- `references/glossary-and-pricing.md` - Complete glossary, pricing tiers, qualifying apps, maintenance windows
 - `references/integration-models.md` - Complete ODM types and versions
 - `references/integration-guides.md` - System-specific setup guides
-- `references/soap-api-reference.md` - SOAP web services details
+- `references/soap-api-reference.md` - SOAP web services with complete field mappings
+- `references/features-complete.md` - All features, REST/SOAP events, Local ID APIs, Data Privacy
 - `references/security-and-privacy.md` - Security, data protection, filtering
 - `references/extensibility.md` - Custom extensions and WSDL generation
 - `references/monitoring.md` - Business Data Orchestration monitoring
