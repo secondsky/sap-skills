@@ -188,6 +188,9 @@ sap-btp-connectivity/
 │   ├── destination-service-api.md        # REST API reference
 │   ├── advanced-configuration.md         # MTA, chaining, ZTIS
 │   ├── java-sdk-development.md           # Java APIs, JCo, SAP Cloud SDK
+│   ├── mail-protocols.md                 # SMTP, IMAP, POP3 configuration
+│   ├── identity-propagation-scenarios.md # ABAP, NetWeaver Java, IDP
+│   ├── operational-guides.md             # Network zones, solution mgmt
 │   └── troubleshooting.md                # Common issues
 └── templates/
     ├── destination-http-oauth.json       # HTTP destination templates

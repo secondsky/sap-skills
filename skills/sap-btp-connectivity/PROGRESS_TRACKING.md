@@ -642,6 +642,102 @@ All documentation sourced from official SAP BTP Connectivity Documentation:
 
 ---
 
+### 19. Mail Protocols (Enhanced Coverage)
+**Files Processed**:
+- `smtp-426527a.md`
+- `smtp-5876583.md`
+- `smtps-897df97.md`
+- `imap-6037066.md`
+- `imap-8eb0ae6.md`
+- `imaps-ceb84cb.md`
+- `pop3-387e3e4.md`
+- `pop3-9710135.md`
+- `pop3s-76db66c.md`
+
+**Status**: ✅ Completed
+**Key Topics Extracted**:
+- SMTP/SMTPS configuration (ports 25, 465, 587)
+- IMAP/IMAPS configuration (ports 143, 993)
+- POP3/POP3S configuration (ports 110, 995)
+- Mail authentication options (Basic, OAuth2)
+- TLS/SSL encryption settings
+- On-premise mail via SOCKS5 proxy
+- Transparent Proxy multitenancy for mail
+
+---
+
+### 20. Identity Propagation Scenarios (Enhanced Coverage)
+**Files Processed**:
+- `configuring-identity-propagation-to-an-abap-system-6705cc3.md`
+- `configuring-identity-propagation-to-sap-netweaver-as-for-java-2e96287.md`
+- `use-a-custom-idp-for-subaccount-configuration-2022612.md`
+- `exchanging-user-jwts-via-oauth2usertokenexchange-destinations-39d4265.md`
+- `ias-generated-saml-assertion-to-oauth2-bearer-token-chain-d716d41.md`
+- `token-retrieval-using-ias-signed-saml2-0-assertions-a943bb7.md`
+
+**Status**: ✅ Completed
+**Key Topics Extracted**:
+- ABAP system identity propagation (HTTPS, RFC)
+- NetWeaver Java identity propagation (ICM, ClientCertLoginModule)
+- Custom IDP configuration (SSO passcode method)
+- OAuth2UserTokenExchange token flow
+- IAS-signed SAML bearer assertion chains
+- Sequential user propagation chains
+- Communication behavior parameters (JCo)
+
+---
+
+### 21. Operational Guides (Enhanced Coverage)
+**Files Processed**:
+- `network-zones-7b9d90c.md`
+- `network-zones-88efb23.md`
+- `inbound-connectivity-90932cf.md`
+- `outbound-connectivity-a2ca4e8.md`
+- `solution-management-integration-1dfef61.md`
+- `configure-solution-management-integration-3a058a2.md`
+- `operational-modes-148bbad.md`
+- `managed-namespaces-mode-6588a65.md`
+- `release-and-maintenance-strategy-7c3b531.md`
+- `change-the-ui-port-ca5af74.md`
+- `configure-login-screen-information-916df5b.md`
+- `theming-e7e8197.md`
+- `use-ldap-for-user-administration-120ceec.md`
+- `configure-named-cloud-connector-users-3859e50.md`
+- `automatic-pickup-on-resource-changes-78ddb8f.md`
+
+**Status**: ✅ Completed
+**Key Topics Extracted**:
+- Network zone architecture (DMZ, Intranet)
+- Inbound connectivity (cloud-to-on-premise)
+- Outbound connectivity (database tunnel for HANA)
+- Solution Management integration REST API
+- Kubernetes operational modes (managed namespaces)
+- Release and maintenance strategy
+- UI port customization
+- Login screen customization and theming
+- LDAP user administration
+- Named Cloud Connector users
+- Automatic resource pickup configuration
+
+---
+
+### 22. Documentation Archives (Historical)
+**Files Processed**:
+- `2017-connectivity-archive-a5667fc.md`
+- `2018-connectivity-archive-ecd50bf.md`
+- `2019-connectivity-archive-9ef116d.md`
+- `2020-connectivity-archive-c316606.md`
+- `2021-connectivity-archive-2f8b032.md`
+- `what-s-new-for-connectivity-7882854.md`
+
+**Status**: ✅ Completed (Referenced)
+**Key Topics Extracted**:
+- Historical feature releases (2017-2021)
+- What's New for Connectivity reference
+- Release notes archive
+
+---
+
 ## Coverage Summary
 
 | Section | Files Processed | Status |
@@ -664,9 +760,13 @@ All documentation sourced from official SAP BTP Connectivity Documentation:
 | Scenarios & Use Cases | 10 | ✅ |
 | Advanced Configuration | 20 | ✅ |
 | Java APIs and SDK Development | 11 | ✅ |
+| Mail Protocols | 9 | ✅ |
+| Identity Propagation Scenarios | 6 | ✅ |
+| Operational Guides | 15 | ✅ |
+| Documentation Archives | 6 | ✅ |
 
-**Total Sections**: 18
-**Total Files Analyzed**: 307+ (core documentation)
+**Total Sections**: 22
+**Total Files Analyzed**: 343+ (core documentation)
 **Completion Status**: ✅ Complete
 
 ---
