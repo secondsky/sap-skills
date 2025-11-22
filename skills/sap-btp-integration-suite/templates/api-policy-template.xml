@@ -1,0 +1,381 @@
+<!--
+  SAP API Management - Policy Template
+
+  Usage: Use these templates as starting points for API policies
+
+  Documentation:
+  - Policies: https://github.com/SAP-docs/sap-btp-integration-suite/blob/main/docs/apim/API-Management/policies-7e4f3e5.md
+  - Policy Types: https://github.com/SAP-docs/sap-btp-integration-suite/blob/main/docs/apim/API-Management/policy-types-c918e28.md
+-->
+
+<!-- ========================================
+     SECURITY POLICIES
+     ======================================== -->
+
+<!-- Verify API Key -->
+<!--
+<VerifyAPIKey name="Verify-API-Key" enabled="true" continueOnError="false">
+    <APIKey ref="request.header.x-api-key"/>
+    [Alternative: use query parameter instead]
+    [<APIKey ref="request.queryparam.apikey"/>]
+</VerifyAPIKey>
+-->
+
+<!-- OAuth 2.0 Token Validation -->
+<!--
+<OAuthV2 name="Validate-OAuth-Token" enabled="true">
+    <Operation>VerifyAccessToken</Operation>
+    <AccessToken ref="request.header.Authorization"/>
+    <Scope>read write</Scope>
+</OAuthV2>
+-->
+
+<!-- Basic Authentication -->
+<!--
+<BasicAuthentication name="Decode-Basic-Auth" enabled="true">
+    <Operation>Decode</Operation>
+    <User ref="request.header.username"/>
+    <Password ref="request.header.password"/>
+    <Source>request.header.Authorization</Source>
+</BasicAuthentication>
+-->
+
+<!-- Access Control (IP Whitelist) -->
+<!--
+<AccessControl name="IP-Whitelist" enabled="true">
+    <IPRules noRuleMatchAction="DENY">
+        <MatchRule action="ALLOW">
+            <SourceAddress mask="24">192.168.1.0</SourceAddress>
+        </MatchRule>
+        <MatchRule action="ALLOW">
+            <SourceAddress mask="32">10.0.0.1</SourceAddress>
+        </MatchRule>
+    </IPRules>
+</AccessControl>
+-->
+
+
+<!-- ========================================
+     TRAFFIC MANAGEMENT POLICIES
+     ======================================== -->
+
+<!-- Quota (Rate Limiting) -->
+<!--
+<Quota name="Check-Quota" enabled="true" continueOnError="false">
+    <Allow count="1000"/>
+    <Interval>1</Interval>
+    <TimeUnit>month</TimeUnit>
+    <Identifier ref="request.header.x-api-key"/>
+    <MessageWeight ref="request.header.weight"/>
+</Quota>
+-->
+
+<!-- Spike Arrest (Prevent Traffic Spikes) -->
+<!--
+<SpikeArrest name="Spike-Control" enabled="true">
+    <Rate>30pm</Rate>
+    [Alternative: per second]
+    [<Rate>10ps</Rate>]
+    <Identifier ref="request.header.x-api-key"/>
+</SpikeArrest>
+-->
+
+<!-- Response Cache -->
+<!--
+<ResponseCache name="Cache-Response" enabled="true">
+    <CacheKey>
+        <Prefix>myapi</Prefix>
+        <KeyFragment ref="request.uri"/>
+        <KeyFragment ref="request.queryparam.format"/>
+    </CacheKey>
+    <ExpirySettings>
+        <TimeoutInSec>3600</TimeoutInSec>
+    </ExpirySettings>
+    <CacheResource>default</CacheResource>
+</ResponseCache>
+-->
+
+<!-- Lookup Cache -->
+<!--
+<LookupCache name="Lookup-Cached-Data" enabled="true">
+    <CacheKey>
+        <Prefix>mydata</Prefix>
+        <KeyFragment ref="request.queryparam.id"/>
+    </CacheKey>
+    <Scope>Exclusive</Scope>
+    <CacheResource>default</CacheResource>
+    <AssignTo>cachedValue</AssignTo>
+</LookupCache>
+-->
+
+<!-- Populate Cache -->
+<!--
+<PopulateCache name="Store-In-Cache" enabled="true">
+    <CacheKey>
+        <Prefix>mydata</Prefix>
+        <KeyFragment ref="request.queryparam.id"/>
+    </CacheKey>
+    <Scope>Exclusive</Scope>
+    <CacheResource>default</CacheResource>
+    <Source>response.content</Source>
+    <ExpirySettings>
+        <TimeoutInSec>300</TimeoutInSec>
+    </ExpirySettings>
+</PopulateCache>
+-->
+
+
+<!-- ========================================
+     MEDIATION POLICIES
+     ======================================== -->
+
+<!-- Assign Message (Set Headers/Payload) -->
+<!--
+<AssignMessage name="Set-Headers" enabled="true">
+    <AssignTo createNew="false" transport="http" type="request"/>
+    <Set>
+        <Headers>
+            <Header name="X-Forwarded-For">{client.ip}</Header>
+            <Header name="X-Request-ID">{messageid}</Header>
+        </Headers>
+    </Set>
+    <Add>
+        <QueryParams>
+            <QueryParam name="format">json</QueryParam>
+        </QueryParams>
+    </Add>
+    <Remove>
+        <Headers>
+            <Header name="X-Internal-Header"/>
+        </Headers>
+    </Remove>
+</AssignMessage>
+-->
+
+<!-- Extract Variables -->
+<!--
+<ExtractVariables name="Extract-Data" enabled="true">
+    <Source>request</Source>
+    <!-- From JSON payload -->
+    <JSONPayload>
+        <Variable name="userId" type="string">
+            <JSONPath>$.user.id</JSONPath>
+        </Variable>
+        <Variable name="orderCount" type="integer">
+            <JSONPath>$.orders.length()</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <!-- From XML payload -->
+    <XMLPayload stopPayloadProcessing="false">
+        <Namespaces>
+            <Namespace prefix="ns">http://example.com/ns</Namespace>
+        </Namespaces>
+        <Variable name="orderId" type="string">
+            <XPath>/ns:Order/ns:OrderId</XPath>
+        </Variable>
+    </XMLPayload>
+    <!-- From headers/query params -->
+    <Header name="Content-Type">
+        <Pattern ignoreCase="true">application/{format}</Pattern>
+    </Header>
+    <QueryParam name="id">
+        <Pattern>{entityId}</Pattern>
+    </QueryParam>
+</ExtractVariables>
+-->
+
+<!-- JSON to XML Conversion -->
+<!--
+<JSONToXML name="Convert-JSON-to-XML" enabled="true">
+    <Source>request</Source>
+    <OutputVariable>request.content</OutputVariable>
+    <Options>
+        <NullValue>NULL</NullValue>
+        <NamespaceBlockName>#namespaces</NamespaceBlockName>
+        <DefaultNamespaceNodeName>&</DefaultNamespaceNodeName>
+        <NamespaceSeparator>:</NamespaceSeparator>
+        <TextNodeName>#text</TextNodeName>
+        <AttributeBlockName>#attrs</AttributeBlockName>
+        <AttributePrefix>@</AttributePrefix>
+        <InvalidCharsReplacement>_</InvalidCharsReplacement>
+        <ObjectRootElementName>root</ObjectRootElementName>
+        <ArrayRootElementName>root</ArrayRootElementName>
+        <ArrayItemElementName>item</ArrayItemElementName>
+    </Options>
+</JSONToXML>
+-->
+
+<!-- XML to JSON Conversion -->
+<!--
+<XMLToJSON name="Convert-XML-to-JSON" enabled="true">
+    <Source>response</Source>
+    <OutputVariable>response.content</OutputVariable>
+    <Options>
+        <NullValue>NULL</NullValue>
+        <NamespaceBlockName>#namespaces</NamespaceBlockName>
+        <DefaultNamespaceNodeName>&</DefaultNamespaceNodeName>
+        <NamespaceSeparator>:</NamespaceSeparator>
+        <TextNodeName>#text</TextNodeName>
+        <AttributeBlockName>#attrs</AttributeBlockName>
+        <AttributePrefix>@</AttributePrefix>
+        <OutputPrefix></OutputPrefix>
+        <OutputSuffix></OutputSuffix>
+        <StripLevels>0</StripLevels>
+        <TreatAsArray>
+            <Path>/root/items/item</Path>
+        </TreatAsArray>
+    </Options>
+</XMLToJSON>
+-->
+
+
+<!-- ========================================
+     EXTENSION POLICIES
+     ======================================== -->
+
+<!-- JavaScript Policy -->
+<!--
+<Javascript name="Custom-Logic" enabled="true" timeLimit="200">
+    <ResourceURL>jsc://custom-script.js</ResourceURL>
+    <IncludeURL>jsc://utils.js</IncludeURL>
+</Javascript>
+-->
+
+<!-- Service Callout -->
+<!--
+<ServiceCallout name="Call-External-Service" enabled="true">
+    <Request clearPayload="true" variable="calloutRequest">
+        <Set>
+            <Verb>GET</Verb>
+            <Path>/api/data</Path>
+        </Set>
+    </Request>
+    <Response>calloutResponse</Response>
+    <HTTPTargetConnection>
+        <URL>https://api.example.com</URL>
+        <SSLInfo>
+            <Enabled>true</Enabled>
+        </SSLInfo>
+    </HTTPTargetConnection>
+    <Timeout>30000</Timeout>
+</ServiceCallout>
+-->
+
+
+<!-- ========================================
+     THREAT PROTECTION POLICIES
+     ======================================== -->
+
+<!-- JSON Threat Protection -->
+<!--
+<JSONThreatProtection name="JSON-Protection" enabled="true">
+    <Source>request</Source>
+    <ArrayElementCount>20</ArrayElementCount>
+    <ContainerDepth>10</ContainerDepth>
+    <ObjectEntryCount>15</ObjectEntryCount>
+    <ObjectEntryNameLength>50</ObjectEntryNameLength>
+    <StringValueLength>500</StringValueLength>
+</JSONThreatProtection>
+-->
+
+<!-- XML Threat Protection -->
+<!--
+<XMLThreatProtection name="XML-Protection" enabled="true">
+    <Source>request</Source>
+    <StructureLimits>
+        <NodeDepth>10</NodeDepth>
+        <AttributeCountPerElement>5</AttributeCountPerElement>
+        <NamespaceCountPerElement>3</NamespaceCountPerElement>
+        <ChildCount includeComment="true" includeElement="true"
+                    includeProcessingInstruction="true" includeText="true">10</ChildCount>
+    </StructureLimits>
+    <ValueLimits>
+        <Text>500</Text>
+        <Attribute>100</Attribute>
+        <NamespaceURI>256</NamespaceURI>
+        <Comment>256</Comment>
+        <ProcessingInstructionData>256</ProcessingInstructionData>
+    </ValueLimits>
+</XMLThreatProtection>
+-->
+
+<!-- Regular Expression Protection -->
+<!--
+<RegularExpressionProtection name="Regex-Protection" enabled="true">
+    <Source>request</Source>
+    <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    <URIPath>
+        <Pattern>.*[;&lt;&gt;].*</Pattern>
+    </URIPath>
+    <QueryParam name="search">
+        <Pattern>.*[;&lt;&gt;'\"].*</Pattern>
+    </QueryParam>
+    <Header name="User-Agent">
+        <Pattern>.*sqlmap.*</Pattern>
+    </Header>
+    <JSONPayload>
+        <JSONPath>$.user.input</JSONPath>
+        <Pattern>.*&lt;script.*</Pattern>
+    </JSONPayload>
+</RegularExpressionProtection>
+-->
+
+
+<!-- ========================================
+     FAULT HANDLING POLICIES
+     ======================================== -->
+
+<!-- Raise Fault -->
+<!--
+<RaiseFault name="Raise-Custom-Error" enabled="true">
+    <FaultResponse>
+        <Set>
+            <StatusCode>400</StatusCode>
+            <ReasonPhrase>Bad Request</ReasonPhrase>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+            </Headers>
+            <Payload contentType="application/json">
+{
+    "error": {
+        "code": "INVALID_REQUEST",
+        "message": "The request is invalid",
+        "details": "{fault.cause}"
+    }
+}
+            </Payload>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>
+-->
+
+
+<!-- ========================================
+     LOGGING POLICIES
+     ======================================== -->
+
+<!-- Message Logging -->
+<!--
+<MessageLogging name="Log-Request" enabled="true">
+    <Syslog>
+        <Message>[{organization.name}] Request: {request.verb} {request.uri}</Message>
+        <Host>syslog.example.com</Host>
+        <Port>514</Port>
+        <Protocol>TCP</Protocol>
+    </Syslog>
+    <logLevel>INFO</logLevel>
+</MessageLogging>
+-->
+
+<!-- Statistics Collector -->
+<!--
+<StatisticsCollector name="Collect-Metrics" enabled="true">
+    <Statistics>
+        <Statistic name="apiName" ref="apiproxy.name" type="string"/>
+        <Statistic name="responseTime" ref="response.time" type="integer"/>
+        <Statistic name="statusCode" ref="response.status.code" type="integer"/>
+        <Statistic name="clientIP" ref="client.ip" type="string"/>
+    </Statistics>
+</StatisticsCollector>
+-->

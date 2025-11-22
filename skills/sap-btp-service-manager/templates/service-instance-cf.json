@@ -1,0 +1,72 @@
+{
+  "_comment": "Cloud Foundry Service Instance Parameters Template",
+  "_documentation": "https://github.com/SAP-docs/sap-btp-service-manager/blob/main/docs/Service-Consumption/SAP-Service-Manager/creating-service-instances-in-cloud-foundry-6d6846d.md",
+  "_usage": "cf create-service <service> <plan> <instance-name> -c service-instance-cf.json",
+
+  "xsuaa_example": {
+    "_description": "XSUAA service instance parameters",
+    "xsappname": "my-application",
+    "tenant-mode": "dedicated",
+    "scopes": [
+      {
+        "name": "$XSAPPNAME.read",
+        "description": "Read access"
+      },
+      {
+        "name": "$XSAPPNAME.write",
+        "description": "Write access"
+      }
+    ],
+    "role-templates": [
+      {
+        "name": "Viewer",
+        "description": "View-only access",
+        "scope-references": ["$XSAPPNAME.read"]
+      },
+      {
+        "name": "Editor",
+        "description": "Full access",
+        "scope-references": ["$XSAPPNAME.read", "$XSAPPNAME.write"]
+      }
+    ]
+  },
+
+  "hana_hdi_example": {
+    "_description": "HANA HDI Container parameters",
+    "database_id": "<hana-database-guid>",
+    "schema": "MY_SCHEMA"
+  },
+
+  "destination_example": {
+    "_description": "Destination service parameters",
+    "HTML5Runtime_enabled": true,
+    "init_data": {
+      "subaccount": {
+        "existing_destinations_policy": "update",
+        "destinations": [
+          {
+            "Name": "my-destination",
+            "Type": "HTTP",
+            "URL": "https://api.example.com",
+            "Authentication": "NoAuthentication",
+            "ProxyType": "Internet"
+          }
+        ]
+      }
+    }
+  },
+
+  "service_manager_example": {
+    "_description": "Service Manager instance parameters",
+    "_plans": "subaccount-admin | subaccount-audit | container | service-operator-access"
+  },
+
+  "generic_template": {
+    "_instructions": "Replace with service-specific parameters",
+    "parameter1": "value1",
+    "parameter2": "value2",
+    "nested": {
+      "key": "value"
+    }
+  }
+}

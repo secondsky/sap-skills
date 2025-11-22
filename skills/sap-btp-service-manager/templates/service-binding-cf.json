@@ -1,0 +1,76 @@
+{
+  "_comment": "Cloud Foundry Service Binding Parameters Template",
+  "_documentation": "https://github.com/SAP-docs/sap-btp-service-manager/blob/main/docs/Service-Consumption/SAP-Service-Manager/bind-f53ff26.md",
+  "_usage": "smctl bind <instance> <binding> -c service-binding-cf.json",
+
+  "default_credentials": {
+    "_description": "Standard OAuth2 client credentials (default)",
+    "_note": "No parameters needed for default credentials"
+  },
+
+  "x509_credentials": {
+    "_description": "X.509 certificate-based credentials",
+    "credential-type": "x509"
+  },
+
+  "x509_custom_validity": {
+    "_description": "X.509 with custom certificate validity",
+    "credential-type": "x509",
+    "key-length": 4096,
+    "validity-type": "MONTHS",
+    "validity": 6,
+    "_validity_type_options": ["DAYS", "MONTHS", "YEARS"],
+    "_key_length_default": 2048,
+    "_validity_default": "7 DAYS"
+  },
+
+  "x509_short_lived": {
+    "_description": "Short-lived X.509 certificate (7 days)",
+    "credential-type": "x509",
+    "key-length": 2048,
+    "validity-type": "DAYS",
+    "validity": 7
+  },
+
+  "x509_production": {
+    "_description": "Production X.509 certificate (1 year)",
+    "credential-type": "x509",
+    "key-length": 4096,
+    "validity-type": "YEARS",
+    "validity": 1
+  },
+
+  "xsuaa_binding": {
+    "_description": "XSUAA-specific binding parameters",
+    "credential-type": "x509",
+    "x509": {
+      "key-length": 4096,
+      "validity": 30,
+      "validity-type": "DAYS"
+    }
+  },
+
+  "destination_binding": {
+    "_description": "Destination service binding parameters",
+    "_note": "Usually no parameters needed"
+  },
+
+  "service_manager_binding": {
+    "_description": "Service Manager binding for API access",
+    "_default_credentials_response": {
+      "clientid": "sb-xxx",
+      "clientsecret": "xxx",
+      "sm_url": "https://service-manager.cfapps.region.hana.ondemand.com",
+      "url": "https://xxx.authentication.region.hana.ondemand.com",
+      "xsappname": "xxx"
+    },
+    "_x509_credentials_response": {
+      "clientid": "sb-xxx",
+      "certificate": "-----BEGIN CERTIFICATE-----...",
+      "key": "-----BEGIN RSA PRIVATE KEY-----...",
+      "certurl": "https://xxx.authentication.cert.region.hana.ondemand.com",
+      "sm_url": "https://service-manager.cfapps.region.hana.ondemand.com",
+      "xsappname": "xxx"
+    }
+  }
+}
