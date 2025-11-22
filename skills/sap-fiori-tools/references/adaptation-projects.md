@@ -166,6 +166,43 @@ Fiori: Add Deployment Configuration
 | Local Annotations | Add annotation files |
 | Inbound Navigation | Modify navigation configuration |
 
+### Adaptation Editor UI Operations
+
+Access: Right-click `manifest.appdescr_variant` > "Open Adaptation Editor"
+
+| Operation | Method |
+|-----------|--------|
+| Modify properties | Select element, adjust in Properties pane |
+| Add fields | Right-click group > "Add Field" > select fields |
+| Create groups | Right-click > "Add Group" |
+| Add sections | Right-click sections > "Add Section" |
+| Rename elements | Double-click or right-click > rename |
+| Reorder elements | Drag and drop |
+| Move elements | Cut, highlight target, paste |
+| Combine fields | Ctrl+click multiple (max 3) > "Combine" |
+| Split fields | Right-click combined > "Split" |
+| Remove elements | Right-click > remove or Delete key |
+
+**Note**: Removed fields remain available for re-adding. Mandatory fields require confirmation.
+
+### Quick Actions Availability Matrix
+
+Quick actions vary by SAPUI5 version. Key milestones:
+
+| Action | Min Version | OData |
+|--------|-------------|-------|
+| Add Controller to Page | 1.71 | V2, V4 |
+| Add Header Field | 1.71 | V2, V4 |
+| Add Custom Section | 1.71 | V2, V4 |
+| Enable/Disable Clear Button | 1.71 | V2, V4 |
+| Add Custom Table Action | 1.96 | V2, V4 |
+| Add Custom Table Column | 1.96 | V2, V4 |
+| Change Table Columns | 1.96 | V2, V4 |
+| Enable Variant Management | 1.96 | V2, V4 |
+| Add Custom Page Action | 1.120 | V2, V4 |
+| Add Local Annotation File | 1.133 | V2, V4 |
+| Add Subpage (V4) | 1.135 | V4 only |
+
 ---
 
 ## Controller Extensions

@@ -179,15 +179,17 @@ The SAP Fiori Tools documentation consists of **~100+ markdown files** organized
 
 | File | Purpose | Lines |
 |------|---------|-------|
-| SKILL.md | Main skill instructions | ~350 |
-| README.md | Keywords for discovery | ~200 |
-| references/page-editor.md | Page Editor details | ~350 |
-| references/annotations.md | Annotation development | ~400 |
-| references/deployment.md | Deployment configuration | ~350 |
-| references/adaptation-projects.md | Extension development | ~400 |
-| references/preview.md | Preview and testing | ~350 |
+| SKILL.md | Main skill instructions | ~380 |
+| README.md | Keywords for discovery | ~270 |
+| references/getting-started.md | Installation, migration, commands | ~450 |
+| references/configuration.md | MTA, middlewares, SAPUI5 versions | ~400 |
+| references/page-editor.md | Page Editor details | ~370 |
+| references/annotations.md | Annotation development | ~415 |
+| references/deployment.md | Deployment configuration | ~430 |
+| references/adaptation-projects.md | Extension development | ~480 |
+| references/preview.md | Preview and testing | ~510 |
 
-**Total**: ~2,400 lines of documentation
+**Total**: ~3,700+ lines of documentation
 
 ---
 

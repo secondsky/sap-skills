@@ -324,10 +324,40 @@ npx fiori help              # List available commands
 npx fiori deploy help       # Deployment command help
 ```
 
+## Migration from SAP Web IDE
+
+Migrate existing projects using:
+```
+Fiori: Migrate Project for use in Fiori tools
+```
+
+**Supported Types**: Fiori Elements (V2/V4), Freestyle SAPUI5, Adaptation Projects, Extensibility Projects
+
+**Post-Migration**: Run `npm run deploy-config` to update deployment configuration.
+
+For migration details, see `references/getting-started.md`.
+
+## Guided Development (76+ Guides)
+
+Access step-by-step implementation guides:
+```
+Fiori: Open Guided Development
+```
+
+**Guide Categories**:
+- Building Blocks (Chart, Filter Bar, Table)
+- Page Elements (Cards, Header Facets, Sections)
+- Table Enhancements (Column types, Actions)
+- Filtering & Navigation
+- Configuration (Variant management, Side effects)
+- Extensions (Custom actions, sections, columns)
+
 ## Reference Documentation
 
 For detailed information on specific topics:
 
+- `references/getting-started.md` - Installation, migration, ADT integration, commands
+- `references/configuration.md` - MTA, middlewares, SAPUI5 versions, project functions
 - `references/page-editor.md` - Page Editor configuration details
 - `references/annotations.md` - Annotation patterns and examples
 - `references/deployment.md` - Deployment configuration details
