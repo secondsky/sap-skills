@@ -263,8 +263,8 @@ For detailed guidance:
 
 | SDK | Current Version | Node/Java Requirement |
 |-----|-----------------|----------------------|
-| JavaScript | 2.2.0+ | Node.js 20+ |
-| Java | 1.11.0+ | Java 17+ (21 LTS recommended) |
+| JavaScript | 1.18.0+ | Node.js 20+ |
+| Java | 1.13.0 | Java 17+ (21 LTS recommended) |
 
 **Note**: Generated model classes (in `...model` packages) may change in minor releases but are safe to use.
 

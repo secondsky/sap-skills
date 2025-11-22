@@ -88,8 +88,8 @@ sap-cloud-sdk-ai/
 
 ## Version
 
-- **JavaScript SDK**: 2.2.0+
-- **Java SDK**: 1.11.0+
+- **JavaScript SDK**: 1.18.0+ (Nov 22, 2025)
+- **Java SDK**: 1.13.0 (Oct 30, 2025)
 - **Last Updated**: 2025-11-22
 
 ## Documentation Sources
