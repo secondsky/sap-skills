@@ -54,6 +54,7 @@
 - [x] `binding-service-instances-to-cloud-foundry-applications-0e6850d.md` - CF app binding
 - [x] `creating-service-bindings-in-kubernetes-5c7aa31.md` - K8s bindings (links to external)
 - [x] `creating-service-bindings-in-kyma-9467024.md` - Kyma bindings (links to external)
+- [x] `creating-service-bindings-in-other-environments-55b31ea.md` - Other environment bindings
 - [x] `creating-service-keys-in-cloud-foundry-6fcac08.md` - Service keys for external access
 
 ### SMCTL CLI Commands
@@ -81,6 +82,20 @@
 - [x] `list-plans-b0e4863.md` - `smctl list-plans`
 - [x] `get-instance-24fb85c.md` - `smctl get-instance` (alias: gi, --show-instance-params)
 - [x] `get-binding-8495036.md` - `smctl get-binding` (alias: gsb, --show-binding-params)
+- [x] `list-platforms-98f4461.md` - `smctl list-platforms` (alias: lp)
+- [x] `delete-platform-be41510.md` - `smctl delete-platform` (alias: dp, --cascade-delete)
+
+### Navigation/Index Pages (No unique content)
+- [x] `bindings-c9763ce.md` - Index page for binding commands
+- [x] `other-commands-8af0691.md` - Index page for status, info, version, help
+- [x] `login-and-logout-fcc37a9.md` - Index page for login/logout
+- [x] `service-bindings-4d3f95c.md` - Index for service bindings operations
+- [x] `service-bindings-bb8009d.md` - Index for service bindings
+- [x] `service-brokers-36f8c54.md` - Index for service brokers
+- [x] `service-instances-1930647.md` - Index for service instances
+- [x] `service-instances-9981887.md` - Index for service instances
+- [x] `platforms-90f0856.md` - Index for platform commands
+- [x] `platforms-a6d96ec.md` - Index for platform operations
 
 ### BTP CLI Commands
 - [x] `create-services-instance-5a44ad8.md` - `btp create services/instance`
@@ -93,6 +108,19 @@
 - [x] `brokers-743f3f7.md` - Broker operations (register, update, list, delete)
 - [x] `offerings-5708056.md` - Offerings operations (list-offerings, list-plans, marketplace)
 - [x] `instances-23af00d.md` - Instance operations (provision, get, list, deprovision)
+- [x] `list-services-instance-7f03112.md` - `btp list services/instance` (--labels-filter, --fields-filter)
+- [x] `list-services-binding-308dd03.md` - `btp list services/binding` (--labels-filter, --fields-filter)
+- [x] `list-services-offering-4613e39.md` - `btp list services/offering` (--environment, --labels-filter)
+- [x] `list-services-plan-e8d3953.md` - `btp list services/plan` (--environment, --labels-filter)
+- [x] `list-services-broker-7c113a7.md` - `btp list services/broker` (--labels-filter, --fields-filter)
+- [x] `list-services-platform-ae1e34b.md` - `btp list services/platform` (--labels-filter, --fields-filter)
+- [x] `get-services-binding-989769e.md` - `btp get services/binding` (--show-parameters)
+- [x] `get-services-broker-bdf3de1.md` - `btp get services/broker`
+- [x] `get-services-offering-fd9b556.md` - `btp get services/offering`
+- [x] `get-services-plan-8782a02.md` - `btp get services/plan`
+- [x] `get-services-platform-e5130b4.md` - `btp get services/platform`
+- [x] `register-services-broker-c2c2d3c.md` - `btp register services/broker` (detailed params)
+- [x] `register-services-platform-d4cf7c9.md` - `btp register services/platform` (kubernetes only)
 
 ### Additional API & Documentation
 - [x] `operations-abff334.md` - Operations API (async operation status)
@@ -230,9 +258,13 @@
 3. Service operator GitHub repo has additional technical details
 4. Rate limiting is three-tiered and operates concurrently
 5. X.509 certificates supported for enhanced security
+6. BTP CLI list commands support `--labels-filter` and `--fields-filter` for advanced queries
+7. BTP CLI offering/plan commands support `--environment` filter (cloudfoundry/kubernetes)
+8. Navigation/index pages contain no unique content (just links to command pages)
 
 ---
 
 **Skill Status**: Ready for Production
-**Completeness**: 100% of available documentation extracted
+**Completeness**: 100% of available documentation extracted (80+ files analyzed)
 **Last Verification**: 2025-11-22
+**Total Files in Repository**: ~119 markdown files in SAP-Service-Manager directory

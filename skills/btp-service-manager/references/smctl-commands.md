@@ -509,12 +509,34 @@ smctl list-platforms [flags]
 
 ### smctl delete-platform
 
-Unregister a platform.
+Delete one or more platforms.
 
 **Syntax**:
 ```bash
-smctl delete-platform [name] [flags]
+smctl delete-platform <name1> <name2> ... <nameN> [flags]
 ```
+
+**Aliases**: `delete-platform`, `dp`
+
+**Flags**:
+| Flag | Description |
+|------|-------------|
+| `-f, --force` | Delete without confirmation |
+| `--cascade-delete` | Delete asynchronously with cascade (returns operation URL) |
+| `-o, --output <format>` | `json`, `yaml`, or `text` |
+
+**Examples**:
+```bash
+# Standard deletion
+smctl delete-platform sample-platform
+# Output: Platform with name: sample-platform successfully deleted
+
+# Cascade delete (async)
+smctl delete-platform sample-platform --cascade-delete
+# Returns: smctl status /v1/platforms/{id}/operations/{operation-id}
+```
+
+**Note**: Cascade delete schedules an async operation; use `smctl status` to monitor.
 
 ---
 

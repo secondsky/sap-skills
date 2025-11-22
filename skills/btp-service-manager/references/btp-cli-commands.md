@@ -108,6 +108,13 @@ btp list services/instance [parameters]
 | Parameter | Description |
 |-----------|-------------|
 | `-sa, --subaccount <id>` | Subaccount ID |
+| `--labels-filter <query>` | Filter by labels (e.g., `landscape eq 'production'`) |
+| `--fields-filter <query>` | Filter by fields (e.g., `usable eq 'true'`) |
+
+**Example**:
+```bash
+btp list services/instance --subaccount abc-123 --fields-filter "ready eq 'true'"
+```
 
 ---
 
@@ -227,6 +234,13 @@ List all bindings.
 btp list services/binding [parameters]
 ```
 
+**Parameters**:
+| Parameter | Description |
+|-----------|-------------|
+| `-sa, --subaccount <id>` | Subaccount ID |
+| `--labels-filter <query>` | Filter by labels (e.g., `purpose eq 'backing services'`) |
+| `--fields-filter <query>` | Filter by fields (e.g., `ready eq 'true'`) |
+
 ---
 
 ### btp delete services/binding
@@ -248,8 +262,15 @@ List all registered platforms.
 
 **Syntax**:
 ```bash
-btp list services/platform --subaccount <id>
+btp list services/platform [parameters]
 ```
+
+**Parameters**:
+| Parameter | Description |
+|-----------|-------------|
+| `-sa, --subaccount <id>` | Subaccount ID |
+| `--labels-filter <query>` | Filter by labels |
+| `--fields-filter <query>` | Filter by fields |
 
 ---
 
@@ -259,27 +280,41 @@ Get platform details.
 
 **Syntax**:
 ```bash
-btp get services/platform <platform-id> --subaccount <id>
+btp get services/platform <platform-id> [parameters]
 ```
+
+**Parameters**:
+| Parameter | Description |
+|-----------|-------------|
+| `<platform-id>` | Platform ID |
+| `-sa, --subaccount <id>` | Subaccount ID |
+
+**Output**: ID, Name, Type, Description, URL, Created, Updated, Labels
 
 ---
 
 ### btp register services/platform
 
-Register a new platform.
+Register a new platform (Kubernetes only).
 
 **Syntax**:
 ```bash
 btp register services/platform [parameters]
 ```
 
-**Parameters**:
+**Required Parameters**:
 | Parameter | Description |
 |-----------|-------------|
 | `-sa, --subaccount <id>` | Subaccount ID |
-| `--name <name>` | Platform name |
-| `--type <type>` | Platform type |
-| `--description <desc>` | Description |
+| `-n, --name <name>` | Platform name (alphanumeric + hyphens, must be unique) |
+| `-t, --type <type>` | Platform type (only `kubernetes` supported) |
+
+**Optional Parameters**:
+| Parameter | Description |
+|-----------|-------------|
+| `--id <id>` | Custom platform ID (globally unique) |
+| `-d, --description <desc>` | Description |
+| `-l, --labels <json>` | Labels as JSON |
 
 **Example**:
 ```bash
@@ -289,6 +324,8 @@ btp register services/platform \
   --type kubernetes \
   --description "Production cluster"
 ```
+
+**Output**: Platform credentials (username/password) returned on success.
 
 ---
 
@@ -322,8 +359,36 @@ List all registered brokers.
 
 **Syntax**:
 ```bash
-btp list services/broker --subaccount <id>
+btp list services/broker [parameters]
 ```
+
+**Parameters**:
+| Parameter | Description |
+|-----------|-------------|
+| `-sa, --subaccount <id>` | Subaccount ID |
+| `--labels-filter <query>` | Filter by labels |
+| `--fields-filter <query>` | Filter by fields |
+
+**Output**: ID, Name, Description, Broker URL, Created, Updated, Labels
+
+---
+
+### btp get services/broker
+
+Get broker details.
+
+**Syntax**:
+```bash
+btp get services/broker <broker-id> [parameters]
+```
+
+**Parameters**:
+| Parameter | Description |
+|-----------|-------------|
+| `<broker-id>` | Broker ID |
+| `-sa, --subaccount <id>` | Subaccount ID |
+
+**Output**: ID, Name, Description, Broker URL, Created, Updated, Labels
 
 ---
 
@@ -336,14 +401,24 @@ Register a service broker.
 btp register services/broker [parameters]
 ```
 
-**Parameters**:
+**Required Parameters**:
 | Parameter | Description |
 |-----------|-------------|
 | `-sa, --subaccount <id>` | Subaccount ID |
-| `--name <name>` | Broker name |
+| `-n, --name <name>` | Broker name (alphanumeric + hyphens, must be unique) |
 | `--url <url>` | Broker URL |
-| `--user <user>` | Auth username |
-| `--password <pass>` | Auth password |
+| `-u, --user <user>` | Auth username |
+| `-p, --password <pass>` | Auth password |
+
+**Optional Parameters**:
+| Parameter | Description |
+|-----------|-------------|
+| `-d, --description <desc>` | Description |
+| `-l, --labels <json>` | Labels as JSON |
+
+**Label Format**:
+- Keys: max 100 chars, alphanumeric + `.` `_` `-`
+- Values: arrays of strings, max 255 chars each, no newlines
 
 ---
 
@@ -366,8 +441,18 @@ List available service offerings.
 
 **Syntax**:
 ```bash
-btp list services/offering --subaccount <id>
+btp list services/offering [parameters]
 ```
+
+**Parameters**:
+| Parameter | Description |
+|-----------|-------------|
+| `-sa, --subaccount <id>` | Subaccount ID |
+| `--environment <env>` | Filter by environment: `cloudfoundry` or `kubernetes` |
+| `--labels-filter <query>` | Filter by labels (e.g., `environment eq 'test'`) |
+| `--fields-filter <query>` | Filter by fields |
+
+**Note**: Without `--environment`, returns services consumable through Service Manager bindings.
 
 ---
 
@@ -377,8 +462,14 @@ Get offering details.
 
 **Syntax**:
 ```bash
-btp get services/offering <offering-id> --subaccount <id>
+btp get services/offering <offering-id> [parameters]
 ```
+
+**Parameters**:
+| Parameter | Description |
+|-----------|-------------|
+| `<offering-id>` | Offering ID |
+| `-sa, --subaccount <id>` | Subaccount ID |
 
 ---
 
@@ -390,8 +481,16 @@ List available service plans.
 
 **Syntax**:
 ```bash
-btp list services/plan --subaccount <id>
+btp list services/plan [parameters]
 ```
+
+**Parameters**:
+| Parameter | Description |
+|-----------|-------------|
+| `-sa, --subaccount <id>` | Subaccount ID |
+| `--environment <env>` | Filter by environment: `cloudfoundry` or `kubernetes` |
+| `--labels-filter <query>` | Filter by labels |
+| `--fields-filter <query>` | Filter by fields |
 
 ---
 
@@ -401,8 +500,14 @@ Get plan details.
 
 **Syntax**:
 ```bash
-btp get services/plan <plan-id> --subaccount <id>
+btp get services/plan <plan-id> [parameters]
 ```
+
+**Parameters**:
+| Parameter | Description |
+|-----------|-------------|
+| `<plan-id>` | Plan ID |
+| `-sa, --subaccount <id>` | Subaccount ID |
 
 ---
 
