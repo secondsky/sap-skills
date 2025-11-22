@@ -151,6 +151,48 @@ When automatic backup insufficient:
 
 ---
 
+## Transport Action Log Archiving
+
+Configure archiving settings for transport action logs.
+
+### Access
+
+Transport Action Logs > Settings (gear icon) > Configure Archiving Settings
+
+### Default Settings
+
+- **Archiving Frequency**: Every 13 weeks (quarterly)
+- **Data Retention**: 7 years (actions older than this are archived)
+- **Archived Location**: Archived Logs tab in Transport Action Logs
+
+### Configuration Options
+
+| Setting | Options | Default |
+|---------|---------|---------|
+| Mode | Archive, Delete | Archive |
+| Retention Period | 1-7 years | 7 years |
+| Archiving Schedule | Adjustable intervals (weekly to 52-week) | 13 weeks |
+| User Anonymization | Checkbox | Disabled |
+
+**Mode**:
+- **Archive**: Moves older actions to secondary storage, then removes from database
+- **Delete**: Permanently removes actions without archival
+
+**User Data Anonymization**:
+- Replaces usernames and email addresses with `***<anonymized>***`
+- **Irreversible** once applied
+
+### Implementation
+
+1. Navigate to Transport Action Logs
+2. Select settings (gear) icon
+3. Adjust parameters in dialog
+4. Save changes
+
+**Note**: Archiving runs as background jobs, logged in Landscape Action Logs.
+
+---
+
 ## Storage Management
 
 ### Capacity Limits
