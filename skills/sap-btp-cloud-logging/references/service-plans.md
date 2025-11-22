@@ -93,14 +93,12 @@ At **1000 logs per second** (2 kB each):
 
 ### Plan Migration
 
-Plan updates are **not supported**. To change plans:
+Plan updates are **not supported**. Migration checklist:
 
-1. Create a new instance with the desired plan
-2. Run both instances in parallel
-3. Migrate dashboards, alerts, and configurations
-4. Update all application bindings to the new instance
-5. Verify ingestion and analysis work correctly
-6. Delete the old instance
+1. Create new instance → Run parallel → Migrate configs/dashboards
+2. Update bindings → Verify ingestion → Delete old instance
+
+**Critical:** Test thoroughly in parallel before removing the old instance.
 
 ### Pricing Considerations
 

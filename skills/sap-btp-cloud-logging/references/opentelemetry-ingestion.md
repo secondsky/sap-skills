@@ -165,7 +165,7 @@ SAP provides a BTP Observability Extension that automatically configures OTLP ex
 <dependency>
   <groupId>com.sap.cloud.environment.servicebinding</groupId>
   <artifactId>java-modules-bom</artifactId>
-  <version>LATEST</version>
+  <version>${sap.cloud.sdk.version}</version>  <!-- Pin to specific version -->
   <type>pom</type>
   <scope>import</scope>
 </dependency>
@@ -175,6 +175,8 @@ SAP provides a BTP Observability Extension that automatically configures OTLP ex
   <artifactId>observability-client</artifactId>
 </dependency>
 ```
+
+**Note:** For production, pin versions instead of using `LATEST`. Check [SAP Cloud SDK releases](https://sap.github.io/cloud-sdk/docs/java/release-notes) for current stable versions.
 
 ### How It Works
 
