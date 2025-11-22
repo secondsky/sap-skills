@@ -259,6 +259,9 @@ btp create accounts/environment-instance \
 ### Service Instances
 
 ```bash
+# Discover available services and plans
+cf marketplace
+
 # CF CLI - Create service instance
 cf create-service <service> <plan> <name> -c '<parameters>'
 
@@ -402,8 +405,9 @@ resource "btp_subaccount" "dev" {
 
 resource "btp_subaccount_entitlement" "cf" {
   subaccount_id = btp_subaccount.dev.id
-  service_name  = "cloudfoundry"
-  plan_name     = "standard"
+  service_name  = "APPLICATION_RUNTIME"
+  plan_name     = "MEMORY"
+  amount        = 1
 }
 ```
 

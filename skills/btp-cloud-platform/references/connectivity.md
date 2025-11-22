@@ -162,6 +162,10 @@ mTLS:
 }
 ```
 
+> **Note**: The keystore file (`.p12` or `.jks`) must be uploaded to the destination
+> configuration in BTP Cockpit before referencing it. Upload via: Connectivity →
+> Destinations → destination properties → Upload and Delete Certificates.
+
 ### Authentication Method Compatibility
 
 | Method | Internet | OnPremise | Private Link |
