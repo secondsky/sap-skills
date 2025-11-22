@@ -610,6 +610,38 @@ All documentation sourced from official SAP BTP Connectivity Documentation:
 
 ---
 
+### 18. Java APIs and SDK Development
+**Files Processed**:
+- `destination-java-apis-60f00ec.md`
+- `connectivityconfiguration-api-d31bdd5.md`
+- `authenticationheaderprovider-api-2959ab8.md`
+- `invoking-abap-function-modules-via-rfc-fa4adc9.md`
+- `invoke-abap-function-modules-in-on-premise-abap-systems-bfcb54c.md`
+- `invoke-abap-function-modules-in-cloud-abap-systems-55c9d13.md`
+- `developing-java-applications-with-connectivity-service-93a0426.md`
+- `develop-a-sample-web-application-913e445.md`
+- `sample-web-application-5d2e82a.md`
+- `set-up-an-application-router-b14eeb9.md`
+- `using-websocket-rfc-for-direct-connectivity-to-abap-systems-via-internet-7b3dc40.md`
+
+**Status**: ✅ Completed
+**Key Topics Extracted**:
+- ConnectivityConfiguration API (JNDI lookup, DestinationConfiguration)
+- AuthenticationHeaderProvider API (Principal Propagation, OAuth headers)
+- JCo (Java Connector) for RFC calls
+- SAP Cloud SDK (recommended, DestinationAccessor)
+- Maven dependencies for connectivity
+- Sample servlet for RFC invocation
+- Working with JCo tables
+- Connection pool access and statistics
+- Application Router setup for JCo multitenancy
+- WebSocket RFC for direct internet connectivity (S/4HANA 1909+)
+- Communication behavior parameters
+- Encryption keys (CSEK, CMK)
+- Node.js SAP Cloud SDK integration
+
+---
+
 ## Coverage Summary
 
 | Section | Files Processed | Status |
@@ -631,9 +663,10 @@ All documentation sourced from official SAP BTP Connectivity Documentation:
 | Multitenancy | 4 | ✅ |
 | Scenarios & Use Cases | 10 | ✅ |
 | Advanced Configuration | 20 | ✅ |
+| Java APIs and SDK Development | 11 | ✅ |
 
-**Total Sections**: 17
-**Total Files Analyzed**: 296+ (core documentation)
+**Total Sections**: 18
+**Total Files Analyzed**: 307+ (core documentation)
 **Completion Status**: ✅ Complete
 
 ---

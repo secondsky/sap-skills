@@ -561,6 +561,7 @@ See `references/troubleshooting.md` for complete troubleshooting guide.
 | `references/kubernetes-connectivity.md` | Connectivity Proxy and Transparent Proxy |
 | `references/destination-service-api.md` | REST API reference |
 | `references/advanced-configuration.md` | MTA, config.json, chaining, ZTIS |
+| `references/java-sdk-development.md` | Java APIs, JCo, SAP Cloud SDK |
 | `references/troubleshooting.md` | Common issues and solutions |
 | `templates/destination-http-oauth.json` | HTTP destination with OAuth template |
 | `templates/destination-onpremise.json` | On-premise destination template |

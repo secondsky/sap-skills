@@ -187,6 +187,7 @@ sap-btp-connectivity/
 │   ├── kubernetes-connectivity.md        # Kubernetes proxies
 │   ├── destination-service-api.md        # REST API reference
 │   ├── advanced-configuration.md         # MTA, chaining, ZTIS
+│   ├── java-sdk-development.md           # Java APIs, JCo, SAP Cloud SDK
 │   └── troubleshooting.md                # Common issues
 └── templates/
     ├── destination-http-oauth.json       # HTTP destination templates
