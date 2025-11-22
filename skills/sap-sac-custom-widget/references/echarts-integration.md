@@ -70,7 +70,7 @@ Apache ECharts is a powerful charting library that can be integrated into SAC cu
   "methods": {
     "refresh": {
       "description": "Refresh the chart",
-      "body": "this.refresh();"
+      "body": "this._refresh();"
     }
   },
   "events": {
@@ -269,7 +269,7 @@ Apache ECharts is a powerful charting library that can be integrated into SAC cu
       }
     }
 
-    refresh() {
+    _refresh() {
       this._render();
     }
 

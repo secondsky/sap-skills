@@ -434,7 +434,7 @@ Widget that receives data from SAC models.
   "methods": {
     "refresh": {
       "description": "Refresh the data display",
-      "body": "this.refresh();"
+      "body": "this._refresh();"
     }
   },
   "events": {
@@ -616,7 +616,7 @@ Widget that receives data from SAC models.
       return value;
     }
 
-    refresh() {
+    _refresh() {
       this._render();
     }
 
@@ -672,14 +672,14 @@ Widget with click events for script interaction.
   "methods": {
     "click": {
       "description": "Programmatically click the button",
-      "body": "this.click();"
+      "body": "this._click();"
     },
     "setDisabled": {
       "description": "Enable or disable the button",
       "parameters": [
         { "name": "isDisabled", "type": "boolean", "description": "Disabled state" }
       ],
-      "body": "this.setDisabled(isDisabled);"
+      "body": "this._setDisabled(isDisabled);"
     }
   },
   "events": {
@@ -777,13 +777,13 @@ Widget with click events for script interaction.
       btn.disabled = this._props.disabled;
     }
 
-    click() {
+    _click() {
       if (!this._props.disabled) {
         this.dispatchEvent(new Event("onClick"));
       }
     }
 
-    setDisabled(isDisabled) {
+    _setDisabled(isDisabled) {
       this._props.disabled = isDisabled;
       this._render();
     }
@@ -842,7 +842,7 @@ Professional KPI display widget.
     "setValue": {
       "description": "Set the KPI value",
       "parameters": [{ "name": "val", "type": "number" }],
-      "body": "this.setValue(val);"
+      "body": "this._setValue(val);"
     }
   },
   "events": {
@@ -1043,7 +1043,7 @@ Professional KPI display widget.
       return num.toLocaleString();
     }
 
-    setValue(val) {
+    _setValue(val) {
       this._props.value = val;
       this._render();
     }

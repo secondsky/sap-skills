@@ -89,7 +89,7 @@ Complete reference for the JSON metadata file that defines custom widgets.
   "methods": {
     "refresh": {
       "description": "Refresh widget data",
-      "body": "this.refresh();"
+      "body": "this._refresh();"
     },
     "setValue": {
       "description": "Set the widget value",
@@ -100,12 +100,12 @@ Complete reference for the JSON metadata file that defines custom widgets.
           "description": "The new value"
         }
       ],
-      "body": "this.setValue(newValue);"
+      "body": "this._setValue(newValue);"
     },
     "getValue": {
       "description": "Get the current value",
       "returnType": "number",
-      "body": "return this.getValue();"
+      "body": "return this._getValue();"
     }
   },
   "events": {
@@ -332,10 +332,12 @@ Methods allow scripts to call functions on the widget.
 {
   "refresh": {
     "description": "Refresh the widget",
-    "body": "this.refresh();"
+    "body": "this._refresh();"
   }
 }
 ```
+
+> **⚠️ Important**: The `body` must call an internal method (prefixed with `_`) to avoid infinite recursion. When SAC invokes `Widget.refresh()`, it executes the body code. If the body calls `this.refresh()`, it would recursively call itself. Always use `this._refresh()` pattern.
 
 ### Method With Parameters
 
@@ -350,7 +352,7 @@ Methods allow scripts to call functions on the widget.
         "description": "The new title text"
       }
     ],
-    "body": "this.setTitle(newTitle);"
+    "body": "this._setTitle(newTitle);"
   }
 }
 ```
@@ -362,7 +364,7 @@ Methods allow scripts to call functions on the widget.
   "getTotal": {
     "description": "Get the total value",
     "returnType": "number",
-    "body": "return this.getTotal();"
+    "body": "return this._getTotal();"
   }
 }
 ```
@@ -378,7 +380,7 @@ Methods allow scripts to call functions on the widget.
       { "name": "height", "type": "integer", "description": "Height in pixels" },
       { "name": "title", "type": "string", "description": "Title text" }
     ],
-    "body": "this.configure(width, height, title);"
+    "body": "this._configure(width, height, title);"
   }
 }
 ```

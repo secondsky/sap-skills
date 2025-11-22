@@ -4,9 +4,12 @@ Comprehensive reference for Analytics Designer and Optimized Story Experience Sc
 relevant to custom widget development.
 
 **Sources**:
-- [Analytics Designer API Reference Guide 2025.14](https://help.sap.com/doc/958d4c11261f42e992e8d01a4c0dde25/release/en-US/index.html)
-- [Optimized Story Experience API Reference Guide 2025.14](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html)
-- [SAP Help Portal - API Reference](https://help.sap.com/docs/SAP_ANALYTICS_CLOUD/18850a0e13944f53aa8a8b7c094ea29e/0ace2c43b92b41099b1cd964b4ff198a.html)
+- [Analytics Designer API Reference Guide](https://help.sap.com/doc/958d4c11261f42e992e8d01a4c0dde25/release/en-US/index.html)
+- [Optimized Story Experience API Reference Guide](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html)
+- [Custom Widget Developer Guide (PDF)](https://help.sap.com/doc/c813a28922b54e50bd2a307b099787dc/release/en-US/CustomWidgetDevGuide_en.pdf)
+
+> **Note**: These documentation links point to the latest release version. Version-specific
+> documentation may be available under versioned pages in the SAP Help Portal.
 
 ---
 
@@ -44,23 +47,24 @@ Widget_1.getDataSource(); // If widget has data binding
 
 #### getResultSet()
 
-Returns result data based on selection criteria.
+Returns result data based on optional parameters.
 
 ```javascript
 // Signature
-getResultSet(
-  selection?: Selection | Selection[] | SelectionContext,
-  offset?: integer,
-  limit?: integer
-): ResultSet[]
+getResultSet(options?: Object): Array<Object>
+
+// Options object can include:
+// - selection: Object - data selection context
+// - offset: number - starting row index
+// - limit: number - maximum rows to return
 
 // Examples
 var allData = ds.getResultSet();
-var filteredData = ds.getResultSet({ "Year": "2024" });
-var pagedData = ds.getResultSet(null, 0, 100); // First 100 rows
+var filteredData = ds.getResultSet({ selection: { "Year": "2024" } });
+var pagedData = ds.getResultSet({ offset: 0, limit: 100 }); // First 100 rows
 ```
 
-**Return Value**: Array of ResultSet objects containing:
+**Return Value**: Array of result objects containing:
 - Dimension member info (id, description, parentId)
 - Measure values (raw, formatted, unit)
 
@@ -71,9 +75,9 @@ Returns member information for a specific selection.
 ```javascript
 // Signature
 getResultMember(
-  dimension: string | DimensionInfo,
-  selection: Selection
-): ResultMemberInfo | undefined
+  dimensionId: string,
+  selection: Object
+): Object | undefined
 
 // Example
 var memberInfo = ds.getResultMember("Account", { "Account": "Revenue" });
@@ -88,17 +92,13 @@ Retrieves dimension members.
 ```javascript
 // Signature
 getMembers(
-  dimension: string,
-  options?: {
-    limit?: integer,
-    offset?: integer,
-    search?: string
-  }
-): MemberInfo[]
+  dimensionId: string,
+  maxNumber?: number
+): Array<Object>
 
 // Examples
 var allMembers = ds.getMembers("Account");
-var searchResults = ds.getMembers("Account", { search: "Rev", limit: 10 });
+var limitedMembers = ds.getMembers("Account", 100); // Max 100 members
 ```
 
 **Note**: Using getMembers() causes a backend roundtrip. For performance, prefer
@@ -111,10 +111,9 @@ Returns information for a specific member.
 ```javascript
 // Signature
 getMember(
-  dimension: string,
-  memberId: string,
-  hierarchyId?: string
-): MemberInfo
+  dimensionId: string,
+  memberId: string
+): Object
 
 // Example
 var member = ds.getMember("Account", "REVENUE");
@@ -126,10 +125,11 @@ Gets the raw data value for a selection.
 
 ```javascript
 // Signature
-getData(selection: Selection): number | null
+getData(selection?: Object): number | null
 
-// Example
-var value = ds.getData({
+// Examples
+var currentValue = ds.getData(); // Uses current selection context
+var specificValue = ds.getData({
   "Account": "Revenue",
   "Year": "2024"
 });
@@ -141,7 +141,7 @@ Returns available dimensions in the data source.
 
 ```javascript
 // Signature
-getDimensions(): DimensionInfo[]
+getDimensions(): Array<Object>
 
 // Example
 var dimensions = ds.getDimensions();
@@ -156,7 +156,7 @@ Returns available measures.
 
 ```javascript
 // Signature
-getMeasures(): MeasureInfo[]
+getMeasures(): Array<Object>
 
 // Example
 var measures = ds.getMeasures();
@@ -216,12 +216,12 @@ var hierarchySelection = {
           "description": "Selection to apply"
         }
       ],
-      "body": "this.setSelection(selection);"
+      "body": "this._setSelection(selection);"
     },
     "getSelection": {
       "description": "Get current selection",
       "returnType": "Selection",
-      "body": "return this.getSelection();"
+      "body": "return this._getSelection();"
     }
   }
 }
@@ -570,6 +570,9 @@ ds.refresh();
 
 For widgets supporting SAP Analytics Cloud Planning.
 
+> **⚠️ Important**: Planning APIs are synchronous and return boolean success values.
+> Always check the return value to handle errors appropriately.
+
 ### Write-back Methods
 
 ```javascript
@@ -583,50 +586,66 @@ ds.setUserInput({
   "Month": "Jan"
 }, 100000);
 
-// Submit changes
-ds.submitData();
+// Submit changes (synchronous, returns boolean)
+var success = ds.submitData();
+if (!success) {
+  console.error("Submit failed");
+}
 
-// Revert changes
-ds.revertData();
+// Revert changes using Planning Version
+var planningVersion = ds.getPlanningVersion();
+planningVersion.revert();
 ```
 
 ### Planning Workflow
 
 ```javascript
 class PlanningWidget extends HTMLElement {
-  async saveData(entries) {
+  saveData(entries) {
     const ds = this._dataSource;
 
-    try {
-      // Apply all inputs
-      for (const entry of entries) {
-        ds.setUserInput(entry.selection, entry.value);
-      }
+    // Apply all inputs
+    for (const entry of entries) {
+      ds.setUserInput(entry.selection, entry.value);
+    }
 
-      // Submit to backend
-      await ds.submitData();
+    // Submit to backend (synchronous)
+    var success = ds.submitData();
 
+    if (success) {
       this._showSuccess("Data saved");
-    } catch (error) {
-      // Rollback on error
-      ds.revertData();
-      this._showError("Save failed: " + error.message);
+    } else {
+      // Rollback on error using Planning Version
+      var planningVersion = ds.getPlanningVersion();
+      if (planningVersion) {
+        planningVersion.revert();
+      }
+      this._showError("Save failed");
     }
   }
 }
 ```
 
-### Lock Management
+### Data Locking
 
 ```javascript
-// Check lock status
-var isLocked = ds.isDataLocked();
+// Get data locking interface
+var dataLocking = ds.getDataLocking();
 
-// Request lock
-await ds.lockData();
+// Check lock status
+var isLocked = dataLocking.isLocked();
+
+// Set lock state (returns boolean)
+var lockSuccess = dataLocking.setState(true);  // Lock
+if (!lockSuccess) {
+  console.error("Failed to acquire lock");
+}
 
 // Release lock
-await ds.unlockData();
+var unlockSuccess = dataLocking.setState(false); // Unlock
+if (!unlockSuccess) {
+  console.error("Failed to release lock");
+}
 ```
 
 ---
@@ -801,11 +820,11 @@ class SyncWidget extends HTMLElement {
 
 ## Resources
 
-- [Analytics Designer API Reference Guide 2025.14](https://help.sap.com/doc/958d4c11261f42e992e8d01a4c0dde25/release/en-US/index.html)
-- [Optimized Story Experience API Reference Guide 2025.14](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html)
+- [Analytics Designer API Reference Guide](https://help.sap.com/doc/958d4c11261f42e992e8d01a4c0dde25/release/en-US/index.html)
+- [Optimized Story Experience API Reference Guide](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html)
 - [Custom Widget Developer Guide (PDF)](https://help.sap.com/doc/c813a28922b54e50bd2a307b099787dc/release/en-US/CustomWidgetDevGuide_en.pdf)
 - [Use Result Set APIs](https://help.sap.com/docs/SAP_ANALYTICS_CLOUD/00f68c2e08b941f081002fd3691d86a7/834786949212459caabe3a3d13f0aaa9.html)
-- [getDataSource() API Overview](https://insightcubes.com/blog/sap-analytics-designer/overview-of-the-getdatasource-api-and-related-methods-and-functions-with-sap-analytics-designer/)
+- [SAP Help Portal - Custom Widgets](https://help.sap.com/docs/SAP_ANALYTICS_CLOUD/0ac8c6754ff84605a4372468d002f2bf/75311f67527c41638ceb89af9cd8af3e.html)
 
 ---
 

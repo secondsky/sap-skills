@@ -228,7 +228,7 @@ Represents a data selection in SAC:
           "description": "Selection to apply"
         }
       ],
-      "body": "this.setSelection(selection);"
+      "body": "this._setSelection(selection);"
     }
   }
 }
