@@ -339,6 +339,93 @@ Frame bounds:
 | `SYSUUID` | Generate UUID |
 | `HASH_MD5(value)` | MD5 hash |
 | `HASH_SHA256(value)` | SHA-256 hash |
+| `FLOOR(n)` | Round down to nearest integer |
+
+### SESSION_CONTEXT Keys
+
+| Key | Description |
+|-----|-------------|
+| `'CLIENT'` | SAP client (mandant) |
+| `'APPLICATIONUSER'` | Application user name |
+| `'SAP_USER'` | SAP user ID |
+| `'LOCALE'` | Session locale |
+
+**Example:**
+```sql
+SELECT SESSION_CONTEXT('CLIENT') AS client,
+       SESSION_CONTEXT('APPLICATIONUSER') AS app_user
+FROM DUMMY;
+```
+
+---
+
+## SAP-Specific Functions
+
+### TO_DATS
+
+Convert DATE to SAP date format (YYYYMMDD string):
+
+```sql
+SELECT TO_DATS(CURRENT_DATE) FROM DUMMY;
+-- Returns: '20241123'
+
+-- Extract year-month portion
+SELECT SUBSTRING(TO_DATS(CURRENT_DATE), 1, 6) FROM DUMMY;
+-- Returns: '202411'
+```
+
+### TO_TIMS
+
+Convert TIME to SAP time format (HHMMSS string):
+
+```sql
+SELECT TO_TIMS(CURRENT_TIME) FROM DUMMY;
+-- Returns: '143022'
+```
+
+### CONVERT_CURRENCY
+
+Currency conversion using SAP exchange rate tables:
+
+```sql
+CONVERT_CURRENCY(
+  AMOUNT => <decimal_value>,
+  SOURCE_UNIT => <source_currency>,
+  TARGET_UNIT => <target_currency>,
+  SCHEMA => <schema_name>,
+  REFERENCE_DATE => <date>,
+  CLIENT => <client_number>,
+  CONVERSION_TYPE => <type>
+)
+```
+
+**Example:**
+```sql
+SELECT CONVERT_CURRENCY(
+  AMOUNT => 1000.00,
+  SOURCE_UNIT => 'USD',
+  SCHEMA => 'SAPABAP1',
+  TARGET_UNIT => 'EUR',
+  REFERENCE_DATE => CURRENT_DATE,
+  CLIENT => '100',
+  CONVERSION_TYPE => 'EURX'
+) AS converted_amount
+FROM DUMMY;
+```
+
+### CONVERT_UNIT
+
+Unit of measure conversion:
+
+```sql
+CONVERT_UNIT(
+  QUANTITY => <decimal_value>,
+  SOURCE_UNIT => <source_uom>,
+  TARGET_UNIT => <target_uom>,
+  SCHEMA => <schema_name>,
+  CLIENT => <client_number>
+)
+```
 
 ---
 

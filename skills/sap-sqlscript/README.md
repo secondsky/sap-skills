@@ -127,6 +127,14 @@ This skill provides complete guidance for SQLScript development, including:
 - LEAD
 - LAG
 - PARTITION BY
+- TO_DATS
+- TO_TIMS
+- CONVERT_CURRENCY
+- session_context
+- record_count
+- lateral join
+- JSON functions
+- query hints
 
 ### Error Handling
 - SQL_ERROR_CODE
@@ -184,6 +192,7 @@ sap-sqlscript/
     ├── exception-handling.md          # Error handling patterns
     ├── amdp-integration.md            # AMDP implementation guide
     ├── performance-guide.md           # Optimization techniques
+    ├── advanced-features.md           # Lateral joins, JSON, query hints, currency
     └── troubleshooting.md             # Common errors and solutions
 ```
 

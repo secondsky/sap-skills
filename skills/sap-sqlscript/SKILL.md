@@ -128,6 +128,7 @@ END;
 | `ALPHANUM(n)` | Alphanumeric string |
 | `CLOB` | Character large object |
 | `NCLOB` | Unicode character large object |
+| `NLOB` | National character large object |
 
 ### Date/Time Types
 | Type | Format |
@@ -547,4 +548,5 @@ Load reference files for detailed information:
 - `references/exception-handling.md` - Error handling patterns
 - `references/amdp-integration.md` - AMDP implementation guide
 - `references/performance-guide.md` - Optimization techniques
+- `references/advanced-features.md` - Lateral joins, JSON, query hints, currency conversion
 - `references/troubleshooting.md` - Common errors and solutions

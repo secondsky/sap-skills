@@ -233,6 +233,59 @@
 
 ---
 
+## Review Enhancements (2025-11-23)
+
+### Added Content from Gap Analysis
+
+**From GeeksforGeeks:**
+- [x] DO n TIMES loop syntax
+- [x] Lateral joins syntax and examples
+- [x] JSON functions (JSON_VALUE, JSON_QUERY, JSON_TABLE)
+- [x] Query hints (/*+ PARALLEL_EXECUTION */)
+- [x] Spatial and time-series functions overview
+
+**From Nextlytics:**
+- [x] TO_DATS function with examples
+- [x] TO_TIMS function
+- [x] CONVERT_CURRENCY function with complete syntax
+- [x] Currency conversion example with dynamic date
+
+**From SAP Community:**
+- [x] NLOB data type added
+- [x] Parallel mode exit triggers (detailed list)
+- [x] session_context() function with key examples
+- [x] record_count() function
+- [x] AMDP advantages over procedure proxy comparison table
+
+**From Movisco:**
+- [x] INTERSECT → JOIN alternative with example
+- [x] EXCEPT → LEFT JOIN alternative
+- [x] SQL injection security risk detail
+
+**From Searches:**
+- [x] ALTER PROCEDURE limitation documented
+- [x] DROP PROCEDURE syntax
+- [x] DROP FUNCTION syntax
+
+### New Reference File Created
+- `references/advanced-features.md` - Comprehensive coverage of:
+  - DO n TIMES loop
+  - Lateral joins
+  - Query hints
+  - JSON functions
+  - Spatial functions
+  - Time-series functions
+  - SAP-specific conversion functions
+  - Currency conversion
+  - Session context usage
+  - Parallel mode exit triggers
+  - SET operation alternatives
+  - Procedure management
+  - Security considerations
+  - AMDP vs Procedure Proxy comparison
+
+---
+
 ## Skill Structure Created
 
 ```
@@ -246,6 +299,7 @@ skills/sap-sqlscript/
     ├── exception-handling.md    # Error handling patterns
     ├── amdp-integration.md      # AMDP implementation guide
     ├── performance-guide.md     # Optimization best practices
+    ├── advanced-features.md     # Lateral joins, JSON, currency conversion
     └── troubleshooting.md       # Common errors and solutions
 ```
 

@@ -217,6 +217,25 @@ WHILE <condition> DO
 END WHILE;
 ```
 
+### DO n TIMES Loop
+
+Repeat a block a fixed number of times:
+
+```sql
+DO <n> TIMES
+BEGIN
+  <statements>
+END;
+```
+
+**Example:**
+```sql
+DO 10 TIMES
+BEGIN
+  INSERT INTO "LOG_TABLE" (message) VALUES ('Iteration');
+END;
+```
+
 ### FOR Loop
 
 ```sql
