@@ -159,6 +159,12 @@ This skill activates when discussing:
 - MockServer error
 - annotation error
 
+### Sample Projects
+- fiori-tools-samples
+- SAP Fiori samples GitHub
+- Fiori Elements sample projects
+- SAP-samples Fiori
+
 ## Installation
 
 Copy the `sap-fiori-tools` folder to your Claude Code skills directory:

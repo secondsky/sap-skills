@@ -20,6 +20,8 @@ Comprehensive Claude Code skill for developing custom widgets in SAP Analytics C
 
 **Troubleshooting Keywords**: widget loading error, couldn't load custom widget, integrity check failed, widget debugging, console.log widget, DevTools widget
 
+**Sample Widgets Keywords**: SAC community widgets, custom widget samples, ECharts widget samples, ready-to-use SAC widgets, Funnel Chart widget, Sankey Chart widget, KPI Ring widget, Gantt Chart SAC
+
 ## Use Cases
 
 This skill should be used when:

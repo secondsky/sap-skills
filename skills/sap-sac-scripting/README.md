@@ -6,7 +6,7 @@ Comprehensive Claude Code skill for scripting in SAP Analytics Cloud (SAC), incl
 
 This skill provides guidance, API references, and ready-to-use templates for developing interactive analytics applications and enhanced stories in SAP Analytics Cloud.
 
-**Version**: 1.0.0
+**Version**: 1.2.0
 **SAC Version**: 2025.14+
 **Last Updated**: 2025-11-22
 
@@ -70,7 +70,7 @@ This skill triggers when you're working with:
 - `README.md` - This file (keywords and overview)
 - `PROGRESS_TRACKING.md` - Documentation source tracking
 
-### Reference Files (6 files)
+### Reference Files (8 files)
 **Core APIs**:
 - `references/api-datasource.md` - Complete DataSource API (36+ methods)
 - `references/api-widgets.md` - Chart, Table, Input Controls APIs
@@ -80,6 +80,10 @@ This skill triggers when you're working with:
 **Advanced APIs**:
 - `references/api-calendar-bookmarks.md` - Calendar integration, Bookmarks, Linked Analysis, Timer
 - `references/api-advanced-widgets.md` - Containers, Layout API, R Viz, Custom Widgets, Navigation
+
+**Best Practices**:
+- `references/best-practices-developer.md` - Naming conventions, layout organization, script annotation
+- `references/best-practices-planning-stories.md` - Multi-story architecture, entry point design, navigation scripting
 
 ### Templates (39 patterns)
 - `templates/common-patterns.js` - 23 ready-to-use scripting patterns
@@ -239,6 +243,31 @@ This skill triggers when you're working with:
 - version publish failed
 - data locked
 
+### Developer Best Practices Keywords
+- SAC naming conventions
+- widget naming prefixes
+- SAC story organization
+- maintainable SAC stories
+- SAC code documentation
+- SAC script comments
+- panel organization
+- responsive SAC layout
+- SAC design guidelines
+- story development best practices
+
+### Planning Story Architecture Keywords
+- planning story architecture
+- multi-story planning
+- planning entry point
+- story navigation scripting
+- NavigationUtils.openStory
+- planning sidebar
+- Guide Me popup
+- planning user assistance
+- step-by-step instructions
+- button color coding
+- planning folder structure
+
 ## Documentation Sources
 
 - [Analytics Designer API Reference 2025.14](https://help.sap.com/doc/958d4c11261f42e992e8d01a4c0dde25/release/en-US/index.html)
@@ -246,6 +275,8 @@ This skill triggers when you're working with:
 - [SAP Analytics Cloud Scripting Documentation](https://help.sap.com/docs/SAP_ANALYTICS_CLOUD/00f68c2e08b941f081002fd3691d86a7/6a4db9a9c8634bcb86cecbf1f1dbbf8e.html)
 - [SAP Community - SAC](https://community.sap.com/topics/cloud-analytics)
 - [Denis Reis Code Snippets](https://www.denisreis.com/sap-analytics-cloud-javascript-api-code-snippets/)
+- [Building Stories That Other Developers Actually Want to Inherit](https://community.sap.com/t5/technology-blog-posts-by-members/building-stories-that-other-developers-actually-want-to-inherit/ba-p/14168133) (Best Practices)
+- [Best Practices for Planning Stories in SAP Analytics Cloud](https://blog.sap-press.com/best-practices-for-planning-stories-in-sap-analytics-cloud) (SAP PRESS - Planning Architecture)
 
 ## Related Skills
 

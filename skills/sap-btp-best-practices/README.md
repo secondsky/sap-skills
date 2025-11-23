@@ -179,6 +179,21 @@ This skill provides production-ready guidance for SAP BTP implementations based 
 - blue-green deployment
 - feature flags
 
+### AI and Machine Learning
+- SAP AI Core
+- generative AI BTP
+- RAG BTP
+- LLM BTP
+- prompt engineering SAP
+- content filtering AI
+- data masking PII
+- anomaly detection BTP
+- SAP Document AI
+- AI use cases BTP
+- agentic AI SAP
+- vector embeddings SAP
+- SAP HANA Cloud Vector Engine
+
 ---
 
 ## Use This Skill When
@@ -218,6 +233,12 @@ This skill provides production-ready guidance for SAP BTP implementations based 
    - Implementing failover
    - Planning disaster recovery
 
+7. **Building AI Solutions**
+   - Implementing generative AI with SAP AI Core
+   - Building RAG systems
+   - Configuring content filtering and PII protection
+   - Deploying anomaly detection models
+
 ---
 
 ## Skill Contents
@@ -234,6 +255,7 @@ Located in `references/` directory:
 - `operations-and-monitoring.md` - Go-live and monitoring procedures
 - `governance-and-teams.md` - Team structure and processes
 - `templates-and-examples.md` - **Complete code templates**: Kubernetes RBAC manifests, MTA descriptors, Helm charts, CI/CD pipeline configs, multi-region GitHub links
+- `ai-development-best-practices.md` - **AI patterns**: Generative AI, RAG, content filtering, 20+ use cases catalog
 
 ### Tracking
 - `PROGRESS_TRACKING.md` - Documents coverage of source material

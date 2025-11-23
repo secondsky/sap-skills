@@ -4,9 +4,10 @@ description: |
   Comprehensive SAP Business Technology Platform (BTP) best practices for enterprise cloud architecture, account management, security, deployment, and operations. Use when planning SAP BTP implementations, setting up account hierarchies (global accounts, directories, subaccounts), configuring Cloud Foundry or Kyma environments, implementing authentication with SAP Cloud Identity Services, designing CI/CD pipelines with SAP Continuous Integration and Delivery, establishing governance models, building Platform Engineering teams, implementing failover strategies, or managing the complete application lifecycle on SAP BTP.
 license: MIT
 metadata:
-  version: "1.1.2"
+  version: "1.2.0"
   last_verified: "2025-11-22"
   source: "https://github.com/SAP-docs/btp-best-practices-guide"
+  reference_files: 8
 ---
 
 # SAP BTP Best Practices
@@ -281,7 +282,33 @@ Every new application tracked by Platform Engineering should document:
 
 ---
 
-## 7. Deployment and Delivery
+## 7. AI Development Best Practices
+
+SAP BTP provides AI capabilities through **SAP AI Core** for both Generative AI (LLMs, RAG) and Narrow AI (classical ML).
+
+**Repository**: [SAP-samples/sap-btp-ai-best-practices](https://github.com/SAP-samples/sap-btp-ai-best-practices)  
+**Documentation**: https://btp-ai-bp.docs.sap/
+
+| Category | Best Practices |
+|----------|----------------|
+| **Generative AI** | Secure model access, prompt templates, RAG systems, content filtering, PII data masking |
+| **Narrow AI** | Regression models, anomaly detection, predictive analytics |
+| **AI Services** | SAP Document AI, SAP Translation Hub |
+
+**Key Patterns**:
+- Use SAP AI Core service keys for secure authentication
+- Implement data masking before sending PII to external models
+- Build RAG with SAP HANA Cloud Vector Engine
+- Configure content filtering for AI outputs
+- Monitor model drift in production
+
+**Use Cases**: 20+ end-to-end samples including agentic chatbots, PDF extraction, intelligent procurement, anomaly detection, and email agents.
+
+**Detailed Reference**: See `references/ai-development-best-practices.md` for patterns, code examples, and complete use cases catalog.
+
+---
+
+## 8. Deployment and Delivery
 
 ### Deployment Methods
 
@@ -324,7 +351,7 @@ Every new application tracked by Platform Engineering should document:
 
 ---
 
-## 8. High Availability and Failover
+## 9. High Availability and Failover
 
 ### Multi-Region Architecture
 
@@ -361,7 +388,7 @@ Custom Domain URL
 
 ---
 
-## 9. Data Backup and Resilience
+## 10. Data Backup and Resilience
 
 ### SAP-Managed Backups
 
@@ -386,7 +413,7 @@ You must backup your own service configurations. SAP does not manage these backu
 
 ---
 
-## 10. Operations and Monitoring
+## 11. Operations and Monitoring
 
 ### Go-Live Checklist
 
@@ -418,7 +445,7 @@ You must backup your own service configurations. SAP does not manage these backu
 
 ---
 
-## 11. Cost Management
+## 12. Cost Management
 
 ### Monitoring and Governance
 
@@ -435,7 +462,7 @@ You must backup your own service configurations. SAP does not manage these backu
 
 ---
 
-## 12. Maintenance and Retirement
+## 13. Maintenance and Retirement
 
 ### Ongoing Maintenance
 
@@ -504,6 +531,7 @@ For detailed guidance, see the reference files in the `references/` directory:
 - `operations-and-monitoring.md` - Go-live and monitoring procedures
 - `governance-and-teams.md` - Team structure and processes
 - `templates-and-examples.md` - **Complete code templates**: Kubernetes RBAC manifests, MTA descriptors, Helm charts, CI/CD configs, multi-region GitHub links
+- `ai-development-best-practices.md` - **AI patterns**: Generative AI, RAG, content filtering, 20+ use cases catalog
 
 ---
 

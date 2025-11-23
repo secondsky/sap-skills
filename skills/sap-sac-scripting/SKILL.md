@@ -1,15 +1,15 @@
 ---
 name: sap-sac-scripting
 description: |
-  This skill provides comprehensive guidance for scripting in SAP Analytics Cloud (SAC), including Analytics Designer and Optimized Story Experience. Use when writing scripts for analytic applications, planning applications, or enhanced stories in SAC. Covers DataSource API (36+ methods), Chart/Table/Input Controls manipulation, Planning operations (version management, data locking, data actions), Calendar integration (tasks, processes, workflows), Bookmarks (save/apply state), Linked Analysis, Timer API, Container widgets (Panel, TabStrip, PageBook), Layout API (responsive design), R Visualizations, Custom Widgets development, Navigation, global/local variables, event handlers (onInitialization, onSelect, onResultChanged), popups/dialogs, debugging techniques (console.log, debugger statement), and performance optimization. Includes 39 ready-to-use code templates. Supports SAC version 2025.14+.
+  This skill provides comprehensive guidance for scripting in SAP Analytics Cloud (SAC), including Analytics Designer and Optimized Story Experience. Use when writing scripts for analytic applications, planning applications, or enhanced stories in SAC. Covers DataSource API (36+ methods), Chart/Table/Input Controls manipulation, Planning operations (version management, data locking, data actions), Calendar integration (tasks, processes, workflows), Bookmarks (save/apply state), Linked Analysis, Timer API, Container widgets (Panel, TabStrip, PageBook), Layout API (responsive design), R Visualizations, Custom Widgets development, Navigation, global/local variables, event handlers (onInitialization, onSelect, onResultChanged), popups/dialogs, debugging techniques (console.log, debugger statement), performance optimization, and developer best practices (naming conventions, layout organization, script annotation). Includes 39 ready-to-use code templates. Supports SAC version 2025.14+.
 license: MIT
 metadata:
-  version: 1.1.0
+  version: 1.3.0
   last_updated: 2025-11-22
   sac_version: "2025.14+"
   api_reference_version: "2025.14"
   documentation_source: https://help.sap.com/docs/SAP_ANALYTICS_CLOUD
-  reference_files: 6
+  reference_files: 8
   template_patterns: 39
   status: production
 ---
@@ -442,6 +442,102 @@ for (var i = 0; i < items.length; i++) {
 
 ---
 
+## Developer Best Practices
+
+Maintainable SAC stories require consistent conventions. Key principles:
+
+### 1. Naming Conventions
+
+Use prefixes to identify widget types at a glance:
+
+| Widget Type | Prefix | Example |
+|-------------|--------|---------|
+| Bar Chart | `chartB_` | `chartB_revenue_by_state` |
+| Line Chart | `chartL_` | `chartL_margin_by_product` |
+| Table | `tbl_` | `tbl_invoices_by_month` |
+| Panel | `pnl_` | `pnl_header` |
+| Button | `btn_` | `btn_export_pdf` |
+| Dropdown | `ddl_` | `ddl_product` |
+| KPI/Numeric | `kpi_` | `kpi_actuals_vs_budget` |
+
+### 2. Layout Organization
+
+- Group related widgets in panels
+- Order widgets in Outline view: top→bottom, left→right
+- Use panel visibility for show/hide sections:
+
+```javascript
+// Hide entire section instead of individual widgets
+pnl_details.setVisible(false);
+```
+
+### 3. Script Annotation
+
+Add summary + line-level comments to all scripts:
+
+```javascript
+/*
+ * Script: onSelect - chartB_revenue_by_region
+ * Purpose: Filter detail table when user selects a region
+ * Dependencies: chartB_revenue_by_region, tbl_transactions
+ */
+
+// Get user's selection from the chart
+var selections = chartB_revenue_by_region.getSelections();
+```
+
+### 4. Design Tips
+
+- **Disable Panel Auto Scroll**: Prevents unwanted scroll bars
+- **Avoid Flow Panels**: Fixed layouts are easier to maintain
+- **Use % for Left/Right**: Change from px to % after layout is finalized for responsive sizing
+
+**Full Reference**: See `references/best-practices-developer.md` for complete naming table and patterns.
+
+**Source**: [SAP Community - Building Stories That Other Developers Actually Want to Inherit](https://community.sap.com/t5/technology-blog-posts-by-members/building-stories-that-other-developers-actually-want-to-inherit/ba-p/14168133)
+
+---
+
+## Planning Story Architecture
+
+For complex planning processes, use multi-story architecture with a central entry point.
+
+### Key Principles
+
+1. **Entry Point Design**: Create overview page with KPI tiles and organized navigation sections
+2. **Multi-Story Separation**: One story per planning phase, stored in folder structure
+3. **Script-Based Navigation**: Use `NavigationUtils.openStory()` instead of hyperlinks
+4. **User Assistance**: Consistent sidebar with filters, step-by-step instructions, external links
+5. **Guided Process**: "Guide Me!" popup for focused step-by-step workflow
+6. **Button Color Coding**: Green (positive), Red (negative), Blue (neutral)
+
+### Navigation Script Pattern
+
+```javascript
+// Navigate to target story with page and mode parameters
+var urlParameters = ArrayUtils.create(Type.UrlParameter);
+urlParameters.push(UrlParameter.create("mode", "view"));
+urlParameters.push(UrlParameter.create("page", "0"));
+NavigationUtils.openStory(storyId, "", urlParameters, false);
+```
+
+### Folder Organization
+
+```
+Planning_Application/
+├── 00_Entry_Point.story
+├── 01_Configuration.story
+├── 02_Plan_FTE.story
+├── 03_Plan_Costs.story
+└── 04_Reports.story
+```
+
+**Full Reference**: See `references/best-practices-planning-stories.md` for complete patterns including sidebar design, guided process popup implementation, and button guidelines.
+
+**Source**: [SAP PRESS - Best Practices for Planning Stories](https://blog.sap-press.com/best-practices-for-planning-stories-in-sap-analytics-cloud)
+
+---
+
 ## Popups and Dialogs
 
 ### Create Popup
@@ -575,7 +671,7 @@ Table_1.export(ExportType.CSV);
 
 ## Bundled Reference Files
 
-This skill includes detailed reference documentation (6 files):
+This skill includes detailed reference documentation (8 files):
 
 **Core APIs**:
 1. **references/api-datasource.md**: Complete DataSource API (36+ methods)
@@ -586,6 +682,10 @@ This skill includes detailed reference documentation (6 files):
 **Advanced APIs**:
 5. **references/api-calendar-bookmarks.md**: Calendar integration, Bookmarks, Linked Analysis, Timer API
 6. **references/api-advanced-widgets.md**: Container widgets, Layout API, R Visualization, Custom Widgets, Navigation
+
+**Best Practices**:
+7. **references/best-practices-developer.md**: Naming conventions, layout organization, script annotation, responsive design
+8. **references/best-practices-planning-stories.md**: Multi-story architecture, entry point design, navigation scripting, user assistance patterns
 
 **Templates** (39 ready-to-use patterns):
 1. **templates/common-patterns.js**: Filtering, selection, visibility, debugging

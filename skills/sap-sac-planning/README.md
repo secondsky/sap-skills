@@ -113,6 +113,20 @@ This skill should be triggered when users mention:
 - Date dimension
 - planning enabled model
 
+### S/4HANA Integration & Export
+- SAC S/4HANA export
+- ACDOCP export
+- SAC data export service
+- API_PLPACDOCPDATA_SRV
+- planning data export S/4HANA
+- SAC Cloud Connector
+- export planning to ERP
+- native planning S/4HANA integration
+- legacy mode SAC
+- ACDOCP table
+- export planning data
+- S/4HANA plan data
+
 ---
 
 ## File Structure
@@ -127,7 +141,8 @@ sap-sac-planning/
 │   ├── data-actions.md               # Data Actions & Multi Actions
 │   ├── planning-workflows.md         # Calendar, Tasks, Approvals
 │   ├── version-management.md         # Versions, Publishing
-│   └── javascript-patterns.md        # Code snippets & patterns
+│   ├── javascript-patterns.md        # Code snippets & patterns
+│   └── s4hana-acdocp-export.md       # S/4HANA ACDOCP integration
 └── templates/                        # (Reserved for future templates)
 ```
 
@@ -215,6 +230,7 @@ This skill is based on official SAP documentation and verified community resourc
 ### Community Resources
 - [Denis Reis - JavaScript API Code Snippets](https://www.denisreis.com/sap-analytics-cloud-javascript-api-code-snippets/)
 - [SAP Community - Analytics Cloud](https://community.sap.com/topics/sap-analytics-cloud)
+- [ZPARTNER - SAC Export to S/4HANA ACDOCP](https://www.zpartner.eu/sac-export-native-planning-to-sap-s-4hana-acdocp/) (S/4HANA Integration)
 
 ---
 

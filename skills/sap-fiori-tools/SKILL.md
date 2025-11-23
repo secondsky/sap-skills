@@ -30,6 +30,29 @@ SAP Fiori tools is a collection of extensions that simplifies SAP Fiori elements
 **Minimum SAPUI5 Version**: 1.65+
 **Support Component**: CA-UX-IDE
 
+## Sample Projects
+
+Official SAP sample repository with Fiori Elements applications built using SAP Fiori tools:
+
+**Repository**: [SAP-samples/fiori-tools-samples](https://github.com/SAP-samples/fiori-tools-samples)
+
+| Folder | Content |
+|--------|---------|
+| `V2/` | OData V2 Fiori Elements samples |
+| `V4/` | OData V4 Fiori Elements samples |
+| `cap/` | CAP project integration samples |
+| `app-with-tutorials/` | Tutorial companion projects |
+
+**Quick Start**:
+```bash
+git clone https://github.com/SAP-samples/fiori-tools-samples
+cd fiori-tools-samples/V4/apps/salesorder
+npm install
+npm start
+```
+
+---
+
 ## Quick Start Commands
 
 Access features via Command Palette (`Cmd/Ctrl + Shift + P`):

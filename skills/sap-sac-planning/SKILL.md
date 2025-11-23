@@ -4,12 +4,12 @@ description: |
   This skill should be used when developing SAP Analytics Cloud (SAC) planning applications, including building planning-enabled stories, analytics designer applications with planning functionality, data actions, multi actions, version management, and planning workflows. Use when creating planning models, implementing data entry forms, configuring spreading/distribution/allocation, setting up data locking, building calendar-based planning processes with approval workflows, writing JavaScript scripts for planning automation, using the getPlanning() API, PlanningModel API, or DataSource API for planning scenarios, troubleshooting planning performance issues, or integrating predictive forecasting into planning workflows.
 license: MIT
 metadata:
-  version: 1.1.0
+  version: 1.2.0
   last_updated: 2025-11-22
   sac_version: "2025.23"
   documentation_source: https://help.sap.com/docs/SAP_ANALYTICS_CLOUD/18850a0e13944f53aa8a8b7c094ea29e
   api_reference: https://help.sap.com/doc/958d4c11261f42e992e8d01a4c0dde25/2025.23/en-US/index.html
-  reference_files: 5
+  reference_files: 6
   status: production
 ---
 
@@ -280,6 +280,51 @@ Multi actions orchestrate multiple planning operations across models and version
 When using public dimensions, create cross-model parameters to share values across steps in different models.
 
 **Reference**: See `references/data-actions.md` for multi action configuration.
+
+---
+
+## S/4HANA ACDOCP Export
+
+Export native planning data from SAC to SAP S/4HANA's ACDOCP table (central ERP plan data storage).
+
+### Architecture
+
+```
+SAC Planning Model → Data Export Service → Cloud Connector → API_PLPACDOCPDATA_SRV → ACDOCP
+```
+
+### Prerequisites
+
+| Requirement | Details |
+|-------------|---------|
+| **Legacy Mode** | Must be enabled on planning model |
+| **OData Service** | Activate `API_PLPACDOCPDATA_SRV` in `/IWFND/MAINT_SERVICE` |
+| **Cloud Connector** | Required for on-premise S/4HANA |
+
+### Required Dimensions for Export
+
+- **Version (Plan Category)**: Only public versions can be exported
+- **FiscalYearPeriod**: Mandatory in export scope
+- **Measure**: Only ONE target measure per export job
+- **G/L Account**: Required for ACDOCP mapping
+
+### Export Behavior
+
+- Exported data **overwrites existing data within scope**
+- S/4HANA generates delta records for changes
+- **Deletions don't propagate**: Set values to 0 and re-export to clear ACDOCP data
+- Filters cannot be changed after export job creation—name jobs descriptively
+
+### Quick Setup
+
+1. Enable Legacy Mode on planning model
+2. Create S/4HANA connection with Cloud Connector
+3. Data Management → Create Data Export Job
+4. Map dimensions to ACDOCP fields
+5. Define export scope (FiscalYearPeriod + PlanningCategory mandatory)
+6. Schedule or run export
+
+**Reference**: See `references/s4hana-acdocp-export.md` for complete configuration guide, troubleshooting, and SAP documentation links.
 
 ---
 
@@ -587,13 +632,14 @@ console.log("Lock state: " + lockState);
 
 ## Bundled Reference Files
 
-This skill includes comprehensive reference documentation (5 files):
+This skill includes comprehensive reference documentation (6 files):
 
 1. **references/api-reference.md**: Complete Analytics Designer API for planning
 2. **references/data-actions.md**: Data Actions, Multi Actions, parameters, steps
 3. **references/planning-workflows.md**: Calendar, tasks, approvals, data locking
 4. **references/version-management.md**: Versions, publishing, sharing, edit mode
 5. **references/javascript-patterns.md**: Code snippets, patterns, best practices
+6. **references/s4hana-acdocp-export.md**: S/4HANA integration, ACDOCP export, OData setup
 
 ---
 

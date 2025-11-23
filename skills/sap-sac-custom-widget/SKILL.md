@@ -155,6 +155,26 @@ A custom widget requires two files:
 
 ---
 
+## Community Sample Widgets
+
+SAP provides 15+ ready-to-use custom widget samples:
+
+**Repository**: [SAP-samples/SAC_Custom_Widgets](https://github.com/SAP-samples/analytics-cloud-datasphere-community-content/tree/main/SAC_Custom_Widgets)
+
+| Category | Widgets |
+|----------|---------|
+| **Charts** | Funnel, Pareto, Sankey, Sunburst, Tree, Line, UI5 Gantt |
+| **KPI/Gauge** | KPI Ring, Gauge Grade, Half Donut, Nested Pie, Custom Pie |
+| **Utilities** | File Upload, Word Cloud, Bar Gradient, Widget Add-on Sample |
+
+**Requirements**: Optimized View Mode (OVM) enabled, data binding support
+
+**Hosting Guides**: [SAC-hosted](https://community.sap.com/t5/technology-blogs-by-sap/hosting-and-uploading-custom-widgets-resource-files-into-sap-analytics/ba-p/13563064) | [GitHub-hosted](https://community.sap.com/t5/technology-blogs-by-sap/hosting-sap-analytics-cloud-custom-widgets-into-github/ba-p/13566633)
+
+**Note**: Check third-party library licenses before production use.
+
+---
+
 ## JSON Metadata Reference
 
 ### Root Object Properties
