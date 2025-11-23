@@ -6,9 +6,9 @@ Comprehensive Claude Code skill for scripting in SAP Analytics Cloud (SAC), incl
 
 This skill provides guidance, API references, and ready-to-use templates for developing interactive analytics applications and enhanced stories in SAP Analytics Cloud.
 
-**Version**: 1.2.0
+**Version**: 1.4.0
 **SAC Version**: 2025.14+
-**Last Updated**: 2025-11-22
+**Last Updated**: 2025-11-23
 
 ## Installation
 
@@ -70,7 +70,7 @@ This skill triggers when you're working with:
 - `README.md` - This file (keywords and overview)
 - `PROGRESS_TRACKING.md` - Documentation source tracking
 
-### Reference Files (8 files)
+### Reference Files (11 files)
 **Core APIs**:
 - `references/api-datasource.md` - Complete DataSource API (36+ methods)
 - `references/api-widgets.md` - Chart, Table, Input Controls APIs
@@ -80,13 +80,18 @@ This skill triggers when you're working with:
 **Advanced APIs**:
 - `references/api-calendar-bookmarks.md` - Calendar integration, Bookmarks, Linked Analysis, Timer
 - `references/api-advanced-widgets.md` - Containers, Layout API, R Viz, Custom Widgets, Navigation
+- `references/api-data-operations.md` - Range/exclude filters, hierarchies, members, DataSource info
+
+**Scripting Fundamentals**:
+- `references/scripting-language-fundamentals.md` - Type system, variables, loops, arrays, built-in objects
+- `references/debugging-browser-tools.md` - Console logging, browser debugging, breakpoints, R visualization debugging
 
 **Best Practices**:
 - `references/best-practices-developer.md` - Naming conventions, layout organization, script annotation
 - `references/best-practices-planning-stories.md` - Multi-story architecture, entry point design, navigation scripting
 
-### Templates (39 patterns)
-- `templates/common-patterns.js` - 23 ready-to-use scripting patterns
+### Templates (40 patterns)
+- `templates/common-patterns.js` - 40 scripting patterns (filtering, loops, arrays, R viz, type conversion)
 - `templates/planning-operations.js` - 16 planning-specific patterns
 
 ## Keywords
@@ -242,6 +247,70 @@ This skill triggers when you're working with:
 - data not refreshing
 - version publish failed
 - data locked
+
+### Language Fundamentals Keywords
+- SAC type system
+- strong typing
+- static typing
+- toString()
+- explicit type conversion
+- no automatic type casting
+- JavaScript subset
+- strict mode
+- var declaration
+- for loop iterator
+- while loop
+- for-in loop
+- switch statement
+- break statement
+- triple equals
+- strict equality
+- method chaining
+- ArrayUtils
+- 2D array
+- two-dimensional array
+
+### Filter Keywords
+- exclude filter
+- range filter
+- setDimensionFilter
+- getDimensionFilters
+- FilterValueType
+- SingleFilterValue
+- MultipleFilterValue
+- RangeFilterValue
+- from to filter
+- less than filter
+- greater than filter
+
+### Hierarchy Keywords
+- setHierarchy
+- setHierarchyLevel
+- getHierarchyLevel
+- expandNode
+- collapseNode
+- hierarchy manipulation
+
+### Debugging Keywords
+- browser debugging
+- Chrome DevTools
+- F12
+- Sources tab
+- sandbox.worker.main
+- debug=true
+- debugger statement
+- breakpoints
+- script names
+- transformed scripts
+- R environment
+- getEnvironmentValues
+- getInputParameters
+
+### Pattern-Based Function Keywords
+- pattern-based function
+- training examples
+- string transformation
+- ML pattern matching
 
 ### Developer Best Practices Keywords
 - SAC naming conventions

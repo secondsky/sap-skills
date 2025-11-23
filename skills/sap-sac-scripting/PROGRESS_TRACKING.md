@@ -1,8 +1,8 @@
 # SAP SAC Scripting Skill - Documentation Extraction Progress
 
 **Created**: 2025-11-22
-**Last Updated**: 2025-11-22
-**Status**: Completed
+**Last Updated**: 2025-11-23
+**Status**: Completed (v1.4.0)
 
 ---
 
@@ -14,10 +14,25 @@
 - **Optimized Story Experience API Reference**: https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html
 - **SAP Community**: https://community.sap.com
 - **Denis Reis Code Snippets**: https://www.denisreis.com/sap-analytics-cloud-javascript-api-code-snippets/
+- **SAP Analytics Designer Development Guide - Scripting.pdf**: Chapter 4 - Scripting in Analytics Designer (Local PDF)
 
 ---
 
 ## URL Extraction Status
+
+### SAP Analytics Designer Development Guide PDF (v1.4.0 - 2025-11-23)
+| Section | Status | Content Extracted |
+|---------|--------|-------------------|
+| 4.1 Why Scripting? | ✅ Extracted | Overview of scripting benefits |
+| 4.2 Scripting Language Overview | ✅ Extracted | Type system, tooling, events, global script objects, accessing objects, script variables |
+| 4.3 Script Editor | ✅ Extracted | Creating/editing scripts, editor layout, keyboard shortcuts, Info panel, renaming |
+| 4.4 Scripting Language Features | ✅ Extracted | Typing, no automatic type casting, accessing objects, fuzzy matching, external libraries, console.log(), loops, operators, if/else, this keyword, switch, break, browser debugging, 2D arrays |
+| 4.5 Data Sources and Working with Data | ✅ Extracted | Range/exclude filters, getDimensionFilters(), dimension properties, hierarchies, getMembers(), getMember(), DataSource.getInfo() |
+| 4.6 Pattern-Based Functions | ✅ Extracted | Adding pattern-based functions, creating patterns, scripting usage, examples |
+| 4.7 Method Chaining | ✅ Extracted | Compact code patterns |
+| 4.8 Script Runtime | ✅ Extracted | Security validation, isolation, blocked features |
+| 4.9 R Widget and JavaScript | ✅ Extracted | Execution order, reading/writing R environment from JavaScript |
+| 4.10 Differences Between SAC and Lumira Designer | ✅ Extracted | Comparison notes |
 
 ### Denis Reis Code Snippets Site
 | URL | Status | Content Extracted |
@@ -184,6 +199,41 @@
 - [x] Script Objects (reusable function containers)
 - [x] Technical Objects (BookmarkSet, Timer, Calendar)
 
+### Scripting Language Fundamentals (Enhancement v1.4.0 - PDF Extract)
+- [x] Type system overview (strong, static typing)
+- [x] No automatic type casting (explicit toString() required)
+- [x] Variable scope (local vs global, URL parameters)
+- [x] Control flow (if/else, switch, break)
+- [x] Loops (for with var declaration, while, for-in)
+- [x] Equality operators (=== vs ==)
+- [x] Built-in objects (Math, Date, Number, Array, String)
+- [x] Array utilities (1D and 2D arrays)
+- [x] Method chaining patterns
+- [x] Script runtime security (blocked features, isolation)
+- [x] Pattern-based functions (ML-driven string transformation)
+- [x] The `this` keyword usage
+
+### Data Operations Extracted (Enhancement v1.4.0 - PDF Extract)
+- [x] Exclude filters (filter out specific values)
+- [x] Range filters (numeric dimensions only)
+- [x] getDimensionFilters() with type casting
+- [x] Dimension properties API
+- [x] Hierarchy manipulation (setHierarchyLevel, expandNode, collapseNode)
+- [x] getMember() and getMembers() with options
+- [x] MemberAccessMode (MasterData vs BookedValues)
+- [x] DataSource.getInfo() for metadata
+
+### Debugging Tools Extracted (Enhancement v1.4.0 - PDF Extract)
+- [x] Browser debugging in Chrome DevTools
+- [x] Script naming convention (<WIDGET>.<EVENT>.js)
+- [x] Finding scripts by name (Ctrl+P) and file tree
+- [x] Debug mode (;debug=true URL parameter)
+- [x] debugger; statement usage
+- [x] Breakpoint setting and removal
+- [x] R visualization debugging (getEnvironmentValues, getInputParameters)
+- [x] Performance logging (APP_PERFORMANCE_LOGGING)
+- [x] Script editor Info panel (errors, references)
+
 ---
 
 ## Key Documentation Links for Updates
@@ -213,8 +263,11 @@
 - API Reference Guides (2025.14) provided comprehensive API documentation
 - Progressive disclosure: Core info in SKILL.md, detailed API in reference files
 - All information compiled from official SAP sources and verified community resources
+- **v1.4.0**: Extracted comprehensive scripting fundamentals from SAP Analytics Designer Development Guide PDF (Chapter 4)
+- **v1.4.0**: Added 3 new reference files (scripting-language-fundamentals.md, api-data-operations.md, debugging-browser-tools.md)
+- **v1.4.0**: Expanded templates from 23 to 40 patterns covering type conversion, loops, arrays, filters, hierarchies, R visualization
 
 ---
 
-**Next Review**: 2026-02-22 (Quarterly)
+**Next Review**: 2026-02-23 (Quarterly)
 **Maintainer**: SAP Skills Maintainers
