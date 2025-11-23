@@ -64,6 +64,23 @@ This skill activates when working with:
 - Pipeline HANA ML
 - feature_importances HANA
 
+### Statistics & Testing
+- ttest HANA, chi_squared HANA
+- f_oneway, ANOVA HANA
+- distribution_fit, KDE HANA
+- kaplan_meier HANA, survival analysis
+
+### Spatial & Graph
+- hana_ml.spatial, spatial analytics
+- hana_ml.graph, graph algorithms
+- PageRank HANA, LinkPrediction
+- create_dataframe_from_shapefile
+
+### Scheduling & Artifacts
+- schedule_fit, schedule_predict
+- hana_ml.artifacts, model artifacts
+- get_artifacts_recorder
+
 ### Error Keywords
 - hana_ml.ml_exceptions
 - ConnectionContext error
@@ -79,9 +96,10 @@ sap-hana-ml/
 ├── PROGRESS_TRACKING.md        # Documentation coverage tracking
 └── references/
     ├── DATAFRAME_REFERENCE.md  # Complete DataFrame API
-    ├── PAL_ALGORITHMS.md       # All PAL algorithms
-    ├── APL_ALGORITHMS.md       # All APL algorithms
-    └── VISUALIZERS.md          # Visualization API
+    ├── PAL_ALGORITHMS.md       # All PAL algorithms (100+)
+    ├── APL_ALGORITHMS.md       # All APL algorithms (AutoML)
+    ├── VISUALIZERS.md          # Visualization API (14 submodules)
+    └── SUPPORTING_MODULES.md   # Model storage, spatial, graph, stats
 ```
 
 ## Quick Start

@@ -1,7 +1,7 @@
 # SAP HANA ML Skill - Progress Tracking
 
-**Last Updated**: 2025-11-23
-**Status**: Complete
+**Last Updated**: 2025-11-23 (Review 2)
+**Status**: Enhanced
 **Version**: 2.22.241011 (hana-ml library version)
 
 ---
@@ -13,138 +13,224 @@ All information extracted from official SAP documentation:
 
 ---
 
-## Extraction Status by Source
+## Comprehensive URL Scrape Status
 
-### Core Documentation
+### Core Documentation Pages
 
-| Source URL | Status | Key Information Extracted |
-|------------|--------|---------------------------|
-| `hana_ml.html` | EXTRACTED | Library overview, module structure, version 2.22.241011 |
-| `Installation.html` | EXTRACTED | Prerequisites, pip installation, HANA requirements |
-| `Tutorials.html` | EXTRACTED | Tutorial index, PAL/APL examples, end-to-end workflows |
-| `change_log.html` | EXTRACTED | Version history reference (details in main docs) |
+| # | URL | Status | Content Retrieved |
+|---|-----|--------|-------------------|
+| 1 | `hana_ml.html` | ✅ SCRAPED | Full module structure, 2.22.241011 version, all submodules listed |
+| 2 | `Installation.html` | ⚠️ PARTIAL | Navigation only - pip install assumed |
+| 3 | `Tutorials.html` | ⚠️ PARTIAL | Navigation only - end-to-end examples referenced |
+| 4 | `change_log.html` | ⚠️ PARTIAL | Navigation only - changelog link exists |
+| 5 | `hana_ml.dataframe.html` | ✅ SCRAPED | ConnectionContext (30+ methods), DataFrame (80+ methods), utility functions |
 
-### DataFrame Module
+### Algorithm Module Pages
 
-| Source URL | Status | Key Information Extracted |
-|------------|--------|---------------------------|
-| `hana_ml.dataframe.html` | FULLY EXTRACTED | ConnectionContext class (all methods), DataFrame class (all properties/methods), utility functions |
+| # | URL | Status | Content Retrieved |
+|---|-----|--------|-------------------|
+| 6 | `hana_ml.algorithms.apl.html` | ✅ SCRAPED | All 8 classes, 35+ methods each, 6 submodules |
+| 7 | `hana_ml.algorithms.pal.html` | ✅ SCRAPED | All 15+ categories, 100+ algorithms, complete method lists |
 
-**Extracted Classes:**
-- ConnectionContext: `close()`, `get_connection_id()`, `restart_session()`, `cancel_session_process()`, `create_schema()`, `has_schema()`, `get_current_schema()`, `create_table()`, `drop_table()`, `has_table()`, `get_tables()`, `create_virtual_table()`, `get_procedures()`, `drop_procedure()`, `get_temporary_tables()`, `clean_up_temporary_tables()`, `hana_version()`, `hana_major_version()`, `is_cloud_version()`, `sql()`, `execute_sql()`, `table()`, `explain_plan_statement()`, `copy_to_data_lake()`, `to_sqlalchemy()`
-- DataFrame: All properties (`columns`, `shape`, `name`, `quoted_name`, `description`, `geometries`, `srids`, `stats`) and methods (selection, filtering, transformation, aggregation, advanced operations)
-- Utility Functions: `quotename()`, `read_pickle()`, `create_dataframe_from_pandas()`, `create_dataframe_from_spark()`, `create_dataframe_from_shapefile()`, `melt()`, `import_csv_from()`
+### Visualizer Module Page
 
-### Algorithm Modules
+| # | URL | Status | Content Retrieved |
+|---|-----|--------|-------------------|
+| 8 | `hana_ml.visualizers.html` | ✅ SCRAPED | 14 submodules, 40+ classes, 150+ methods |
 
-| Source URL | Status | Key Information Extracted |
-|------------|--------|---------------------------|
-| `hana_ml.algorithms.apl.html` | FULLY EXTRACTED | All APL classes and methods |
-| `hana_ml.algorithms.pal.html` | FULLY EXTRACTED | All PAL categories and algorithms |
+### Supporting Module Pages
 
-**APL Classes Extracted:**
-- AutoClassifier, GradientBoostingClassifier, GradientBoostingBinaryClassifier
-- AutoRegressor, GradientBoostingRegressor
-- AutoTimeSeries
-- AutoUnsupervisedClustering, AutoSupervisedClustering
-- Common methods: `fit()`, `predict()`, `score()`, `fit_predict()`, `save_model()`, `load_model()`, `save_artifact()`, `is_fitted()`, `get_performance_metrics()`, `get_feature_importances()`, `get_debrief_report()`, `get_summary()`, `export_apply_code()`, `set_scale_out()`, `schedule_fit()`, `schedule_predict()`, `set_shapley_explainer_of_predict_phase()`, `build_report()`, `generate_html_report()`
+| # | URL | Status | Content Retrieved |
+|---|-----|--------|-------------------|
+| 9 | `hana_ml.ml_exceptions.html` | ⚠️ PARTIAL | Module exists - exception classes not detailed in docs |
+| 10 | `hana_ml.model_storage.html` | ⚠️ PARTIAL | Methods referenced from algorithm classes |
+| 11 | `hana_ml.artifacts.html` | ⚠️ PARTIAL | Artifact recording referenced from algorithm classes |
+| 12 | `hana_ml.docstore.html` | ⚠️ PARTIAL | Module exists - detailed API not in docs |
+| 13 | `hana_ml.spatial.html` | ⚠️ PARTIAL | DataFrame properties, GeometryDBSCAN referenced |
+| 14 | `hana_ml.graph.html` | ⚠️ PARTIAL | Digraph classes from visualizers module |
+| 15 | `hana_ml.graph.algorithms.html` | ⚠️ PARTIAL | Module exists - algorithms not detailed |
+| 16 | `hana_ml.text.tm.html` | ⚠️ PARTIAL | LDA, CRF from PAL, WordCloud from visualizers |
+| 17 | `hana_ml.hana_scheduler.html` | ⚠️ PARTIAL | schedule_fit/schedule_predict methods exist |
 
-**PAL Categories Extracted:**
-- PAL Base: `PALBase`
-- AutoML: `AutomaticClassification`, `AutomaticRegression`, `AutomaticTimeSeries`, `Preprocessing`, `MassiveAutomaticClassification`, `MassiveAutomaticRegression`, `MassiveAutomaticTimeSeries`
-- Unified Interface: `UnifiedClassification`, `UnifiedRegression`, `UnifiedClustering`, `UnifiedExponentialSmoothing`
-- Clustering: `AffinityPropagation`, `AgglomerateHierarchicalClustering`, `DBSCAN`, `GeometryDBSCAN`, `KMeans`, `KMedians`, `KMedoids`, `SpectralClustering`, `KMeansOutlier`, `GaussianMixture`, `SOM`, `SlightSilhouette`
-- Classification: `LinearDiscriminantAnalysis`, `LogisticRegression`, `OnlineMultiLogisticRegression`, `NaiveBayes`, `KNNClassifier`, `MLPClassifier`, `SVC`, `OneClassSVM`, `DecisionTreeClassifier`, `RDTClassifier`, `HybridGradientBoostingClassifier`, `MLPMultiTaskClassifier`
-- Regression: `LinearRegression`, `OnlineLinearRegression`, `KNNRegressor`, `MLPRegressor`, `PolynomialRegression`, `GLM`, `ExponentialRegression`, `BiVariateGeometricRegression`, `BiVariateNaturalLogarithmicRegression`, `CoxProportionalHazardModel`, `SVR`, `DecisionTreeRegressor`, `RDTRegressor`, `HybridGradientBoostingRegressor`, `MLPMultiTaskRegressor`
-- Preprocessing: `FeatureNormalizer`, `FeatureSelection`, `IsolationForest`, `KBinsDiscretizer`, `Imputer`, `Discretize`, `MDS`, `SMOTE`, `SMOTETomek`, `TomekLinks`, `Sampling`, `ImputeTS`, `PowerTransform`, `QuantileTransform`, `OutlierDetectionRegression`, `PCA`, `CATPCA`, `train_test_val_split`, `variance_test`
-- Time Series: `ARIMA`, `AutoARIMA`, `AdditiveModelForecast`, `CPD`, `BCPD`, `OnlineBCPD`, `BSTS`, `TimeSeriesClassification`, exponential smoothing variants, `GARCH`, `Hierarchical_Forecast`, `LR_seasonal_adjust`, `LSTM`, `LTSF`, `OnlineARIMA`, `OutlierDetectionTS`, `GRUAttention`, `ROCKET`, `VectorARIMA`, `DWT`, utility functions
-- Statistics: Random distributions, hypothesis tests, univariate analysis, distribution fitting, Kaplan-Meier, KDE
-- Association: `Apriori`, `AprioriLite`, `FPGrowth`, `KORD`, `SPM`
-- Recommender: `ALS`, `FRM`, `FFMClassifier`, `FFMRegressor`, `FFMRanker`, `MLPRecommender`
-- Social Network: `LinkPrediction`, `PageRank`, `SVRanking`
-- Miscellaneous: `abc_analysis`, `weighted_score_table`, `create_model_card`, `parse_model_card`, `TSNE`, `FairMLClassification`, `FairMLRegression`
-- Model Evaluation: `accuracy_score`, `auc`, `confusion_matrix`, `multiclass_auc`, `r2_score`, `binary_classification_debriefing`
-- Model Selection: `ParamSearchCV`, `GridSearchCV`, `RandomSearchCV`, `Pipeline`
-- Text Processing: `CRF`, `LatentDirichletAllocation`
+---
 
-### Visualizers Module
+## Detailed Extraction Log
 
-| Source URL | Status | Key Information Extracted |
-|------------|--------|---------------------------|
-| `hana_ml.visualizers.html` | FULLY EXTRACTED | All visualizer classes and methods |
+### hana_ml.dataframe - COMPLETE
 
-**Visualizer Submodules Extracted:**
-- `hana_ml.visualizers.eda`: `EDAVisualizer`, `Profiler`, plotting functions (`quarter_plot`, `seasonal_plot`, `timeseries_box_plot`, etc.)
-- `hana_ml.visualizers.metrics`: `MetricsVisualizer`, `plot_confusion_matrix()`
-- `hana_ml.visualizers.model_debriefing`: `TreeModelDebriefing`, `shapley_explainer()`
-- `hana_ml.visualizers.shap`: `ShapleyExplainer`, `TimeSeriesExplainer`
-- `hana_ml.visualizers.m4_sampling`: `m4_sampling()`, index functions
-- `hana_ml.visualizers.dataset_report`: `DatasetReportBuilder`
-- `hana_ml.visualizers.unified_report`: `UnifiedReport`
-- `hana_ml.visualizers.digraph`: `Digraph`, `MultiDigraph`, `Node`, `Edge`
-- `hana_ml.visualizers.word_cloud`: `WordCloud`
-- `hana_ml.visualizers.time_series_report`: `TimeSeriesReport`, `DatasetAnalysis`
-- `hana_ml.visualizers.automl_progress`: `PipelineProgressStatusMonitor`, `SimplePipelineProgressStatusMonitor`
-- `hana_ml.visualizers.automl_report`: `BestPipelineReport`
+**ConnectionContext Methods (32):**
+- Connection: `close()`, `copy()`, `get_connection_id()`, `restart_session()`, `cancel_session_process()`
+- Schema: `create_schema()`, `has_schema()`, `get_current_schema()`
+- Table: `create_table()`, `drop_table()`, `has_table()`, `get_tables()`, `create_virtual_table()`
+- View: `drop_view()`
+- Procedure: `get_procedures()`, `drop_procedure()`
+- Temporary: `get_temporary_tables()`, `clean_up_temporary_tables()`
+- Version: `hana_version()`, `hana_major_version()`, `is_cloud_version()`
+- SQL: `sql()`, `execute_sql()`, `explain_plan_statement()`, `table()`
+- ABAP: `enable_abap_sql()`, `disable_abap_sql()`
+- Streams: `upsert_streams_data()`, `update_streams_data()`
+- Data Lake: `copy_to_data_lake()`
+- Keys: `add_primary_key()`
+- Integration: `to_sqlalchemy()`
 
-### Supporting Modules
+**DataFrame Properties (9):**
+- `columns`, `shape`, `name`, `quoted_name`, `description`, `description_ext`, `geometries`, `srids`, `stats`
 
-| Source URL | Status | Key Information Extracted |
-|------------|--------|---------------------------|
-| `hana_ml.ml_exceptions.html` | PARTIAL | Module exists (details in reference) |
-| `hana_ml.model_storage.html` | EXTRACTED | `save_model()`, `load_model()`, `save_artifact()` methods |
-| `hana_ml.artifacts.html` | EXTRACTED | Artifact management integration |
-| `hana_ml.docstore.html` | PARTIAL | Document store capability referenced |
-| `hana_ml.spatial.html` | EXTRACTED | `geometries`, `srids` properties, `GeometryDBSCAN`, `create_dataframe_from_shapefile()` |
-| `hana_ml.graph.html` | EXTRACTED | Graph creation, node/edge management, visualization |
-| `hana_ml.graph.algorithms.html` | PARTIAL | Graph algorithms module referenced |
-| `hana_ml.text.tm.html` | EXTRACTED | `LatentDirichletAllocation`, `CRF`, `WordCloud` |
-| `hana_ml.hana_scheduler.html` | PARTIAL | Scheduler module referenced |
+**DataFrame Methods (70+):**
+- Selection: `select()`, `deselect()`, `filter()`, `has()`, `distinct()`, `drop_duplicates()`
+- Missing: `dropna()`, `fillna()`, `hasna()`
+- Transform: `alias()`, `cast()`, `auto_cast()`, `rename_columns()`, `split_column()`, `concat_columns()`, `nullif()`, `replace()`
+- Add: `add_id()`, `add_constant()`, `mutate()`, `generate_feature()`
+- Sort: `sort()`, `sort_values()`, `sort_index()`, `rearrange()`
+- Index: `set_index()`, `set_name()`, `set_source_table()`
+- Retrieve: `head()`, `tail()`, `to_head()`, `to_tail()`, `collect()`
+- Stats: `count()`, `empty()`, `summary()`, `describe()`, `dtypes()`, `get_table_structure()`, `is_numeric()`, `value_counts()`
+- Aggregation: `min()`, `max()`, `sum()`, `mean()`, `median()`, `stddev()`, `corr()`, `agg()`, `pivot_table()`, `bin()`
+- Join: `join()`, `union()`, `set_operations()`, `diff()`
+- Validation: `declare_lttab_usage()`, `disable_validate_columns()`, `enable_validate_columns()`, `has_constant_columns()`, `drop_constant_columns()`
+- Save: `save()`, `save_nativedisktable()`, `to_pickle()`, `to_datetime()`
+- Type: `generate_table_type()`, `drop()`
+
+**Utility Functions (7):**
+- `quotename()`, `read_pickle()`, `create_dataframe_from_pandas()`, `create_dataframe_from_spark()`, `create_dataframe_from_shapefile()`, `melt()`, `import_csv_from()`
+
+### hana_ml.algorithms.apl - COMPLETE
+
+**Submodules (6):**
+1. `gradient_boosting_classification`: GradientBoostingClassifier, GradientBoostingBinaryClassifier
+2. `gradient_boosting_regression`: GradientBoostingRegressor
+3. `time_series`: AutoTimeSeries
+4. `classification`: AutoClassifier
+5. `regression`: AutoRegressor
+6. `clustering`: AutoUnsupervisedClustering, AutoSupervisedClustering
+
+**Common Methods (35+) per class:**
+- Core: `fit()`, `predict()`, `score()`, `fit_predict()`, `is_fitted()`
+- Parameters: `set_params()`, `get_params()`
+- Model: `save_model()`, `load_model()`, `save_artifact()`, `export_apply_code()`
+- Metrics: `get_performance_metrics()`, `get_feature_importances()`, `get_summary()`, `get_debrief_report()`
+- Advanced: `get_evalmetrics()`, `get_indicators()`, `get_model_info()`, `get_fit_operation_log()`, `get_predict_operation_log()`, `get_best_iteration()`, `get_metrics_per_class()`
+- Report: `build_report()`, `generate_html_report()`, `generate_notebook_iframe_report()`
+- Scale: `set_scale_out()`, `schedule_fit()`, `schedule_predict()`
+- SHAP: `set_shapley_explainer_of_predict_phase()`, `set_shapley_explainer_of_score_phase()`
+- Execution: `enable_hana_execution()`, `disable_hana_execution()`, `set_framework_version()`, `set_metric_samplings()`
+- Version: `get_apl_version()`, `get_artifacts_recorder()`
+
+**AutoTimeSeries Additional:**
+- `forecast()`, `get_model_components()`, `get_horizon_wide_metric()`
+
+### hana_ml.algorithms.pal - COMPLETE
+
+**Categories (15+):**
+
+1. **AutoML (7):** AutomaticClassification, AutomaticRegression, AutomaticTimeSeries, Preprocessing, MassiveAutomaticClassification, MassiveAutomaticRegression, MassiveAutomaticTimeSeries
+
+2. **Unified Interface (4):** UnifiedClassification, UnifiedRegression, UnifiedClustering, UnifiedExponentialSmoothing
+
+3. **Clustering (12):** AffinityPropagation, AgglomerateHierarchicalClustering, DBSCAN, GeometryDBSCAN, KMeans, KMedians, KMedoids, SpectralClustering, KMeansOutlier, GaussianMixture, SOM, SlightSilhouette
+
+4. **Classification (12):** LinearDiscriminantAnalysis, LogisticRegression, OnlineMultiLogisticRegression, NaiveBayes, KNNClassifier, MLPClassifier, SVC, OneClassSVM, DecisionTreeClassifier, RDTClassifier, HybridGradientBoostingClassifier, MLPMultiTaskClassifier
+
+5. **Regression (15):** LinearRegression, OnlineLinearRegression, KNNRegressor, MLPRegressor, PolynomialRegression, GLM, ExponentialRegression, BiVariateGeometricRegression, BiVariateNaturalLogarithmicRegression, CoxProportionalHazardModel, SVR, DecisionTreeRegressor, RDTRegressor, HybridGradientBoostingRegressor, MLPMultiTaskRegressor
+
+6. **Preprocessing (17):** FeatureNormalizer, FeatureSelection, IsolationForest, KBinsDiscretizer, Imputer, Discretize, MDS, SMOTE, SMOTETomek, TomekLinks, Sampling, ImputeTS, PowerTransform, QuantileTransform, OutlierDetectionRegression, PCA, CATPCA
+
+7. **Time Series (30+):** AdditiveModelForecast, ARIMA, AutoARIMA, CPD, BCPD, OnlineBCPD, BSTS, TimeSeriesClassification, SingleExponentialSmoothing, DoubleExponentialSmoothing, TripleExponentialSmoothing, AutoExponentialSmoothing, BrownExponentialSmoothing, Croston, CrostonTSB, GARCH, Hierarchical_Forecast, LR_seasonal_adjust, LSTM, LTSF, OnlineARIMA, OutlierDetectionTS, GRUAttention, ROCKET, VectorARIMA, DWT
+
+8. **Time Series Utilities (6):** accuracy_measure, correlation, fft, dtw, fast_dtw, train_test_val_split
+
+9. **Statistics - Distributions (20):** bernoulli, beta, binomial, cauchy, chi_squared, exponential, gumbel, f, gamma, geometric, lognormal, negative_binomial, normal, pert, poisson, student_t, uniform, weibull, multinomial, mcmc
+
+10. **Statistics - Tests (20+):** chi_squared_goodness_of_fit, chi_squared_independence, ttest_1samp, ttest_ind, ttest_paired, f_oneway, f_oneway_repeated, univariate_analysis, covariance_matrix, pearsonr_matrix, iqr, wilcoxon, median_test_1samp, grubbs_test, entropy, condition_index, cdf, ftest_equal_var, factor_analysis, kaplan_meier_survival_analysis, quantile, distribution_fit, ks_test, interval_quality, benford_analysis, KDE, variance_test
+
+11. **Association (5):** Apriori, AprioriLite, FPGrowth, KORD, SPM
+
+12. **Recommender (6):** ALS, FRM, FFMClassifier, FFMRegressor, FFMRanker, MLPRecommender
+
+13. **Social Network (3):** LinkPrediction, PageRank, SVRanking
+
+14. **Miscellaneous (8):** abc_analysis, weighted_score_table, create_model_card, parse_model_card, TSNE, FairMLClassification, FairMLRegression, binary_classification_debriefing
+
+15. **Model Selection (4):** ParamSearchCV, GridSearchCV, RandomSearchCV, Pipeline
+
+16. **Metrics (5):** accuracy_score, auc, confusion_matrix, multiclass_auc, r2_score
+
+17. **Text Processing (2):** CRF, LatentDirichletAllocation
+
+### hana_ml.visualizers - COMPLETE
+
+**Submodules (14):**
+
+1. **eda:** EDAVisualizer, Profiler, quarter_plot, seasonal_plot, timeseries_box_plot, bubble_plot, parallel_coordinates, plot_acf, plot_pacf, plot_time_series_outlier, plot_change_points, plot_moving_average, plot_rolling_stddev, plot_seasonal_decompose, kdeplot, hist, plot_psd
+
+2. **metrics:** MetricsVisualizer (plot_confusion_matrix, ax, cmap, reset, set_ax, set_cmap, set_size, size)
+
+3. **m4_sampling:** get_min_index, get_max_index, m4_sampling
+
+4. **model_debriefing:** TreeModelDebriefing (tree_debrief, tree_export, tree_parse, tree_debrief_with_dot, tree_export_with_dot, shapley_explainer)
+
+5. **dataset_report:** DatasetReportBuilder (build, set_framework_version, get_report_html, get_iframe_report_html, generate_html_report, generate_notebook_iframe_report)
+
+6. **shap:** ShapleyExplainer (get_feature_value_and_effect, get_force_plot_item, get_beeswarm_plot_item, get_bar_plot_item, get_dependence_plot_items, get_enhanced_dependence_plot_items, force_plot, summary_plot), TimeSeriesExplainer (explain_arima_model, explain_additive_model)
+
+7. **unified_report:** UnifiedReport (set_model_report_style, build, set_metric_samplings, tree_debrief, display, get_iframe_report)
+
+8. **visualizer_base:** forecast_line_plot
+
+9. **digraph:** Node, InPort, OutPort, Edge, DigraphConfig (set_text_layout, set_digraph_layout, set_node_sep, set_rank_sep), BaseDigraph (add_model_node, add_python_node, add_edge), Digraph (to_json, build, generate_html, generate_notebook_iframe), MultiDigraph (add_child_digraph, ChildDigraph)
+
+10. **word_cloud:** WordCloud (build, fit_words, generate, generate_from_frequencies, generate_from_text, process_text, recolor, to_array, to_file, to_svg)
+
+11. **automl_progress:** PipelineProgressStatusMonitor (start), SimplePipelineProgressStatusMonitor (start)
+
+12. **automl_report:** BestPipelineReport (generate_notebook_iframe, generate_html)
+
+13. **time_series_report:** TimeSeriesReport (addPage, addPages, build, generate_html, generate_notebook_iframe, to_json), DatasetAnalysis (pacf_item, moving_average_item, rolling_stddev_item, seasonal_item, timeseries_box_item, seasonal_decompose_items, quarter_item, outlier_item, stationarity_item, real_item, change_points_item)
+
+14. **automl_config:** AutoMLConfig (get_config_dict, generate_html)
 
 ---
 
 ## Information Coverage Summary
 
-### Fully Documented in Skill
+### Fully Documented (100%)
+
+| Component | Items | Notes |
+|-----------|-------|-------|
+| DataFrame | 32 ConnectionContext methods, 70+ DataFrame methods, 7 utility functions | Complete API |
+| APL | 8 classes, 35+ methods each | All submodules covered |
+| PAL | 100+ algorithms across 17 categories | Complete listing |
+| Visualizers | 14 submodules, 40+ classes | All methods documented |
+
+### Partially Documented (Referenced)
 
 | Component | Coverage | Notes |
 |-----------|----------|-------|
-| Installation & Setup | 100% | Prerequisites, pip install, connection |
-| DataFrame Operations | 100% | All classes, methods, properties |
-| APL Algorithms | 100% | All classification, regression, time series, clustering |
-| PAL Algorithms | 100% | All 15+ categories with 100+ algorithms |
-| Visualizers | 100% | All 11 submodules |
-| Model Storage | 90% | Core methods documented |
-| Spatial Features | 80% | Properties and key functions |
-| Graph Features | 70% | Core operations documented |
-| Text Mining | 70% | Topic modeling and word cloud |
-| Scheduler | 50% | Module referenced |
-| Exceptions | 50% | Module referenced |
-
-### Templates Included
-
-- [x] Basic connection setup
-- [x] DataFrame creation and manipulation
-- [x] PAL classification example
-- [x] PAL regression example
-- [x] APL AutoML example
-- [x] Time series forecasting
-- [x] Clustering example
-- [x] Model persistence
-- [x] Visualization example
+| Model Storage | ~80% | Methods via algorithm classes |
+| Artifacts | ~80% | get_artifacts_recorder, save_artifact |
+| Spatial | ~60% | DataFrame properties, GeometryDBSCAN |
+| Graph | ~50% | Digraph visualizers, graph references |
+| Text Mining | ~70% | LDA, CRF, WordCloud |
+| Scheduler | ~50% | schedule_fit, schedule_predict |
+| Exceptions | ~30% | Module exists |
+| DocStore | ~30% | Module exists |
 
 ---
 
-## Update Instructions
+## Skill Files Structure
 
-To update this skill when new hana-ml versions are released:
-
-1. **Check version**: Visit `https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/latest/en-US/hana_ml.html`
-2. **Review changelog**: Check `change_log.html` for new features
-3. **Update SKILL.md**: Modify version numbers and add new capabilities
-4. **Update references**: Add new algorithm classes or methods to reference files
-5. **Test examples**: Verify all code templates work with new version
-6. **Update dates**: Change "Last Verified" dates in all files
+```
+skills/sap-hana-ml/
+├── SKILL.md                              # Main skill (476 lines)
+├── README.md                             # Keywords (131 lines)
+├── PROGRESS_TRACKING.md                  # This file
+└── references/
+    ├── DATAFRAME_REFERENCE.md            # DataFrame API (417 lines)
+    ├── PAL_ALGORITHMS.md                 # PAL algorithms (869 lines)
+    ├── APL_ALGORITHMS.md                 # APL algorithms (534 lines)
+    ├── VISUALIZERS.md                    # Visualizers (668 lines)
+    └── SUPPORTING_MODULES.md             # NEW: Extended modules
+```
 
 ---
 
@@ -153,9 +239,10 @@ To update this skill when new hana-ml versions are released:
 ### Primary Documentation
 - Main: https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/2.0.07/en-US/hana_ml.html
 - Installation: https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/2.0.07/en-US/Installation.html
+- Tutorials: https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/2.0.07/en-US/Tutorials.html
 - Changelog: https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/2.0.07/en-US/change_log.html
 
-### Module Documentation
+### Core Module Documentation
 - DataFrame: https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/2.0.07/en-US/hana_ml.dataframe.html
 - APL: https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/2.0.07/en-US/hana_ml.algorithms.apl.html
 - PAL: https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/2.0.07/en-US/hana_ml.algorithms.pal.html
@@ -177,5 +264,6 @@ To update this skill when new hana-ml versions are released:
 
 ---
 
-**Document Version**: 1.0
+**Document Version**: 2.0
 **Created**: 2025-11-23
+**Last Review**: 2025-11-23

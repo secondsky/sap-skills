@@ -456,10 +456,11 @@ except Error as e:
 ## Reference Files
 
 For detailed information, see:
-- `references/DATAFRAME_REFERENCE.md` - Complete DataFrame API
-- `references/PAL_ALGORITHMS.md` - All PAL algorithms and parameters
-- `references/APL_ALGORITHMS.md` - All APL algorithms and parameters
-- `references/VISUALIZERS.md` - Complete visualization API
+- `references/DATAFRAME_REFERENCE.md` - Complete DataFrame API (ConnectionContext, DataFrame)
+- `references/PAL_ALGORITHMS.md` - All PAL algorithms and parameters (100+ algorithms)
+- `references/APL_ALGORITHMS.md` - All APL algorithms and parameters (AutoML)
+- `references/VISUALIZERS.md` - Complete visualization API (14 submodules)
+- `references/SUPPORTING_MODULES.md` - Model storage, artifacts, spatial, graph, text mining, statistics
 
 ---
 

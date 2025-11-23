@@ -30,9 +30,17 @@ conn = ConnectionContext(
 | Method | Description |
 |--------|-------------|
 | `close()` | Terminate the database connection |
+| `copy()` | Duplicate connection settings |
 | `get_connection_id()` | Retrieve current connection identifier |
 | `restart_session()` | Reinitialize the database session |
 | `cancel_session_process()` | Stop running operations on current session |
+
+### ABAP SQL Operations
+
+| Method | Description |
+|--------|-------------|
+| `enable_abap_sql()` | Enable ABAP SQL execution mode |
+| `disable_abap_sql()` | Disable ABAP SQL execution mode |
 
 ### Schema Operations
 
@@ -52,6 +60,13 @@ conn = ConnectionContext(
 | `get_tables(schema=None)` | List all tables |
 | `create_virtual_table(name, source)` | Create virtual table reference |
 | `table(name, schema=None)` | Create DataFrame from table |
+| `add_primary_key(table_name, columns)` | Define primary keys on table |
+
+### View Operations
+
+| Method | Description |
+|--------|-------------|
+| `drop_view(view_name)` | Delete a view |
 
 ### Procedure Operations
 
@@ -89,6 +104,13 @@ conn = ConnectionContext(
 |--------|-------------|
 | `copy_to_data_lake(df, target)` | Export DataFrame to data lake |
 | `to_sqlalchemy()` | Get SQLAlchemy connection object |
+
+### Streaming Operations
+
+| Method | Description |
+|--------|-------------|
+| `upsert_streams_data(table, data)` | Insert or update stream records |
+| `update_streams_data(table, data)` | Modify stream records |
 
 ---
 
