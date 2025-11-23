@@ -20,11 +20,21 @@ const data = await SELECT.from(Books).columns('ID', 'title as bookTitle');
 
 ### Single Record
 ```js
-// By key
-const book = await SELECT.one.from(Books, bookId);
+// By key - shortcut form (returns single entity or undefined)
+const book = await SELECT.from(Books, bookId);
 
-// With condition
+// Explicit form with WHERE clause
+const book = await SELECT.one.from(Books).where({ ID: bookId });
+
+// With non-key condition
 const book = await SELECT.one.from(Books).where({ isbn: '978-123' });
+
+// IMPORTANT: Always guard the result - returns undefined when no record found
+const book = await SELECT.one.from(Books).where({ ID: bookId });
+if (!book) {
+  return req.reject(404, 'Book not found');
+}
+// Now safe to access book.title, book.price, etc.
 ```
 
 ### WHERE Clauses

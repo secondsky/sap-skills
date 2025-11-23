@@ -274,7 +274,7 @@ cds add kyma
 ### Deploy
 
 ```sh
-cds up -2 k8s -n <namespace>
+cds up --to k8s -n <namespace>
 ```
 
 ### Helm Chart Structure
@@ -546,9 +546,9 @@ Test with cloud services locally.
 ### Setup
 
 ```sh
-# Bind to cloud services
-cds bind -2 bookshop-db
-cds bind -2 bookshop-auth
+# Bind to cloud services (creates .cdsrc-private.json with credentials)
+cds bind --to bookshop-db
+cds bind --to bookshop-auth
 
 # Run with hybrid profile
 cds watch --profile hybrid

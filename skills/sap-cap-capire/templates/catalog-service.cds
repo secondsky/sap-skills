@@ -12,14 +12,17 @@ using { my.bookshop as my } from '../db/schema';
 service CatalogService {
 
   /**
-   * Read-only view of books with author name flattened
+   * Read-only view of books with flattened fields for Fiori UI
+   * Excludes associations to avoid name clashes, exposes scalar aliases instead
    */
   @readonly
   entity Books as projection on my.Books {
     *,
-    author.name as author : String,
-    genre.name as genreName : String
-  } excluding { createdBy, modifiedBy };
+    author.name as authorName : String,
+    genre.code as genre_code : String,
+    genre.name as genreName : String,
+    currency.code as currency_code : String
+  } excluding { createdBy, modifiedBy, author, genre, currency };
 
   /**
    * Read-only authors
@@ -89,12 +92,13 @@ service OrderService {
 
   /**
    * Orders visible only to owner
+   * Note: $user resolves to userId from JWT authentication token
    */
   @restrict: [
-    { grant: 'READ', where: 'customer.email = $user' },
+    { grant: 'READ', where: 'customer.userId = $user' },
     { grant: 'CREATE' },
-    { grant: 'UPDATE', where: 'customer.email = $user and status = ''draft''' },
-    { grant: 'DELETE', where: 'customer.email = $user and status = ''draft''' }
+    { grant: 'UPDATE', where: 'customer.userId = $user and status = ''draft''' },
+    { grant: 'DELETE', where: 'customer.userId = $user and status = ''draft''' }
   ]
   entity Orders as projection on my.Orders;
 

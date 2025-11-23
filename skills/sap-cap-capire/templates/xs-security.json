@@ -1,0 +1,80 @@
+{
+  "$schema": "https://raw.githubusercontent.com/SAP/cloud-security-xsuaa-integration/master/xs-security-schema.json",
+  "_comment": "CAP XSUAA Security Configuration Template",
+  "_documentation": "https://cap.cloud.sap/docs/guides/security/authorization",
+
+  "xsappname": "cap-bookshop",
+  "tenant-mode": "dedicated",
+
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.admin",
+      "description": "Admin access - full CRUD on all entities"
+    },
+    {
+      "name": "$XSAPPNAME.user",
+      "description": "User access - read catalog, create orders"
+    }
+  ],
+
+  "attributes": [
+    {
+      "name": "country",
+      "description": "Country for regional access",
+      "valueType": "string"
+    }
+  ],
+
+  "role-templates": [
+    {
+      "name": "Admin",
+      "description": "Administrator with full access",
+      "scope-references": [
+        "$XSAPPNAME.admin",
+        "$XSAPPNAME.user"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "User",
+      "description": "Regular user - browse and order",
+      "scope-references": [
+        "$XSAPPNAME.user"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "Viewer",
+      "description": "Read-only access to catalog",
+      "scope-references": [],
+      "attribute-references": []
+    }
+  ],
+
+  "role-collections": [
+    {
+      "name": "BookshopAdmin",
+      "description": "Bookshop Administrator",
+      "role-template-references": [
+        "$XSAPPNAME.Admin"
+      ]
+    },
+    {
+      "name": "BookshopUser",
+      "description": "Bookshop User",
+      "role-template-references": [
+        "$XSAPPNAME.User"
+      ]
+    }
+  ],
+
+  "oauth2-configuration": {
+    "token-validity": 43200,
+    "refresh-token-validity": 604800,
+    "redirect-uris": [
+      "https://*.cfapps.*.hana.ondemand.com/**",
+      "https://*.applicationstudio.cloud.sap/**",
+      "http://localhost:*/**"
+    ]
+  }
+}

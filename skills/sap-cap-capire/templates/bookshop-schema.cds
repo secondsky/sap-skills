@@ -65,8 +65,10 @@ entity OrderItems : cuid {
 
 /**
  * Customers entity
+ * Note: userId links to authentication identity ($user from JWT)
  */
 entity Customers : cuid, managed {
+  userId      : String(255) not null;  // Links to $user from authentication
   email       : String(255) not null;
   firstName   : String(111);
   lastName    : String(111);

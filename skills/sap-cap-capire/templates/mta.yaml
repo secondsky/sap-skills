@@ -112,6 +112,9 @@ resources:
   # ============================================
   # XSUAA Authentication
   # ============================================
+  # IMPORTANT: Create xs-security.json in project root with scopes and roles.
+  # See template at: templates/xs-security.json
+  # Documentation: https://cap.cloud.sap/docs/guides/security/authorization
   - name: cap-bookshop-auth
     type: org.cloudfoundry.managed-service
     parameters:

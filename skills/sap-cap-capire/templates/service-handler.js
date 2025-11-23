@@ -191,7 +191,7 @@ module.exports = class CatalogService extends cds.ApplicationService {
     // Get data from database
     const books = await cds.db.run(req.query);
 
-    // Apply custom filtering
-    return books.filter(book => book.isAvailable !== false);
+    // Apply custom filtering using the 'available' field set by enrichBooks
+    return books.filter(book => book.available !== false);
   }
 }

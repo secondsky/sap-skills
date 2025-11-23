@@ -20,7 +20,7 @@ annotate CatalogService.Books with @UI.HeaderInfo: {
   TypeName       : 'Book',
   TypeNamePlural : 'Books',
   Title          : { Value: title },
-  Description    : { Value: author },
+  Description    : { Value: authorName },
   ImageUrl       : coverImage
 };
 
@@ -29,7 +29,7 @@ annotate CatalogService.Books with @UI.HeaderInfo: {
  */
 annotate CatalogService.Books with @UI.SelectionFields: [
   title,
-  author,
+  authorName,
   genre_code,
   price
 ];
@@ -39,9 +39,9 @@ annotate CatalogService.Books with @UI.SelectionFields: [
  */
 annotate CatalogService.Books with @UI.LineItem: [
   { Value: title, Label: 'Title' },
-  { Value: author, Label: 'Author' },
+  { Value: authorName, Label: 'Author' },
   { Value: genreName, Label: 'Genre' },
-  { Value: stock, Label: 'Stock', Criticality: stockCriticality },
+  { Value: stock, Label: 'Stock' },
   { Value: price, Label: 'Price' },
   { Value: currency_code, Label: 'Currency' },
   {
@@ -82,7 +82,7 @@ annotate CatalogService.Books with @UI.Facets: [
 annotate CatalogService.Books with @UI.FieldGroup#General: {
   Data: [
     { Value: title },
-    { Value: author },
+    { Value: authorName },
     { Value: genre_code, Label: 'Genre' },
     { Value: rating }
   ]
@@ -121,9 +121,8 @@ annotate CatalogService.Books with @UI.Identification: [
 annotate CatalogService.Books with {
   ID           @UI.Hidden;
   createdAt    @UI.Hidden;
-  createdBy    @UI.Hidden;
   modifiedAt   @UI.Hidden;
-  modifiedBy   @UI.Hidden;
+  // Note: createdBy, modifiedBy are excluded from the projection
 
   title        @title: 'Title'
                @mandatory;
@@ -131,7 +130,7 @@ annotate CatalogService.Books with {
   descr        @title: 'Description'
                @UI.MultiLineText;
 
-  author       @title: 'Author';
+  authorName   @title: 'Author';
 
   genre_code   @title: 'Genre'
                @Common.Text: genreName
