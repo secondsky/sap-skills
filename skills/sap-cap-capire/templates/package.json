@@ -1,0 +1,113 @@
+{
+  "name": "cap-bookshop",
+  "version": "1.0.0",
+  "description": "CAP Bookshop Application",
+  "repository": "https://github.com/your-org/cap-bookshop",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^8",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^8",
+    "@sap/eslint-plugin-cds": "^3",
+    "jest": "^29"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch",
+    "test": "cds bind --exec jest --runInBand",
+    "build": "cds build --production",
+    "deploy": "cds deploy --to hana"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "[development]": {
+          "kind": "sqlite",
+          "credentials": {
+            "url": ":memory:"
+          }
+        },
+        "[production]": {
+          "kind": "hana"
+        }
+      },
+      "auth": {
+        "[development]": {
+          "kind": "mocked",
+          "users": {
+            "alice": {
+              "password": "alice",
+              "roles": ["Admin", "authenticated-user"]
+            },
+            "bob": {
+              "password": "bob",
+              "roles": ["authenticated-user"]
+            }
+          }
+        },
+        "[production]": {
+          "kind": "xsuaa"
+        }
+      },
+      "messaging": {
+        "[development]": {
+          "kind": "file-based-messaging"
+        },
+        "[production]": {
+          "kind": "enterprise-messaging"
+        }
+      }
+    },
+    "odata": {
+      "version": "v4"
+    },
+    "fiori": {
+      "preview": true
+    },
+    "i18n": {
+      "default_language": "en",
+      "folders": [
+        "_i18n",
+        "i18n"
+      ]
+    },
+    "build": {
+      "target": "gen",
+      "tasks": [
+        {
+          "for": "hana",
+          "src": "db"
+        },
+        {
+          "for": "node-cf",
+          "src": "srv"
+        }
+      ]
+    },
+    "query": {
+      "limit": {
+        "default": 100,
+        "max": 1000
+      }
+    },
+    "log": {
+      "levels": {
+        "[development]": {
+          "cds": "debug",
+          "db": "info"
+        },
+        "[production]": {
+          "cds": "info"
+        }
+      }
+    }
+  },
+  "sapux": [
+    "app/browse",
+    "app/admin"
+  ]
+}

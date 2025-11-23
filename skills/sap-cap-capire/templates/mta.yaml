@@ -1,0 +1,163 @@
+# CAP MTA Deployment Descriptor Template
+# File: mta.yaml
+# Documentation: https://cap.cloud.sap/docs/guides/deployment/to-cf
+
+_schema-version: '3.1'
+ID: cap-bookshop
+version: 1.0.0
+description: CAP Bookshop Application
+
+parameters:
+  enable-parallel-deployments: true
+
+build-parameters:
+  before-all:
+    # IMPORTANT: These commands run in MTA builder container
+    # Ensure package.json and package-lock.json are committed
+    - builder: custom
+      commands:
+        - npm ci              # Requires package-lock.json to exist
+        - npx cds build --production
+
+modules:
+  # ============================================
+  # CAP Service Module
+  # ============================================
+  - name: cap-bookshop-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      memory: 256M
+      disk-quota: 512M
+    build-parameters:
+      builder: npm
+      ignore:
+        - 'node_modules/'
+    requires:
+      - name: cap-bookshop-db
+      - name: cap-bookshop-auth
+      # Uncomment for messaging
+      # - name: cap-bookshop-messaging
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+
+  # ============================================
+  # Database Deployer Module
+  # ============================================
+  - name: cap-bookshop-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+      memory: 256M
+      disk-quota: 512M
+    requires:
+      - name: cap-bookshop-db
+
+  # ============================================
+  # App Router Module (Optional)
+  # ============================================
+  # PREREQUISITE: Create app/router/ directory with:
+  #   - package.json (with @sap/approuter dependency)
+  #   - xs-app.json (route configuration)
+  # See: https://cap.cloud.sap/docs/guides/security/authorization#app-router
+  - name: cap-bookshop-app
+    type: approuter.nodejs
+    path: app/router
+    parameters:
+      memory: 256M
+      disk-quota: 256M
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: cap-bookshop-auth
+      # Uncomment for HTML5 apps
+      # - name: cap-bookshop-html5-rt
+    provides:
+      - name: app-api
+        properties:
+          app-url: ${default-url}
+
+  # ============================================
+  # UI Deployer Module (Optional - for Fiori apps)
+  # ============================================
+  # - name: cap-bookshop-ui-deployer
+  #   type: com.sap.application.content
+  #   path: gen/app
+  #   requires:
+  #     - name: cap-bookshop-html5-host
+  #       parameters:
+  #         content-target: true
+  #   build-parameters:
+  #     build-result: app-content
+  #     requires:
+  #       - artifacts:
+  #           - browse.zip
+  #         name: cap-bookshop-browse
+  #         target-path: app-content/
+
+resources:
+  # ============================================
+  # HDI Container (SAP HANA)
+  # ============================================
+  # Service Plans:
+  #   - hdi-shared: Standard shared HDI container (most common)
+  #   - hana: Full HANA instance (rarely needed, expensive)
+  # Check entitlements: cf marketplace -e hana
+  - name: cap-bookshop-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+    properties:
+      hdi-service-name: ${service-name}
+
+  # ============================================
+  # XSUAA Authentication
+  # ============================================
+  # IMPORTANT: Create xs-security.json in project root with scopes and roles.
+  # See template at: templates/xs-security.json
+  # Documentation: https://cap.cloud.sap/docs/guides/security/authorization
+  - name: cap-bookshop-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: cap-bookshop-${org}-${space}
+        tenant-mode: dedicated
+        # Change to 'shared' for multitenancy:
+        # tenant-mode: shared
+
+  # ============================================
+  # Enterprise Messaging (Optional)
+  # ============================================
+  # - name: cap-bookshop-messaging
+  #   type: org.cloudfoundry.managed-service
+  #   parameters:
+  #     service: enterprise-messaging
+  #     service-plan: default
+  #     path: ./event-mesh.json
+
+  # ============================================
+  # HTML5 App Host (Optional - for Fiori apps)
+  # ============================================
+  # - name: cap-bookshop-html5-host
+  #   type: org.cloudfoundry.managed-service
+  #   parameters:
+  #     service: html5-apps-repo
+  #     service-plan: app-host
+
+  # - name: cap-bookshop-html5-rt
+  #   type: org.cloudfoundry.managed-service
+  #   parameters:
+  #     service: html5-apps-repo
+  #     service-plan: app-runtime
