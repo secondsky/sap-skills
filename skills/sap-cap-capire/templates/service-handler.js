@@ -79,7 +79,10 @@ module.exports = class CatalogService extends cds.ApplicationService {
    */
   async onSubmitOrder(req) {
     const { book, quantity } = req.data;
-    const { Books, Orders, OrderItems } = this.entities;
+    const { Books } = this.entities;
+
+    // Access Orders from the db model (not exposed in CatalogService)
+    const { Orders } = cds.entities;
 
     // Check stock availability
     const bookData = await SELECT.one.from(Books, book);

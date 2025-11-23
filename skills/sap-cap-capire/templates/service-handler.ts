@@ -61,7 +61,10 @@ export default class CatalogService extends cds.ApplicationService {
       quantity: number;
     };
 
-    const { Books, Orders } = this.entities;
+    const { Books } = this.entities;
+
+    // Access Orders from the db model (not exposed in CatalogService)
+    const { Orders } = cds.entities;
 
     // Check stock availability
     const bookData = await SELECT.one.from(Books, book);
