@@ -24,6 +24,8 @@ BEGIN
 END;
 ```
 
+> **Note:** `SEQUENTIAL EXECUTION` forces the procedure to execute sequentially without parallelism. This is rarely needed but can be useful for procedures that rely on side effects or specific ordering guarantees.
+
 ### Parameter Modes
 
 | Mode | Description |
@@ -347,6 +349,22 @@ BEGIN
   <statements>
 END;
 ```
+
+### CONTINUE HANDLER
+
+CONTINUE HANDLER catches exceptions and continues execution of the procedure (unlike EXIT HANDLER which suspends execution):
+
+```sql
+DECLARE CONTINUE HANDLER FOR <condition>
+  <statement>;
+
+DECLARE CONTINUE HANDLER FOR <condition>
+BEGIN
+  <statements>
+END;
+```
+
+> **Note:** Use CONTINUE HANDLER when you want to log errors and continue processing. See `references/exception-handling.md` for detailed comparison of EXIT vs CONTINUE handlers.
 
 ### Condition Declaration
 
