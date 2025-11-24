@@ -102,16 +102,7 @@ Skills work natively across multiple Claude-powered development tools:
 
 ## 🚀 Quick Start
 
-### Option 1: Clone Repository (Recommended)
-
-```bash
-# Clone the repository
-git clone https://github.com/secondsky/sap-skills.git
-
-# Skills are automatically available in the skills/ directory
-```
-
-### Option 2: Marketplace Installation
+### Option 1: Marketplace Installation (Recommended)
 
 ```bash
 # Add the marketplace
@@ -119,6 +110,29 @@ git clone https://github.com/secondsky/sap-skills.git
 
 # Install individual skills
 /plugin install sap-cap-capire@sap-skills
+
+# Or install multiple skills at once
+/plugin install sap-cap-capire@sap-skills sap-fiori-tools@sap-skills
+```
+
+**Team Setup:** Add to `.claude/settings.json` for automatic availability:
+```json
+{
+  "extraKnownMarketplaces": [
+    { "name": "sap-skills", "url": "https://github.com/secondsky/sap-skills" }
+  ]
+}
+```
+
+### Option 2: Clone Repository
+
+For contributors or local development:
+
+```bash
+# Clone the repository
+git clone https://github.com/secondsky/sap-skills.git
+
+# Skills are automatically available in the skills/ directory
 ```
 
 ### Verify Installation
