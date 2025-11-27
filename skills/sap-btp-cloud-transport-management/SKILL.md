@@ -5,11 +5,52 @@ description: |
 license: GPL-3.0
 metadata:
   version: "1.0.0"
-  last_verified: "2025-11-22"
-  sap_documentation_source: "https://github.com/SAP-docs/sap-btp-cloud-transport-management"
+  last_verified: "2025-11-27"
+  sap_documentation_source: "https://help.sap.com/docs/cloud-transport-management"
 ---
 
 # SAP Cloud Transport Management Skill
+
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Quick Start: Initial Setup](#quick-start-initial-setup)
+   - [Prerequisites](#prerequisites)
+   - [Setup Workflow](#setup-workflow)
+   - [Step 1: Configure Entitlements](#step-1-configure-entitlements)
+   - [Step 2: Subscribe to the Service](#step-2-subscribe-to-the-service)
+   - [Step 3: Set Up Role Collections](#step-3-set-up-role-collections)
+   - [Step 4: Create Service Instance and Key](#step-4-create-service-instance-and-key)
+3. [Landscape Configuration](#landscape-configuration)
+   - [Transport Nodes](#transport-nodes)
+   - [Transport Routes](#transport-routes)
+   - [Transport Landscape Wizard](#transport-landscape-wizard)
+4. [Destination Configuration](#destination-configuration)
+   - [Destination to TMS Service (Source Environment)](#destination-to-tms-service-source-environment)
+   - [MTA Deployment Destinations (Cloud Foundry)](#mta-deployment-destinations-cloud-foundry)
+   - [BTP ABAP Environment Destinations](#btp-abap-environment-destinations)
+5. [Import Queue Operations](#import-queue-operations)
+   - [Import Methods](#import-methods)
+   - [File Upload](#file-upload)
+   - [Scheduling](#scheduling)
+   - [Automatic Import](#automatic-import)
+6. [Transport Request Statuses](#transport-request-statuses)
+   - [Import Statuses](#import-statuses)
+   - [Lifecycle Statuses](#lifecycle-statuses)
+7. [Troubleshooting](#troubleshooting)
+   - [Quick Reference: Common Errors](#quick-reference-common-errors)
+   - [MTA Deployment Errors](#mta-deployment-errors)
+   - [SAP Support](#sap-support)
+8. [Security](#security)
+   - [Service Plans for API Access](#service-plans-for-api-access)
+   - [Node-Specific Restrictions](#node-specific-restrictions)
+   - [Malware Scanning](#malware-scanning)
+9. [Integrations](#integrations)
+   - [CI/CD Integration](#cicd-integration)
+   - [Alert Notifications](#alert-notifications)
+   - [API Operations](#api-operations)
+10. [Reference Documentation](#reference-documentation)
+11. [Documentation Links](#documentation-links)
 
 ## Overview
 
