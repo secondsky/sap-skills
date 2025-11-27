@@ -66,9 +66,10 @@ jobs:
       - name: Validate skill structure
         run: |
           echo "Checking required files in skill directories..."
-          FAILED=0
+          GLOBAL_FAILED=0
           for dir in skills/*/; do
             skill_name=$(basename "$dir")
+            FAILED=0  # Reset per-directory failure flag
             
             # Skip if not a directory
             if [ ! -d "$dir" ]; then
@@ -79,12 +80,14 @@ jobs:
             if [ ! -f "${dir}SKILL.md" ]; then
               echo "❌ Missing SKILL.md in: $skill_name"
               FAILED=1
+              GLOBAL_FAILED=1
             fi
             
             # Check for README.md
             if [ ! -f "${dir}README.md" ]; then
               echo "❌ Missing README.md in: $skill_name"
               FAILED=1
+              GLOBAL_FAILED=1
             fi
             
             if [ $FAILED -eq 0 ]; then
@@ -92,7 +95,7 @@ jobs:
             fi
           done
           
-          if [ $FAILED -eq 1 ]; then
+          if [ $GLOBAL_FAILED -eq 1 ]; then
             echo "❌ Some skills have invalid structure"
             exit 1
           fi
@@ -101,6 +104,7 @@ jobs:
       - name: Check for broken internal links
         run: |
           echo "Checking for broken internal links..."
+          FAILED=0
           # Check if referenced files exist
           find . -name "*.md" -type f | while read -r file; do
             grep -oP '\[.*?\]\(\K[^)#]+' "$file" 2>/dev/null | while read -r link; do
@@ -111,11 +115,16 @@ jobs:
               
               # Resolve relative path
               dir=$(dirname "$file")
-              target="$dir/$link"
+              target=$(cd "$dir" && cd $(dirname "$link") && pwd)/$(basename "$link")
               
               if [ ! -f "$target" ] && [ ! -d "$target" ]; then
-                echo "⚠️  Broken link in $file: $link"
+                echo "❌ Broken link in $file: $link"
+                FAILED=1
               fi
             done
-          done || true
+          done
+          if [ $FAILED -eq 1 ]; then
+            echo "❌ Some broken links were detected"
+            exit 1
+          fi
           echo "✅ Internal link check complete"
