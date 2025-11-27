@@ -23,14 +23,23 @@ Welcome to the **sap-skills** marketplace - a curated collection of production-t
 
 Once installed, Claude Code automatically discovers and uses skills when relevant:
 
-```
+```bash
+# Example 1: CAP Development
 User: "Create a new CAP service with Node.js"
 Claude: [Automatically uses sap-cap-capire skill]
+
+# Example 2: BTP Deployment
+User: "Deploy my application to SAP BTP Cloud Foundry"
+Claude: [Uses sap-btp-developer-guide and sap-btp-cloud-platform]
+
+# Example 3: Fiori App
+User: "Build a Fiori Elements app for Sales Orders"
+Claude: [Uses sap-fiori-tools and sapui5 skills]
 ```
 
 ---
 
-## Available Skills (31)
+## Available Skills (32)
 
 ### SAP ABAP (2 skills)
 
@@ -95,12 +104,13 @@ Claude: [Automatically uses sap-cap-capire skill]
 | `sapui5-cli` | UI5 Tooling CLI (@ui5/cli) - project initialization, ui5.yaml configuration, builds, and dev server |
 | `sapui5-linter` | UI5 Linter (@ui5/linter) for static code analysis - 19 linting rules, autofix, configuration patterns |
 
-### SAP HANA (2 skills)
+### SAP HANA (3 skills)
 
 | Skill | Description |
 |-------|-------------|
 | `sap-hana-cli` | SAP HANA Developer CLI (hana-cli) - database connections, object inspection, HDI containers, SQL execution |
 | `sap-hana-cloud-data-intelligence` | SAP Data Intelligence Cloud - pipelines, ABAP/S4HANA integration, ML scenarios, replication flows |
+| `sap-sqlscript` | SAP SQLScript development for HANA database - procedures, functions, CDS table functions, performance optimization |
 
 ### SAP API (1 skill)
 
@@ -195,10 +205,36 @@ See [README.md](README.md) for development workflow.
 
 ---
 
+## Troubleshooting
+
+### Common Issues
+
+#### Skill Not Discovered
+- **Problem**: Claude doesn't suggest a skill when relevant
+- **Solution**: Ensure the skill is properly installed with `/plugin list`
+- **Check**: Verify skill keywords match your request
+
+#### Installation Errors
+- **Error**: "Skill not found"
+- **Solution**: Check exact skill name in marketplace list
+- **Command**: Use `/plugin marketplace list` to see available skills
+
+#### Version Conflicts
+- **Problem**: Multiple versions of same skill
+- **Solution**: Uninstall old version first: `/plugin uninstall skill-name@old-version`
+- **Then**: Install latest: `/plugin install skill-name@sap-skills`
+
+### Performance Tips
+
+- **Load only needed skills**: Each skill consumes context
+- **Use specific versions**: Pin versions for production stability
+- **Regular updates**: Update quarterly for latest SAP patterns
+
 ## Support
 
 **Issues**: https://github.com/secondsky/sap-skills/issues
 **Documentation**: See individual skill directories for detailed guides
+**Discussions**: Use GitHub Discussions for questions and best practices
 
 ---
 
@@ -219,7 +255,7 @@ This project is licensed under the GNU General Public License v3.0 (GPL-3.0) - s
 
 ---
 
-**Last Updated**: 2025-11-23
-**Marketplace Version**: 2.0.0
-**Skills**: 31
+**Last Updated**: 2025-11-27
+**Marketplace Version**: 2.1.0
+**Skills**: 32
 **Maintainer**: SAP Skills Maintainers

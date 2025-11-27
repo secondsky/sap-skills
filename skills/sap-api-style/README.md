@@ -1,7 +1,7 @@
 # SAP API Style Guide – Skill
 
-**Version**: 1.0.0
-**Last Updated**: 2025-11-21
+**Version**: 1.1.0
+**Last Updated**: 2025-11-27
 
 ---
 
@@ -391,17 +391,27 @@ This skill saves massive token overhead by:
 
 ## Updates
 
+### Version 1.1.0 (2025-11-27)
+
+**Enhancements**:
+- Added comprehensive Table of Contents to SKILL.md for improved navigation
+- Added Bundled Resources section listing all reference files and templates with accurate line counts
+- Verified and updated all reference file line counts (total: 10,861 lines)
+- Verified source repository commit (902247f3) and updated source version to 2025.01
+- Enhanced metadata with source license information (CC-BY-4.0)
+- Improved content discoverability and progressive disclosure architecture
+
 ### Version 1.0.0 (2025-11-21)
 
 **Initial Release**:
 - Complete extraction from SAP API Style Guide (16 source files verified)
-- 8 comprehensive reference guides (consolidated and adapted)
+- 9 comprehensive reference guides (consolidated and adapted)
 - 5 ready-to-use templates (enhanced with examples)
 - Full coverage of REST, OData, Java, JavaScript, .NET, C/C++
 - Progressive disclosure structure optimized for Claude Code
 - Production-tested templates and examples
 
-**Next Quarterly Review**: 2026-02-21
+**Next Quarterly Review**: 2026-02-27
 
 ---
 
@@ -421,5 +431,5 @@ GPL-3.0 License - See LICENSE file for details
 ---
 
 **Maintainer**: SAP Skills Team | https://github.com/secondsky/sap-skills
-**Skill Version**: 1.0.0
-**Last Verified Against SAP Standards**: 2025-11-21
+**Skill Version**: 1.1.0
+**Last Verified Against SAP Standards**: 2025-11-27

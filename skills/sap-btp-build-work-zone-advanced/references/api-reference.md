@@ -4,6 +4,25 @@ Complete API reference for SCIM, OData, and Webhook APIs in SAP Build Work Zone,
 
 **Source**: https://github.com/SAP-docs/sap-btp-build-work-zone-advanced
 
+## Table of Contents
+
+- [API Documentation Resources](#api-documentation-resources)
+- [SCIM API](#scim-api)
+  - [Authentication](#authentication)
+  - [Rate Limits](#rate-limits)
+  - [Endpoints](#endpoints)
+  - [User Management](#user-management)
+- [OData API](#odata-api)
+  - [Authentication](#authentication-1)
+  - [Business Records](#business-records)
+  - [Common Operations](#common-operations)
+- [Webhook API](#webhook-api)
+  - [Configuration](#configuration)
+  - [Event Types](#event-types)
+  - [Payload Format](#payload-format)
+- [Error Handling](#error-handling)
+- [Code Examples](#code-examples)
+
 ---
 
 ## API Documentation Resources

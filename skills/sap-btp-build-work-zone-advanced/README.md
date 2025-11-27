@@ -127,9 +127,10 @@ This skill provides comprehensive guidance for implementing SAP Build Work Zone,
 - `references/troubleshooting.md` - Error resolution
 
 ### Templates
-- `templates/job-definition.json` - Configuration templates
-- `templates/schedule-examples.json` - Schedule examples
-- `templates/nodejs-async-handler.js` - Integration templates
+- `templates/card-manifest.json` - UI Integration Card manifest template
+- `templates/content-package-manifest.json` - Content package manifest template
+- `templates/dt-configuration.js` - Deployment configuration template
+- `templates/workspace-template-config.json` - Workspace template configuration
 
 ## Use Cases
 

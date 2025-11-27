@@ -4,6 +4,22 @@ Complete guide for developing UI Integration Cards in SAP Build Work Zone, advan
 
 **Source**: https://github.com/SAP-docs/sap-btp-build-work-zone-advanced/tree/main/docs/20-UIIntegrationCards
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Prerequisites](#prerequisites)
+- [Card Types](#card-types)
+- [Card Development Workflow](#card-development-workflow)
+- [Card Manifest Structure](#card-manifest-structure)
+- [Card Data Sources](#card-data-sources)
+- [Card Actions](#card-actions)
+- [Card Localization](#card-localization)
+- [Card Testing](#card-testing)
+- [Card Deployment](#card-deployment)
+- [Card Examples](#card-examples)
+- [Best Practices](#best-practices)
+- [Troubleshooting](#troubleshooting)
+
 ---
 
 ## Overview

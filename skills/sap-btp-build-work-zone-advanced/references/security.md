@@ -4,6 +4,18 @@ Security configuration for SAP Build Work Zone, advanced edition.
 
 **Source**: https://github.com/SAP-docs/sap-btp-build-work-zone-advanced
 
+## Table of Contents
+
+- [Authentication Methods](#authentication-methods)
+  - [SAML Identity Providers](#saml-identity-providers)
+  - [OAuth Clients](#oauth-clients)
+- [Role-Based Access Control](#role-based-access-control)
+- [Certificate Management](#certificate-management)
+- [Security Headers](#security-headers)
+- [Content Security](#content-security)
+- [Audit and Compliance](#audit-and-compliance)
+- [Best Practices](#best-practices)
+
 ---
 
 ## Authentication Methods

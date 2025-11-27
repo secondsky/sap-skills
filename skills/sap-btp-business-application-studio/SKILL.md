@@ -6,8 +6,8 @@ description: |
   Keywords: SAP Business Application Studio, BAS, SAP BTP, dev space, Cloud Foundry, MTA, multitarget application, SAP Fiori, CAP, HANA, destination, WebIDEEnabled, Cloud Connector, Service Center, Storyboard, Layout Editor, ABAP, OData, subscription, entitlements, role collection, Business_Application_Studio_Developer, Git, clone, push, pull, Gerrit, PAT, OAuth, asdf, runtime, Node.js, Java, Python, Task Explorer, CI/CD, Yeoman, generator, template wizard, mbt, mtar, debugging, breakpoint
 license: GPL-3.0
 metadata:
-  version: "1.0.0"
-  last_verified: "2025-11-25"
+  version: "1.1.0"
+  last_verified: "2025-11-27"
 ---
 
 # SAP Business Application Studio
@@ -224,5 +224,5 @@ Configure SAP HANA Cloud to allow BAS IP addresses. See [Availability](https://h
 
 ---
 
-**Last Verified**: 2025-11-22
+**Last Verified**: 2025-11-27
 **Source**: SAP-docs/sap-btp-business-application-studio (145+ docs)

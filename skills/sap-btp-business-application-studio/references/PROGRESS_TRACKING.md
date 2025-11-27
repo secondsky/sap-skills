@@ -6,6 +6,30 @@
 
 ---
 
+## Table of Contents
+
+1. [Documentation Source Overview](#documentation-source-overview)
+2. [Extraction Progress by Category](#extraction-progress-by-category)
+   - [1. Overview & Core Documentation](#1-overview--core-documentation)
+   - [2. Getting Started & Setup](#2-getting-started--setup)
+   - [3. Developer Guide](#3-developer-guide)
+   - [4. Administrator Guide](#4-administrator-guide)
+   - [5. Security Guide](#5-security-guide)
+   - [6. Dev Space Documentation](#6-dev-space-documentation)
+   - [7. Application Types (Dev Spaces)](#7-application-types-dev-spaces)
+   - [8. Git & Source Control](#8-git--source-control)
+   - [9. Development & Coding](#9-development--coding)
+   - [10. UI Development & Layout](#10-ui-development--layout)
+   - [11. Build & Deploy](#11-build--deploy)
+   - [12. Connectivity & External Systems](#12-connectivity--external-systems)
+   - [13. Service Center & Tools](#13-service-center--tools)
+   - [14. CI/CD & Automation](#14-cicd--automation)
+   - [15. Troubleshooting](#15-troubleshooting)
+   - [16. Additional Topics](#16-additional-topics)
+3. [Extraction Statistics](#extraction-statistics)
+
+---
+
 ## Documentation Source Overview
 
 **Total Files in Source Repository**: 145+ markdown files

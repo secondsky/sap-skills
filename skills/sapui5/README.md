@@ -184,13 +184,20 @@ sap gateway, sap netweaver, sap s/4hana, sap btp, sap cloud platform, sap fiori 
 
 ## Version
 
-- **Skill Version**: 1.3.0
+- **Skill Version**: 1.4.0
 - **Minimum UI5 Version**: 1.120.0
-- **Last Updated**: 2025-11-22
+- **Last Updated**: 2025-11-27
 - **Status**: Production
 
-### What's New in v1.3.0
+### What's New in v1.4.0
+- ✅ Major SKILL.md optimization: 855 → 452 lines (47% reduction)
+- ✅ Added comprehensive Table of Contents for improved navigation
+- ✅ Implemented progressive disclosure architecture
+- ✅ Fixed frontmatter name mismatch (critical for discovery)
+- ✅ Token efficiency improved from ~45% to ~70%
+- ✅ Better organized content with clear reference pointers
 
+### What's New in v1.3.0
 - ✅ Added Metadata-Driven Controls (MDC) documentation (sap.ui.mdc library)
 - ✅ Added TypeScript control library development guide
 - ✅ New reference file: `mdc-typescript-advanced.md` (~10KB)

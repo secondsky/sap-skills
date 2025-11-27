@@ -6,6 +6,20 @@ Complete guide for integrating and configuring chatbots in SAP Build Work Zone, 
 
 **Source**: https://github.com/SAP-docs/sap-btp-build-work-zone-advanced/tree/main/docs/50-Chatbots
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Built-in Capabilities](#built-in-capabilities)
+- [Prerequisites](#prerequisites)
+- [Chatbot Options](#chatbot-options)
+- [Custom Chatbot Development](#custom-chatbot-development)
+- [SAP Conversational AI Configuration](#sap-conversational-ai-configuration)
+- [Chatbot Integration Steps](#chatbot-integration-steps)
+- [OAuth Client Setup](#oauth-client-setup)
+- [Webhook Configuration](#webhook-configuration)
+- [Chatbot Testing](#chatbot-testing)
+- [Troubleshooting](#troubleshooting)
+
 ---
 
 ## Overview

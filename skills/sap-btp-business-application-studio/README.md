@@ -82,5 +82,5 @@ GPL-3.0
 
 ---
 
-**Last Updated**: 2025-11-22
+**Last Updated**: 2025-11-27
 **Source**: SAP-docs/sap-btp-business-application-studio (145+ documentation files)

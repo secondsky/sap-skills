@@ -4,6 +4,21 @@ Complete guide for using and configuring widgets in SAP Build Work Zone, advance
 
 **Source**: https://github.com/SAP-docs/sap-btp-build-work-zone-advanced
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Widget Management](#widget-management)
+  - [Adding Widgets](#adding-widgets)
+  - [Widget Configuration](#widget-configuration)
+  - [Widget Layout](#widget-layout)
+- [Widget Types](#widget-types)
+  - [Content Widgets](#content-widgets)
+  - [Interactive Widgets](#interactive-widgets)
+  - [Integration Widgets](#integration-widgets)
+- [Custom Widgets](#custom-widgets)
+- [Best Practices](#best-practices)
+- [Troubleshooting](#troubleshooting)
+
 ---
 
 ## Overview

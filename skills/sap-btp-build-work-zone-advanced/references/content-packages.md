@@ -4,6 +4,22 @@ Complete guide for creating, managing, and deploying content packages in SAP Bui
 
 **Source**: https://github.com/SAP-docs/sap-btp-build-work-zone-advanced/tree/main/docs/30-ContentPackages
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Package Types](#package-types)
+  - [Global Content Packages](#global-content-packages)
+  - [Local Content Packages](#local-content-packages)
+- [Supported Artifacts](#supported-artifacts)
+- [Package Development Workflow](#package-development-workflow)
+- [Package Manifest Structure](#package-manifest-structure)
+- [Package Creation Tools](#package-creation-tools)
+- [Package Deployment](#package-deployment)
+- [Package Installation](#package-installation)
+- [Package Management](#package-management)
+- [Best Practices](#best-practices)
+- [Troubleshooting](#troubleshooting)
+
 ---
 
 ## Overview

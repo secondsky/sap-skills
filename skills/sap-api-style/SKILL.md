@@ -11,11 +11,28 @@ description: |
   API deprecation, x-sap-stateInfo, Entity Data Model, EDM, documentation tags, API quality, API templates
 license: GPL-3.0
 metadata:
-  version: "1.0.0"
-  last_verified: "2025-11-25"
+  version: "1.1.0"
+  last_verified: "2025-11-27"
+  source_version: "2025.01"
+  source_commit: "902247f3afb6a0cb3fa110b284bb5d93a65c1268"
+  source_license: "CC-BY-4.0"
 ---
 
 # SAP API Style Guide
+
+## Table of Contents
+
+1. [Overview](#overview)
+2. [When to Use This Skill](#when-to-use-this-skill)
+3. [Quick Decision Tree](#quick-decision-tree)
+4. [Core Principles](#core-principles)
+5. [Quick Reference Tables](#quick-reference-tables)
+6. [Templates Available](#templates-available)
+7. [Reference Files](#reference-files)
+8. [Instructions for Use](#instructions-for-use)
+9. [Common Pitfalls to Avoid](#common-pitfalls-to-avoid)
+10. [External Resources](#external-resources)
+11. [Updates and Maintenance](#updates-and-maintenance)
 
 ## Overview
 
@@ -217,60 +234,83 @@ All templates include:
 
 ### Complete Guides Available
 
-1. **rest-odata-openapi-guide.md** (73KB, 2,794 lines)
+1. **rest-odata-openapi-guide.md** (2,800 lines)
    - Complete OpenAPI specification guidelines
    - Package, API, operation descriptions
    - Parameters, responses, components
    - Security schemes, tags, external docs
    - Character limits and anti-patterns
 
-2. **manual-templates-guide.md** (79KB, 2,761 lines)
+2. **manual-templates-guide.md** (2,765 lines)
    - REST API templates (2-level hierarchy)
    - OData API templates (3-level hierarchy)
    - Complete template structures
    - Field-by-field requirements
    - Best practices and examples
 
-3. **java-javascript-dotnet-guide.md** (Comprehensive)
-   - Documentation comments structure
-   - Language-specific tags (Java, JavaScript, .NET, C/C++)
-   - Templates for classes, methods, enums, constants
-   - Complete code examples
-   - Best practices by language
-
-4. **naming-conventions.md** (53KB, 2,042 lines)
+3. **naming-conventions.md** (2,059 lines)
    - REST/OData naming rules (resources, parameters, URIs)
    - Native library naming (classes, methods, constants, packages)
    - Language-specific conventions
    - Common mistakes with fixes
    - Decision trees and reference tables
 
-5. **quality-processes.md** (53KB, 1,769 lines)
+4. **quality-processes.md** (1,774 lines)
    - Complete API Quality Checklist
    - Review workflows (developer + UA collaboration)
    - Development team guidelines
    - Common review findings and solutions
    - Process flowcharts
 
-6. **deprecation-policy.md** (Complete)
-   - API lifecycle states (beta, active, deprecated, decommissioned)
-   - Timeline requirements (12+ months support, 24+ months lifespan)
-   - Required metadata (x-sap-stateInfo, artifact.json)
-   - Decommission process
-   - Complete examples
+5. **java-javascript-dotnet-guide.md** (1,517 lines)
+   - Documentation comments structure
+   - Language-specific tags (Java, JavaScript, .NET, C/C++)
+   - Templates for classes, methods, enums
+   - Complete code examples
+   - Best practices by language
 
-7. **developer-guides.md** (Complete)
+6. **developer-guides.md** (704 lines)
    - Guide structure standards
    - Topic types (concept, reference, task)
    - Content selection criteria
    - Code sample standards (compilable, concise, commented)
    - Best practices
 
-8. **glossary-resources.md** (Complete)
+7. **deprecation-policy.md** (664 lines)
+   - API lifecycle states (beta, active, deprecated, decommissioned)
+   - Timeline requirements (12+ months support, 24+ months lifespan)
+   - Required metadata (x-sap-stateInfo, artifact.json)
+   - Decommission process
+   - Complete examples
+
+8. **glossary-resources.md** (472 lines)
    - Complete terminology definitions (API, OData, OpenAPI, etc.)
    - External resource links (standards, tools, SAP resources)
    - Quick reference tables
    - Tool documentation links
+
+9. **PROGRESS_TRACKING.md** (333 lines)
+   - Content extraction and organization tracking
+   - Source file mapping from SAP documentation
+   - Consolidation and adaptation notes
+
+## Bundled Resources
+
+This skill includes comprehensive documentation and templates organized for optimal use:
+
+### Reference Guides (`references/`)
+- 9 detailed reference files (10,861 total lines)
+- Complete coverage of SAP API Style Guide standards
+- Progressive disclosure architecture for efficient loading
+
+### Template Files (`templates/`)
+1. **rest-api-overview-template.md** (217 lines) - Level 1 REST overview
+2. **rest-api-method-template.md** (477 lines) - Level 2 REST method details
+3. **odata-service-overview-template.md** (411 lines) - Level 1 OData service
+4. **odata-resource-template.md** (557 lines) - Level 2 OData resource
+5. **odata-operation-template.md** (681 lines) - Level 3 OData operation
+
+Total: 2,343 lines of ready-to-use templates
 
 ## Instructions for Use
 
@@ -349,10 +389,16 @@ See individual reference files for complete anti-patterns and fixes.
 
 ## Updates and Maintenance
 
-**Source Version**: SAP API Style Guide 2021.01
+**Source Version**: SAP API Style Guide 2025.01 (verified against commit 902247f)
+
+**Recent Changes**:
+- Source repository updated 2025-10-28
+- Reference file line counts verified and updated
+- Added comprehensive Table of Contents for navigation
+- Added Bundled Resources section for content discovery
 
 **To Update This Skill**:
-1. Check source repository for changes
+1. Check source repository for changes: https://github.com/SAP-docs/api-style-guide
 2. Review "What's New in the Style Guide"
 3. Update affected reference files
 4. Update templates if standards changed
@@ -360,11 +406,11 @@ See individual reference files for complete anti-patterns and fixes.
 
 **Quarterly Review Recommended**: Check for updates every 3 months
 
-**Next Review**: 2026-02-21
+**Next Review**: 2026-02-27
 
 ---
 
-**Skill Version**: 1.0.0
-**Last Updated**: 2025-11-21
+**Skill Version**: 1.1.0
+**Last Updated**: 2025-11-27
 **License**: GPL-3.0
 **Maintainer**: SAP Skills Team | https://github.com/secondsky/sap-skills

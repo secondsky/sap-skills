@@ -2,10 +2,12 @@
 name: sapui5
 description: |
   This skill should be used when developing SAP UI5 applications, including creating freestyle apps, Fiori Elements apps, custom controls, testing, data binding, OData integration, routing, and troubleshooting. Use when building enterprise web applications with SAP UI5 framework, implementing MVC patterns, configuring manifest.json, creating XML views, writing controllers, setting up data models (JSON, OData v2/v4), implementing responsive UI with sap.m controls, building List Report or Object Page applications with Fiori Elements, writing unit tests with QUnit, integration tests with OPA5, setting up mock servers, handling security (XSS, CSP), optimizing performance, implementing accessibility features, or debugging UI5 applications. Also use when working with sap.ui.mdc (Metadata-Driven Controls) including MDC Table, MDC FilterBar, MDC Value Help, control delegates, PropertyInfo, TypeMap, VariantManagement, or developing TypeScript control libraries with @ui5/ts-interface-generator.
+
+  Keywords: sapui5, ui5, openui5, sap ui5, ui5 framework, sapui5 framework, ui5 application, sapui5 app, ui5 development, sapui5 development, ui5 tooling, ui5 cli, Component.js, manifest.json, xml view, data binding, odata v2, odata v4, fiori elements, sap.m controls, mvc pattern, routing, navigation, qunit, opa5, testing, mock server, sap.ui.mdc, mdc table, typescript, accessibility, security, performance, ui5 inspector, ui5 troubleshooting
 license: GPL-3.0
 metadata:
-  version: 1.3.0
-  last_updated: 2025-11-22
+  version: 1.4.0
+  last_verified: 2025-11-27
   framework_version: "1.120.0+"
   documentation_source: https://github.com/SAP-docs/sapui5
   documentation_files_analyzed: 1416
@@ -17,69 +19,18 @@ metadata:
 
 Comprehensive skill for building enterprise applications with SAP UI5 framework.
 
----
+## Table of Contents
 
-## When to Use This Skill
-
-Use this skill when working on tasks involving:
-
-**Application Development**:
-- Creating new SAPUI5 freestyle applications
-- Building SAP Fiori Elements apps (List Report, Object Page, Analytical List Page, Overview Page)
-- Setting up project structure and configuration
-- Configuring manifest.json (application descriptor)
-- Implementing MVC (Model-View-Controller) pattern
-- Creating component-based architectures
-
-**UI Development**:
-- Creating XML views (recommended) or JavaScript/JSON/HTML views
-- Writing controllers with lifecycle hooks
-- Building responsive UIs with sap.m controls
-- Implementing layouts (FlexBox, Grid, Dynamic Page, Object Page)
-- Creating fragments for reusable UI snippets
-- Implementing dialogs, popovers, and message handling
-
-**Data Management**:
-- Setting up data models (JSON, OData v2, OData v4, XML, Resource)
-- Implementing data binding (property, aggregation, element, expression)
-- Configuring OData services and annotations
-- Working with filters, sorters, and grouping
-- Handling CRUD operations with OData
-- Implementing batch requests
-
-**Testing & Quality**:
-- Writing unit tests with QUnit
-- Creating integration tests with OPA5
-- Setting up mock servers for development
-- Implementing code coverage
-- Using Support Assistant for quality checks
-- Debugging with UI5 Inspector
-
-**Advanced Features**:
-- Implementing routing and navigation
-- Creating custom controls
-- Extending standard applications
-- Working with SAP Fiori Elements annotations
-- Implementing draft handling
-- Configuring Flexible Column Layout
-- Building building blocks
-- Using Metadata-Driven Controls (sap.ui.mdc)
-- Developing TypeScript control libraries
-
-**Security & Performance**:
-- Implementing XSS prevention
-- Configuring Content Security Policy (CSP)
-- Optimizing performance (lazy loading, bundling, caching)
-- Implementing accessibility (ARIA, keyboard navigation, screen readers)
-- Securing applications (authentication, authorization)
-
-**Troubleshooting**:
-- Debugging runtime errors
-- Fixing binding issues
-- Resolving OData service errors
-- Addressing performance problems
-- Fixing build errors
-- Implementing error handling
+1. [Quick Start](#quick-start)
+2. [Core Concepts](#core-concepts)
+3. [SAP Fiori Elements](#sap-fiori-elements)
+4. [Metadata-Driven Controls (MDC)](#metadata-driven-controls-mdc)
+5. [Testing](#testing)
+6. [Best Practices](#best-practices)
+7. [Common Patterns](#common-patterns)
+8. [Troubleshooting](#troubleshooting-common-issues)
+9. [Development Tools](#development-tools)
+10. [Bundled Resources](#bundled-reference-files)
 
 ---
 
@@ -146,21 +97,17 @@ my-sapui5-app/
 
 ### 1. MVC Architecture
 
-**Model**: Data layer (JSON, OData, XML, Resource models)
-**View**: Presentation layer (XML, JavaScript, JSON, HTML)
-**Controller**: Business logic layer
+- **Model**: Data layer (JSON, OData, XML, Resource models)
+- **View**: Presentation layer (XML, JavaScript, JSON, HTML)
+- **Controller**: Business logic layer
+- **Binding**: Synchronizes model and view (One-way, Two-way, One-time)
 
-**Binding**: Automatically synchronizes model and view
-- One-way: Model → View
-- Two-way: Model ↔ View
-- One-time: Loaded once
-
-**Reference**: See `references/core-architecture.md` for detailed architecture concepts.
+**Reference**: `references/core-architecture.md` for detailed architecture concepts.
 
 ### 2. Component & Manifest
 
-**Component.js**: Entry point, initializes router and models
-**manifest.json**: Central configuration (models, routing, dependencies, data sources)
+- **Component.js**: Entry point, initializes router and models
+- **manifest.json**: Central configuration (models, routing, dependencies, data sources)
 
 **Key manifest sections**:
 - `sap.app`: Application metadata and data sources
@@ -179,24 +126,11 @@ this.getView().setModel(oModel);
 
 **OData V2 Model** (server-side):
 ```javascript
-// In manifest.json
 "": {
     "dataSource": "mainService",
     "settings": {
         "defaultBindingMode": "TwoWay",
         "useBatch": true
-    }
-}
-```
-
-**OData V4 Model** (modern):
-```javascript
-"": {
-    "dataSource": "mainService",
-    "settings": {
-        "synchronizationMode": "None",
-        "operationMode": "Server",
-        "autoExpandSelect": true
     }
 }
 ```
@@ -211,7 +145,7 @@ this.getView().setModel(oModel);
 }
 ```
 
-**Reference**: See `references/data-binding-models.md` for comprehensive data binding guide.
+**Reference**: `references/data-binding-models.md` for comprehensive guide.
 
 ### 4. Views & Controllers
 
@@ -222,72 +156,14 @@ this.getView().setModel(oModel);
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc">
     <Page title="{i18n>title}">
-        <content>
-            <List items="{/products}">
-                <StandardListItem title="{name}" description="{price}"/>
-            </List>
-        </content>
+        <List items="{/products}">
+            <StandardListItem title="{name}" description="{price}"/>
+        </List>
     </Page>
 </mvc:View>
 ```
 
-**Controller**:
-```javascript
-sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], function(Controller) {
-    "use strict";
-
-    return Controller.extend("my.app.controller.Main", {
-        onInit: function() {
-            // Initialization
-        },
-
-        onPress: function(oEvent) {
-            // Event handler
-        }
-    });
-});
-```
-
 ### 5. Routing & Navigation
-
-**Define routes in manifest.json**:
-```json
-"routing": {
-    "config": {
-        "routerClass": "sap.m.routing.Router",
-        "type": "View",
-        "viewType": "XML",
-        "path": "my.app.view",
-        "controlId": "app",
-        "controlAggregation": "pages",
-        "async": true
-    },
-    "routes": [
-        {
-            "pattern": "",
-            "name": "main",
-            "target": "main"
-        },
-        {
-            "pattern": "detail/{objectId}",
-            "name": "detail",
-            "target": "detail"
-        }
-    ],
-    "targets": {
-        "main": {
-            "viewName": "Main",
-            "viewLevel": 1
-        },
-        "detail": {
-            "viewName": "Detail",
-            "viewLevel": 2
-        }
-    }
-}
-```
 
 **Navigate programmatically**:
 ```javascript
@@ -295,6 +171,8 @@ this.getOwnerComponent().getRouter().navTo("detail", {
     objectId: sId
 });
 ```
+
+**Reference**: `references/routing-navigation.md` for routing patterns.
 
 ---
 
@@ -332,15 +210,6 @@ Build applications without JavaScript UI code using OData annotations.
                             "variantManagement": "Page"
                         }
                     }
-                },
-                "ProductDetail": {
-                    "type": "Component",
-                    "name": "sap.fe.templates.ObjectPage",
-                    "options": {
-                        "settings": {
-                            "contextPath": "/Products"
-                        }
-                    }
                 }
             }
         }
@@ -353,28 +222,20 @@ Build applications without JavaScript UI code using OData annotations.
 - `@UI.SelectionFields`: Filter bar fields
 - `@UI.HeaderInfo`: Object page header
 - `@UI.Facets`: Object page sections
-- `@UI.FieldGroup`: Grouped fields
 
-**Reference**: See `references/fiori-elements.md` for comprehensive Fiori Elements guide.
+**Reference**: `references/fiori-elements.md` for comprehensive guide.
 
 ---
 
 ## Metadata-Driven Controls (MDC)
 
-The sap.ui.mdc library provides metadata-driven controls for building dynamic UIs at runtime. Instead of explicitly defining every control, MDC allows configuration and modification based on provided metadata.
+The sap.ui.mdc library provides metadata-driven controls for building dynamic UIs at runtime.
 
 ### Key Controls
 
-- **MDC Table**: Data display in tabular format with dynamic columns based on metadata
-- **MDC FilterBar**: User interface for complex filter conditions with PropertyInfo
-- **MDC Value Help**: Assisted data input with suggestions based on metadata
-
-### Key Concepts
-
-- **Delegates**: Implement service or application-specific behavior (custom control creation, metadata provision, data binding)
-- **PropertyInfo**: Define metadata for controls (visibility, data type, control settings)
-- **TypeMap**: Add custom types when standard types are insufficient
-- **VariantManagement**: Save and load user personalization settings
+- **MDC Table**: Data display with dynamic columns based on metadata
+- **MDC FilterBar**: Complex filter conditions with PropertyInfo
+- **MDC Value Help**: Assisted data input with suggestions
 
 ### Quick Example
 
@@ -392,7 +253,7 @@ The sap.ui.mdc library provides metadata-driven controls for building dynamic UI
 </mdc:Table>
 ```
 
-**Reference**: See `references/mdc-typescript-advanced.md` for comprehensive MDC guide with TypeScript, delegates, and control library development.
+**Reference**: `references/mdc-typescript-advanced.md` for comprehensive MDC guide with TypeScript.
 
 ---
 
@@ -401,355 +262,141 @@ The sap.ui.mdc library provides metadata-driven controls for building dynamic UI
 ### Unit Tests (QUnit)
 
 Test individual functions and modules:
-
 ```javascript
-sap.ui.define([
-    "my/app/model/formatter"
-], function(formatter) {
-    "use strict";
-
-    QUnit.module("Formatter Tests");
-
-    QUnit.test("Should format price correctly", function(assert) {
-        var fPrice = 123.456;
-        var sResult = formatter.formatPrice(fPrice);
-        assert.strictEqual(sResult, "123.46 EUR", "Price formatted");
-    });
+QUnit.module("Formatter Tests");
+QUnit.test("Should format price correctly", function(assert) {
+    var fPrice = 123.456;
+    var sResult = formatter.formatPrice(fPrice);
+    assert.strictEqual(sResult, "123.46 EUR", "Price formatted");
 });
 ```
 
 ### Integration Tests (OPA5)
 
 Test user interactions and flows:
-
 ```javascript
-sap.ui.define([
-    "sap/ui/test/opaQunit"
-], function(opaTest) {
-    "use strict";
-
-    QUnit.module("Navigation Journey");
-
-    opaTest("Should navigate to detail page", function(Given, When, Then) {
-        Given.iStartMyApp();
-        When.onTheWorklistPage.iPressOnTheFirstListItem();
-        Then.onTheObjectPage.iShouldSeeTheObjectPage();
-        Then.iTeardownMyApp();
-    });
+opaTest("Should navigate to detail page", function(Given, When, Then) {
+    Given.iStartMyApp();
+    When.onTheWorklistPage.iPressOnTheFirstListItem();
+    Then.onTheObjectPage.iShouldSeeTheObjectPage();
+    Then.iTeardownMyApp();
 });
 ```
 
 ### Mock Server
 
 Simulate OData backend:
-
 ```javascript
-sap.ui.define([
-    "sap/ui/core/util/MockServer"
-], function(MockServer) {
-    "use strict";
-
-    return {
-        init: function() {
-            var oMockServer = new MockServer({
-                rootUri: "/sap/opu/odata/sap/SERVICE_SRV/"
-            });
-
-            oMockServer.simulate("localService/metadata.xml", {
-                sMockdataBaseUrl: "localService/mockdata"
-            });
-
-            oMockServer.start();
-        }
-    };
+var oMockServer = new MockServer({
+    rootUri: "/sap/opu/odata/sap/SERVICE_SRV/"
 });
+oMockServer.simulate("localService/metadata.xml", {
+    sMockdataBaseUrl: "localService/mockdata"
+});
+oMockServer.start();
 ```
 
-**Reference**: See `references/testing.md` for comprehensive testing guide.
+**Reference**: `references/testing.md` for comprehensive testing guide.
 
 ---
 
 ## Best Practices
 
-### 1. Always Use Async
-
-```javascript
-// Component.js
-sap.ui.define([...], function(...) { ... });
-
-// manifest.json
-"async": true
-
-// Bootstrap
-data-sap-ui-async="true"
-```
-
-### 2. Use XML Views
-
-XML views are declarative, easier to read, and support better tooling.
-
-### 3. Proper Namespacing
-
-```javascript
-com.mycompany.myapp.controller.Main
-```
-
-### 4. Internationalization
-
-Always use i18n for texts:
-```xml
-<Text text="{i18n>title}"/>
-```
-
-### 5. Data Binding Over Manual Updates
-
-```xml
-<!-- Good -->
-<Text text="{/userName}"/>
-
-<!-- Bad -->
-this.byId("text").setText(oModel.getProperty("/userName"));
-```
-
-### 6. Security
-
-- Use data binding (automatic XSS protection)
-- Enable CSP in production
-- Validate user input
-- Use HTTPS
-- Implement CSRF tokens
-
-### 7. Performance
-
-- Use component preload (automatic in build)
-- Enable lazy loading for libraries
-- Use OData batch requests
-- Implement table virtualization
-- Optimize bindings (use one-way when possible)
-
-### 8. Accessibility
-
-- Use semantic controls
-- Provide labels for form fields
-- Enable keyboard navigation
-- Support screen readers
-- Test with high contrast themes
+1. **Always Use Async** - sap.ui.define, async:true in manifests
+2. **Use XML Views** - declarative and tooling-friendly
+3. **Proper Namespacing** - com.mycompany.myapp.controller.Main
+4. **Internationalization** - always use i18n for texts
+5. **Data Binding Over Manual Updates** - automatic XSS protection
+6. **Security** - enable CSP, validate input, use HTTPS
+7. **Performance** - component preload, lazy loading, batch requests
+8. **Accessibility** - semantic controls, labels, keyboard navigation
 
 ---
 
 ## Common Patterns
 
-### 1. CRUD Operations
+### CRUD Operations
 
-**Create**:
 ```javascript
-oModel.create("/Products", oData, {
-    success: function() {
-        MessageToast.show("Created");
-    }
-});
+// Create
+oModel.create("/Products", oData, {success: function() {MessageToast.show("Created");}});
+
+// Read
+oModel.read("/Products", {filters: [new Filter("Price", FilterOperator.GT, 100)]});
+
+// Update
+oModel.update("/Products(1)", {Price: 200}, {success: function() {MessageToast.show("Updated");}});
+
+// Delete
+oModel.remove("/Products(1)", {success: function() {MessageToast.show("Deleted");}});
 ```
 
-**Read**:
-```javascript
-oModel.read("/Products", {
-    filters: [new Filter("Price", FilterOperator.GT, 100)],
-    success: function(oData) {
-        console.log(oData);
-    }
-});
-```
-
-**Update**:
-```javascript
-oModel.update("/Products(1)", {Price: 200}, {
-    success: function() {
-        MessageToast.show("Updated");
-    }
-});
-```
-
-**Delete**:
-```javascript
-oModel.remove("/Products(1)", {
-    success: function() {
-        MessageToast.show("Deleted");
-    }
-});
-```
-
-### 2. Filtering & Sorting
+### Filtering & Sorting
 
 ```javascript
 var oBinding = this.byId("table").getBinding("items");
-
-// Filter
-var oFilter = new Filter("price", FilterOperator.GT, 100);
-oBinding.filter([oFilter]);
-
-// Sort
-var oSorter = new Sorter("name", false); // false = ascending
-oBinding.sort(oSorter);
+oBinding.filter([new Filter("price", FilterOperator.GT, 100)]);
+oBinding.sort([new Sorter("name", false)]);
 ```
 
-### 3. Dialog Handling
+### Dialog Handling
 
 ```javascript
-// Load fragment
 if (!this.pDialog) {
     this.pDialog = this.loadFragment({
         name: "my.app.view.fragments.MyDialog"
     });
 }
-
-this.pDialog.then(function(oDialog) {
-    oDialog.open();
-});
-
-// Close
-onCloseDialog: function() {
-    this.byId("myDialog").close();
-}
-```
-
-### 4. Error Handling
-
-```javascript
-oModel.attachRequestFailed(function(oEvent) {
-    var oResponse = oEvent.getParameter("response");
-    MessageBox.error("Error: " + oResponse.statusText);
-});
+this.pDialog.then(function(oDialog) {oDialog.open();});
 ```
 
 ---
 
 ## Troubleshooting Common Issues
 
-### Issue: Binding not working
+### Binding not working
+1. Check model set on view/component
+2. Verify correct binding path
+3. Confirm data loaded
+4. Debug: `console.log(this.getView().getModel().getData())`
 
-**Check**:
-1. Model set on view/component?
-2. Correct binding path?
-3. Data loaded?
-4. Binding mode correct?
+### OData call failing
+1. Verify service URL in manifest.json
+2. Check CORS configuration
+3. Test authentication
+4. Use browser Network tab
 
-**Debug**:
-```javascript
-console.log(this.getView().getModel().getData());
-console.log(this.getView().getBindingContext().getPath());
-```
+### View not displaying
+1. Check view registration in manifest.json
+2. Verify routing configuration
+3. Match controller name
+4. Check browser console for errors
 
-### Issue: OData call failing
-
-**Check**:
-1. Service URL correct in manifest.json?
-2. CORS configured on backend?
-3. Authentication working?
-4. Metadata loaded?
-
-**Debug**:
-- Open browser Network tab
-- Check request/response
-- Verify OData service in browser
-
-### Issue: View not displaying
-
-**Check**:
-1. View registered in manifest.json?
-2. Routing configured correctly?
-3. Controller name matches?
-4. Syntax errors in XML?
-
-**Debug**:
-- Check browser console for errors
-- Verify view path in manifest
-- Use UI5 Inspector
-
-### Issue: Performance problems
-
-**Solutions**:
+### Performance problems
 1. Enable component preload
 2. Use growing lists for large datasets
-3. Implement OData paging ($skip, $top)
+3. Implement OData paging
 4. Use one-way binding when possible
-5. Minimize re-renders
-6. Use batch requests
 
 ---
 
 ## Development Tools
 
 ### UI5 Tooling
-
-Official build and development tools:
-
 ```bash
-# Install
-npm install -g @ui5/cli
-
-# Serve
-ui5 serve
-
-# Build
-ui5 build
-
-# Test
-npm test
+ui5 serve    # Development server
+ui5 build    # Build for production
+npm test     # Run tests
 ```
 
 ### UI5 Inspector
-
-Browser extension for debugging:
-- View control tree
-- Inspect properties
-- View bindings
+- Browser extension for debugging
+- View control tree and bindings
 - Performance analysis
 
 ### Support Assistant
-
-Built-in quality checker:
 - Press `Ctrl+Alt+Shift+S`
-- Checks for common issues
-- Suggests improvements
-
----
-
-## Version Compatibility
-
-**Minimum UI5 Version**: 1.120.0
-**Recommended**: Latest stable version
-**TypeScript**: Supported (see official docs)
-
-**Check compatibility**:
-- Browser support: Modern browsers (Chrome, Firefox, Safari, Edge)
-- OData: v2 and v4 supported
-- Themes: sap_horizon (recommended), sap_fiori_3, sap_fiori_3_dark
-
----
-
-## Official Documentation Links
-
-**Essential Resources**:
-- **Main Documentation**: https://github.com/SAP-docs/sapui5
-- **Demo Kit**: https://sapui5.hana.ondemand.com/
-- **API Reference**: https://sapui5.hana.ondemand.com/#/api
-- **Samples**: https://sapui5.hana.ondemand.com/#/controls
-
-**Documentation Sections**:
-- **Read Me First**: https://github.com/SAP-docs/sapui5/tree/main/docs/02_Read-Me-First
-- **Get Started**: https://github.com/SAP-docs/sapui5/tree/main/docs/03_Get-Started
-- **Essentials**: https://github.com/SAP-docs/sapui5/tree/main/docs/04_Essentials
-- **Developing Apps**: https://github.com/SAP-docs/sapui5/tree/main/docs/05_Developing_Apps
-- **Fiori Elements**: https://github.com/SAP-docs/sapui5/tree/main/docs/06_SAP_Fiori_Elements
-- **APF**: https://github.com/SAP-docs/sapui5/tree/main/docs/07_APF
-- **Extending Apps**: https://github.com/SAP-docs/sapui5/tree/main/docs/08_Extending_SAPUI5_Applications
-- **Developing Controls**: https://github.com/SAP-docs/sapui5/tree/main/docs/09_Developing_Controls
-- **More About Controls**: https://github.com/SAP-docs/sapui5/tree/main/docs/10_More_About_Controls
-- **Glossary**: https://github.com/SAP-docs/sapui5/blob/main/docs/glossary-9ef211e.md
-
-**CDN**:
-- SAP CDN: `https://sapui5.hana.ondemand.com/resources/sap-ui-core.js`
-- OpenUI5 CDN: `https://openui5.hana.ondemand.com/resources/sap-ui-core.js`
+- Built-in quality checker
 
 ---
 
@@ -758,18 +405,18 @@ Built-in quality checker:
 This skill includes comprehensive reference documentation (11 files):
 
 1. **references/glossary.md**: Complete SAPUI5 terminology and concepts (100+ terms)
-2. **references/core-architecture.md**: Framework architecture, components, MVC, bootstrapping, modules
-3. **references/data-binding-models.md**: Data binding, models (JSON, OData v2/v4, Resource), filters, sorters
-4. **references/testing.md**: QUnit, OPA5, mock server, test automation, best practices
-5. **references/fiori-elements.md**: Fiori Elements templates, annotations, configuration, building blocks
-6. **references/typescript-support.md**: TypeScript setup, configuration, types, migration, best practices
-7. **references/routing-navigation.md**: Routing, navigation, hash-based URLs, Flexible Column Layout, patterns
-8. **references/performance-optimization.md**: Performance best practices, async loading, optimization techniques
-9. **references/accessibility.md**: WCAG 2.1 compliance, screen readers, ARIA, keyboard navigation, high contrast
-10. **references/security.md**: XSS prevention, CSP, clickjacking, authentication, CSRF, secure coding practices
-11. **references/mdc-typescript-advanced.md**: Metadata-Driven Controls (sap.ui.mdc), TypeScript control library development, delegates, PropertyInfo
+2. **references/core-architecture.md**: Framework architecture, components, MVC, bootstrapping
+3. **references/data-binding-models.md**: Data binding, models, filters, sorters
+4. **references/testing.md**: QUnit, OPA5, mock server, test automation
+5. **references/fiori-elements.md**: Fiori Elements templates, annotations, configuration
+6. **references/typescript-support.md**: TypeScript setup, configuration, migration
+7. **references/routing-navigation.md**: Routing, navigation, Flexible Column Layout
+8. **references/performance-optimization.md**: Performance best practices, optimization
+9. **references/accessibility.md**: WCAG 2.1 compliance, screen readers, ARIA
+10. **references/security.md**: XSS prevention, CSP, authentication, CSRF
+11. **references/mdc-typescript-advanced.md**: MDC controls, TypeScript control libraries
 
-**Access these files** for detailed information on specific topics while keeping the main skill concise. Total reference documentation: ~190KB covering all major SAPUI5 topics including enterprise requirements (accessibility, security).
+**Access these files** for detailed information on specific topics while keeping the main skill concise.
 
 ---
 
@@ -779,34 +426,9 @@ Ready-to-use templates in `templates/` directory:
 
 1. **basic-component.js**: Component.js template with best practices
 2. **manifest.json**: Complete application descriptor template
-3. **xml-view.xml**: XML view with common patterns (table, search, filters)
-4. **controller.js**: Controller template with lifecycle hooks and event handlers
-5. **formatter.js**: Common formatter functions (date, currency, status, etc.)
-
-**Use templates** to quickly scaffold new components, views, and controllers.
-
----
-
-## Important Notes
-
-### Progressive Disclosure
-
-This SKILL.md provides core concepts and quick references. For detailed information:
-- Check bundled reference files in `references/` directory
-- Consult official documentation links provided
-- Use templates in `templates/` directory
-
-### Keeping Skill Updated
-
-When updating this skill:
-1. Check official documentation for changes
-2. Update framework version in metadata
-3. Verify links still work
-4. Test templates with latest UI5 version
-5. Update reference files with new features
-
-**Last Verified**: 2025-11-21
-**Next Review**: 2025-02-21 (Quarterly)
+3. **xml-view.xml**: XML view with common patterns
+4. **controller.js**: Controller template with lifecycle hooks
+5. **formatter.js**: Common formatter functions
 
 ---
 
@@ -814,41 +436,17 @@ When updating this skill:
 
 When using this skill:
 
-1. **Always use async patterns** - sap.ui.define, async:true in manifests
+1. **Always use async patterns** - sap.ui.define, async:true
 2. **Prefer XML views** - more declarative and tooling-friendly
-3. **Use data binding** - automatic XSS protection and cleaner code
-4. **Refer to reference files** - for detailed information on specific topics
+3. **Use data binding** - automatic XSS protection
+4. **Refer to reference files** - for detailed information
 5. **Use templates** - copy from templates/ and replace placeholders
 6. **Follow best practices** - security, performance, accessibility
-7. **Provide working examples** - always test code patterns before suggesting
-8. **Link to official docs** - include relevant documentation links
-9. **Consider version compatibility** - check minimum version requirements
-10. **Test-driven development** - encourage QUnit and OPA5 tests
-
-When creating SAPUI5 applications:
-- Start with manifest.json configuration
-- Set up Component.js with router initialization
-- Create XML views with proper data binding
-- Implement controllers with clear lifecycle management
-- Add formatters for data display
-- Implement error handling
-- Write tests (unit and integration)
-- Optimize for performance
-- Ensure accessibility compliance
-- Follow SAP Fiori design guidelines
-
-For troubleshooting:
-- Check browser console first
-- Verify model data and bindings
-- Use UI5 Inspector for debugging
-- Check Network tab for OData issues
-- Review manifest.json configuration
-- Validate XML view syntax
-- Test with Support Assistant
+7. **Provide working examples** - test code patterns before suggesting
 
 ---
 
 **License**: GPL-3.0
-**Version**: 1.0.0
-**Maintained by**: SAP Skills Maintainers
-**Repository**: https://github.com/secondsky/sap-skills
+**Version**: 1.4.0
+**Last Verified**: 2025-11-27
+**Next Review**: 2026-02-27 (Quarterly)

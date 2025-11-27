@@ -4,6 +4,23 @@ Complete guide for creating and managing workspaces and workpages in SAP Build W
 
 **Source**: https://github.com/SAP-docs/sap-btp-build-work-zone-advanced
 
+## Table of Contents
+
+- [Workspaces Overview](#workspaces-overview)
+- [Workspace Features](#workspace-features)
+- [Workspace Types](#workspace-types)
+- [Workspace Creation](#workspace-creation)
+- [Workspace Configuration](#workspace-configuration)
+- [Workpages](#workpages)
+  - [Workpage Types](#workpage-types)
+  - [Workpage Layout](#workpage-layout)
+- [Widgets and Cards](#widgets-and-cards)
+- [Member Management](#member-management)
+- [Content Management](#content-management)
+- [Business Records](#business-records)
+- [Analytics and Reporting](#analytics-and-reporting)
+- [Best Practices](#best-practices)
+
 ---
 
 ## Workspaces Overview

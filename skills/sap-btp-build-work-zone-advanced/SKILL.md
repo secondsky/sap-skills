@@ -2,7 +2,12 @@
 name: sap-btp-build-work-zone-advanced
 description: |
   Develops and administers SAP Build Work Zone, advanced edition digital workplace solutions. Use when creating workspaces, workpages, and collaborative sites, developing UI Integration Cards in SAP Business Application Studio, building content packages and workspace templates, integrating with Microsoft 365/Teams/SharePoint/Google Drive, configuring chatbots and webhooks, implementing SCIM API user provisioning, setting up OData business records, managing themes and branding, configuring role-based access and SSO, troubleshooting deployment issues, or working with the Administration Console.
+
+  Keywords: SAP Build Work Zone advanced edition, digital workplace, UI Integration Cards, content packages, workspace templates, SAP Business Application Studio, SAP Conversational AI, SCIM API, OData, Microsoft Teams integration, SSO, theming, Administration Console
 license: GPL-3.0
+metadata:
+  version: "1.1.0"
+  last_verified: "2025-11-27"
 ---
 
 # SAP Build Work Zone, Advanced Edition
@@ -126,11 +131,14 @@ For template development, see `references/workspace-templates.md`.
 
 ## Chatbot Integration
 
-### Options
-1. **Custom chatbots**: Build using SAP Conversational AI (https://cai.tools.sap/)
-2. **Pre-built chatbot**: Fork and configure the SAP Build Work Zone chatbot
+### Important Notice
+**SAP Conversational AI is in maintenance mode since January 2023**. While existing chatbots may continue to function, SAP does not recommend creating new implementations. Consider alternative solutions for chatbot functionality.
 
-### Configuration Steps
+### Options
+1. **Custom chatbots**: Build using SAP Conversational AI (https://cai.tools.sap/) - ⚠️ Maintenance Mode
+2. **Pre-built chatbot**: Fork and configure the SAP Build Work Zone chatbot - ⚠️ Not recommended for new projects
+
+### Configuration Steps (for existing implementations)
 1. Fork chatbot in SAP Conversational AI
 2. Connect using SAP Jam Collaboration connector
 3. Register OAuth client in Admin Console
@@ -275,16 +283,29 @@ Integration with external analytics platforms supported.
 
 For troubleshooting guide, see `references/troubleshooting.md`.
 
-## Reference Files
+## Bundled Resources
 
-- `references/ui-integration-cards.md` - Card development guide
+### Reference Documentation
+- `references/ui-integration-cards.md` (207 lines) - Complete UI Integration Cards development guide
+- `references/content-packages.md` (126 lines) - Content package creation and deployment
+- `references/workspace-templates.md` (72 lines) - Workspace template development
+- `references/chatbots.md` (172 lines) - Chatbot configuration (maintenance mode notice included)
+- `references/api-reference.md` (102 lines) - SCIM and OData API documentation
+- `references/security.md` (77 lines) - Security configuration best practices
+- `references/administration.md` - Administration Console guide
+- `references/auditing.md` - Audit and compliance features
+- `references/mobile-app.md` - Mobile app configuration
+- `references/notifications.md` - Notification system setup
+- `references/troubleshooting.md` (64 lines) - Common error resolution
+- `references/widgets.md` (87 lines) - Widget development guide
+- `references/workspaces.md` (153 lines) - Workspace management
 - `references/content-packages.md` - Content package development
-- `references/workspace-templates.md` - Template creation
-- `references/chatbots.md` - Chatbot configuration
-- `references/api-reference.md` - SCIM and OData APIs
-- `references/security.md` - Security configuration
-- `references/integrations.md` - External integrations
-- `references/troubleshooting.md` - Error resolution
+
+### Templates
+- `templates/card-manifest.json` - UI Integration Card manifest template
+- `templates/content-package-manifest.json` - Content package manifest template
+- `templates/dt-configuration.js` - Deployment configuration template
+- `templates/workspace-template-config.json` - Workspace template configuration
 
 ## Documentation Links
 
@@ -296,5 +317,5 @@ For troubleshooting guide, see `references/troubleshooting.md`.
 
 ---
 
-**Last Updated**: 2025-11-22
+**Last Updated**: 2025-11-27
 **Documentation Version**: Based on SAP documentation as of November 2025

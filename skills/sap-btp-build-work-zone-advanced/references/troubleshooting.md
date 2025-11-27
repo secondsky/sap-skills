@@ -4,6 +4,22 @@ Common issues and solutions for SAP Build Work Zone, advanced edition.
 
 **Source**: https://github.com/SAP-docs/sap-btp-build-work-zone-advanced
 
+## Table of Contents
+
+- [API Errors](#api-errors)
+  - [HTTP 503 - Service Unavailable](#http-503---service-unavailable)
+  - [HTTP 429 - Too Many Requests](#http-429---too-many-requests)
+  - [OAuth Authentication Failures](#oauth-authentication-failures)
+- [Card Deployment Issues](#card-deployment-issues)
+  - [Card Not Displaying](#card-not-displaying)
+  - [Card Data Not Loading](#card-data-not-loading)
+  - [SAPUI5 Version Compatibility](#sapui5-version-compatibility)
+- [Workspace Issues](#workspace-issues)
+  - [Workspace Creation Fails](#workspace-creation-fails)
+  - [Member Access Problems](#member-access-problems)
+- [Performance Issues](#performance-issues)
+- [Integration Problems](#integration-problems)
+
 ---
 
 ## API Errors
