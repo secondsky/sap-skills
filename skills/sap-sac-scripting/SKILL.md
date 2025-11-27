@@ -5,7 +5,6 @@ description: |
 license: GPL-3.0
 metadata:
   version: 1.7.0
-  last_verified: 202Users/eddie/github-repos/sap-skills/skills/sap-sac-scripting/SKILL.md
   last_verified: 2025-11-27
   sac_version: "2025.23"
   api_reference_version: "2025.14"

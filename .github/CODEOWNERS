@@ -3,15 +3,3 @@
 
 # Global rule - owner reviews all changes
 * @secondsky
-
-# Critical files requiring owner review
-/CLAUDE.md @secondsky
-/README.md @secondsky
-/MARKETPLACE.md @secondsky
-/LICENSE @secondsky
-
-# GitHub configuration
-/.github/ @secondsky
-
-# All skills require owner review
-/skills/ @secondsky
