@@ -224,13 +224,13 @@ scan_agents() {
   while IFS= read -r -d '' agent_file; do
     local relative_path
     relative_path="./agents/$(basename "$agent_file")"
-    agents+=("\"$relative_path\"")
+    agents+=("$relative_path")
   done < <(find "$agents_dir" -maxdepth 1 -name "*.md" -print0 2>/dev/null || true)
 
   if [ ${#agents[@]} -eq 0 ]; then
     echo "[]"
   else
-    echo "[$(IFS=,; echo "${agents[*]}")]"
+    printf '%s\n' "${agents[@]}" | jq -R . | jq -s .
   fi
 }
 
@@ -248,13 +248,13 @@ scan_commands() {
   while IFS= read -r -d '' command_file; do
     local relative_path
     relative_path="./commands/$(basename "$command_file")"
-    commands+=("\"$relative_path\"")
+    commands+=("$relative_path")
   done < <(find "$commands_dir" -maxdepth 1 -name "*.md" -print0 2>/dev/null || true)
 
   if [ ${#commands[@]} -eq 0 ]; then
     echo "[]"
   else
-    echo "[$(IFS=,; echo "${commands[*]}")]"
+    printf '%s\n' "${commands[@]}" | jq -R . | jq -s .
   fi
 }
 

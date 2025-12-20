@@ -132,7 +132,7 @@ jobs:
                 }
 
                 # Remove escaped markdown links (\[...\](...))
-                gsub(/\\[[].*\\]\([^)]*\)/, "", line)
+                gsub(/\\\[[^]]*\\\]\([^)]*\)/, "", line)
 
                 # Extract and print all markdown links
                 while (match(line, /\[[^]]+\]\([^)#]+\)/)) {

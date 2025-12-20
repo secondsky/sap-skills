@@ -91,7 +91,8 @@ collect_plugins() {
       continue
     fi
 
-    local skill_name=$(basename "$skill_dir")
+    local skill_name
+    skill_name=$(basename "$skill_dir")
     local plugin_json="$skill_dir/.claude-plugin/plugin.json"
 
     if [ ! -f "$plugin_json" ]; then
@@ -230,12 +231,16 @@ generate_marketplace() {
   local collected
   collected=$(collect_plugins)
 
-  local plugins=$(echo "$collected" | jq -c '.plugins')
-  local categories=$(echo "$collected" | jq -c '.categories')
-  local total_skills=$(echo "$collected" | jq -r '.count')
+  local plugins
+  local categories
+  local total_skills
 
-  # Validate total_skills is a number
-  if [ -z "$total_skills" ] || [ "$total_skills" = "null" ]; then
+  plugins=$(echo "$collected" | jq -c '.plugins')
+  categories=$(echo "$collected" | jq -c '.categories')
+  total_skills=$(echo "$collected" | jq -r '.count')
+
+  # Validate total_skills is a valid integer
+  if [ -z "$total_skills" ] || [ "$total_skills" = "null" ] || ! [[ "$total_skills" =~ ^[0-9]+$ ]]; then
     total_skills=0
   fi
 
