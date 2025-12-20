@@ -103,14 +103,31 @@ sap-skills/
 
 ---
 
-## Current Status (2025-11-21)
+## Current Status (2025-12-19)
 
-### ✅ Completed Skills (1)
+### ✅ Production-Ready Skills (33)
 
-**Tooling & Development**:
+**All skills have been synced to version 2.1.0 with complete plugin.json files and marketplace integration.**
+
+**Tooling & Development** (4 skills):
 - **skill-review**: Comprehensive 14-phase audit process for skill quality assurance
+- **sap-api-style**: API documentation standards following SAP guidelines
+- **sap-hana-cli**: SAP HANA Developer CLI for database operations
+- **sapui5-linter**: UI5 Linter for static code analysis
 
-### 🔄 Enhanced Skills (13)
+**SAP BTP Platform** (14 skills):
+- sap-btp-best-practices, sap-btp-build-work-zone-advanced, sap-btp-business-application-studio, sap-btp-cias, sap-btp-cloud-logging, sap-btp-cloud-platform, sap-btp-cloud-transport-management, sap-btp-connectivity, sap-btp-developer-guide, sap-btp-integration-suite, sap-btp-intelligent-situation-automation, sap-btp-job-scheduling, sap-btp-master-data-integration, sap-btp-service-manager
+
+**UI Development** (4 skills):
+- sap-fiori-tools, sapui5, sapui5-cli, sapui5-linter
+
+**Data & Analytics** (5 skills):
+- sap-datasphere, sap-sac-custom-widget, sap-sac-planning, sap-sac-scripting, sap-hana-cloud-data-intelligence
+
+**Core Technologies** (6 skills):
+- sap-abap, sap-abap-cds, sap-cap-capire, sap-sqlscript, sap-ai-core, sap-cloud-sdk-ai, sap-hana-ml
+
+### 🔄 Marketplace Infrastructure (New)
 
 **Cross-References Added**:
 - **sap-abap**: References to sap-abap-cds, sap-btp-cloud-platform, sap-cap-capire, sap-fiori-tools, sap-api-style
@@ -179,18 +196,45 @@ Future skills to be developed:
    • Create README.md with keywords
    • Add resources (scripts/, references/, assets/)
 
-3. TEST
+3. GENERATE PLUGIN FILES
+   • Run: ./scripts/sync-plugins.sh
+   • This auto-generates plugin.json and updates marketplace.json
+   • Verifies: All 33 skills have proper metadata
+
+4. TEST
    • Test discovery: Ask Claude Code to use skill
    • Build example project to verify templates work
 
-4. VERIFY
+5. VERIFY
    • Check ONE_PAGE_CHECKLIST.md
    • Use skill-review for comprehensive audit
+   • Run validation: jq '.plugins | length' .claude-plugin/marketplace.json
 
-5. COMMIT
-   • git add skills/new-skill
+6. COMMIT
+   • git add skills/new-skill skills/new-skill/.claude-plugin/plugin.json .claude-plugin/marketplace.json
    • git commit -m "Add new-skill for [use case]"
    • git push
+```
+
+### Marketplace Management Scripts
+
+Three automation scripts maintain plugin consistency:
+
+```bash
+# Generate plugin.json for all skills from SKILL.md YAML frontmatter
+./scripts/generate-plugin-manifests.sh [SKILL_NAME]
+
+# Unified sync: updates versions, generates plugin.json, regenerates marketplace.json
+./scripts/sync-plugins.sh [--dry-run]
+
+# Generate marketplace.json from all plugin.json files
+./scripts/generate-marketplace.sh [--dry-run]
+```
+
+**When to use**:
+- After adding new skills: `./scripts/sync-plugins.sh`
+- Before releases: `./scripts/sync-plugins.sh` to ensure version consistency
+- Quarterly maintenance: Re-sync all plugins with latest versions
 ```
 
 ---

@@ -4,9 +4,9 @@
 
 **Production-ready skills for SAP development with Claude**
 
-[![Skills](https://img.shields.io/badge/Skills-35-blue?style=flat-square)](MARKETPLACE.md)
+[![Skills](https://img.shields.io/badge/Skills-33-blue?style=flat-square)](MARKETPLACE.md)
 [![License](https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square)](LICENSE)
-[![Last Updated](https://img.shields.io/badge/Updated-2025--11--23-orange?style=flat-square)](#)
+[![Last Updated](https://img.shields.io/badge/Updated-2025--12--19-orange?style=flat-square)](#)
 
 A curated collection of battle-tested skills for building SAP applications with BTP, CAP, Fiori, ABAP, HANA, and more.
 
@@ -30,7 +30,7 @@ Skills work natively across multiple Claude-powered development tools:
 
 ---
 
-## 📦 Available Skills (35)
+## 📦 Available Skills (33)
 
 | Category | Count | Key Technologies |
 |----------|:-----:|------------------|
@@ -236,6 +236,30 @@ Contributions welcome! Please:
 3. ✅ Provide working templates when applicable
 4. ✅ Test thoroughly before submitting PR
 5. ✅ Use `skill-review` for quality verification
+
+---
+
+## 🔒 Branch Protection
+
+The `main` branch is protected to ensure code quality. All changes require:
+
+**Automated Requirements:**
+- ✅ Quality checks pass (`validate-skills` workflow)
+- ✅ Code owner review (@secondsky)
+- ✅ All review comments resolved
+
+**Protected Actions:**
+- ❌ Direct pushes to main (use PRs)
+- ❌ Force pushes
+- ❌ Branch deletion
+
+**Quality Validation:**
+- YAML frontmatter structure
+- GPL-3.0 license field presence
+- Required skill files (SKILL.md, README.md)
+- Internal link integrity
+
+See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for the full PR workflow.
 
 ---
 

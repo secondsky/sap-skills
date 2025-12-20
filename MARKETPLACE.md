@@ -39,7 +39,7 @@ Claude: [Uses sap-fiori-tools and sapui5 skills]
 
 ---
 
-## Available Skills (35)
+## Available Skills (33)
 
 ### SAP ABAP (2 skills)
 
@@ -255,7 +255,7 @@ This project is licensed under the GNU General Public License v3.0 (GPL-3.0) - s
 
 ---
 
-**Last Updated**: 2025-11-27
+**Last Updated**: 2025-12-19
 **Marketplace Version**: 2.1.0
-**Skills**: 35
+**Skills**: 33
 **Maintainer**: SAP Skills Maintainers

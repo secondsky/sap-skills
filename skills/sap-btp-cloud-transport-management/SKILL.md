@@ -1,5 +1,5 @@
 ---
-name: BTP Cloud Transport Management
+name: sap-btp-cloud-transport-management
 description: |
   Comprehensive skill for SAP Cloud Transport Management service on SAP BTP. Use when setting up transport landscapes, configuring transport nodes and routes, managing import queues, deploying MTAs across Cloud Foundry environments, integrating with CI/CD pipelines, configuring ABAP environment transports, troubleshooting deployment errors, or implementing change management workflows. Covers entitlements, subscriptions, role collections, service instances, destinations, and API integrations.
 license: GPL-3.0

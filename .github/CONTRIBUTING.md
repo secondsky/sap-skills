@@ -114,9 +114,22 @@ chore: update dependencies
 
 1. **Title**: Clear, descriptive title
 2. **Description**: Explain what and why
-3. **Checklist**: Complete all applicable items
-4. **Review**: Address feedback promptly
-5. **Merge**: Maintainers will merge when ready
+3. **Automated Quality Checks**: Your PR will trigger automated validation
+   - ✅ YAML frontmatter validation
+   - ✅ GPL-3.0 license verification
+   - ✅ Skill structure validation
+   - ✅ Internal link verification
+
+   **Note**: The main branch is protected by GitHub Rulesets. All PRs require:
+   - ✅ Passing quality checks (`validate-skills`)
+   - ✅ Code owner approval (@secondsky)
+   - ✅ All review conversations resolved
+
+   Direct pushes to main are blocked. All changes must go through the PR process.
+
+4. **Checklist**: Complete all applicable items
+5. **Review**: Address feedback promptly
+6. **Merge**: Maintainers will merge when ready
 
 ## Testing
 

@@ -1,5 +1,5 @@
 ---
-name: SAP BTP Cloud Logging
+name: sap-btp-cloud-logging
 description: |
   This skill provides comprehensive guidance for SAP Cloud Logging service on SAP BTP.
   Use when setting up Cloud Logging instances, configuring log ingestion from Cloud Foundry
