@@ -28,6 +28,7 @@ NC='\033[0m' # No Color
 
 # Usage
 usage() {
+  local exit_code="${1:-0}"
   cat <<EOF
 Usage: $(basename "$0") [OPTIONS]
 
@@ -58,7 +59,7 @@ RELATED SCRIPTS:
   generate-plugin-manifests.sh  - Generate plugin.json from SKILL.md
   generate-marketplace.sh       - Generate marketplace.json from plugin.json files
 EOF
-  exit 0
+  exit "$exit_code"
 }
 
 # Parse arguments
@@ -73,11 +74,11 @@ while [[ $# -gt 0 ]]; do
       ;;
     -*)
       echo -e "${RED}Error: Unknown option $1${NC}" >&2
-      usage
+      usage 1
       ;;
     *)
       echo -e "${RED}Error: Unexpected argument $1${NC}" >&2
-      usage
+      usage 1
       ;;
   esac
 done
@@ -88,12 +89,12 @@ check_dependencies() {
 
   if [ ! -f "$GENERATE_MANIFESTS" ]; then
     echo -e "${RED}Error: generate-plugin-manifests.sh not found at: $GENERATE_MANIFESTS${NC}" >&2
-    ((missing++))
+    missing=$((missing + 1))
   fi
 
   if [ ! -f "$GENERATE_MARKETPLACE" ]; then
     echo -e "${RED}Error: generate-marketplace.sh not found at: $GENERATE_MARKETPLACE${NC}" >&2
-    ((missing++))
+    missing=$((missing + 1))
   fi
 
   if [ $missing -gt 0 ]; then

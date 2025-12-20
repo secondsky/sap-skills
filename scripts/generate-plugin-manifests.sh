@@ -30,6 +30,7 @@ get_global_version() {
 
 # Usage
 usage() {
+  local exit_code="${1:-0}"
   cat <<EOF
 Usage: $(basename "$0") [OPTIONS] [SKILL_NAME]
 
@@ -52,7 +53,7 @@ EXAMPLES:
   # Preview without changes
   $(basename "$0") --dry-run
 EOF
-  exit 0
+  exit "$exit_code"
 }
 
 # Parse arguments
@@ -68,7 +69,7 @@ while [[ $# -gt 0 ]]; do
       ;;
     -*)
       echo -e "${RED}Error: Unknown option $1${NC}" >&2
-      usage
+      usage 1
       ;;
     *)
       SKILL_FILTER="$1"
@@ -446,12 +447,12 @@ main() {
     fi
 
     echo "Processing: $skill_name"
-    ((count++))
+    count=$((count + 1))
 
     if generate_plugin_json "$skill_dir"; then
-      ((success++))
+      success=$((success + 1))
     else
-      ((failed++))
+      failed=$((failed + 1))
     fi
   done
 

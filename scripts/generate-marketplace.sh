@@ -27,6 +27,7 @@ NC='\033[0m' # No Color
 
 # Usage
 usage() {
+  local exit_code="${1:-0}"
   cat <<EOF
 Usage: $(basename "$0") [OPTIONS]
 
@@ -54,7 +55,7 @@ EXAMPLES:
   # Preview without changes
   $(basename "$0") --dry-run
 EOF
-  exit 0
+  exit "$exit_code"
 }
 
 # Parse arguments
@@ -69,11 +70,11 @@ while [[ $# -gt 0 ]]; do
       ;;
     -*)
       echo -e "${RED}Error: Unknown option $1${NC}" >&2
-      usage
+      usage 1
       ;;
     *)
       echo -e "${RED}Error: Unexpected argument $1${NC}" >&2
-      usage
+      usage 1
       ;;
   esac
 done
@@ -162,7 +163,7 @@ $category"
 
     # Add to plugins array
     plugins=$(echo "$plugins" | jq --argjson plugin "$plugin_entry" '. += [$plugin]')
-    ((count++))
+    count=$((count + 1))
 
     echo -e "${GREEN}  ✓ Added: $name${NC}" >&2
   done
