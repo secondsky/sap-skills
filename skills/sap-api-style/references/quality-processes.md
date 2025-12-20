@@ -1595,11 +1595,11 @@ REVIEWER SIGN-OFF:
 **Examples of Issues**:
 ```
 ❌ BROKEN:
-   "See [authentication guide](../auth-guide) for details"
+   "See \[authentication guide](../auth-guide) for details"
    (File doesn't exist at that location)
 
 ✅ WORKING:
-   "See [authentication guide](/docs/auth-guide.md) for details"
+   "See \[authentication guide](/docs/auth-guide.md) for details"
    (Link verified to work)
 ```
 

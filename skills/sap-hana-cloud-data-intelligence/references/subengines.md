@@ -332,7 +332,7 @@ public:
     void shutdown() override;
 
 private:
-    void onInput(const sdi::Message& msg);
+    void onInput(const sdi::Message&amp; msg);
 
     std::string m_parameter;
 };
@@ -350,14 +350,14 @@ CustomOperator::CustomOperator(const sdi::OperatorConfig& config)
 
 void CustomOperator::init() {
     registerPortCallback("input",
-        [this](const sdi::Message& msg) { onInput(msg); });
+        [this](const sdi::Message&amp; msg) { onInput(msg); });
 }
 
 void CustomOperator::start() {
     LOG_INFO("Operator started");
 }
 
-void CustomOperator::onInput(const sdi::Message& msg) {
+void CustomOperator::onInput(const sdi::Message&amp; msg) {
     // Process message
     auto data = msg.body<std::vector<int>>();
 

@@ -86,7 +86,7 @@ Example: E12345
 
 [How to address/access a single resource by key]
 
-**URI Pattern**: `[Resource Path]('{[Key Value]}')`
+**URI Pattern**: `[Resource Path]\('{[Key Value]}')`
 
 **Examples**:
 - `/Employees('E12345')` - Address by string key
@@ -148,22 +148,22 @@ Standard Create, Read, Update, Delete operations available on this resource:
 | HTTP Method | Operation | URI | Description |
 |---|---|---|---|
 | GET | [Read Collection](#operation-read-collection) | `[Resource]` | Retrieve all resources |
-| GET | [Read Single](#operation-read-single) | `[Resource]('{Key}')` | Retrieve specific resource |
+| GET | [Read Single](#operation-read-single) | `[Resource]\('{Key}')` | Retrieve specific resource |
 | POST | [Create](#operation-create) | `[Resource]` | Create new resource |
-| PUT | [Replace](#operation-replace) | `[Resource]('{Key}')` | Replace entire resource |
-| PATCH | [Update](#operation-update) | `[Resource]('{Key}')` | Partial update resource |
-| DELETE | [Delete](#operation-delete) | `[Resource]('{Key}')` | Delete resource |
+| PUT | [Replace](#operation-replace) | `[Resource]\('{Key}')` | Replace entire resource |
+| PATCH | [Update](#operation-update) | `[Resource]\('{Key}')` | Partial update resource |
+| DELETE | [Delete](#operation-delete) | `[Resource]\('{Key}')` | Delete resource |
 
 **Example**:
 ```
 | HTTP Method | Operation | URI | Description |
 |---|---|---|---|
 | GET | [Query all employees](#operation-read-collection) | `/Employees` | Retrieve all employees with optional filtering and paging |
-| GET | [Get single employee](#operation-read-single) | `/Employees('{EmployeeID}')` | Retrieve specific employee by ID |
+| GET | [Get single employee](#operation-read-single) | `/Employees\('{EmployeeID}')` | Retrieve specific employee by ID |
 | POST | [Create employee](#operation-create) | `/Employees` | Create new employee record |
-| PUT | [Replace employee](#operation-replace) | `/Employees('{EmployeeID}')` | Replace entire employee record |
-| PATCH | [Update employee](#operation-update) | `/Employees('{EmployeeID}')` | Partial update of employee fields |
-| DELETE | [Delete employee](#operation-delete) | `/Employees('{EmployeeID}')` | Delete/deactivate employee |
+| PUT | [Replace employee](#operation-replace) | `/Employees\('{EmployeeID}')` | Replace entire employee record |
+| PATCH | [Update employee](#operation-update) | `/Employees\('{EmployeeID}')` | Partial update of employee fields |
+| DELETE | [Delete employee](#operation-delete) | `/Employees\('{EmployeeID}')` | Delete/deactivate employee |
 ```
 
 ### Navigation Properties

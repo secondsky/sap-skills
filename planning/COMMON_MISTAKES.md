@@ -447,18 +447,18 @@ This skill helps with...
 
 ❌ **WRONG**:
 ```markdown
-See [documentation](./docs/guide.md)  # ← File doesn't exist
+See \[documentation](./docs/guide.md)  # ← File doesn't exist
 ```
 
 ✅ **CORRECT**:
 ```markdown
-See [documentation](references/guide.md)  # ← Actual path
+See \[documentation](references/guide.md)  # ← Actual path
 ```
 
 **Verify**:
 ```bash
 # Test all links work
-for link in $(grep -o '\[.*\](.*\.md)' SKILL.md); do
+for link in $(grep -o '\[.*\](.*\\.md)' SKILL.md); do
   # Verify file exists
 done
 ```
@@ -599,7 +599,7 @@ Before committing, verify you DIDN'T make these mistakes:
 - [START_HERE.md](../START_HERE.md) - Workflow overview
 - [ONE_PAGE_CHECKLIST.md](../ONE_PAGE_CHECKLIST.md) - Verification checklist
 - [planning/STANDARDS_COMPARISON.md](STANDARDS_COMPARISON.md) - Official standards
-- [CLOUDFLARE_SKILLS_AUDIT.md](../CLOUDFLARE_SKILLS_AUDIT.md) - Example audit
+- `CLOUDFLARE_SKILLS_AUDIT.md` - Example audit (reference)
 
 ---
 

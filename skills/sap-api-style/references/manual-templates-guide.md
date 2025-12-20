@@ -1092,7 +1092,7 @@ Example: `[https://api.example.com/odata/v4/Employees`](https://api.example.com/
 
 **Individual Resource Addressing**:
 ```
-Addressing specific resource: [Resource]([Key])
+Addressing specific resource: [Resource]\([Key])
 
 Example: `/Employees('E12345')`
 Example: `/Employees(EmployeeID='E12345')`
@@ -2724,13 +2724,13 @@ In Operation Document (Level 3):
 
 Use absolute paths:
 ```markdown
-See [Employees REST API](../rest-apis/employees.md#rest-api-employees)
+See \[Employees REST API](../rest-apis/employees.md#rest-api-employees)
 for complete REST method documentation.
 ```
 
 Or use markdown anchor syntax:
 ```markdown
-See [Employees REST API](rest-apis/employees.md) for complete REST documentation.
+See \[Employees REST API](rest-apis/employees.md) for complete REST documentation.
 ```
 
 ---
