@@ -106,7 +106,7 @@ Skills work natively across multiple Claude-powered development tools:
 
 ```bash
 # Add the marketplace
-/plugin marketplace add [https://github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)
+/plugin marketplace add https://github.com/secondsky/sap-skills
 
 # Install individual skills
 /plugin install sap-cap-capire@sap-skills
