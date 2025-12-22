@@ -132,7 +132,7 @@ For contributors or local development:
 # Clone the repository
 git clone [https://github.com/secondsky/sap-skills.git](https://github.com/secondsky/sap-skills.git)
 
-# Skills are automatically available in the skills/ directory
+# Skills are automatically available from plugins in the plugins/ directory
 ```
 
 ### Verify Installation
@@ -207,18 +207,22 @@ Using skills vs manual implementation:
 ## 🛠️ Building New Skills
 
 ```bash
-# 1. Create skill directory
-mkdir -p skills/my-new-skill/
+# 1. Create plugin structure
+mkdir -p plugins/my-new-skill/.claude-plugin
+mkdir -p plugins/my-new-skill/skills/my-new-skill
 
 # 2. Add required files
-#    - SKILL.md (main documentation with YAML frontmatter)
-#    - README.md (keywords for auto-discovery)
+#    - plugins/my-new-skill/skills/my-new-skill/SKILL.md (main documentation with YAML frontmatter)
+#    - plugins/my-new-skill/skills/my-new-skill/README.md (keywords for auto-discovery)
 
-# 3. Test skill discovery
+# 3. Generate plugin manifest
+./scripts/sync-plugins.sh
+
+# 4. Test skill discovery
 #    Ask Claude to use your skill
 
-# 4. Submit
-git add skills/my-new-skill
+# 5. Submit
+git add plugins/my-new-skill .claude-plugin/marketplace.json
 git commit -m "Add my-new-skill for [use case]"
 git push
 ```
