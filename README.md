@@ -222,6 +222,7 @@ Want to contribute a new SAP skill? Follow the quick workflow:
 - ✅ 5 plugins with agents, commands, and hooks
 - ✅ 22 new reference files across plugins
 - ✅ Comprehensive marketplace cross-references
+- ✅ 3 plugins with MCP server integrations (CAP, Datasphere, UI5)
 
 See [CHANGELOG.md](CHANGELOG.md) for complete details.
 

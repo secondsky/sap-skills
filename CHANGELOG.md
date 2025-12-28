@@ -37,6 +37,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Quality gate enforcement
   - Session lifecycle management
 
+- **MCP Server Integration**: 3 plugins with Model Context Protocol support
+  - **sap-cap-capire**: CAP MCP server (@cap-js/mcp-server)
+    - Live access to compiled CDS models
+    - Semantic search for entities, services, actions, relationships
+    - CAP documentation query capabilities
+    - Zero configuration required
+
+  - **sap-datasphere**: Datasphere MCP server (@mariodefe/sap-datasphere-mcp)
+    - Direct integration with SAP Datasphere API
+    - Requires authentication via environment variables
+    - Access to spaces, views, models, and connections
+
+  - **sapui5**: UI5 Tooling MCP server (@ui5/mcp-server)
+    - UI5 project tooling integration
+    - Version-aware assistance (UI5 1.120.0+)
+    - Project structure awareness
+
 #### Enhanced Documentation
 - **22 new reference files** across plugins providing deep-dive documentation
   - **sap-datasphere** (5 files):
