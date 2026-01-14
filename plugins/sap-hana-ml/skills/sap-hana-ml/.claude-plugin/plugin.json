@@ -18,6 +18,5 @@
     "sap-hana-ml",
     "sql",
     "sqlscript"
-  ],
-  "category": "hana"
+  ]
 }

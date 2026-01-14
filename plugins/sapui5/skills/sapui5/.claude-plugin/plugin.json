@@ -19,7 +19,6 @@
     "typescript",
     "xml"
   ],
-  "category": "ui-development",
   "agents": [
     "./agents/ui5-migration-specialist.md",
     "./agents/ui5-api-explorer.md",

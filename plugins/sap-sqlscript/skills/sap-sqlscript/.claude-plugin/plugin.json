@@ -21,7 +21,6 @@
     "sqlscript",
     "visualization"
   ],
-  "category": "data-analytics",
   "agents": [
     "./agents/amdp-helper.md",
     "./agents/procedure-generator.md",

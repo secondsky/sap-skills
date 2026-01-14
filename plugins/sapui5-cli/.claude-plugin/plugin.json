@@ -18,6 +18,5 @@
     "sapui5",
     "sapui5-cli",
     "yaml"
-  ],
-  "category": "ui-development"
+  ]
 }

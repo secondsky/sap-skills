@@ -22,7 +22,6 @@
     "visualization",
     "widget"
   ],
-  "category": "data-analytics",
   "agents": [
     "./agents/widget-debugger.md",
     "./agents/widget-architect.md",

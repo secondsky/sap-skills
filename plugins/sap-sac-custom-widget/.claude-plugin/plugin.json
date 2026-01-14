@@ -27,6 +27,5 @@
     "widget-validate",
     "widget-generate",
     "widget-lint"
-  ],
-  "category": "data-analytics"
+  ]
 }

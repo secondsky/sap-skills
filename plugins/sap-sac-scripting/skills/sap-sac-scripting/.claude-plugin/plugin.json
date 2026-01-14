@@ -19,7 +19,6 @@
     "scripting",
     "visualization"
   ],
-  "category": "data-analytics",
   "agents": [
     "./agents/sac-api-helper.md",
     "./agents/sac-planning-assistant.md",

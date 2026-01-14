@@ -30,6 +30,5 @@
     "sql",
     "tenant-integration",
     "visualization"
-  ],
-  "category": "data-analytics"
+  ]
 }

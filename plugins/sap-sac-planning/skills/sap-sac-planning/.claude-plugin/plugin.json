@@ -21,7 +21,6 @@
     "sap-sac-planning",
     "visualization"
   ],
-  "category": "data-analytics",
   "agents": [
     "./agents/planning-api-assistant.md",
     "./agents/data-action-debugger.md",

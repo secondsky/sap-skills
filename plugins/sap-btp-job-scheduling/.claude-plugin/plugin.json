@@ -21,6 +21,5 @@
     "sap",
     "sap-btp-job-scheduling",
     "scheduling"
-  ],
-  "category": "btp"
+  ]
 }

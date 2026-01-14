@@ -22,6 +22,5 @@
     "oauth",
     "sap",
     "sap-btp-master-data-integration"
-  ],
-  "category": "btp"
+  ]
 }

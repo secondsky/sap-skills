@@ -22,6 +22,5 @@
     "sap",
     "sap-btp-service-manager",
     "service"
-  ],
-  "category": "btp"
+  ]
 }

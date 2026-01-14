@@ -22,6 +22,5 @@
     "sap",
     "sap-btp-cloud-transport-management",
     "transport"
-  ],
-  "category": "btp"
+  ]
 }

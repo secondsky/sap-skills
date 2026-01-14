@@ -21,6 +21,5 @@
     "saml",
     "sap",
     "sap-btp-cloud-logging"
-  ],
-  "category": "btp"
+  ]
 }

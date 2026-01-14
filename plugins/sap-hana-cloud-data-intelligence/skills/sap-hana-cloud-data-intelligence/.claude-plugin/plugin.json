@@ -22,6 +22,5 @@
     "sap-hana-cloud-data-intelligence",
     "sql",
     "sqlscript"
-  ],
-  "category": "hana"
+  ]
 }

@@ -27,6 +27,5 @@
     "sap",
     "sap-btp-cloud-platform",
     "serverless"
-  ],
-  "category": "btp"
+  ]
 }

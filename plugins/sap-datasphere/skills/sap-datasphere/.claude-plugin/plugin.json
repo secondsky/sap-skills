@@ -24,7 +24,6 @@
     "sql",
     "visualization"
   ],
-  "category": "data-analytics",
   "agents": [
     "./agents/datasphere-integration-advisor.md",
     "./agents/datasphere-admin-helper.md",

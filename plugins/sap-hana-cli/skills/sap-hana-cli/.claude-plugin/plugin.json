@@ -21,6 +21,5 @@
     "sap-hana-cli",
     "sql",
     "sqlscript"
-  ],
-  "category": "hana"
+  ]
 }
