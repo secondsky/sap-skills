@@ -1,7 +1,7 @@
 # SAPUI5 Linter Skill - Completeness Review
 
 **Review Date**: 2025-11-21
-**Reviewer**: SAP Skills Maintainers
+**Reviewer**: E.J.
 **Repository**: [https://github.com/UI5/linter](https://github.com/UI5/linter)
 **Status**: ✅ COMPREHENSIVE with minor enhancements needed
 
@@ -368,6 +368,6 @@ The skill comprehensively covers all user-facing functionality, rules, configura
 
 ---
 
-**Reviewed By**: SAP Skills Maintainers
+**Reviewed By**: E.J.
 **Date**: 2025-11-21
 **Status**: ✅ Approved for Enhancement

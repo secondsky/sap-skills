@@ -2,7 +2,7 @@
 
 **Skill Name**: sapui5-linter
 **Date**: 2025-11-21
-**Builder**: SAP Skills Maintainers
+**Builder**: E.J.
 **Status**: ✅ VERIFIED - Ready for Production
 
 ---
@@ -297,7 +297,7 @@ All limitations comprehensively documented in `references/autofix-complete.md`.
 
 **Skill Name**: sapui5-linter
 **Date**: 2025-11-21
-**Builder**: SAP Skills Maintainers
+**Builder**: E.J.
 **Status**: ✅ VERIFIED - READY TO SHIP 🚀
 
 ---

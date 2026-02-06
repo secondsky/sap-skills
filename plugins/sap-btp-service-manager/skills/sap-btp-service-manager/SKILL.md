@@ -544,5 +544,5 @@ When troubleshooting:
 
 **License**: GPL-3.0
 **Version**: 1.1.1
-**Maintained by**: SAP Skills Maintainers
+**Maintained by**: E.J.
 **Repository**: [https://github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)

@@ -300,5 +300,5 @@ Contributions welcome! Please follow the skill creation guidelines in the main r
 ---
 
 **Last Updated**: 2025-11-27
-**Maintainer**: SAP Skills Maintainers
+**Maintainer**: E.J.
 **Repository**: [https://github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)

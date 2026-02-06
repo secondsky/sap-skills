@@ -308,5 +308,5 @@ GPL-3.0 License - See repository LICENSE file.
 
 ---
 
-*Maintained by: SAP Skills Maintainers*
+*Maintained by: E.J.*
 *Repository: [https://github.com/secondsky/sap-skills*](https://github.com/secondsky/sap-skills*)

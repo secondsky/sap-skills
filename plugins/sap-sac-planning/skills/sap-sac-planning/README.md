@@ -336,5 +336,5 @@ Contributions welcome! Please follow the repository guidelines in CLAUDE.md and 
 
 ---
 
-**Maintained by**: SAP Skills Maintainers
+**Maintained by**: E.J.
 **Repository**: [https://github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)

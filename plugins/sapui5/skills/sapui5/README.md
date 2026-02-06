@@ -235,4 +235,4 @@ GPL-3.0
 
 ---
 
-**Maintained by**: SAP Skills Maintainers | [https://github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)
+**Maintained by**: E.J. | [https://github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)

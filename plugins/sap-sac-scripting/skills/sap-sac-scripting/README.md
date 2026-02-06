@@ -358,7 +358,7 @@ GPL-3.0 License
 
 ## Maintainer
 
-SAP Skills Maintainers | [https://github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)
+E.J. | [https://github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)
 
 ---
 

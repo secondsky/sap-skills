@@ -346,7 +346,7 @@ generate_plugin_json() {
       description: $description,
       version: $version,
       author: {
-        name: "SAP Skills Maintainers",
+        name: "E.J.",
         email: "maintainers@example.com"
       },
       license: $license,
