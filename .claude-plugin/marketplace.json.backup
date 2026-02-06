@@ -5,8 +5,8 @@
   "repository": "https://github.com/secondsky/sap-skills",
   "metadata": {
     "version": "2.1.0",
-    "last_updated": "2025-12-19",
-    "total_skills": 33,
+    "last_updated": "2026-02-06",
+    "total_skills": 32,
     "categories": [
       "abap",
       "ai",
@@ -21,7 +21,7 @@
   "plugins": [
     {
       "name": "sap-abap",
-      "source": "skills/sap-abap",
+      "source": "plugins/sap-abap",
       "description": "Comprehensive ABAP development skill for SAP systems. Use when writing ABAP code, working with internal tables, structures, ABAP SQL, object-oriented programming, RAP (RESTful Application Programming Model), CDS views, EML statements, ABAP Cloud development, string processing, dynamic programming, RTTI/RTTC, field symbols, data references, exception handling, or ABAP unit testing. Covers both classic ABAP and modern ABAP for Cloud Development patterns.",
       "version": "2.1.0",
       "category": "abap",
@@ -41,7 +41,7 @@
     },
     {
       "name": "sap-abap-cds",
-      "source": "skills/sap-abap-cds",
+      "source": "plugins/sap-abap-cds",
       "description": "Comprehensive SAP ABAP CDS (Core Data Services) reference for data modeling, view development, and semantic enrichment. Use when creating CDS views or view entities in ABAP, defining data models with annotations (@AbapCatalog, @AccessControl, @EndUserText, @Semantics, @UI, @Consumption, @ObjectModel), working with associations and cardinality, implementing input parameters, using built-in functions (string, numeric, date/time), writing CASE expressions and conditional logic, implementing access control with DCL (Data Control Language), handling CURR/QUAN data types with reference fields, troubleshooting CDS errors (SD_CDS_ENTITY105), querying CDS views from ABAP, or displaying data with SALV IDA. Covers ABAP 7.4+ through ABAP Cloud with production-tested patterns. Keywords: ABAP CDS, Core Data Services, CDS view, CDS view entity, define view, define view entity, DDL, Data Definition Language, DCL, Data Control Language, annotations, @AbapCatalog, @AccessControl, @EndUserText, @Semantics, @UI, @Consumption, @ObjectModel, @Metadata, associations, cardinality, TO ONE, TO MANY, path expressions, input parameters, WITH PARAMETERS, built-in functions, CASE expression, CAST, session variables, $session, aggregate functions, GROUP BY, HAVING, joins, INNER JOIN, LEFT OUTER JOIN, access control, DEFINE ROLE, pfcg_auth, authorization, SALV IDA, cl_salv_gui_table_ida, Eclipse ADT, ABAP Development Tools, CDS annotations, Fiori Elements, OData, RAP, ABAP RESTful Application Programming Model, currencyCode, unitOfMeasure, SD_CDS_ENTITY105",
       "version": "2.1.0",
       "category": "abap",
@@ -64,7 +64,7 @@
     },
     {
       "name": "sap-ai-core",
-      "source": "skills/sap-ai-core",
+      "source": "plugins/sap-ai-core",
       "description": "Guides development with SAP AI Core and SAP AI Launchpad for enterprise AI/ML workloads on SAP BTP. Use when: deploying generative AI models (GPT, Claude, Gemini, Llama), building orchestration workflows with templating/filtering/grounding, implementing RAG with vector databases, managing ML training pipelines with Argo Workflows, configuring content filtering and data masking for PII protection, using the Generative AI Hub for prompt experimentation, or integrating AI capabilities into SAP applications. Covers service plans (Free/Standard/Extended), model providers (Azure OpenAI, AWS Bedrock, GCP Vertex AI, Mistral, IBM), orchestration modules, embeddings, tool calling, and structured outputs.",
       "version": "2.1.0",
       "category": "ai",
@@ -82,7 +82,7 @@
     },
     {
       "name": "sap-api-style",
-      "source": "skills/sap-api-style",
+      "source": "plugins/sap-api-style",
       "description": "This skill provides comprehensive guidance for documenting SAP APIs following official SAP API Style Guide standards. It should be used when creating or reviewing API documentation for REST, OData, Java, JavaScript, .NET, or C/C++ APIs. The skill covers naming conventions, documentation comments, OpenAPI specifications, quality checklists, deprecation policies, and manual documentation templates. It ensures consistency with SAP API Business Hub standards and industry best practices. Keywords: SAP API, REST, OData, OpenAPI, Swagger, Javadoc, JSDoc, XML documentation, API Business Hub, API naming, API deprecation, x-sap-stateInfo, Entity Data Model, EDM, documentation tags, API quality, API templates",
       "version": "2.1.0",
       "category": "tooling",
@@ -106,7 +106,7 @@
     },
     {
       "name": "sap-btp-best-practices",
-      "source": "skills/sap-btp-best-practices",
+      "source": "plugins/sap-btp-best-practices",
       "description": "Production-ready SAP BTP best practices for enterprise architecture, account management, security, and operations. Use when planning BTP implementations, setting up account hierarchies, configuring environments, implementing authentication, designing CI/CD pipelines, establishing governance, building Platform Engineering teams, implementing failover strategies, or managing application lifecycle on SAP BTP. Keywords: SAP BTP, account hierarchy, global account, directory, subaccount, Cloud Foundry, Kyma, ABAP, SAP Identity Authentication, CI/CD, governance, Platform Engineering, failover, multi-region, SAP BTP best practices",
       "version": "2.1.0",
       "category": "btp",
@@ -127,7 +127,7 @@
     },
     {
       "name": "sap-btp-build-work-zone-advanced",
-      "source": "skills/sap-btp-build-work-zone-advanced",
+      "source": "plugins/sap-btp-build-work-zone-advanced",
       "description": "Develops and administers SAP Build Work Zone, advanced edition digital workplace solutions. Use when creating workspaces, workpages, and collaborative sites, developing UI Integration Cards in SAP Business Application Studio, building content packages and workspace templates, integrating with Microsoft 365/Teams/SharePoint/Google Drive, configuring chatbots and webhooks, implementing SCIM API user provisioning, setting up OData business records, managing themes and branding, configuring role-based access and SSO, troubleshooting deployment issues, or working with the Administration Console. Keywords: SAP Build Work Zone advanced edition, digital workplace, UI Integration Cards, content packages, workspace templates, SAP Business Application Studio, SAP Conversational AI, SCIM API, OData, Microsoft Teams integration, SSO, theming, Administration Console",
       "version": "2.1.0",
       "category": "btp",
@@ -150,7 +150,7 @@
     },
     {
       "name": "sap-btp-business-application-studio",
-      "source": "skills/sap-btp-business-application-studio",
+      "source": "plugins/sap-btp-business-application-studio",
       "description": "This skill provides comprehensive guidance for SAP Business Application Studio (BAS), the cloud-based IDE on SAP BTP built on Code-OSS. Use when setting up BAS subscriptions, creating dev spaces, connecting to external systems, deploying MTA applications, troubleshooting connectivity issues, managing Git repositories, configuring runtime versions, or using the layout editor. Keywords: SAP Business Application Studio, BAS, SAP BTP, dev space, Cloud Foundry, MTA, multitarget application, SAP Fiori, CAP, HANA, destination, WebIDEEnabled, Cloud Connector, Service Center, Storyboard, Layout Editor, ABAP, OData, subscription, entitlements, role collection, Business_Application_Studio_Developer, Git, clone, push, pull, Gerrit, PAT, OAuth, asdf, runtime, Node.js, Java, Python, Task Explorer, CI/CD, Yeoman, generator, template wizard, mbt, mtar, debugging, breakpoint",
       "version": "2.1.0",
       "category": "btp",
@@ -178,7 +178,7 @@
     },
     {
       "name": "sap-btp-cias",
-      "source": "skills/sap-btp-cias",
+      "source": "plugins/sap-btp-cias",
       "description": "SAP BTP Cloud Integration Automation Service (CIAS) skill for guided integration workflows. Use when: setting up CIAS subscriptions, configuring destinations, assigning roles (CIASIntegrationAdministrator, CIASIntegrationExpert, CIASIntegrationMonitor), planning integration scenarios, working with My Inbox tasks, monitoring scenario execution, troubleshooting CIAS errors, creating OAuth2 instances, configuring identity providers for CIAS, understanding CIAS security architecture, or integrating SAP products (S/4HANA, SuccessFactors, BTP services, SAP Build, IBP).",
       "version": "2.1.0",
       "category": "btp",
@@ -197,7 +197,7 @@
     },
     {
       "name": "sap-btp-cloud-logging",
-      "source": "skills/sap-btp-cloud-logging",
+      "source": "plugins/sap-btp-cloud-logging",
       "description": "This skill provides comprehensive guidance for SAP Cloud Logging service on SAP BTP. Use when setting up Cloud Logging instances, configuring log ingestion from Cloud Foundry or Kyma runtimes, implementing OpenTelemetry observability, analyzing logs/metrics/traces in OpenSearch Dashboards, configuring SAML authentication, managing certificates, or troubleshooting ingestion issues. Covers service plans (dev/standard/large), all 4 instance creation methods (BTP Cockpit, CF CLI, BTP CLI, Service Operator), all 4 ingestion methods (Cloud Foundry, Kyma, OpenTelemetry, JSON API), and security best practices.",
       "version": "2.1.0",
       "category": "btp",
@@ -219,7 +219,7 @@
     },
     {
       "name": "sap-btp-cloud-platform",
-      "source": "skills/sap-btp-cloud-platform",
+      "source": "plugins/sap-btp-cloud-platform",
       "description": "Comprehensive SAP Business Technology Platform (BTP) reference for cloud development, deployment, and operations. Use when setting up BTP accounts (global accounts, directories, subaccounts), working with Cloud Foundry environment (orgs, spaces, buildpacks, service bindings), deploying to Kyma environment (Kubernetes, modules, serverless functions), developing in ABAP environment (RAP, CDS, ADT), managing entitlements and quotas, configuring identity providers (SAP Cloud Identity Services, XSUAA), implementing authentication and authorization (role collections, trust configuration), using btp CLI or CF CLI, deploying multi-target applications (MTA), setting up connectivity (destinations, Cloud Connector), implementing CI/CD pipelines (SAP Continuous Integration and Delivery), extending SAP solutions (S/4HANA Cloud, SuccessFactors), or troubleshooting BTP services. Covers all three runtime environments with production-tested patterns. Keywords: SAP BTP, SAP Business Technology Platform, Cloud Foundry, CF, Kyma, ABAP environment, subaccount, global account, directory, entitlements, quotas, btp CLI, CF CLI, MTA, multi-target application, XSUAA, SAP Authorization and Trust Management, Cloud Identity Services, Identity Authentication, destinations, Cloud Connector, service binding, buildpack, Kubernetes, serverless, RAP, CDS, CAP, SAP Cloud Application Programming Model, CI/CD, SAP Continuous Integration and Delivery, extensions, formations, trial account, free tier, enterprise account, consumption-based, subscription-based, CPEA, BTPEA, regions, availability zones, high availability, disaster recovery, audit logging, role collections, platform users, business users, Neo environment, service broker, space, org, namespace, Helm, Docker, Istio, API Gateway, Eventing",
       "version": "2.1.0",
       "category": "btp",
@@ -247,7 +247,7 @@
     },
     {
       "name": "sap-btp-cloud-transport-management",
-      "source": "skills/sap-btp-cloud-transport-management",
+      "source": "plugins/sap-btp-cloud-transport-management",
       "description": "Comprehensive skill for SAP Cloud Transport Management service on SAP BTP. Use when setting up transport landscapes, configuring transport nodes and routes, managing import queues, deploying MTAs across Cloud Foundry environments, integrating with CI/CD pipelines, configuring ABAP environment transports, troubleshooting deployment errors, or implementing change management workflows. Covers entitlements, subscriptions, role collections, service instances, destinations, and API integrations.",
       "version": "2.1.0",
       "category": "btp",
@@ -270,7 +270,7 @@
     },
     {
       "name": "sap-btp-connectivity",
-      "source": "skills/sap-btp-connectivity",
+      "source": "plugins/sap-btp-connectivity",
       "description": "This skill provides comprehensive knowledge for SAP BTP Connectivity, including the Destination Service, Connectivity Service, Cloud Connector, Connectivity Proxy, and Transparent Proxy for Kubernetes. It should be used when configuring destinations, setting up cloud-to-on-premise connectivity, implementing principal propagation, deploying connectivity proxies in Kubernetes/Kyma environments, or troubleshooting connectivity issues. Use this skill when: - Creating or configuring SAP BTP destinations (HTTP, RFC, LDAP, MAIL, TCP) - Setting up Cloud Connector for on-premise connectivity - Implementing OAuth authentication flows for destinations - Configuring principal propagation or user propagation - Deploying Connectivity Proxy or Transparent Proxy in Kubernetes - Troubleshooting connectivity errors (405, 407, 503) - Setting up high availability for Cloud Connector - Configuring multitenancy for destinations Keywords: SAP BTP, Connectivity, Destination Service, Cloud Connector, Connectivity Proxy, Transparent Proxy, Kyma, Kubernetes, OAuth, Principal Propagation, RFC, LDAP, on-premise, hybrid connectivity, service channels, SOCKS5, reverse proxy, tunnel",
       "version": "2.1.0",
       "category": "btp",
@@ -291,7 +291,7 @@
     },
     {
       "name": "sap-btp-developer-guide",
-      "source": "skills/sap-btp-developer-guide",
+      "source": "plugins/sap-btp-developer-guide",
       "description": "Develops business applications on SAP Business Technology Platform (BTP) using CAP (Node.js/Java) or ABAP Cloud.  Use when: building cloud applications on SAP BTP, deploying to Cloud Foundry or Kyma runtimes, integrating with SAP HANA Cloud, implementing SAP Fiori UIs, connecting to remote SAP systems, building multitenant SaaS applications, extending SAP S/4HANA or SuccessFactors, setting up CI/CD pipelines, implementing observability, or following SAP development best practices. Keywords: SAP BTP, Business Technology Platform, CAP, Cloud Application Programming Model, ABAP Cloud, Cloud Foundry, Kyma, SAP HANA Cloud, SAP Fiori, SAPUI5, CI/CD, observability, multitenant, SaaS, SAP BTP ABAP environment, SAP Business Application Studio, SAP Cloud SDK, SAP Integration Suite, SAP Event Mesh, SAP Connectivity Service, SAP Destination Service, XSUAA, OAuth, OpenID Connect, OData, CDS, Core Data Services, ABAP CDS, ABAP RESTful Application Programming Model, RAP, ABAP development, SAP BTP development",
       "version": "2.1.0",
       "category": "btp",
@@ -319,7 +319,7 @@
     },
     {
       "name": "sap-btp-integration-suite",
-      "source": "skills/sap-btp-integration-suite",
+      "source": "plugins/sap-btp-integration-suite",
       "description": "Develops and operates enterprise integration solutions using SAP Integration Suite on Business Technology Platform. Covers Cloud Integration (iFlows), API Management, Event Mesh, Edge Integration Cell, Integration Advisor, Trading Partner Management, Graph, OData Provisioning, Integration Assessment, and Migration Assessment. Use this skill when: - Building integration flows (iFlows) to connect applications - Creating, managing, or debugging API proxies and policies - Implementing event-driven architectures with Event Mesh - Setting up B2B/EDI integrations with Trading Partner Management - Deploying hybrid integrations with Edge Integration Cell - Migrating from SAP Process Orchestration (PO/PI) - Configuring adapters (SFTP, HTTP, OData, RFC, AMQP, Kafka, etc.) - Writing Groovy/JavaScript scripts for message processing - Troubleshooting integration errors and monitoring message flows Keywords: sap integration suite, cloud integration, cpi, scpi, sap cpi, iflow, integration flow, api management, apim, api proxy, api policy, developer hub, developer portal, event mesh, edge integration cell, integration advisor, trading partner management, tpm, b2b integration, edi integration, migration assessment, integration assessment, isa-m, graph, odata provisioning, sap btp integration, cloud platform integration, message mapping, groovy script, adapter configuration, content modifier, splitter, aggregator, router, sftp adapter, http adapter, odata adapter, rfc adapter, amqp adapter, kafka adapter, jms queue, data store, idempotent processing, exactly once",
       "version": "2.1.0",
       "category": "btp",
@@ -343,7 +343,7 @@
     },
     {
       "name": "sap-btp-intelligent-situation-automation",
-      "source": "skills/sap-btp-intelligent-situation-automation",
+      "source": "plugins/sap-btp-intelligent-situation-automation",
       "description": "This skill provides comprehensive guidance for SAP BTP Intelligent Situation Automation setup, configuration, and operations. It should be used when implementing situation-based automation between SAP S/4HANA systems and SAP Business Technology Platform. The skill covers subscription setup, Event Mesh integration, destination configuration, system onboarding, user management with role collections, automatic situation resolution, and troubleshooting. Keywords: SAP BTP, Intelligent Situation Automation, ISA, situation handling, SAP S/4HANA, SAP S/4HANA Cloud, Event Mesh, Business Event Handling, situation automation, situation dashboard, analyze situations, SAP_COM_0345, SAP_COM_0376, SAP_COM_0092, SituationAutomationKeyUser, SituationAutomationAdminUser, Cloud Connector, cf-eu10, CA-SIT-ATM, business situations, situation types, situation actions",
       "version": "2.1.0",
       "category": "btp",
@@ -363,7 +363,7 @@
     },
     {
       "name": "sap-btp-job-scheduling",
-      "source": "skills/sap-btp-job-scheduling",
+      "source": "plugins/sap-btp-job-scheduling",
       "description": "This skill provides comprehensive guidance for SAP BTP Job Scheduling Service development, configuration, and operations. It should be used when creating, managing, or troubleshooting scheduled jobs on SAP Business Technology Platform. The skill covers service setup, REST API usage, schedule types and formats, OAuth 2.0 authentication, multitenancy, Cloud Foundry tasks, Kyma runtime integration, and monitoring with SAP Cloud ALM and Alert Notification Service. Keywords: SAP BTP, Job Scheduling, jobscheduler, cron, schedule, recurring jobs, one-time jobs, Cloud Foundry tasks, CF tasks, Kyma, OAuth 2.0, XSUAA, @sap/jobs-client, REST API, asynchronous jobs, action endpoint, run logs, SAP Cloud ALM, Alert Notification Service, multitenancy, tenant-aware, BC-CP-CF-JBS",
       "version": "2.1.0",
       "category": "btp",
@@ -385,7 +385,7 @@
     },
     {
       "name": "sap-btp-master-data-integration",
-      "source": "skills/sap-btp-master-data-integration",
+      "source": "plugins/sap-btp-master-data-integration",
       "description": "Configures and integrates SAP Master Data Integration (MDI) service on SAP Business Technology Platform. Use when setting up MDI tenants, connecting applications (S/4HANA, SuccessFactors, Ariba, Fieldglass, etc.), configuring distribution models, SOAP APIs for business partners, extensibility, or troubleshooting master data replication. Covers One Domain Model integration, Business Data Orchestration, client authentication (OAuth2, mTLS), and security configurations.",
       "version": "2.1.0",
       "category": "btp",
@@ -408,7 +408,7 @@
     },
     {
       "name": "sap-btp-service-manager",
-      "source": "skills/sap-btp-service-manager",
+      "source": "plugins/sap-btp-service-manager",
       "description": "This skill provides comprehensive knowledge for SAP Service Manager on SAP Business Technology Platform (BTP). It should be used when managing service instances, bindings, brokers, and platforms across Cloud Foundry, Kyma, Kubernetes, and other environments. Use when provisioning services via SMCTL CLI, BTP CLI, or REST APIs, configuring OAuth2 authentication, working with the SAP BTP Service Operator in Kubernetes, troubleshooting service consumption issues, or implementing cross-environment service management. Keywords: SAP Service Manager, BTP, service instances, service bindings, SMCTL, service broker, OSBAPI, Cloud Foundry, Kyma, Kubernetes, service-manager, service-operator-access, subaccount-admin, OAuth2, X.509, service marketplace, service plans, rate limiting, cf create-service, btp create services/instance, ServiceInstance CRD, ServiceBinding CRD",
       "version": "2.1.0",
       "category": "btp",
@@ -431,7 +431,7 @@
     },
     {
       "name": "sap-cap-capire",
-      "source": "skills/sap-cap-capire",
+      "source": "plugins/sap-cap-capire",
       "description": "SAP Cloud Application Programming Model (CAP) development skill using Capire documentation. Use when: building CAP applications, defining CDS models, implementing services, working with SAP HANA/SQLite/PostgreSQL databases, deploying to SAP BTP Cloud Foundry or Kyma, implementing Fiori UIs, handling authorization, multitenancy, or messaging. Covers CDL/CQL/CSN syntax, Node.js and Java runtimes, event handlers, OData services, and CAP plugins.",
       "version": "2.1.0",
       "category": "cap",
@@ -454,11 +454,24 @@
         "sap-cap-capire",
         "sql"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/cap-cds-modeler.md",
+        "./agents/cap-service-developer.md",
+        "./agents/cap-performance-debugger.md",
+        "./agents/cap-project-architect.md"
+      ],
+      "commands": [
+        "./commands/cap-setup-wizard.md",
+        "./commands/cap-troubleshooter.md",
+        "./commands/cap-mcp-tools.md",
+        "./commands/cap-cds-reference.md",
+        "./commands/cap-deployment-checklist.md"
+      ]
     },
     {
       "name": "sap-cloud-sdk-ai",
-      "source": "skills/sap-cloud-sdk-ai",
+      "source": "plugins/sap-cloud-sdk-ai",
       "description": "Integrates SAP Cloud SDK for AI into JavaScript/TypeScript and Java applications. Use when building applications with SAP AI Core, Generative AI Hub, or Orchestration Service. Covers chat completion, embedding, streaming, function calling, content filtering, data masking, document grounding, prompt registry, and LangChain/Spring AI integration. Supports OpenAI GPT-4o, Claude, Gemini, Amazon Nova, and other foundation models via SAP BTP.",
       "version": "2.1.0",
       "category": "ai",
@@ -480,28 +493,43 @@
     },
     {
       "name": "sap-datasphere",
-      "source": "skills/sap-datasphere",
-      "description": "Comprehensive guide for SAP Datasphere development including data acquisition, preparation, modeling, administration, connectivity, and integration. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections to SAP and third-party systems, managing spaces and users, implementing data access controls, or monitoring data integration tasks. Covers Data Builder (graphical/SQL views, local/remote tables, transformation flows), Business Builder (business entities, consumption models), analytic models (dimensions, measures, hierarchies), 40+ connection types (SAP S/4HANA, BW/4HANA, HANA Cloud, AWS, Azure, GCP, Kafka), real-time replication, task chains, and content transport. Keywords: sap datasphere, data warehouse cloud, dwc, data builder, business builder, analytic model, graphical view, sql view, transformation flow, replication flow, data flow, task chain, remote table, local table, sap btp data warehouse, datasphere connection, datasphere space, data access control, elastic compute node, sap analytics cloud integration",
+      "source": "plugins/sap-datasphere",
+      "description": "Comprehensive plugin for SAP Datasphere development with 3 specialized agents, 4 slash commands, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections to SAP and third-party systems, managing spaces and users, implementing data access controls, using the datasphere CLI, creating data products for the marketplace, or monitoring data integration tasks. Covers Data Builder (graphical/SQL views, local/remote tables, transformation flows), Business Builder (business entities, consumption models), analytic models (dimensions, measures, hierarchies), 40+ connection types (SAP S/4HANA, BW/4HANA, HANA Cloud, AWS, Azure, GCP, Kafka, Generic HTTP), real-time replication, task chains, content transport, CLI automation, catalog governance, and data marketplace. Includes 2025 features: Generic HTTP connections, REST API tasks in task chains, SAP Business Data Cloud integration. Keywords: sap datasphere, data warehouse cloud, dwc, data builder, business builder, analytic model, graphical view, sql view, transformation flow, replication flow, data flow, task chain, remote table, local table, sap btp data warehouse, datasphere connection, datasphere space, data access control, elastic compute node, sap analytics cloud integration, datasphere cli, data products, data marketplace, catalog, governance",
       "version": "2.1.0",
       "category": "data-analytics",
       "keywords": [
         "analytics",
+        "api",
         "btp",
         "dashboard",
         "data",
         "datasphere",
         "hana",
+        "http",
+        "rest",
         "sac",
         "sap",
         "sap-datasphere",
         "sql",
         "visualization"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/datasphere-integration-advisor.md",
+        "./agents/datasphere-admin-helper.md",
+        "./agents/datasphere-modeler.md"
+      ],
+      "commands": [
+        "./commands/datasphere-cli.md",
+        "./commands/datasphere-connection-guide.md",
+        "./commands/datasphere-space-template.md",
+        "./commands/datasphere-view-template.md",
+        "./commands/datasphere-mcp-tools.md"
+      ]
     },
     {
       "name": "sap-fiori-tools",
-      "source": "skills/sap-fiori-tools",
+      "source": "plugins/sap-fiori-tools",
       "description": "Develops SAP Fiori applications using SAP Fiori tools extensions for VS Code and SAP Business Application Studio. Use when: generating Fiori Elements or Freestyle SAPUI5 applications, configuring Page Editor for List Report or Object Page, working with annotations and Service Modeler, setting up deployment to ABAP or Cloud Foundry, creating adaptation projects, using Guided Development, previewing with mock data or live data, configuring SAP Fiori launchpad, or using AI-powered generation with Project Accelerator/Joule. Technologies: SAP Fiori Elements, SAPUI5, OData V2/V4, CAP, SAP BTP, ABAP, Cloud Foundry.",
       "version": "2.1.0",
       "category": "ui-development",
@@ -525,7 +553,7 @@
     },
     {
       "name": "sap-hana-cli",
-      "source": "skills/sap-hana-cli",
+      "source": "plugins/sap-hana-cli",
       "description": "Assists with SAP HANA Developer CLI (hana-cli) for database development and administration. Use when: installing hana-cli, connecting to SAP HANA databases, inspecting database objects (tables, views, procedures, functions), managing HDI containers, executing SQL queries, converting metadata to CDS/EDMX/OpenAPI formats, managing SAP HANA Cloud instances, working with BTP CLI integration, or troubleshooting hana-cli commands. Covers: 91 commands, 17+ output formats, HDI container management, cloud operations.",
       "version": "2.1.0",
       "category": "hana",
@@ -547,7 +575,7 @@
     },
     {
       "name": "sap-hana-cloud-data-intelligence",
-      "source": "skills/sap-hana-cloud-data-intelligence",
+      "source": "plugins/sap-hana-cloud-data-intelligence",
       "description": "Develops data processing pipelines, integrations, and machine learning scenarios in SAP Data Intelligence Cloud. Use when building graphs/pipelines with operators, integrating ABAP/S4HANA systems, creating replication flows, developing ML scenarios with JupyterLab, or using Data Transformation Language functions. Covers Gen1/Gen2 operators, subengines (Python, Node.js, C++), structured data operators, and repository objects.",
       "version": "2.1.0",
       "category": "hana",
@@ -570,7 +598,7 @@
     },
     {
       "name": "sap-hana-ml",
-      "source": "skills/sap-hana-ml",
+      "source": "plugins/sap-hana-ml",
       "description": "SAP HANA Machine Learning Python Client (hana-ml) development skill. Use when: Building ML solutions with SAP HANA's in-database machine learning using Python hana-ml library for PAL/APL algorithms, DataFrame operations, AutoML, model persistence, and visualization. Keywords: hana-ml, SAP HANA, machine learning, PAL, APL, predictive analytics, HANA DataFrame, ConnectionContext, classification, regression, clustering, time series, ARIMA, gradient boosting, AutoML, SHAP, model storage",
       "version": "2.1.0",
       "category": "hana",
@@ -589,7 +617,7 @@
     },
     {
       "name": "sap-sac-custom-widget",
-      "source": "skills/sap-sac-custom-widget",
+      "source": "plugins/sap-sac-custom-widget",
       "description": "SAP Analytics Cloud (SAC) Custom Widget development skill. Use when building custom visualizations, interactive components, extending SAC with Web Components, or creating Widget Add-Ons to customize built-in widgets. Covers JSON metadata configuration, JavaScript Web Components, lifecycle functions, data binding with feeds, styling panels, builder panels, property/event/method definitions, custom types, script API data types, third-party library integration, hosting options, security, performance optimization, and debugging. Includes Widget Add-On feature (QRC Q4 2023+) for extending built-in widgets without creating from scratch. Provides templates for basic widgets, data-bound charts, styling panels, and KPI cards. Supports Optimized Story Experience and Analytics Designer. Prevents common errors: missing lifecycle functions, incorrect JSON schema, integrity warnings, CORS failures, property type mismatches, data binding issues, and performance anti-patterns. Keywords: sap analytics cloud, sac custom widget, custom widget development, web component sac, json metadata widget, widget lifecycle functions, onCustomWidgetBeforeUpdate, onCustomWidgetAfterUpdate, onCustomWidgetResize, onCustomWidgetDestroy, sac data binding, widget data binding, dataBindings feeds, getDataBinding, getResultSet, styling panel widget, builder panel widget, widget properties events methods, propertiesChanged event, dispatchEvent custom widget, sac echarts integration, sac d3js integration, third party library sac, widget hosting sac, sac hosted widget, integrity hash widget, sha256 integrity, widget security cors, sac widget debugging, custom visualization sac, sac analytics designer widget, optimized story experience widget, sac widget api, widget add-on, sac script api widget, custom types enumeration, MemberInfo ResultMemberInfo Selection, widget installation admin, sac performance optimization, shadow dom web component, sac tooltip customization, plot area addon",
       "version": "2.1.0",
       "category": "data-analytics",
@@ -607,12 +635,22 @@
         "visualization",
         "widget"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/widget-debugger.md",
+        "./agents/widget-architect.md",
+        "./agents/widget-api-assistant.md"
+      ],
+      "commands": [
+        "./commands/widget-validate.md",
+        "./commands/widget-lint.md",
+        "./commands/widget-generate.md"
+      ]
     },
     {
       "name": "sap-sac-planning",
-      "source": "skills/sap-sac-planning",
-      "description": "This skill should be used when developing SAP Analytics Cloud (SAC) planning applications, including building planning-enabled stories, analytics designer applications with planning functionality, data actions, multi actions, version management, and planning workflows. Use when creating planning models, implementing data entry forms, configuring spreading/distribution/allocation, setting up data locking, building calendar-based planning processes with approval workflows, writing JavaScript scripts for planning automation, using the getPlanning() API, PlanningModel API, or DataSource API for planning scenarios, troubleshooting planning performance issues, or integrating predictive forecasting into planning workflows.",
+      "source": "plugins/sap-sac-planning",
+      "description": "This skill should be used when developing SAP Analytics Cloud (SAC) planning applications, including building planning-enabled stories, analytics designer applications with planning functionality, data actions, multi actions, version management, and planning workflows. Use when creating planning models, implementing data entry forms, configuring spreading/distribution/allocation, setting up data locking, building calendar-based planning processes with approval workflows, writing JavaScript scripts for planning automation, using the getPlanning() API, PlanningModel API, or DataSource API for planning scenarios, troubleshooting planning performance issues, integrating predictive forecasting into planning workflows, implementing Seamless Planning with SAP Datasphere, configuring BPC live connections for BW on HANA integration, building value driver trees for what-if analysis, or debugging data actions with tracing.",
       "version": "2.1.0",
       "category": "data-analytics",
       "keywords": [
@@ -620,6 +658,7 @@
         "api",
         "dashboard",
         "data",
+        "hana",
         "javascript",
         "planning",
         "sac",
@@ -627,12 +666,22 @@
         "sap-sac-planning",
         "visualization"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/planning-api-assistant.md",
+        "./agents/data-action-debugger.md",
+        "./agents/planning-model-architect.md"
+      ],
+      "commands": [
+        "./commands/sac-planning-checklist.md",
+        "./commands/data-action-template.md",
+        "./commands/seamless-planning-guide.md"
+      ]
     },
     {
       "name": "sap-sac-scripting",
-      "source": "skills/sap-sac-scripting",
-      "description": "Comprehensive SAC scripting skill for Analytics Designer and Optimized Story Experience. Use when building analytic applications, planning models, or enhanced stories. Covers DataSource API, Chart/Table manipulation, Planning operations, Calendar integration, Bookmarks, Timer API, Container widgets, Layout API, R Visualizations, Custom Widgets, Navigation, variables, event handlers, debugging, performance optimization, and 2025.23 features: comments APIs, Search to Insight, smart grouping, time-series forecast, geo map quick menus, Explorer/Smart Insights, composites scripting. Includes 40 code templates.",
+      "source": "plugins/sap-sac-scripting",
+      "description": "Comprehensive SAC scripting skill for SAP Analytics Cloud Analytics Designer and Optimized Story Experience. This skill should be used when the user asks to \"create SAC script\", \"debug Analytics Designer\", \"optimize SAC performance\", \"planning operations in SAC\", \"filter data in SAC\", \"use DataSource API\", \"chart scripting\", \"table manipulation\", \"SAC event handlers\", \"version management\", \"data locking\", or works with SAC widgets, planning models, or analytics applications.",
       "version": "2.1.0",
       "category": "data-analytics",
       "keywords": [
@@ -646,32 +695,54 @@
         "scripting",
         "visualization"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/sac-api-helper.md",
+        "./agents/sac-planning-assistant.md",
+        "./agents/sac-performance-optimizer.md",
+        "./agents/sac-script-debugger.md"
+      ],
+      "commands": [
+        "./commands/sac-optimize.md",
+        "./commands/sac-debug.md",
+        "./commands/sac-script-template.md",
+        "./commands/sac-planning.md"
+      ]
     },
     {
       "name": "sap-sqlscript",
-      "source": "skills/sap-sqlscript",
-      "description": "Comprehensive SQLScript development skill for SAP HANA database programming. This skill provides syntax patterns, built-in functions, exception handling, performance optimization, and AMDP integration guidance. Use when: - Creating stored procedures or user-defined functions in SAP HANA - Writing anonymous blocks for ad-hoc SQLScript execution - Implementing AMDP (ABAP Managed Database Procedures) - Optimizing SQLScript performance with code-to-data paradigm - Handling exceptions with EXIT HANDLER, SIGNAL, and RESIGNAL - Working with table variables, cursors, and table types - Using window functions, aggregate functions, or string manipulation - Debugging SQLScript execution or analyzing query performance",
+      "source": "plugins/sap-sqlscript",
+      "description": "This skill should be used when the user asks to \"write a SQLScript procedure\", \"create HANA stored procedure\", \"implement AMDP method\", \"optimize SQLScript performance\", \"handle SQLScript exceptions\", \"debug HANA procedure\", \"create table function\", or mentions SQLScript, SAP HANA procedures, AMDP, EXIT HANDLER, or code-to-data paradigm. Comprehensive SQLScript development guidance for SAP HANA database programming including syntax patterns, built-in functions, exception handling, performance optimization, cursor management, and ABAP Managed Database Procedure (AMDP) integration.",
       "version": "2.1.0",
-      "category": "tooling",
+      "category": "data-analytics",
       "keywords": [
         "abap",
-        "automation",
-        "cli",
-        "development",
+        "analytics",
+        "dashboard",
+        "data",
         "hana",
-        "productivity",
+        "sac",
         "sap",
         "sap-sqlscript",
         "sql",
         "sqlscript",
-        "tools"
+        "visualization"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/amdp-helper.md",
+        "./agents/procedure-generator.md",
+        "./agents/sqlscript-analyzer.md"
+      ],
+      "commands": [
+        "./commands/sqlscript-validate.md",
+        "./commands/sqlscript-convert.md",
+        "./commands/sqlscript-optimize.md"
+      ]
     },
     {
       "name": "sapui5",
-      "source": "skills/sapui5",
+      "source": "plugins/sapui5",
       "description": "This skill should be used when developing SAP UI5 applications, including creating freestyle apps, Fiori Elements apps, custom controls, testing, data binding, OData integration, routing, and troubleshooting. Use when building enterprise web applications with SAP UI5 framework, implementing MVC patterns, configuring manifest.json, creating XML views, writing controllers, setting up data models (JSON, OData v2/v4), implementing responsive UI with sap.m controls, building List Report or Object Page applications with Fiori Elements, writing unit tests with QUnit, integration tests with OPA5, setting up mock servers, handling security (XSS, CSP), optimizing performance, implementing accessibility features, or debugging UI5 applications. Also use when working with sap.ui.mdc (Metadata-Driven Controls) including MDC Table, MDC FilterBar, MDC Value Help, control delegates, PropertyInfo, TypeMap, VariantManagement, or developing TypeScript control libraries with @ui5/ts-interface-generator. Keywords: sapui5, ui5, openui5, sap ui5, ui5 framework, sapui5 framework, ui5 application, sapui5 app, ui5 development, sapui5 development, ui5 tooling, ui5 cli, Component.js, manifest.json, xml view, data binding, odata v2, odata v4, fiori elements, sap.m controls, mvc pattern, routing, navigation, qunit, opa5, testing, mock server, sap.ui.mdc, mdc table, typescript, accessibility, security, performance, ui5 inspector, ui5 troubleshooting",
       "version": "2.1.0",
       "category": "ui-development",
@@ -686,11 +757,24 @@
         "typescript",
         "xml"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/ui5-migration-specialist.md",
+        "./agents/ui5-api-explorer.md",
+        "./agents/ui5-code-quality-advisor.md",
+        "./agents/ui5-app-scaffolder.md"
+      ],
+      "commands": [
+        "./commands/ui5-mcp-tools.md",
+        "./commands/ui5-scaffold.md",
+        "./commands/ui5-lint.md",
+        "./commands/ui5-api.md",
+        "./commands/ui5-version.md"
+      ]
     },
     {
       "name": "sapui5-cli",
-      "source": "skills/sapui5-cli",
+      "source": "plugins/sapui5-cli",
       "description": "Manages SAPUI5/OpenUI5 projects using the UI5 Tooling CLI (@ui5/cli). Use when initializing UI5 projects, configuring ui5.yaml or ui5-workspace.yaml files, building UI5 applications or libraries, running development servers with HTTP/2 support, creating custom build tasks or server middleware, managing workspace/monorepo setups, troubleshooting UI5 CLI errors, migrating between UI5 CLI versions, or optimizing build performance. Supports both OpenUI5 and SAPUI5 frameworks with complete configuration and extensibility guidance.",
       "version": "2.1.0",
       "category": "ui-development",
@@ -709,7 +793,7 @@
     },
     {
       "name": "sapui5-linter",
-      "source": "skills/sapui5-linter",
+      "source": "plugins/sapui5-linter",
       "description": "Use this skill when working with the UI5 Linter (@ui5/linter) for static code analysis of SAPUI5/OpenUI5 applications and libraries. This skill should be used when: (1) Setting up UI5 Linter in a project for the first time, (2) Configuring linting rules and ignore patterns for UI5 codebases, (3) Running the linter to detect deprecated APIs, global variable usage, CSP violations, or manifest issues, (4) Using autofix to automatically correct deprecated API usage, global references, event handlers, and manifest properties, (5) Troubleshooting linting errors or warnings in UI5 code, (6) Integrating UI5 Linter into CI/CD pipelines or pre-commit hooks, (7) Preparing UI5 projects for migration to UI5 2.x by identifying compatibility issues, (8) Understanding and resolving specific linting rules like no-deprecated-api, no-globals, async-component-flags, or manifest validation rules. The skill covers all 19 linting rules, comprehensive autofix capabilities and limitations, CLI options, configuration patterns, performance optimization, and integration with development workflows. Keywords: SAPUI5, OpenUI5, UI5 Linter, @ui5/linter, static analysis, deprecated APIs, global variables, CSP, manifest.json, ui5.yaml, ESLint, pre-commit hooks, GitHub Actions, CI/CD, Node.js, TypeScript, XML, JSON, HTML, YAML, OData v2/v4, async, event handlers, jQuery, autofix, performance optimization, 19 linting rules, no-deprecated-api, no-globals, no-async-component-flags, manifest-v2, UI5 2.x migration",
       "version": "2.1.0",
       "category": "ui-development",
@@ -729,27 +813,6 @@
         "sapui5-linter",
         "typescript",
         "xml",
-        "yaml"
-      ],
-      "license": "GPL-3.0"
-    },
-    {
-      "name": "skill-review",
-      "source": "skills/skill-review",
-      "description": "Comprehensive deep-dive documentation review process for sap-skills repository. Use this skill when investigating suspected issues in a skill, major package version updates detected, skill last verified >3 months ago, before marketplace submission, or when examples seem outdated. Performs systematic 14-phase audit: pre-review setup, standards compliance (exact YAML validation rules), official docs verification (Context7/WebFetch), code examples audit, cross-file consistency, dependency version checks, progressive disclosure architecture review, conciseness & degrees of freedom audit, anti-pattern detection, testing & evaluation review, security & MCP considerations, issue categorization by severity, fix implementation with minimal user questions, and post-fix verification. Enforces official Claude best practices including name validation (64 chars, lowercase/hyphens), description limits (1024 chars), SKILL.md line count (<500 lines), third-person writing style, progressive disclosure depth (one level), and multi-model testing verification. Prevents outdated documentation, incorrect API patterns, contradictory examples, version drift, broken links, YAML errors, schema inconsistencies, missing dependencies, Windows paths, inconsistent terminology, and over-explained content. Combines automated technical checks (YAML syntax, package versions, link validation, TODO markers) with AI-powered verification. Auto-fixes unambiguous issues, asks user only for architectural decisions or breaking change confirmations. Outputs severity-classified issue list (🔴 Critical / 🟡 High / 🟠 Medium / 🟢 Low) with evidence citations (GitHub URLs, official docs, changelogs) and detailed remediation plan. Keywords: skill review, skill audit, documentation review, version check, api verification, package updates, skill maintenance, quality assurance, standards compliance, breaking changes, github verification, official docs check, context7 verification, skill-review, audit-skill, review-documentation, check-skill-currency, verify-skill-accuracy, outdated skill, skill needs update, verify api methods, package version drift, stale documentation, contradictory examples, broken links check, yaml frontmatter validation, skill discovery test, production testing, sap skill review",
-      "version": "2.1.0",
-      "category": "tooling",
-      "keywords": [
-        "api",
-        "automation",
-        "cli",
-        "development",
-        "production",
-        "productivity",
-        "review",
-        "skill",
-        "skill-review",
-        "tools",
         "yaml"
       ],
       "license": "GPL-3.0"
