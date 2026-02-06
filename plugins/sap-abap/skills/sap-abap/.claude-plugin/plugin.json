@@ -3,7 +3,7 @@
   "description": "Comprehensive ABAP development skill for SAP systems. Use when writing ABAP code, working with internal tables, structures, ABAP SQL, object-oriented programming, RAP (RESTful Application Programming Model), CDS views, EML statements, ABAP Cloud development, string processing, dynamic programming, RTTI/RTTC, field symbols, data references, exception handling, or ABAP unit testing. Covers both classic ABAP and modern ABAP for Cloud Development patterns.",
   "version": "2.1.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",

@@ -3,7 +3,7 @@
   "description": "Comprehensive SAC scripting plugin for SAP Analytics Cloud Analytics Designer and Optimized Story Experience. Includes 4 specialized agents (debugger, performance optimizer, planning assistant, API helper), 4 slash commands (/sac-script-template, /sac-debug, /sac-optimize, /sac-planning), validation hooks for best practices, and extensive reference documentation. Covers DataSource API, Chart/Table manipulation, Planning operations, Calendar integration, Bookmarks, Timer API, Container widgets, R Visualizations, Custom Widgets, Navigation, debugging, performance optimization. Updated for Q4 2025 (2025.21) with Chart Variance APIs, Compass Seamless Planning, and Data Actions enhancements.",
   "version": "3.0.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "url": "https://github.com/secondsky/sap-skills"
   },
   "license": "GPL-3.0",

@@ -3,7 +3,7 @@
   "description": "Comprehensive SAC scripting skill for SAP Analytics Cloud Analytics Designer and Optimized Story Experience. This skill should be used when the user asks to \"create SAC script\", \"debug Analytics Designer\", \"optimize SAC performance\", \"planning operations in SAC\", \"filter data in SAC\", \"use DataSource API\", \"chart scripting\", \"table manipulation\", \"SAC event handlers\", \"version management\", \"data locking\", or works with SAC widgets, planning models, or analytics applications.",
   "version": "2.1.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",

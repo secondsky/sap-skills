@@ -3,7 +3,7 @@
   "description": "Comprehensive SAP ABAP CDS (Core Data Services) reference for data modeling, view development, and semantic enrichment. Use when creating CDS views or view entities in ABAP, defining data models with annotations (@AbapCatalog, @AccessControl, @EndUserText, @Semantics, @UI, @Consumption, @ObjectModel), working with associations and cardinality, implementing input parameters, using built-in functions (string, numeric, date/time), writing CASE expressions and conditional logic, implementing access control with DCL (Data Control Language), handling CURR/QUAN data types with reference fields, troubleshooting CDS errors (SD_CDS_ENTITY105), querying CDS views from ABAP, or displaying data with SALV IDA. Covers ABAP 7.4+ through ABAP Cloud with production-tested patterns. Keywords: ABAP CDS, Core Data Services, CDS view, CDS view entity, define view, define view entity, DDL, Data Definition Language, DCL, Data Control Language, annotations, @AbapCatalog, @AccessControl, @EndUserText, @Semantics, @UI, @Consumption, @ObjectModel, @Metadata, associations, cardinality, TO ONE, TO MANY, path expressions, input parameters, WITH PARAMETERS, built-in functions, CASE expression, CAST, session variables, $session, aggregate functions, GROUP BY, HAVING, joins, INNER JOIN, LEFT OUTER JOIN, access control, DEFINE ROLE, pfcg_auth, authorization, SALV IDA, cl_salv_gui_table_ida, Eclipse ADT, ABAP Development Tools, CDS annotations, Fiori Elements, OData, RAP, ABAP RESTful Application Programming Model, currencyCode, unitOfMeasure, SD_CDS_ENTITY105",
   "version": "2.1.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",

@@ -3,7 +3,7 @@
   "description": "Develops and administers SAP Build Work Zone, advanced edition digital workplace solutions. Use when creating workspaces, workpages, and collaborative sites, developing UI Integration Cards in SAP Business Application Studio, building content packages and workspace templates, integrating with Microsoft 365/Teams/SharePoint/Google Drive, configuring chatbots and webhooks, implementing SCIM API user provisioning, setting up OData business records, managing themes and branding, configuring role-based access and SSO, troubleshooting deployment issues, or working with the Administration Console. Keywords: SAP Build Work Zone advanced edition, digital workplace, UI Integration Cards, content packages, workspace templates, SAP Business Application Studio, SAP Conversational AI, SCIM API, OData, Microsoft Teams integration, SSO, theming, Administration Console",
   "version": "2.1.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",

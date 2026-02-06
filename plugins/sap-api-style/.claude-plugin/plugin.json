@@ -3,7 +3,7 @@
   "description": "This skill provides comprehensive guidance for documenting SAP APIs following official SAP API Style Guide standards. It should be used when creating or reviewing API documentation for REST, OData, Java, JavaScript, .NET, or C/C++ APIs. The skill covers naming conventions, documentation comments, OpenAPI specifications, quality checklists, deprecation policies, and manual documentation templates. It ensures consistency with SAP API Business Hub standards and industry best practices. Keywords: SAP API, REST, OData, OpenAPI, Swagger, Javadoc, JSDoc, XML documentation, API Business Hub, API naming, API deprecation, x-sap-stateInfo, Entity Data Model, EDM, documentation tags, API quality, API templates",
   "version": "2.1.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",

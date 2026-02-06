@@ -3,7 +3,7 @@
   "description": "This skill provides comprehensive guidance for SAP BTP Job Scheduling Service development, configuration, and operations. It should be used when creating, managing, or troubleshooting scheduled jobs on SAP Business Technology Platform. The skill covers service setup, REST API usage, schedule types and formats, OAuth 2.0 authentication, multitenancy, Cloud Foundry tasks, Kyma runtime integration, and monitoring with SAP Cloud ALM and Alert Notification Service. Keywords: SAP BTP, Job Scheduling, jobscheduler, cron, schedule, recurring jobs, one-time jobs, Cloud Foundry tasks, CF tasks, Kyma, OAuth 2.0, XSUAA, @sap/jobs-client, REST API, asynchronous jobs, action endpoint, run logs, SAP Cloud ALM, Alert Notification Service, multitenancy, tenant-aware, BC-CP-CF-JBS",
   "version": "2.1.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",

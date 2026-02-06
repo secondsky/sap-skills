@@ -3,7 +3,7 @@
   "description": "Develops SAP Fiori applications using SAP Fiori tools extensions for VS Code and SAP Business Application Studio. Use when: generating Fiori Elements or Freestyle SAPUI5 applications, configuring Page Editor for List Report or Object Page, working with annotations and Service Modeler, setting up deployment to ABAP or Cloud Foundry, creating adaptation projects, using Guided Development, previewing with mock data or live data, configuring SAP Fiori launchpad, or using AI-powered generation with Project Accelerator/Joule. Technologies: SAP Fiori Elements, SAPUI5, OData V2/V4, CAP, SAP BTP, ABAP, Cloud Foundry.",
   "version": "2.1.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",

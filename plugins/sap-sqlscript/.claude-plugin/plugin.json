@@ -3,7 +3,7 @@
   "description": "Comprehensive SQLScript development skill for SAP HANA database programming. This skill provides syntax patterns, built-in functions, exception handling, performance optimization, and AMDP integration guidance. Use when: - Creating stored procedures or user-defined functions in SAP HANA - Writing anonymous blocks for ad-hoc SQLScript execution - Implementing AMDP (ABAP Managed Database Procedures) - Optimizing SQLScript performance with code-to-data paradigm - Handling exceptions with EXIT HANDLER, SIGNAL, and RESIGNAL - Working with table variables, cursors, and table types - Using window functions, aggregate functions, or string manipulation - Debugging SQLScript execution or analyzing query performance",
   "version": "2.1.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",

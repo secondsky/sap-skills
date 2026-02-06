@@ -3,7 +3,7 @@
   "description": "This skill provides comprehensive guidance for SAP Business Application Studio (BAS), the cloud-based IDE on SAP BTP built on Code-OSS. Use when setting up BAS subscriptions, creating dev spaces, connecting to external systems, deploying MTA applications, troubleshooting connectivity issues, managing Git repositories, configuring runtime versions, or using the layout editor. Keywords: SAP Business Application Studio, BAS, SAP BTP, dev space, Cloud Foundry, MTA, multitarget application, SAP Fiori, CAP, HANA, destination, WebIDEEnabled, Cloud Connector, Service Center, Storyboard, Layout Editor, ABAP, OData, subscription, entitlements, role collection, Business_Application_Studio_Developer, Git, clone, push, pull, Gerrit, PAT, OAuth, asdf, runtime, Node.js, Java, Python, Task Explorer, CI/CD, Yeoman, generator, template wizard, mbt, mtar, debugging, breakpoint",
   "version": "2.1.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",

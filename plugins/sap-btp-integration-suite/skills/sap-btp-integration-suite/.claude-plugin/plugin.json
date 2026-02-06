@@ -3,7 +3,7 @@
   "description": "Develops and operates enterprise integration solutions using SAP Integration Suite on Business Technology Platform. Covers Cloud Integration (iFlows), API Management, Event Mesh, Edge Integration Cell, Integration Advisor, Trading Partner Management, Graph, OData Provisioning, Integration Assessment, and Migration Assessment. Use this skill when: - Building integration flows (iFlows) to connect applications - Creating, managing, or debugging API proxies and policies - Implementing event-driven architectures with Event Mesh - Setting up B2B/EDI integrations with Trading Partner Management - Deploying hybrid integrations with Edge Integration Cell - Migrating from SAP Process Orchestration (PO/PI) - Configuring adapters (SFTP, HTTP, OData, RFC, AMQP, Kafka, etc.) - Writing Groovy/JavaScript scripts for message processing - Troubleshooting integration errors and monitoring message flows Keywords: sap integration suite, cloud integration, cpi, scpi, sap cpi, iflow, integration flow, api management, apim, api proxy, api policy, developer hub, developer portal, event mesh, edge integration cell, integration advisor, trading partner management, tpm, b2b integration, edi integration, migration assessment, integration assessment, isa-m, graph, odata provisioning, sap btp integration, cloud platform integration, message mapping, groovy script, adapter configuration, content modifier, splitter, aggregator, router, sftp adapter, http adapter, odata adapter, rfc adapter, amqp adapter, kafka adapter, jms queue, data store, idempotent processing, exactly once",
   "version": "2.1.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",

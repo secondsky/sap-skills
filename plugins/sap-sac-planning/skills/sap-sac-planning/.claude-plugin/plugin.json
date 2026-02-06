@@ -3,7 +3,7 @@
   "description": "This skill should be used when developing SAP Analytics Cloud (SAC) planning applications, including building planning-enabled stories, analytics designer applications with planning functionality, data actions, multi actions, version management, and planning workflows. Use when creating planning models, implementing data entry forms, configuring spreading/distribution/allocation, setting up data locking, building calendar-based planning processes with approval workflows, writing JavaScript scripts for planning automation, using the getPlanning() API, PlanningModel API, or DataSource API for planning scenarios, troubleshooting planning performance issues, integrating predictive forecasting into planning workflows, implementing Seamless Planning with SAP Datasphere, configuring BPC live connections for BW on HANA integration, building value driver trees for what-if analysis, or debugging data actions with tracing.",
   "version": "2.1.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",

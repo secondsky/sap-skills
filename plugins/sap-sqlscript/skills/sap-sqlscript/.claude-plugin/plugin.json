@@ -3,7 +3,7 @@
   "description": "This skill should be used when the user asks to \"write a SQLScript procedure\", \"create HANA stored procedure\", \"implement AMDP method\", \"optimize SQLScript performance\", \"handle SQLScript exceptions\", \"debug HANA procedure\", \"create table function\", or mentions SQLScript, SAP HANA procedures, AMDP, EXIT HANDLER, or code-to-data paradigm. Comprehensive SQLScript development guidance for SAP HANA database programming including syntax patterns, built-in functions, exception handling, performance optimization, cursor management, and ABAP Managed Database Procedure (AMDP) integration.",
   "version": "2.1.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",

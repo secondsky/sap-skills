@@ -3,7 +3,7 @@
   "description": "SAP Cloud Application Programming Model (CAP) development skill using Capire documentation. Use when: building CAP applications, defining CDS models, implementing services, working with SAP HANA/SQLite/PostgreSQL databases, deploying to SAP BTP Cloud Foundry or Kyma, implementing Fiori UIs, handling authorization, multitenancy, or messaging. Covers CDL/CQL/CSN syntax, Node.js and Java runtimes, event handlers, OData services, and CAP plugins.",
   "version": "2.1.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",

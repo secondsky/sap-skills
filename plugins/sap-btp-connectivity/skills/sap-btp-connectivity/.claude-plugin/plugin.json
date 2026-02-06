@@ -3,7 +3,7 @@
   "description": "This skill provides comprehensive knowledge for SAP BTP Connectivity, including the Destination Service, Connectivity Service, Cloud Connector, Connectivity Proxy, and Transparent Proxy for Kubernetes. It should be used when configuring destinations, setting up cloud-to-on-premise connectivity, implementing principal propagation, deploying connectivity proxies in Kubernetes/Kyma environments, or troubleshooting connectivity issues. Use this skill when: - Creating or configuring SAP BTP destinations (HTTP, RFC, LDAP, MAIL, TCP) - Setting up Cloud Connector for on-premise connectivity - Implementing OAuth authentication flows for destinations - Configuring principal propagation or user propagation - Deploying Connectivity Proxy or Transparent Proxy in Kubernetes - Troubleshooting connectivity errors (405, 407, 503) - Setting up high availability for Cloud Connector - Configuring multitenancy for destinations Keywords: SAP BTP, Connectivity, Destination Service, Cloud Connector, Connectivity Proxy, Transparent Proxy, Kyma, Kubernetes, OAuth, Principal Propagation, RFC, LDAP, on-premise, hybrid connectivity, service channels, SOCKS5, reverse proxy, tunnel",
   "version": "2.1.0",
   "author": {
-    "name": "SAP Skills Maintainers",
+    "name": "E.J.",
     "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",
