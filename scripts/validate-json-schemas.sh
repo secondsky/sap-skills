@@ -55,7 +55,7 @@ while IFS= read -r -d '' plugin_json; do
         -d "$plugin_json" \
         --strict=false \
         -c ajv-formats \
-        --all-errors 2>&1 | grep -q "valid"; then
+        --all-errors > /dev/null 2>&1; then
         echo -e "${GREEN}✓${NC}"
     else
         echo -e "${RED}✗${NC}"

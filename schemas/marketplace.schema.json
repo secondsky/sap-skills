@@ -3,7 +3,7 @@
   "title": "SAP Skills Marketplace Schema",
   "description": "Validation schema for SAP Skills marketplace.json registry",
   "type": "object",
-  "required": ["name", "version", "description", "repository", "metadata", "plugins"],
+  "required": ["name", "version", "description", "repository", "owner", "metadata", "plugins"],
   "additionalProperties": false,
   "properties": {
     "name": {

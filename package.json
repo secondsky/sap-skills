@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "validate": "./scripts/validate-json-schemas.sh",
-    "validate:marketplace": "ajv validate -s schemas/marketplace.schema.json -d .claude-plugin/marketplace.json --all-errors",
-    "validate:plugins": "find plugins -name 'plugin.json' -path '*/.claude-plugin/plugin.json' -exec ajv validate -s schemas/plugin.schema.json -d {} \\;"
+    "validate:marketplace": "ajv validate -s schemas/marketplace.schema.json -d .claude-plugin/marketplace.json --strict=false -c ajv-formats --all-errors",
+    "validate:plugins": "find plugins -name 'plugin.json' -path '*/.claude-plugin/plugin.json' -exec ajv validate -s schemas/plugin.schema.json -d {} --strict=false -c ajv-formats --all-errors \\;"
   },
   "devDependencies": {
     "ajv-cli": "^5.0.0",
