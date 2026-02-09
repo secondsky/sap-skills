@@ -1,0 +1,162 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SAP Skills Marketplace Schema",
+  "description": "Validation schema for SAP Skills marketplace.json registry",
+  "type": "object",
+  "required": ["name", "version", "description", "repository", "owner", "metadata", "plugins"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+      "description": "Marketplace name in kebab-case (official Claude Code format)"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(-[a-zA-Z0-9\\.]+)?(\\+[a-zA-Z0-9\\.]+)?$",
+      "description": "Semantic version (MAJOR.MINOR.PATCH with optional pre-release/build)"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 500
+    },
+    "repository": {
+      "type": "string",
+      "pattern": "^https://github\\.com/[\\w-]+/[\\w-]+$",
+      "description": "GitHub repository URL (HTTPS only)"
+    },
+    "owner": {
+      "type": "object",
+      "required": ["name", "email"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "anyOf": [
+            {
+              "pattern": "^\\d+\\+[a-zA-Z0-9_-]+@users\\.noreply\\.github\\.com$",
+              "description": "GitHub noreply email format (user_id+username@users.noreply.github.com)"
+            },
+            {
+              "format": "email",
+              "description": "Standard email format"
+            }
+          ]
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["version", "last_updated", "total_skills", "categories"],
+      "additionalProperties": true,
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "description": "Must match top-level version (major.minor.patch only)"
+        },
+        "last_updated": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "ISO 8601 date format (YYYY-MM-DD)"
+        },
+        "total_skills": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of plugins in the marketplace"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["abap", "ai", "btp", "cap", "data-analytics", "hana", "tooling", "ui-development"]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        }
+      }
+    },
+    "plugins": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/marketplacePlugin" }
+    }
+  },
+  "definitions": {
+    "marketplacePlugin": {
+      "type": "object",
+      "required": ["name", "source", "description", "version", "category", "keywords", "license"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+          "description": "Plugin name in kebab-case (official Claude Code format)"
+        },
+        "source": {
+          "type": "string",
+          "pattern": "^\\./plugins/[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+          "description": "CRITICAL: Must be './plugins/{plugin-name}', NOT './' (prevents cache bloat)"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 50,
+          "maxLength": 5000,
+          "description": "Full plugin description (can be extensive)"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "description": "Must match metadata.version (no pre-release tags)"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["abap", "ai", "btp", "cap", "data-analytics", "hana", "tooling", "ui-development"],
+          "description": "Single category classification"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9 \\-\\./@]*[a-z0-9]$",
+            "minLength": 2,
+            "maxLength": 50
+          },
+          "minItems": 3,
+          "maxItems": 50,
+          "uniqueItems": true,
+          "description": "Lowercase search keywords"
+        },
+        "license": {
+          "type": "string",
+          "const": "GPL-3.0",
+          "description": "SAP Skills uses GPL-3.0 for all plugins"
+        },
+        "agents": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^\\./agents/[\\w-]+\\.md$"
+          },
+          "uniqueItems": true,
+          "description": "Optional: paths to agent definitions"
+        },
+        "commands": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^\\./commands/[\\w-]+\\.md$"
+          },
+          "uniqueItems": true,
+          "description": "Optional: paths to command definitions"
+        }
+      }
+    }
+  }
+}

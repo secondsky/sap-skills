@@ -137,3 +137,21 @@ jobs:
           else:
               print("No broken internal links found")
           PYEOF
+
+  validate-json-schemas:
+    name: Validate JSON Schemas
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install ajv-cli
+        run: npm install -g ajv-cli ajv-formats
+
+      - name: Run JSON Schema Validation
+        run: ./scripts/validate-json-schemas.sh

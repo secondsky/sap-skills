@@ -1,0 +1,159 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Claude Code Plugin Manifest Schema",
+  "description": "Official validation schema for Claude Code plugin.json files",
+  "type": "object",
+  "required": ["name"],
+  "additionalProperties": true,
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+      "description": "Plugin name in kebab-case (official Claude Code requirement)"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(-[a-zA-Z0-9\\.]+)?(\\+[a-zA-Z0-9\\.]+)?$",
+      "description": "Semantic version (MAJOR.MINOR.PATCH with optional pre-release/build)",
+      "default": "0.1.0"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 5000,
+      "description": "Brief explanation of plugin purpose (50-200 chars recommended for marketplace)"
+    },
+    "author": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "email": { "type": "string", "format": "email" },
+            "url": { "type": "string", "format": "uri" }
+          },
+          "required": ["name"]
+        },
+        {
+          "type": "string",
+          "description": "Format: 'Name <email> (url)'"
+        }
+      ],
+      "description": "Plugin author information (object or string format)"
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to plugin documentation or homepage"
+    },
+    "repository": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri",
+          "description": "Repository URL (shorthand)"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "enum": ["git", "svn", "hg"] },
+            "url": { "type": "string", "format": "uri" },
+            "directory": { "type": "string" }
+          },
+          "required": ["type", "url"],
+          "description": "Repository object with type and URL"
+        }
+      ],
+      "description": "Source code repository location"
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX license identifier (MIT, Apache-2.0, GPL-3.0, etc.)"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9 \\-\\./@]*[a-z0-9]$",
+        "minLength": 2,
+        "maxLength": 50
+      },
+      "minItems": 1,
+      "maxItems": 50,
+      "uniqueItems": true,
+      "description": "5-10 search keywords recommended"
+    },
+    "category": {
+      "type": "string",
+      "description": "Primary category for marketplace classification"
+    },
+    "commands": {
+      "oneOf": [
+        { "type": "string", "pattern": "^\\./.*$" },
+        {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^\\./.*$" },
+          "uniqueItems": true
+        }
+      ],
+      "description": "Custom path(s) to command files (supplements ./commands/ default)"
+    },
+    "agents": {
+      "oneOf": [
+        { "type": "string", "pattern": "^\\./.*$" },
+        {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^\\./.*$" },
+          "uniqueItems": true
+        }
+      ],
+      "description": "Custom path(s) to agent files (supplements ./agents/ default)"
+    },
+    "hooks": {
+      "type": "string",
+      "pattern": "^\\./.*\\.json$",
+      "description": "Custom path to hooks.json (default: ./hooks/hooks.json)"
+    },
+    "mcpServers": {
+      "type": "string",
+      "pattern": "^\\./.*\\.json$",
+      "description": "Custom path to MCP servers config (default: ./.mcp.json)"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "commands": { "type": "array" }
+        }
+      },
+      "then": {
+        "properties": {
+          "commands": {
+            "items": {
+              "type": "string",
+              "pattern": "^\\./commands/[\\w-]+\\.md$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "agents": { "type": "array" }
+        }
+      },
+      "then": {
+        "properties": {
+          "agents": {
+            "items": {
+              "type": "string",
+              "pattern": "^\\./agents/[\\w-]+\\.md$"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
