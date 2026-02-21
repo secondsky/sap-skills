@@ -19,6 +19,8 @@ This repository uses **Claude Plugin Patterns** — natively supported by:
 | Claude Code | ✅ Native | Full marketplace support |
 | Factory Droid | ✅ Native | Full marketplace support |
 
+**For all other Platforms like opencode, codex and others, you can use https://github.com/enulus/OpenPackage
+**
 ---
 
 ## Installation
