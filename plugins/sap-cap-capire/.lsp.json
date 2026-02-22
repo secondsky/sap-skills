@@ -1,0 +1,9 @@
+{
+  "cds": {
+    "command": "cds-lsp",
+    "args": ["--stdio"],
+    "extensionToLanguage": {
+      ".cds": "cds"
+    }
+  }
+}
