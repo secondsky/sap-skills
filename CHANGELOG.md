@@ -5,6 +5,16 @@ All notable changes to SAP Skills will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.3] - 2026-02-22
+
+### Fixed
+- **Hook false triggers**: Hardened PostToolUse/PreToolUse hooks in 5 plugins to only trigger for their respective file types (fixes #54)
+  - sapui5, sap-cap-capire, sap-datasphere, sap-sac-planning, sap-sac-scripting
+  - Added explicit file-type detection and bail-out instructions to prevent cross-plugin interference
+
+### Changed
+- **sap-cap-capire**: Added LSP server support via MCP integration
+
 ## [2.1.2] - 2026-02-06
 
 ### Changed
