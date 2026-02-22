@@ -4,7 +4,7 @@
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENSE)
 [![Plugins](https://img.shields.io/badge/Plugins-32-brightgreen.svg)](.claude-plugin/marketplace.json)
-[![Version](https://img.shields.io/badge/Version-2.1.2-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-2.1.3-orange.svg)](CHANGELOG.md)
 
 Production-ready Claude Code plugins for SAP development. Each plugin provides context-aware skills that activate automatically when you work with SAP BTP, CAP, Fiori, ABAP, Analytics, and more.
 
