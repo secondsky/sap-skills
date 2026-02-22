@@ -9,7 +9,7 @@
   },
   "metadata": {
     "version": "2.1.2",
-    "last_updated": "2026-02-06",
+    "last_updated": "2026-02-22",
     "total_skills": 32,
     "categories": [
       "abap",
@@ -437,7 +437,7 @@
       "name": "sap-cap-capire",
       "source": "./plugins/sap-cap-capire",
       "description": "SAP Cloud Application Programming Model (CAP) development skill using Capire documentation. Use when: building CAP applications, defining CDS models, implementing services, working with SAP HANA/SQLite/PostgreSQL databases, deploying to SAP BTP Cloud Foundry or Kyma, implementing Fiori UIs, handling authorization, multitenancy, or messaging. Covers CDL/CQL/CSN syntax, Node.js and Java runtimes, event handlers, OData services, and CAP plugins.",
-      "version": "2.1.2",
+      "version": "2.1.3",
       "category": "cap",
       "keywords": [
         "api",
@@ -499,7 +499,7 @@
       "name": "sap-datasphere",
       "source": "./plugins/sap-datasphere",
       "description": "Comprehensive plugin for SAP Datasphere development with 3 specialized agents, 5 slash commands, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections to SAP and third-party systems, managing spaces and users, implementing data access controls, using the datasphere CLI, creating data products for the marketplace, or monitoring data integration tasks. Covers Data Builder (graphical/SQL views, local/remote tables, transformation flows), Business Builder (business entities, consumption models), analytic models (dimensions, measures, hierarchies), 40+ connection types (SAP S/4HANA, BW/4HANA, HANA Cloud, AWS, Azure, GCP, Kafka, Generic HTTP), real-time replication, task chains, content transport, CLI automation, catalog governance, and data marketplace. Includes 2025 features: Generic HTTP connections, REST API tasks in task chains, SAP Business Data Cloud integration. Keywords: sap datasphere, data warehouse cloud, dwc, data builder, business builder, analytic model, graphical view, sql view, transformation flow, replication flow, data flow, task chain, remote table, local table, sap btp data warehouse, datasphere connection, datasphere space, data access control, elastic compute node, sap analytics cloud integration, datasphere cli, data products, data marketplace, catalog, governance",
-      "version": "2.1.2",
+      "version": "2.1.3",
       "category": "data-analytics",
       "keywords": [
         "analytics",
@@ -655,7 +655,7 @@
       "name": "sap-sac-planning",
       "source": "./plugins/sap-sac-planning",
       "description": "This skill should be used when developing SAP Analytics Cloud (SAC) planning applications, including building planning-enabled stories, analytics designer applications with planning functionality, data actions, multi actions, version management, and planning workflows. Use when creating planning models, implementing data entry forms, configuring spreading/distribution/allocation, setting up data locking, building calendar-based planning processes with approval workflows, writing JavaScript scripts for planning automation, using the getPlanning() API, PlanningModel API, or DataSource API for planning scenarios, troubleshooting planning performance issues, integrating predictive forecasting into planning workflows, implementing Seamless Planning with SAP Datasphere, configuring BPC live connections for BW on HANA integration, building value driver trees for what-if analysis, or debugging data actions with tracing.",
-      "version": "2.1.2",
+      "version": "2.1.3",
       "category": "data-analytics",
       "keywords": [
         "analytics",
@@ -686,7 +686,7 @@
       "name": "sap-sac-scripting",
       "source": "./plugins/sap-sac-scripting",
       "description": "Comprehensive SAC scripting skill for SAP Analytics Cloud Analytics Designer and Optimized Story Experience. This skill should be used when the user asks to \"create SAC script\", \"debug Analytics Designer\", \"optimize SAC performance\", \"planning operations in SAC\", \"filter data in SAC\", \"use DataSource API\", \"chart scripting\", \"table manipulation\", \"SAC event handlers\", \"version management\", \"data locking\", or works with SAC widgets, planning models, or analytics applications.",
-      "version": "2.1.2",
+      "version": "2.1.3",
       "category": "data-analytics",
       "keywords": [
         "analytics",
@@ -748,7 +748,7 @@
       "name": "sapui5",
       "source": "./plugins/sapui5",
       "description": "This skill should be used when developing SAP UI5 applications, including creating freestyle apps, Fiori Elements apps, custom controls, testing, data binding, OData integration, routing, and troubleshooting. Use when building enterprise web applications with SAP UI5 framework, implementing MVC patterns, configuring manifest.json, creating XML views, writing controllers, setting up data models (JSON, OData v2/v4), implementing responsive UI with sap.m controls, building List Report or Object Page applications with Fiori Elements, writing unit tests with QUnit, integration tests with OPA5, setting up mock servers, handling security (XSS, CSP), optimizing performance, implementing accessibility features, or debugging UI5 applications. Also use when working with sap.ui.mdc (Metadata-Driven Controls) including MDC Table, MDC FilterBar, MDC Value Help, control delegates, PropertyInfo, TypeMap, VariantManagement, or developing TypeScript control libraries with @ui5/ts-interface-generator. Keywords: sapui5, ui5, openui5, sap ui5, ui5 framework, sapui5 framework, ui5 application, sapui5 app, ui5 development, sapui5 development, ui5 tooling, ui5 cli, Component.js, manifest.json, xml view, data binding, odata v2, odata v4, fiori elements, sap.m controls, mvc pattern, routing, navigation, qunit, opa5, testing, mock server, sap.ui.mdc, mdc table, typescript, accessibility, security, performance, ui5 inspector, ui5 troubleshooting",
-      "version": "2.1.2",
+      "version": "2.1.3",
       "category": "ui-development",
       "keywords": [
         "components",

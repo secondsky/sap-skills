@@ -1,7 +1,7 @@
 {
   "name": "sap-datasphere",
   "description": "Comprehensive plugin for SAP Datasphere development with 3 specialized agents, 4 slash commands, MCP integration with 45 live tenant tools, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections to SAP and third-party systems, managing spaces and users, implementing data access controls, using the datasphere CLI, creating data products for the marketplace, monitoring data integration tasks, or querying live Datasphere tenants via MCP tools. Covers Data Builder (graphical/SQL views, local/remote tables, transformation flows), Business Builder (business entities, consumption models), analytic models (dimensions, measures, hierarchies), 40+ connection types (SAP S/4HANA, BW/4HANA, HANA Cloud, AWS, Azure, GCP, Kafka, Generic HTTP), real-time replication, task chains, content transport, CLI automation, catalog governance, data marketplace, and live MCP tenant interaction. Includes 2025 features: Generic HTTP connections, REST API tasks in task chains, SAP Business Data Cloud integration, MCP server integration. Keywords: sap datasphere, data warehouse cloud, dwc, data builder, business builder, analytic model, graphical view, sql view, transformation flow, replication flow, data flow, task chain, remote table, local table, sap btp data warehouse, datasphere connection, datasphere space, data access control, elastic compute node, sap analytics cloud integration, datasphere cli, data products, data marketplace, catalog, governance, mcp, model context protocol, oauth, live tenant, real-time data, direct queries",
-  "version": "2.1.1",
+  "version": "2.1.3",
   "author": {
     "name": "E.J."
   },
