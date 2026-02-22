@@ -8,10 +8,11 @@ description: |
   Node.js and Java runtimes, event handlers, OData services, and CAP plugins.
 license: GPL-3.0
 metadata:
-  version: "2.1.0"
-  last_verified: "2025-12-28"
-  cap_version: "@sap/cds 9.4.x"
+  version: "2.1.2"
+  last_verified: "2026-02-22"
+  cap_version: "@sap/cds 9.7.x"
   mcp_version: "@cap-js/mcp-server 0.0.3+"
+  lsp_version: "@sap/cds-lsp 9.7.x"
 ---
 
 # SAP CAP-Capire Development Skill
@@ -40,7 +41,7 @@ metadata:
 ### Project Initialization
 ```sh
 # Install CAP development kit
-npm i -g @sap/cds-dk
+npm i -g @sap/cds-dk @sap/cds-lsp
 
 # Create new project
 cds init <project-name>
@@ -334,8 +335,9 @@ cds version               # Show version info
 - Don't write custom OData providers
 
 ## Version Information
-- **Skill Version**: 2.1.0
-- **CAP Version**: @sap/cds 9.4.x
+- **Skill Version**: 2.1.2
+- **CAP Version**: @sap/cds 9.7.x
 - **MCP Version**: @cap-js/mcp-server 0.0.3+
-- **Last Verified**: 2025-12-28
+- **LSP Version**: @sap/cds-lsp 9.7.x
+- **Last Verified**: 2026-02-22
 - **License**: GPL-3.0
