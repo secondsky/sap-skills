@@ -138,6 +138,11 @@ jobs:
               print("No broken internal links found")
           PYEOF
 
+      - name: Check for reserved words in marketplace/plugins
+        run: |
+          chmod +x scripts/validate-reserved-words.sh
+          ./scripts/validate-reserved-words.sh
+
   validate-json-schemas:
     name: Validate JSON Schemas
     runs-on: ubuntu-latest

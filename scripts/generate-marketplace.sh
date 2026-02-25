@@ -142,7 +142,7 @@ collect_plugins() {
     fi
 
     # CRITICAL: Use plugin-specific source path (not "./")
-    local source="plugins/$plugin_name"
+    local source="./plugins/$plugin_name"
 
     # Track categories (append with newline for later processing)
     if [ "$category" != "null" ] && [ -n "$category" ]; then
@@ -284,8 +284,10 @@ generate_marketplace() {
   marketplace_content=$(jq -n \
     --arg name "sap-skills" \
     --arg version "$version" \
-    --arg description "Production-ready skills for SAP development with Claude Code CLI" \
+    --arg description "Production-ready skills for SAP development and AI coding assistants" \
     --arg repository "https://github.com/secondsky/sap-skills" \
+    --arg owner_name "E.J." \
+    --arg owner_email "secondsky@github.com" \
     --arg last_updated "$current_date" \
     --arg total_skills "$total_skills" \
     --argjson categories "$categories" \
@@ -295,6 +297,10 @@ generate_marketplace() {
       version: $version,
       description: $description,
       repository: $repository,
+      owner: {
+        name: $owner_name,
+        email: $owner_email
+      },
       metadata: {
         version: $version,
         last_updated: $last_updated,
