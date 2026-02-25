@@ -132,6 +132,11 @@ metadata:
 
 **Known Issues**: Documented with SAP Note/GitHub issue citations
 
+**Reserved Words Policy**: Marketplace and plugin `name` and `description` fields
+MUST NOT contain: "official", "anthropic", or "claude". These are blocked by the
+CLI to prevent marketplace impersonation. Use alternatives like "AI coding assistant"
+or "the Code CLI" instead.
+
 ---
 
 ## Maintenance Cycles

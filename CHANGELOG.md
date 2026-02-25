@@ -5,15 +5,23 @@ All notable changes to SAP Skills will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.1.3] - 2026-02-22
+## [2.1.3] - 2026-02-25
 
 ### Fixed
-- **Hook false triggers**: Hardened PostToolUse/PreToolUse hooks in 5 plugins to only trigger for their respective file types (fixes #54)
-  - sapui5, sap-cap-capire, sap-datasphere, sap-sac-planning, sap-sac-scripting
-  - Added explicit file-type detection and bail-out instructions to prevent cross-plugin interference
+- **Reserved words validation**: Removed blocked words (official, anthropic, claude) from marketplace and plugin descriptions (fixes #56)
+  - marketplace.json: Updated description to avoid CLI installation errors
+  - sap-ai-core: Removed model name from description
+  - sap-api-style: Changed "official SAP API Style Guide" to "the SAP API Style Guide"
+  - sap-cloud-sdk-ai: Removed model name from description
+
+### Added
+- **validate-reserved-words.sh**: New validation script to prevent blocked words in name/description fields
+- **GitHub Actions**: Added reserved words check to quality-checks.yml
 
 ### Changed
-- **sap-cap-capire**: Added LSP server support via MCP integration
+- **CLAUDE.md**: Added Reserved Words Policy documentation
+
+---
 
 ## [2.1.2] - 2026-02-06
 

@@ -1,11 +1,11 @@
 ---
 name: sap-cloud-sdk-ai
 description: |
-  Integrates SAP Cloud SDK for AI into JavaScript/TypeScript and Java applications. Use when building applications with SAP AI Core, Generative AI Hub, or Orchestration Service. Covers chat completion, embedding, streaming, function calling, content filtering, data masking, document grounding, prompt registry, and LangChain/Spring AI integration. Supports OpenAI GPT-4o, Claude, Gemini, Amazon Nova, and other foundation models via SAP BTP.
+  Integrates SAP Cloud SDK for AI into JavaScript/TypeScript and Java applications. Use when building applications with SAP AI Core, Generative AI Hub, or Orchestration Service. Covers chat completion, embedding, streaming, function calling, content filtering, data masking, document grounding, prompt registry, and LangChain/Spring AI integration. Supports OpenAI GPT-4o, Llama, Gemini, Amazon Nova, and other foundation models via SAP BTP.
 license: GPL-3.0
 metadata:
-  version: 2.0.0
-  last_verified: 2025-11-27
+  version: 2.0.1
+  last_verified: 2026-02-25
 ---
 
 # SAP Cloud SDK for AI

@@ -1,7 +1,7 @@
 ---
 name: sap-api-style
 description: |
-  This skill provides comprehensive guidance for documenting SAP APIs following official SAP API Style Guide standards.
+  This skill provides comprehensive guidance for documenting SAP APIs following the SAP API Style Guide standards.
   It should be used when creating or reviewing API documentation for REST, OData, Java, JavaScript, .NET, or C/C++ APIs.
 
   The skill covers naming conventions, documentation comments, OpenAPI specifications, quality checklists, deprecation policies,
@@ -11,8 +11,8 @@ description: |
   API deprecation, x-sap-stateInfo, Entity Data Model, EDM, documentation tags, API quality, API templates
 license: GPL-3.0
 metadata:
-  version: "1.1.0"
-  last_verified: "2025-11-27"
+  version: "1.1.1"
+  last_verified: "2026-02-25"
   source_version: "2025.01"
   source_commit: "902247f3afb6a0cb3fa110b284bb5d93a65c1268"
   source_license: "CC-BY-4.0"
