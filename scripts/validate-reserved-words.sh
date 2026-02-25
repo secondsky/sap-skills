@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 # validate-reserved-words.sh
 # Validates that marketplace.json and plugin.json files do not contain reserved words
@@ -22,6 +22,13 @@ NC='\033[0m' # No Color
 # Reserved words pattern (case-insensitive)
 RESERVED_PATTERN="(official|anthropic|claude)"
 
+# Verify jq is installed
+if ! command -v jq &> /dev/null; then
+    echo -e "${RED}Error: jq is required but not installed.${NC}"
+    echo "Install jq: apt-get install jq (Ubuntu) or brew install jq (macOS)"
+    exit 1
+fi
+
 echo "🔍 Reserved Words Validation"
 echo "============================="
 echo ""
@@ -29,6 +36,7 @@ echo "Checking for blocked words: official, anthropic, claude"
 echo ""
 
 ERRORS=0
+MARKETPLACE_CHECKED=false
 
 # Function to check a JSON file for reserved words in name and description fields
 check_file() {
@@ -64,6 +72,7 @@ check_file() {
 echo "📋 Checking marketplace.json..."
 MARKETPLACE_JSON="$REPO_ROOT/.claude-plugin/marketplace.json"
 if [ -f "$MARKETPLACE_JSON" ]; then
+    MARKETPLACE_CHECKED=true
     if ! check_file "$MARKETPLACE_JSON"; then
         ERRORS=$((ERRORS + 1))
     fi
@@ -84,7 +93,11 @@ while IFS= read -r -d '' plugin_json; do
 done < <(find "$REPO_ROOT/plugins" -name "plugin.json" -path "*/\.claude-plugin/plugin.json" -print0 2>/dev/null)
 
 echo ""
-echo "Summary: Checked $PLUGIN_COUNT plugin.json files + marketplace.json"
+if [ "$MARKETPLACE_CHECKED" = true ]; then
+    echo "Summary: Checked $PLUGIN_COUNT plugin.json files + marketplace.json"
+else
+    echo "Summary: Checked $PLUGIN_COUNT plugin.json files"
+fi
 echo ""
 
 if [ $ERRORS -gt 0 ]; then
