@@ -33,7 +33,6 @@ ERRORS=0
 # Function to check a JSON file for reserved words in name and description fields
 check_file() {
     local file="$1"
-    local filename=$(basename "$file")
     local relpath="${file#$REPO_ROOT/}"
 
     # Extract name and description fields and check for reserved words

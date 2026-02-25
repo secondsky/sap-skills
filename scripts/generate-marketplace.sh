@@ -284,7 +284,7 @@ generate_marketplace() {
   marketplace_content=$(jq -n \
     --arg name "sap-skills" \
     --arg version "$version" \
-    --arg description "Production-ready skills for SAP development for AI coding assistants" \
+    --arg description "Production-ready skills for SAP development and AI coding assistants" \
     --arg repository "https://github.com/secondsky/sap-skills" \
     --arg owner_name "E.J." \
     --arg owner_email "secondsky@github.com" \

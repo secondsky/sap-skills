@@ -2,8 +2,8 @@
 # SAP Skills - Project Context
 
 **Repository**: https://github.com/secondsky/sap-skills
-**Purpose**: Production-ready skills for SAP development with Claude Code CLI
-**Version**: 2.1.2 | **Plugins**: 32 | **Last Updated**: 2026-02-06
+**Purpose**: Production-ready skills for SAP development and AI coding assistants
+**Version**: 2.1.3 | **Plugins**: 32 | **Last Updated**: 2026-02-25
 
 ---
 
