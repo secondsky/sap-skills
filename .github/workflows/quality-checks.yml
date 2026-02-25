@@ -140,34 +140,8 @@ jobs:
 
       - name: Check for reserved words in marketplace/plugins
         run: |
-          echo "Checking for reserved words (official, anthropic, claude)..."
-          errors=0
-          RESERVED_PATTERN="(official|anthropic|claude)"
-
-          # Check marketplace.json
-          if [ -f ".claude-plugin/marketplace.json" ]; then
-            name_desc=$(jq -r '(.name // "") + " " + (.description // "")' .claude-plugin/marketplace.json 2>/dev/null || echo "")
-            if echo "$name_desc" | grep -iE "$RESERVED_PATTERN" > /dev/null 2>&1; then
-              echo "ERROR: .claude-plugin/marketplace.json contains reserved words"
-              errors=$((errors + 1))
-            fi
-          fi
-
-          # Check all plugin.json files
-          for plugin_json in $(find plugins -name "plugin.json" -path "*/.claude-plugin/*" 2>/dev/null); do
-            name_desc=$(jq -r '(.name // "") + " " + (.description // "")' "$plugin_json" 2>/dev/null || echo "")
-            if echo "$name_desc" | grep -iE "$RESERVED_PATTERN" > /dev/null 2>&1; then
-              echo "ERROR: $plugin_json contains reserved words"
-              errors=$((errors + 1))
-            fi
-          done
-
-          if [ $errors -gt 0 ]; then
-            echo "FAILED: Reserved words found in $errors file(s)"
-            echo "Reserved words (official, anthropic, claude) are not allowed in name or description fields."
-            exit 1
-          fi
-          echo "No reserved words found"
+          chmod +x scripts/validate-reserved-words.sh
+          ./scripts/validate-reserved-words.sh
 
   validate-json-schemas:
     name: Validate JSON Schemas
