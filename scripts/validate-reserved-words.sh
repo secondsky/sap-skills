@@ -43,17 +43,21 @@ check_file() {
     local file="$1"
     local relpath="${file#$REPO_ROOT/}"
 
-    # Extract name and description fields and check for reserved words
+    # Extract name and description fields, fail if JSON is invalid
     local name_desc
-    name_desc=$(jq -r '(.name // "") + " " + (.description // "")' "$file" 2>/dev/null || echo "")
+    if ! name_desc=$(jq -r '(.name // "") + " " + (.description // "")' "$file" 2>&1); then
+        echo -e "${RED}✗${NC} $relpath"
+        echo "  Failed to parse JSON: $name_desc"
+        return 1
+    fi
 
     if echo "$name_desc" | grep -iE "$RESERVED_PATTERN" > /dev/null 2>&1; then
         echo -e "${RED}✗${NC} $relpath"
         echo "  Reserved word found in name or description field"
         # Show which field contains the reserved word
         local name_value desc_value
-        name_value=$(jq -r '.name // ""' "$file" 2>/dev/null || echo "")
-        desc_value=$(jq -r '.description // ""' "$file" 2>/dev/null || echo "")
+        name_value=$(jq -r '.name // ""' "$file")
+        desc_value=$(jq -r '.description // ""' "$file")
 
         if echo "$name_value" | grep -iE "$RESERVED_PATTERN" > /dev/null 2>&1; then
             echo "  name: $name_value"
