@@ -121,7 +121,7 @@ All plugins include context-aware skills. Advanced features shown in table colum
 
 | Plugin | Commands | Agents | MCP | Description |
 |--------|----------|--------|-----|-------------|
-| **sap-fiori-tools** | — | — | — | SAP Fiori Tools development and deployment |
+| **sap-fiori-tools** | — | — | ✓ | SAP Fiori Tools development and deployment |
 | **sapui5** | 5 | 4 | ✓ | SAPUI5 framework development |
 | **sapui5-cli** | — | — | — | SAPUI5 CLI tools and commands |
 | **sapui5-linter** | — | — | — | SAPUI5 code quality and linting |
@@ -134,7 +134,7 @@ All plugins include context-aware skills. Advanced features shown in table colum
 | **sap-hana-cloud-data-intelligence** | — | — | — | SAP HANA Cloud Data Intelligence |
 | **sap-sac-custom-widget** | 3 | 3 | — | SAP Analytics Cloud custom widget development |
 | **sap-sac-planning** | 3 | 3 | — | SAP Analytics Cloud planning applications |
-| **sap-sac-scripting** | 4 | 4 | — | SAP Analytics Cloud scripting API |
+| **sap-sac-scripting** | 4 | 4 | ✓ | SAP Analytics Cloud scripting API |
 
 ### ⚙️ Core Technologies (7)
 
@@ -178,7 +178,7 @@ sap-skills/
 **Key Features**:
 - **Dual-level manifests**: Plugin-level and skill-level `plugin.json` files
 - **Modular organization**: Each plugin is self-contained with its own resources
-- **Advanced features**: 7 plugins include commands (28 total), 7 with agents (24 total), 4 with MCP integration
+- **Advanced features**: 7 plugins include commands (28 total), 7 with agents (24 total), 6 with MCP integration
 - **Cross-references**: 13 plugins have marketplace cross-references to related plugins
 
 ---
@@ -246,7 +246,7 @@ Run: `/use plugin-dev:skill-development`, `plugin-dev:plugin-structure`, etc.
 **Component Breakdown**:
 - 7 plugins with **Commands** (28 total slash commands)
 - 7 plugins with **Agents** (24 autonomous assistants)
-- 4 plugins with **MCP** integration (CAP, Datasphere, HANA CLI, UI5)
+- 6 plugins with **MCP** integration (CAP, Datasphere, HANA CLI, UI5, Fiori Tools, SAC Scripting)
 
 See [CHANGELOG.md](CHANGELOG.md) for complete details.
 
