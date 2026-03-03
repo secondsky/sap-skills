@@ -5,6 +5,16 @@ All notable changes to SAP Skills will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.6] - 2026-02-26
+
+### Added
+- **sap-sqlscript**: Added `/sqlscript-setup` command for automated development environment setup
+  - New `scripts/setup-vscode.sh` detects VS Code, installs `@sap/hana-sqlscript-lsp` VSIX, checks HANA env vars
+  - Command parses structured script output, writes/merges `.vscode/settings.json`, prints summary table
+  - Hybrid approach: shell for deterministic steps, LLM for environment summary and settings authoring
+
+---
+
 ## [2.1.5] - 2026-02-26
 
 ### Added
