@@ -235,35 +235,15 @@ Run: `/use plugin-dev:skill-development`, `plugin-dev:plugin-structure`, etc.
 
 ## Recent Changes
 
-### v2.1.2 - Documentation Clarity & Component Visibility (2026-02-06)
+**v2.1.6** - SQLScript environment setup command with VS Code LSP integration
 
-**Documentation Improvements**:
-- ✅ Clarified plugin vs. skill terminology throughout README
-- ✅ Enhanced all plugin tables with component visibility (Commands, Agents, MCP)
-- ✅ Added Component Legend explaining advanced features
-- ✅ Updated badge from "Skills" to "Plugins" to reflect installable units
-- ✅ Comprehensive terminology updates across 15+ sections
+**v2.1.5** - SAC Scripting MCP integration (90 tools across 11 service areas)
 
-**Component Breakdown**:
-- 7 plugins with **Commands** (28 total slash commands)
-- 7 plugins with **Agents** (24 autonomous assistants)
-- 6 plugins with **MCP** integration (CAP, Datasphere, HANA CLI, UI5, Fiori Tools, SAC Scripting)
+**v2.1.4** - Fiori Tools MCP integration (5 tools for semantic search & app generation)
 
-See [CHANGELOG.md](CHANGELOG.md) for complete details.
+**v2.1.3** - Reserved words validation and marketplace description fixes
 
-### v2.1.0 - Plugin Structure Migration (2025-12-27)
-
-**BREAKING CHANGE**: Migrated from flat `skills/` directory to plugin-based architecture.
-
-**What's New**:
-- ✅ 33 plugins with dual-level manifests
-- ✅ 91 JSON manifest files auto-generated
-- ✅ 5 plugins with agents, commands, and hooks
-- ✅ 22 new reference files across plugins
-- ✅ Comprehensive marketplace cross-references
-- ✅ 3 plugins with MCP server integrations (CAP, Datasphere, UI5)
-
-See [CHANGELOG.md](CHANGELOG.md) for complete details.
+For complete history, see [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
@@ -317,4 +297,4 @@ This project is licensed under the **GNU General Public License v3.0** - see the
 
 **Maintained by**: E.J.
 **Repository**: [https://github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)
-**Last Updated**: 2026-02-06 (v2.1.2)
+**Last Updated**: 2026-03-03 (v2.1.6)

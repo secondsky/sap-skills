@@ -27,9 +27,25 @@ if command -v code >/dev/null 2>&1; then
       if npm pack @sap/hana-sqlscript-lsp --silent 2>/dev/null; then
         TARBALL="$(ls ./*.tgz 2>/dev/null | head -1)"
         if [ -n "$TARBALL" ]; then
-          tar xzf "$TARBALL" --wildcards "*.vsix" --strip-components=2 2>/dev/null || \
-          tar xzf "$TARBALL" -C . 2>/dev/null
-          VSIX="$(find . -name "*.vsix" | head -1)"
+          # Detect GNU tar (gtar on macOS via Homebrew, 'tar' on Linux)
+          if command -v gtar >/dev/null 2>&1; then
+            TAR_CMD="gtar"
+          elif tar --version 2>/dev/null | grep -qi "gnu"; then
+            TAR_CMD="tar"
+          else
+            TAR_CMD="tar"
+          fi
+
+          # Extract VSIX from npm package
+          if [ "$TAR_CMD" = "gtar" ] || { [ "$TAR_CMD" = "tar" ] && tar --version 2>/dev/null | grep -qi "gnu"; }; then
+            # GNU tar: use --wildcards for efficient extraction
+            "$TAR_CMD" xzf "$TARBALL" --wildcards "*.vsix" --strip-components=2 2>/dev/null
+          else
+            # BSD tar: extract all, then find the vsix
+            tar xzf "$TARBALL" 2>/dev/null
+          fi
+
+          VSIX="$(find . -name "*.vsix" -print -quit 2>/dev/null)"
           if [ -n "$VSIX" ]; then
             if code --install-extension "$VSIX" 2>/dev/null; then
               echo "[VSIX_INSTALL] success"

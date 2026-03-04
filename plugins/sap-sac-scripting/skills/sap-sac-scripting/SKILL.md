@@ -5,7 +5,7 @@ description: |
 license: GPL-3.0
 metadata:
   version: 3.0.1
-  last_verified: 2025-12-27
+  last_verified: 2026-02-26
   sac_version: "Q4 2025 (2025.21)"
   api_reference_version: "2025.19"
   documentation_source: https://help.sap.com/docs/SAP_ANALYTICS_CLOUD
