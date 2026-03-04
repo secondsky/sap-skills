@@ -261,6 +261,106 @@ extract_yaml_field() {
   echo "$value"
 }
 
+# Validate path matches schema pattern for commands/agents
+# Pattern: ^(\.\./)+.+|\./.+$ (parent-relative or local paths)
+validate_path_pattern() {
+  local path="$1"
+  local field_name="$2"
+
+  # Match either ../something or ./something
+  if [[ "$path" =~ ^(\.\./)+[^[:space:]]+$ ]] || [[ "$path" =~ ^\./[^[:space:]]+$ ]]; then
+    return 0
+  else
+    echo -e "${YELLOW}  Warning: Invalid path pattern in $field_name: $path (skipping)${NC}" >&2
+    return 1
+  fi
+}
+
+# Extract list field (commands/agents) from SKILL.md YAML frontmatter
+# Supports both string and array forms:
+#   commands: ../shared/foo.md
+#   commands: ["../shared/foo.md", "./commands/bar.md"]
+#   commands:
+#     - ../shared/foo.md
+#     - ./commands/bar.md
+# Returns JSON array of validated paths (empty array if not specified or all invalid)
+extract_yaml_list_field() {
+  local skill_md="$1"
+  local field="$2"  # "commands" or "agents"
+
+  # Extract YAML frontmatter between --- markers
+  local yaml_content
+  yaml_content=$(awk '/^---$/{if(++n==2) exit; next} n==1' "$skill_md")
+
+  # Check if field exists
+  if ! echo "$yaml_content" | grep -q "^${field}:"; then
+    echo "[]"
+    return
+  fi
+
+  local paths=()
+
+  # Check for inline array format: field: ["path1", "path2"]
+  local inline_array
+  inline_array=$(echo "$yaml_content" | grep "^${field}:" | sed "s/^${field}:[[:space:]]*//" | tr -d '"' || true)
+
+  if [[ "$inline_array" =~ ^\[.*\]$ ]]; then
+    # Parse inline JSON-style array
+    # Remove brackets and split by comma
+    inline_array="${inline_array#\[}"
+    inline_array="${inline_array%\]}"
+    while IFS= read -r path; do
+      path=$(echo "$path" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | tr -d '"' | tr -d "'")
+      if [ -n "$path" ] && validate_path_pattern "$path" "$field"; then
+        paths+=("$path")
+      fi
+    done < <(echo "$inline_array" | tr ',' '\n')
+  else
+    # Check for single string value: field: path
+    local single_value
+    single_value=$(echo "$yaml_content" | grep "^${field}:" | sed "s/^${field}:[[:space:]]*//" | tr -d '"' | tr -d "'" || true)
+
+    if [ -n "$single_value" ] && [[ ! "$single_value" =~ ^\[ ]] && [[ ! "$single_value" =~ ^$ ]]; then
+      # Single string value
+      if validate_path_pattern "$single_value" "$field"; then
+        paths+=("$single_value")
+      fi
+    else
+      # Check for multi-line YAML list format:
+      # field:
+      #   - path1
+      #   - path2
+      local in_list=false
+      while IFS= read -r line; do
+        if [[ "$line" =~ ^${field}: ]]; then
+          in_list=true
+          continue
+        fi
+        if [ "$in_list" = true ]; then
+          # Check for list item
+          if [[ "$line" =~ ^[[:space:]]+-[[:space:]]+(.+)$ ]]; then
+            local path="${BASH_REMATCH[1]}"
+            path=$(echo "$path" | tr -d '"' | tr -d "'")
+            if [ -n "$path" ] && validate_path_pattern "$path" "$field"; then
+              paths+=("$path")
+            fi
+          # Check for end of list (another field starts)
+          elif [[ "$line" =~ ^[a-z_]+: ]]; then
+            in_list=false
+          fi
+        fi
+      done <<< "$yaml_content"
+    fi
+  fi
+
+  # Output as JSON array
+  if [ ${#paths[@]} -eq 0 ]; then
+    echo "[]"
+  else
+    printf '%s\n' "${paths[@]}" | jq -R . | jq -s . | jq 'unique'
+  fi
+}
+
 # Generate plugin.json for a skill
 generate_plugin_json() {
   local plugin_dir="$1"
@@ -319,11 +419,39 @@ generate_plugin_json() {
   local keywords_json
   keywords_json=$(echo -n "$all_keywords" | jq -R -s -c 'split(",") | map(select(. != ""))')
 
-  # Scan for agents and commands at plugin root level
+  # First: Read commands/agents from SKILL.md YAML frontmatter
+  # These preserve user-specified parent-relative paths (../)
+  local yaml_agents_json
+  yaml_agents_json=$(extract_yaml_list_field "$skill_md" "agents")
+  local yaml_commands_json
+  yaml_commands_json=$(extract_yaml_list_field "$skill_md" "commands")
+
+  # Second: Scan for agents and commands at skill directory level (fallback)
+  local scanned_agents_json
+  scanned_agents_json=$(scan_agents "$skill_dir")
+  local scanned_commands_json
+  scanned_commands_json=$(scan_commands "$skill_dir")
+
+  # Merge YAML-specified paths with scanned paths
+  # YAML paths take precedence; merge and deduplicate for uniqueItems compliance
   local agents_json
-  agents_json=$(scan_agents "$plugin_dir")
   local commands_json
-  commands_json=$(scan_commands "$plugin_dir")
+
+  if [ "$yaml_agents_json" != "[]" ]; then
+    # YAML specified paths - merge with scanned
+    agents_json=$(echo "$yaml_agents_json" "$scanned_agents_json" | jq -s 'add | unique')
+  else
+    # No YAML paths - use scanned only
+    agents_json="$scanned_agents_json"
+  fi
+
+  if [ "$yaml_commands_json" != "[]" ]; then
+    # YAML specified paths - merge with scanned
+    commands_json=$(echo "$yaml_commands_json" "$scanned_commands_json" | jq -s 'add | unique')
+  else
+    # No YAML paths - use scanned only
+    commands_json="$scanned_commands_json"
+  fi
 
   # Set default license if empty
   if [ -z "$license" ]; then

@@ -5,6 +5,42 @@ All notable changes to SAP Skills will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.6] - 2026-02-26
+
+### Added
+- **sap-sqlscript**: Added `/sqlscript-setup` command for automated development environment setup
+  - New `scripts/setup-vscode.sh` detects VS Code, installs `@sap/hana-sqlscript-lsp` VSIX, checks HANA env vars
+  - Command parses structured script output, writes/merges `.vscode/settings.json`, prints summary table
+  - Hybrid approach: shell for deterministic steps, LLM for environment summary and settings authoring
+
+---
+
+## [2.1.5] - 2026-02-26
+
+### Added
+- **sap-sac-scripting**: Added MCP integration via community `sap_analytics_cloud_mcp`
+  - New `.mcp.json` connecting to SAP Analytics Cloud REST API MCP server
+  - 90 tools across 11 service areas: Content, Data Export, Data Import, Multi Actions,
+    Calendar, Content Transport, User Management, Monitoring, Schedule & Publication,
+    Translation, Smart Query
+  - OAuth 2.0 Client Credentials authentication
+  - Requires local clone and build from https://github.com/secondsky/sap_analytics_cloud_mcp
+  - Set SAC_MCP_PATH, SAC_BASE_URL, SAC_TOKEN_URL, SAC_CLIENT_ID, SAC_CLIENT_SECRET
+
+---
+
+## [2.1.4] - 2026-02-26
+
+### Added
+- **sap-fiori-tools**: Added MCP integration via `@sap-ux/fiori-mcp-server`
+  - New `.mcp.json` connecting to SAP's official Fiori MCP server
+  - 5 tools: search_docs, list_fiori_apps, list_functionalities, get_functionality_details, execute_functionality
+  - Semantic search across Fiori Elements, Annotations, UI5, and Fiori tools documentation
+  - AI-assisted programmatic Fiori app generation and modification
+  - No authentication required; requires Node.js 20+
+
+---
+
 ## [2.1.3] - 2026-02-25
 
 ### Fixed

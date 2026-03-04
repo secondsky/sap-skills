@@ -1,0 +1,12 @@
+{
+  "sac-mcp": {
+    "command": "node",
+    "args": ["${SAC_MCP_PATH}/build/index.js"],
+    "env": {
+      "SAC_BASE_URL": "${SAC_BASE_URL}",
+      "SAC_TOKEN_URL": "${SAC_TOKEN_URL}",
+      "SAC_CLIENT_ID": "${SAC_CLIENT_ID}",
+      "SAC_CLIENT_SECRET": "${SAC_CLIENT_SECRET}"
+    }
+  }
+}

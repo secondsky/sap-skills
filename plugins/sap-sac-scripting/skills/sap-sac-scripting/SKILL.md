@@ -4,8 +4,8 @@ description: |
   Comprehensive SAC scripting skill for SAP Analytics Cloud Analytics Designer and Optimized Story Experience. This skill should be used when the user asks to "create SAC script", "debug Analytics Designer", "optimize SAC performance", "planning operations in SAC", "filter data in SAC", "use DataSource API", "chart scripting", "table manipulation", "SAC event handlers", "version management", "data locking", or works with SAC widgets, planning models, or analytics applications.
 license: GPL-3.0
 metadata:
-  version: 3.0.0
-  last_verified: 2025-12-27
+  version: 3.0.1
+  last_verified: 2026-02-26
   sac_version: "Q4 2025 (2025.21)"
   api_reference_version: "2025.19"
   documentation_source: https://help.sap.com/docs/SAP_ANALYTICS_CLOUD
@@ -38,6 +38,43 @@ This plugin provides specialized tools for SAC development:
 
 **Hooks**:
 - Automatic validation on SAC script writes for common issues
+
+## MCP Setup
+
+This plugin ships with a `.mcp.json` that connects to the community `sap_analytics_cloud_mcp`
+server, exposing 90 SAC REST API tools across 11 service areas (Content, Data Export, Data Import,
+Multi Actions, Calendar, Content Transport, User Management, Monitoring, Schedule & Publication,
+Translation, Smart Query).
+
+**Before using MCP tools**, check if the server is already installed:
+- Look for `.claude/sac-mcp.local.md` in the project
+- Or check if `SAC_MCP_PATH` is set in the environment
+
+If not installed, ask the user once: **"Would you like help setting up the SAC MCP server?"**
+
+**If yes**, guide them through:
+
+1. Clone and build:
+   ```bash
+   git clone https://github.com/secondsky/sap_analytics_cloud_mcp
+   cd sap_analytics_cloud_mcp && npm install && npm run build
+   ```
+
+2. Configure environment variables:
+   - `SAC_MCP_PATH` — absolute path to the cloned repo (e.g. `/home/user/sap_analytics_cloud_mcp`)
+   - `SAC_BASE_URL` — SAC tenant root URL (e.g. `https://mytenant.eu10.hanacloudservices.cloud.sap`)
+   - `SAC_TOKEN_URL` — OAuth token endpoint
+   - `SAC_CLIENT_ID` / `SAC_CLIENT_SECRET` — from SAC OAuth client configuration
+
+3. After successful install, write `.claude/sac-mcp.local.md` (gitignored) with:
+   ```markdown
+   # SAC MCP Installation Record
+   - Installed: [date]
+   - Path: [absolute path to build/index.js]
+   - Env vars configured: SAC_MCP_PATH, SAC_BASE_URL, SAC_TOKEN_URL, SAC_CLIENT_ID, SAC_CLIENT_SECRET
+   ```
+
+This prevents re-prompting in future sessions.
 
 ## What's New in Q4 2025 (2025.21)
 

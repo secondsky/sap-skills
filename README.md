@@ -4,7 +4,7 @@
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENSE)
 [![Plugins](https://img.shields.io/badge/Plugins-32-brightgreen.svg)](.claude-plugin/marketplace.json)
-[![Version](https://img.shields.io/badge/Version-2.1.3-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-2.1.6-orange.svg)](CHANGELOG.md)
 
 Production-ready Claude Code plugins for SAP development. Each plugin provides context-aware skills that activate automatically when you work with SAP BTP, CAP, Fiori, ABAP, Analytics, and more.
 
@@ -88,65 +88,66 @@ All plugins include context-aware skills. Advanced features shown in table colum
 - **Commands**: Slash commands for quick access
 - **Agents**: Specialized autonomous assistants
 - **MCP**: Model Context Protocol server integration
+- **LSP**: Language Server Protocol VS Code extension support
 
 ---
 
 ### 🔧 Tooling & Development (2)
 
-| Plugin | Commands | Agents | MCP | Description |
-|--------|----------|--------|-----|-------------|
-| **sap-api-style** | — | — | — | API documentation standards following SAP guidelines |
-| **sap-hana-cli** | — | — | ✓ | SAP HANA Developer CLI for database operations |
+| Plugin | Commands | Agents | MCP | LSP | Description |
+|--------|----------|--------|-----|-----|-------------|
+| **sap-api-style** | — | — | — | — | API documentation standards following SAP guidelines |
+| **sap-hana-cli** | — | — | ✓ | — | SAP HANA Developer CLI for database operations |
 
 ### ☁️ SAP BTP Platform (14)
 
-| Plugin | Commands | Agents | MCP | Description |
-|--------|----------|--------|-----|-------------|
-| **sap-btp-best-practices** | — | — | — | SAP BTP development best practices and patterns |
-| **sap-btp-build-work-zone-advanced** | — | — | — | SAP Build Work Zone (Advanced Edition) development |
-| **sap-btp-business-application-studio** | — | — | — | SAP Business Application Studio (BAS) development |
-| **sap-btp-cias** | — | — | — | Cloud Identity Access Service (CIAS) integration |
-| **sap-btp-cloud-logging** | — | — | — | SAP BTP Cloud Logging service |
-| **sap-btp-cloud-platform** | — | — | — | SAP Business Technology Platform core services |
-| **sap-btp-cloud-transport-management** | — | — | — | Cloud Transport Management (CTM) service |
-| **sap-btp-connectivity** | — | — | — | SAP BTP Connectivity service |
-| **sap-btp-developer-guide** | — | — | — | Comprehensive SAP BTP developer guide |
-| **sap-btp-integration-suite** | — | — | — | SAP Integration Suite development |
-| **sap-btp-intelligent-situation-automation** | — | — | — | Intelligent Situation Automation development |
-| **sap-btp-job-scheduling** | — | — | — | SAP BTP Job Scheduling service |
-| **sap-btp-master-data-integration** | — | — | — | Master Data Integration service |
-| **sap-btp-service-manager** | — | — | — | SAP BTP Service Manager operations |
+| Plugin | Commands | Agents | MCP | LSP | Description |
+|--------|----------|--------|-----|-----|-------------|
+| **sap-btp-best-practices** | — | — | — | — | SAP BTP development best practices and patterns |
+| **sap-btp-build-work-zone-advanced** | — | — | — | — | SAP Build Work Zone (Advanced Edition) development |
+| **sap-btp-business-application-studio** | — | — | — | — | SAP Business Application Studio (BAS) development |
+| **sap-btp-cias** | — | — | — | — | Cloud Identity Access Service (CIAS) integration |
+| **sap-btp-cloud-logging** | — | — | — | — | SAP BTP Cloud Logging service |
+| **sap-btp-cloud-platform** | — | — | — | — | SAP Business Technology Platform core services |
+| **sap-btp-cloud-transport-management** | — | — | — | — | Cloud Transport Management (CTM) service |
+| **sap-btp-connectivity** | — | — | — | — | SAP BTP Connectivity service |
+| **sap-btp-developer-guide** | — | — | — | — | Comprehensive SAP BTP developer guide |
+| **sap-btp-integration-suite** | — | — | — | — | SAP Integration Suite development |
+| **sap-btp-intelligent-situation-automation** | — | — | — | — | Intelligent Situation Automation development |
+| **sap-btp-job-scheduling** | — | — | — | — | SAP BTP Job Scheduling service |
+| **sap-btp-master-data-integration** | — | — | — | — | Master Data Integration service |
+| **sap-btp-service-manager** | — | — | — | — | SAP BTP Service Manager operations |
 
 ### 🎨 UI Development (4)
 
-| Plugin | Commands | Agents | MCP | Description |
-|--------|----------|--------|-----|-------------|
-| **sap-fiori-tools** | — | — | — | SAP Fiori Tools development and deployment |
-| **sapui5** | 5 | 4 | ✓ | SAPUI5 framework development |
-| **sapui5-cli** | — | — | — | SAPUI5 CLI tools and commands |
-| **sapui5-linter** | — | — | — | SAPUI5 code quality and linting |
+| Plugin | Commands | Agents | MCP | LSP | Description |
+|--------|----------|--------|-----|-----|-------------|
+| **sap-fiori-tools** | — | — | ✓ | — | SAP Fiori Tools development and deployment |
+| **sapui5** | 5 | 4 | ✓ | — | SAPUI5 framework development |
+| **sapui5-cli** | — | — | — | — | SAPUI5 CLI tools and commands |
+| **sapui5-linter** | — | — | — | — | SAPUI5 code quality and linting |
 
 ### 📊 Data & Analytics (5)
 
-| Plugin | Commands | Agents | MCP | Description |
-|--------|----------|--------|-----|-------------|
-| **sap-datasphere** | 5 | 3 | ✓ | SAP Datasphere data modeling and management |
-| **sap-hana-cloud-data-intelligence** | — | — | — | SAP HANA Cloud Data Intelligence |
-| **sap-sac-custom-widget** | 3 | 3 | — | SAP Analytics Cloud custom widget development |
-| **sap-sac-planning** | 3 | 3 | — | SAP Analytics Cloud planning applications |
-| **sap-sac-scripting** | 4 | 4 | — | SAP Analytics Cloud scripting API |
+| Plugin | Commands | Agents | MCP | LSP | Description |
+|--------|----------|--------|-----|-----|-------------|
+| **sap-datasphere** | 5 | 3 | ✓ | — | SAP Datasphere data modeling and management |
+| **sap-hana-cloud-data-intelligence** | — | — | — | — | SAP HANA Cloud Data Intelligence |
+| **sap-sac-custom-widget** | 3 | 3 | — | — | SAP Analytics Cloud custom widget development |
+| **sap-sac-planning** | 3 | 3 | — | — | SAP Analytics Cloud planning applications |
+| **sap-sac-scripting** | 4 | 4 | ✓ | — | SAP Analytics Cloud scripting API |
 
 ### ⚙️ Core Technologies (7)
 
-| Plugin | Commands | Agents | MCP | Description |
-|--------|----------|--------|-----|-------------|
-| **sap-abap** | — | — | — | ABAP development patterns and best practices |
-| **sap-abap-cds** | — | — | — | ABAP Core Data Services (CDS) views |
-| **sap-ai-core** | — | — | — | SAP AI Core machine learning development |
-| **sap-cap-capire** | 5 | 4 | ✓ | SAP Cloud Application Programming Model (CAP) |
-| **sap-cloud-sdk-ai** | — | — | — | SAP Cloud SDK for AI development |
-| **sap-hana-ml** | — | — | — | SAP HANA Machine Learning (ML) library |
-| **sap-sqlscript** | 3 | 3 | — | SAP HANA SQLScript development |
+| Plugin | Commands | Agents | MCP | LSP | Description |
+|--------|----------|--------|-----|-----|-------------|
+| **sap-abap** | — | — | — | — | ABAP development patterns and best practices |
+| **sap-abap-cds** | — | — | — | — | ABAP Core Data Services (CDS) views |
+| **sap-ai-core** | — | — | — | — | SAP AI Core machine learning development |
+| **sap-cap-capire** | 5 | 4 | ✓ | ✓ | SAP Cloud Application Programming Model (CAP) |
+| **sap-cloud-sdk-ai** | — | — | — | — | SAP Cloud SDK for AI development |
+| **sap-hana-ml** | — | — | — | — | SAP HANA Machine Learning (ML) library |
+| **sap-sqlscript** | 4 | 3 | — | ✓ | SAP HANA SQLScript development |
 
 ---
 
@@ -178,7 +179,7 @@ sap-skills/
 **Key Features**:
 - **Dual-level manifests**: Plugin-level and skill-level `plugin.json` files
 - **Modular organization**: Each plugin is self-contained with its own resources
-- **Advanced features**: 7 plugins include commands (28 total), 7 with agents (24 total), 4 with MCP integration
+- **Advanced features**: 7 plugins include commands (29 total), 7 with agents (24 total), 6 with MCP integration, 2 with LSP support
 - **Cross-references**: 13 plugins have marketplace cross-references to related plugins
 
 ---
@@ -234,35 +235,15 @@ Run: `/use plugin-dev:skill-development`, `plugin-dev:plugin-structure`, etc.
 
 ## Recent Changes
 
-### v2.1.2 - Documentation Clarity & Component Visibility (2026-02-06)
+**v2.1.6** - SQLScript environment setup command with VS Code LSP integration
 
-**Documentation Improvements**:
-- ✅ Clarified plugin vs. skill terminology throughout README
-- ✅ Enhanced all plugin tables with component visibility (Commands, Agents, MCP)
-- ✅ Added Component Legend explaining advanced features
-- ✅ Updated badge from "Skills" to "Plugins" to reflect installable units
-- ✅ Comprehensive terminology updates across 15+ sections
+**v2.1.5** - SAC Scripting MCP integration (90 tools across 11 service areas)
 
-**Component Breakdown**:
-- 7 plugins with **Commands** (28 total slash commands)
-- 7 plugins with **Agents** (24 autonomous assistants)
-- 4 plugins with **MCP** integration (CAP, Datasphere, HANA CLI, UI5)
+**v2.1.4** - Fiori Tools MCP integration (5 tools for semantic search & app generation)
 
-See [CHANGELOG.md](CHANGELOG.md) for complete details.
+**v2.1.3** - Reserved words validation and marketplace description fixes
 
-### v2.1.0 - Plugin Structure Migration (2025-12-27)
-
-**BREAKING CHANGE**: Migrated from flat `skills/` directory to plugin-based architecture.
-
-**What's New**:
-- ✅ 33 plugins with dual-level manifests
-- ✅ 91 JSON manifest files auto-generated
-- ✅ 5 plugins with agents, commands, and hooks
-- ✅ 22 new reference files across plugins
-- ✅ Comprehensive marketplace cross-references
-- ✅ 3 plugins with MCP server integrations (CAP, Datasphere, UI5)
-
-See [CHANGELOG.md](CHANGELOG.md) for complete details.
+For complete history, see [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
@@ -316,4 +297,4 @@ This project is licensed under the **GNU General Public License v3.0** - see the
 
 **Maintained by**: E.J.
 **Repository**: [https://github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)
-**Last Updated**: 2026-02-06 (v2.1.2)
+**Last Updated**: 2026-03-03 (v2.1.6)
