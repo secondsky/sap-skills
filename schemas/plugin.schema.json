@@ -89,10 +89,10 @@
     },
     "commands": {
       "oneOf": [
-        { "type": "string", "pattern": "^(\\.\\./)+.+|\\./.+$" },
+        { "type": "string", "pattern": "^(?:(?:\\.\\./)+.+|\\./.+)$" },
         {
           "type": "array",
-          "items": { "type": "string", "pattern": "^(\\.\\./)+.+|\\./.+$" },
+          "items": { "type": "string", "pattern": "^(?:(?:\\.\\./)+.+|\\./.+)$" },
           "uniqueItems": true
         }
       ],
@@ -100,10 +100,10 @@
     },
     "agents": {
       "oneOf": [
-        { "type": "string", "pattern": "^(\\.\\./)+.+|\\./.+$" },
+        { "type": "string", "pattern": "^(?:(?:\\.\\./)+.+|\\./.+)$" },
         {
           "type": "array",
-          "items": { "type": "string", "pattern": "^(\\.\\./)+.+|\\./.+$" },
+          "items": { "type": "string", "pattern": "^(?:(?:\\.\\./)+.+|\\./.+)$" },
           "uniqueItems": true
         }
       ],
@@ -132,7 +132,7 @@
           "commands": {
             "items": {
               "type": "string",
-              "pattern": "^(\\.\\./)+commands\/[\\w-]+\\.md$|\\./commands\/[\\w-]+\\.md$"
+              "pattern": "^(?:(?:\\.\\./)+commands\/[\\w-]+\\.md|\\./commands\/[\\w-]+\\.md)$"
             }
           }
         }
@@ -149,7 +149,7 @@
           "agents": {
             "items": {
               "type": "string",
-              "pattern": "^(\\.\\./)+agents\/[\\w-]+\\.md$|\\./agents\/[\\w-]+\\.md$"
+              "pattern": "^(?:(?:\\.\\./)+agents\/[\\w-]+\\.md|\\./agents\/[\\w-]+\\.md)$"
             }
           }
         }
