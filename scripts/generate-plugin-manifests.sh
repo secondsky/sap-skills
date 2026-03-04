@@ -318,7 +318,7 @@ extract_yaml_list_field() {
   else
     # Check for single string value: field: path
     local single_value
-    single_value=$(echo "$yaml_content" | grep "^${field}:" | sed "s/^${field}:[[:space:]]*//" | tr -d '"' || true)
+    single_value=$(echo "$yaml_content" | grep "^${field}:" | sed "s/^${field}:[[:space:]]*//" | tr -d '"' | tr -d "'" || true)
 
     if [ -n "$single_value" ] && [[ ! "$single_value" =~ ^\[ ]] && [[ ! "$single_value" =~ ^$ ]]; then
       # Single string value
@@ -426,11 +426,11 @@ generate_plugin_json() {
   local yaml_commands_json
   yaml_commands_json=$(extract_yaml_list_field "$skill_md" "commands")
 
-  # Second: Scan for agents and commands at plugin root level (fallback)
+  # Second: Scan for agents and commands at skill directory level (fallback)
   local scanned_agents_json
-  scanned_agents_json=$(scan_agents "$plugin_dir")
+  scanned_agents_json=$(scan_agents "$skill_dir")
   local scanned_commands_json
-  scanned_commands_json=$(scan_commands "$plugin_dir")
+  scanned_commands_json=$(scan_commands "$skill_dir")
 
   # Merge YAML-specified paths with scanned paths
   # YAML paths take precedence; merge and deduplicate for uniqueItems compliance
