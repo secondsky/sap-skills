@@ -23,14 +23,14 @@
   ],
   "category": "data-analytics",
   "agents": [
-    "./agents/amdp-helper.md",
-    "./agents/procedure-generator.md",
-    "./agents/sqlscript-analyzer.md"
+    "../../agents/amdp-helper.md",
+    "../../agents/procedure-generator.md",
+    "../../agents/sqlscript-analyzer.md"
   ],
   "commands": [
-    "./commands/sqlscript-validate.md",
-    "./commands/sqlscript-convert.md",
-    "./commands/sqlscript-optimize.md",
-    "./commands/sqlscript-setup.md"
+    "../../commands/sqlscript-validate.md",
+    "../../commands/sqlscript-convert.md",
+    "../../commands/sqlscript-optimize.md",
+    "../../commands/sqlscript-setup.md"
   ]
 }
