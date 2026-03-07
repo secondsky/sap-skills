@@ -21,15 +21,5 @@
     "sap-sac-planning",
     "visualization"
   ],
-  "category": "data-analytics",
-  "agents": [
-    "./agents/planning-api-assistant.md",
-    "./agents/data-action-debugger.md",
-    "./agents/planning-model-architect.md"
-  ],
-  "commands": [
-    "./commands/sac-planning-checklist.md",
-    "./commands/data-action-template.md",
-    "./commands/seamless-planning-guide.md"
-  ]
+  "category": "data-analytics"
 }

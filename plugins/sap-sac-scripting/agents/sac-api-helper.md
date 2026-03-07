@@ -29,6 +29,24 @@ description: |
   Analytics Designer and OSE have different API sets and capabilities.
   </commentary>
   </example>
+
+  <example>
+  Context: OSE-specific API question
+  user: "What OSE API methods are available for planning version management?"
+  assistant: "I'll use the sac-api-helper agent to find OSE Planning API methods."
+  <commentary>
+  OSE has its own Planning API with PlanningModel, PlanningVersion, and related classes documented in ose-api-planning-calendar.md.
+  </commentary>
+  </example>
+
+  <example>
+  Context: OSE method lookup
+  user: "How do I set a filter in OSE scripting? Which method to use?"
+  assistant: "Let me use the sac-api-helper agent to find the correct OSE DataSource filter methods."
+  <commentary>
+  OSE DataSource has setDimensionFilter, removeDimensionFilter, and removeAllFilters — documented in ose-api-datasource.md.
+  </commentary>
+  </example>
 model: inherit
 color: blue
 tools: ["Read", "Grep", "Glob"]
@@ -153,18 +171,29 @@ var theme = Application.getTheme();
 |---------|-------------------|---------------------------|
 | Full API | Yes | Subset |
 | Custom Widgets | Yes | Limited |
-| R Visualizations | Yes | No |
+| R Visualizations | Yes | Limited |
 | Planning Input | Yes | Yes |
 | Scripting Scope | Application-wide | Story-scoped |
+| API Doc Version | See SAP Help | 2025.14 (Q1 2026) |
 
-**Reference Files to Consult:**
-- `../skills/sap-sac-scripting/references/api-datasource.md` - DataSource API (36+ methods)
-- `../skills/sap-sac-scripting/references/api-widgets.md` - Chart, Table, Input Controls
-- `../skills/sap-sac-scripting/references/api-planning.md` - Planning API
-- `../skills/sap-sac-scripting/references/api-application.md` - Application object
-- `../skills/sap-sac-scripting/references/api-calendar-bookmarks.md` - Calendar, Bookmarks, Timer
-- `../skills/sap-sac-scripting/references/api-advanced-widgets.md` - Containers, R Viz, Custom Widgets
-- `../skills/sap-sac-scripting/references/api-data-operations.md` - Filters, hierarchies, members
+**OSE API Reference Files (Q1 2026, v2025.14) — Full method/parameter/return docs:**
+- `references/ose-api-application-core.md` — Application, PageBook, Panel, Popup, Widget base classes (15 classes)
+- `references/ose-api-widgets.md` — Button, Dropdown, InputField, Slider, Switch, Text, TextArea, Shape (15 classes)
+- `references/ose-api-datasource.md` — DataSource, DataAction, DataBinding, DataLocking, DataChangeInsights (39 classes)
+- `references/ose-api-chart-viz.md` — Chart, Table, GeoMap, RVisualization, ValueDriverTree (20 classes)
+- `references/ose-api-planning-calendar.md` — Planning, PlanningModel, PlanningVersion, all Calendar classes (54 classes)
+- `references/ose-api-filtering-selection.md` — FilterLine, FilterValue, Selection, SortOrder (11 classes)
+- `references/ose-api-utilities.md` — BookmarkSet, MemberInfo, DimensionInfo, Timer, NavigationUtils, VariableInfo (37 classes)
+- `references/ose-api-types-enums.md` — Feed, Layout, NumberFormat, MemberAccessMode, VariableValue enums (70 classes)
+
+**Analytics Designer Reference Files:**
+- `references/api-datasource.md` - DataSource API (36+ methods)
+- `references/api-widgets.md` - Chart, Table, Input Controls
+- `references/api-planning.md` - Planning API
+- `references/api-application.md` - Application object
+- `references/api-calendar-bookmarks.md` - Calendar, Bookmarks, Timer
+- `references/api-advanced-widgets.md` - Containers, R Viz, Custom Widgets
+- `references/api-data-operations.md` - Filters, hierarchies, members
 
 **Official Documentation Links:**
 - Analytics Designer API: https://help.sap.com/doc/958d4c11261f42e992e8d01a4c0dde25/release/en-US/

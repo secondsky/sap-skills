@@ -1,15 +1,15 @@
 ---
 name: sap-sac-scripting
 description: |
-  Comprehensive SAC scripting skill for SAP Analytics Cloud Analytics Designer and Optimized Story Experience. This skill should be used when the user asks to "create SAC script", "debug Analytics Designer", "optimize SAC performance", "planning operations in SAC", "filter data in SAC", "use DataSource API", "chart scripting", "table manipulation", "SAC event handlers", "version management", "data locking", or works with SAC widgets, planning models, or analytics applications.
+  Comprehensive SAC scripting skill for SAP Analytics Cloud Analytics Designer and Optimized Story Experience. This skill should be used when the user asks to "create SAC script", "debug Analytics Designer", "optimize SAC performance", "planning operations in SAC", "filter data in SAC", "use DataSource API", "chart scripting", "table manipulation", "SAC event handlers", "version management", "data locking", "Optimized Story Experience API", "OSE scripting", "OSE widget API", "OSE DataSource", "story scripting API", "OSE planning API", "OSE method", "optimized story", "SAC story scripting", "story script", "SAC scripting", or works with SAC widgets, planning models, or analytics applications.
 license: GPL-3.0
 metadata:
   version: 3.0.1
-  last_verified: 2026-02-26
-  sac_version: "Q4 2025 (2025.21)"
-  api_reference_version: "2025.19"
+  last_verified: 2026-03-07
+  sac_version: "Q1 2026 (2026.2)"
+  api_reference_version: "2025.14 (OSE Q1 2026)"
   documentation_source: https://help.sap.com/docs/SAP_ANALYTICS_CLOUD
-  reference_files: 55
+  reference_files: 63
   template_patterns: 56
   agents: 4
   commands: 4
@@ -19,6 +19,23 @@ metadata:
 # SAP Analytics Cloud Scripting
 
 Comprehensive skill for scripting in SAP Analytics Cloud (SAC) Analytics Designer and Optimized Story Experience.
+
+## Getting Started
+
+When the user invokes this skill with no specific task (e.g. "help with SAC scripting", "use SAC scripting skill", or no follow-up question), respond with this structured orientation:
+
+> Welcome! I can help you with SAP Analytics Cloud scripting.
+>
+> First, which environment are you working in?
+> 1. **Analytics Designer** — application-based scripting, full API
+> 2. **Optimized Story Experience** — story-based scripting, OSE API (v2025.14)
+>
+> Then, what do you need help with?
+> - Write a new script (filter, planning, navigation, export...)
+> - Debug an existing script
+> - Optimize performance
+> - Find the right API method
+> - Planning operations (version management, data locking...)
 
 ## Plugin Components
 
@@ -86,6 +103,28 @@ Key scripting enhancements in the latest SAC release:
 - **Comments APIs** - Widget and cell comment management
 
 See `references/whats-new-q4-2025.md` for complete details.
+
+## Environment Detection
+
+Before writing or analyzing any script, identify which SAC environment the user is working in.
+
+**Detection signals:**
+
+| Signal | Environment |
+|--------|-------------|
+| Mentions `.story`, "Optimized Story", OSE, `Story.`, `Application.getActivePage()` | **OSE** |
+| Mentions Analytics Designer, `AnalyticApplication`, `Designer`, `.application` | **Analytics Designer** |
+| Says "SAC script" / "my script" without further context | **Unclear** |
+
+**When environment is unclear**, ask ONE concise question before proceeding:
+
+> "Are you scripting in **Analytics Designer** or **Optimized Story Experience**? This determines which API reference I use."
+
+Do not ask again after the user answers.
+
+**After confirmation**, use the correct references:
+- **OSE** → `references/ose-api-*.md` (8 files, Q1 2026, v2025.14)
+- **Analytics Designer** → `references/api-*.md` (existing files)
 
 ## Quick Start
 
@@ -175,6 +214,15 @@ console.log("Selections:", JSON.stringify(Chart_1.getSelections()));
 - Best Practices: `references/best-practices-developer.md`, `references/best-practices-planning-stories.md`
 - Language: `references/scripting-language-fundamentals.md`
 - Q4 2025: `references/whats-new-q4-2025.md`, `references/chart-variance-apis.md`
+- **OSE API (Q1 2026, v2025.14)** — complete method/parameter/return documentation:
+  - `references/ose-api-application-core.md` — Application, PageBook, Panel, Popup, Widget (15 classes)
+  - `references/ose-api-widgets.md` — Button, Dropdown, InputField, Slider, Switch, Text, TextArea (15 classes)
+  - `references/ose-api-datasource.md` — DataSource, DataAction, DataBinding, DataLocking, DataChangeInsights (39 classes)
+  - `references/ose-api-chart-viz.md` — Chart, Table, GeoMap, RVisualization, ValueDriverTree (20 classes)
+  - `references/ose-api-planning-calendar.md` — Planning, PlanningModel, all Calendar classes (54 classes)
+  - `references/ose-api-filtering-selection.md` — FilterLine, FilterValue, Selection (11 classes)
+  - `references/ose-api-utilities.md` — BookmarkSet, MemberInfo, DimensionInfo, Timer, NavigationUtils (37 classes)
+  - `references/ose-api-types-enums.md` — All enum types: Feed, Layout, NumberFormat, VariableValue (70 classes)
 
 **Templates** (56 patterns):
 - `templates/common-patterns.js` - 40 general scripting patterns
@@ -189,4 +237,4 @@ console.log("Selections:", JSON.stringify(Chart_1.getSelections()));
 
 ---
 
-**Version**: 3.0.0 | **Last Verified**: 2025-12-27 | **SAC Version**: Q4 2025 (2025.21) | **API Version**: 2025.19
+**Version**: 3.0.1 | **Last Verified**: 2026-03-07 | **SAC Version**: Q1 2026 (2026.2) | **API Version**: 2025.14
