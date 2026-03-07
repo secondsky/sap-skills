@@ -24,5 +24,17 @@
     "sql",
     "visualization"
   ],
-  "category": "data-analytics"
+  "category": "data-analytics",
+  "agents": [
+    "./agents/datasphere-integration-advisor.md",
+    "./agents/datasphere-admin-helper.md",
+    "./agents/datasphere-modeler.md"
+  ],
+  "commands": [
+    "./commands/datasphere-cli.md",
+    "./commands/datasphere-connection-guide.md",
+    "./commands/datasphere-space-template.md",
+    "./commands/datasphere-view-template.md",
+    "./commands/datasphere-mcp-tools.md"
+  ]
 }

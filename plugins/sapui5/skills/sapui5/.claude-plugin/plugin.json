@@ -19,5 +19,18 @@
     "typescript",
     "xml"
   ],
-  "category": "ui-development"
+  "category": "ui-development",
+  "agents": [
+    "./agents/ui5-migration-specialist.md",
+    "./agents/ui5-api-explorer.md",
+    "./agents/ui5-code-quality-advisor.md",
+    "./agents/ui5-app-scaffolder.md"
+  ],
+  "commands": [
+    "./commands/ui5-mcp-tools.md",
+    "./commands/ui5-scaffold.md",
+    "./commands/ui5-lint.md",
+    "./commands/ui5-api.md",
+    "./commands/ui5-version.md"
+  ]
 }

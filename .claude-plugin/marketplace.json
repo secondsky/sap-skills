@@ -458,7 +458,20 @@
         "sap-cap-capire",
         "sql"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/cap-cds-modeler.md",
+        "./agents/cap-service-developer.md",
+        "./agents/cap-performance-debugger.md",
+        "./agents/cap-project-architect.md"
+      ],
+      "commands": [
+        "./commands/cap-setup-wizard.md",
+        "./commands/cap-troubleshooter.md",
+        "./commands/cap-mcp-tools.md",
+        "./commands/cap-cds-reference.md",
+        "./commands/cap-deployment-checklist.md"
+      ]
     },
     {
       "name": "sap-cloud-sdk-ai",
@@ -504,7 +517,19 @@
         "sql",
         "visualization"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/datasphere-integration-advisor.md",
+        "./agents/datasphere-admin-helper.md",
+        "./agents/datasphere-modeler.md"
+      ],
+      "commands": [
+        "./commands/datasphere-cli.md",
+        "./commands/datasphere-connection-guide.md",
+        "./commands/datasphere-space-template.md",
+        "./commands/datasphere-view-template.md",
+        "./commands/datasphere-mcp-tools.md"
+      ]
     },
     {
       "name": "sap-fiori-tools",
@@ -614,7 +639,17 @@
         "visualization",
         "widget"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/widget-debugger.md",
+        "./agents/widget-architect.md",
+        "./agents/widget-api-assistant.md"
+      ],
+      "commands": [
+        "./commands/widget-validate.md",
+        "./commands/widget-lint.md",
+        "./commands/widget-generate.md"
+      ]
     },
     {
       "name": "sap-sac-planning",
@@ -635,12 +670,22 @@
         "sap-sac-planning",
         "visualization"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/planning-api-assistant.md",
+        "./agents/data-action-debugger.md",
+        "./agents/planning-model-architect.md"
+      ],
+      "commands": [
+        "./commands/sac-planning-checklist.md",
+        "./commands/data-action-template.md",
+        "./commands/seamless-planning-guide.md"
+      ]
     },
     {
       "name": "sap-sac-scripting",
       "source": "./plugins/sap-sac-scripting",
-      "description": "Comprehensive SAC scripting skill for SAP Analytics Cloud Analytics Designer and Optimized Story Experience. This skill should be used when the user asks to \"create SAC script\", \"debug Analytics Designer\", \"optimize SAC performance\", \"planning operations in SAC\", \"filter data in SAC\", \"use DataSource API\", \"chart scripting\", \"table manipulation\", \"SAC event handlers\", \"version management\", \"data locking\", \"Optimized Story Experience API\", \"OSE scripting\", \"OSE widget API\", \"OSE DataSource\", \"story scripting API\", \"OSE planning API\", \"OSE method\", or works with SAC widgets, planning models, or analytics applications.",
+      "description": "Comprehensive SAC scripting skill for SAP Analytics Cloud Analytics Designer and Optimized Story Experience. This skill should be used when the user asks to \"create SAC script\", \"debug Analytics Designer\", \"optimize SAC performance\", \"planning operations in SAC\", \"filter data in SAC\", \"use DataSource API\", \"chart scripting\", \"table manipulation\", \"SAC event handlers\", \"version management\", \"data locking\", \"Optimized Story Experience API\", \"OSE scripting\", \"OSE widget API\", \"OSE DataSource\", \"story scripting API\", \"OSE planning API\", \"OSE method\", \"optimized story\", \"SAC story scripting\", \"story script\", \"SAC scripting\", or works with SAC widgets, planning models, or analytics applications.",
       "version": "2.1.4",
       "category": "data-analytics",
       "keywords": [
@@ -648,20 +693,25 @@
         "api",
         "dashboard",
         "data",
-        "ose",
-        "ose-datasource",
-        "ose-planning-api",
-        "ose-scripting",
-        "ose-widget-api",
-        "optimized-story-experience",
         "sac",
         "sap",
         "sap-sac-scripting",
         "scripting",
-        "story-scripting",
         "visualization"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/sac-api-helper.md",
+        "./agents/sac-planning-assistant.md",
+        "./agents/sac-performance-optimizer.md",
+        "./agents/sac-script-debugger.md"
+      ],
+      "commands": [
+        "./commands/sac-optimize.md",
+        "./commands/sac-debug.md",
+        "./commands/sac-script-template.md",
+        "./commands/sac-planning.md"
+      ]
     },
     {
       "name": "sap-sqlscript",
@@ -682,7 +732,18 @@
         "sqlscript",
         "visualization"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/amdp-helper.md",
+        "./agents/procedure-generator.md",
+        "./agents/sqlscript-analyzer.md"
+      ],
+      "commands": [
+        "./commands/sqlscript-validate.md",
+        "./commands/sqlscript-convert.md",
+        "./commands/sqlscript-optimize.md",
+        "./commands/sqlscript-setup.md"
+      ]
     },
     {
       "name": "sapui5",
@@ -701,7 +762,20 @@
         "typescript",
         "xml"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/ui5-migration-specialist.md",
+        "./agents/ui5-api-explorer.md",
+        "./agents/ui5-code-quality-advisor.md",
+        "./agents/ui5-app-scaffolder.md"
+      ],
+      "commands": [
+        "./commands/ui5-mcp-tools.md",
+        "./commands/ui5-scaffold.md",
+        "./commands/ui5-lint.md",
+        "./commands/ui5-api.md",
+        "./commands/ui5-version.md"
+      ]
     },
     {
       "name": "sapui5-cli",

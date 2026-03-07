@@ -22,5 +22,15 @@
     "visualization",
     "widget"
   ],
-  "category": "data-analytics"
+  "category": "data-analytics",
+  "agents": [
+    "./agents/widget-debugger.md",
+    "./agents/widget-architect.md",
+    "./agents/widget-api-assistant.md"
+  ],
+  "commands": [
+    "./commands/widget-validate.md",
+    "./commands/widget-lint.md",
+    "./commands/widget-generate.md"
+  ]
 }

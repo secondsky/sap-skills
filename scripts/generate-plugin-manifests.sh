@@ -428,9 +428,9 @@ generate_plugin_json() {
 
   # Second: Scan for agents and commands at skill directory level (fallback)
   local scanned_agents_json
-  scanned_agents_json=$(scan_agents "$skill_dir")
+  scanned_agents_json=$(scan_agents "$plugin_dir")
   local scanned_commands_json
-  scanned_commands_json=$(scan_commands "$skill_dir")
+  scanned_commands_json=$(scan_commands "$plugin_dir")
 
   # Merge YAML-specified paths with scanned paths
   # YAML paths take precedence; merge and deduplicate for uniqueItems compliance
