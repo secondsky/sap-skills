@@ -177,23 +177,23 @@ var theme = Application.getTheme();
 | API Doc Version | See SAP Help | 2025.14 (Q1 2026) |
 
 **OSE API Reference Files (Q1 2026, v2025.14) — Full method/parameter/return docs:**
-- `references/ose-api-application-core.md` — Application, PageBook, Panel, Popup, Widget base classes (15 classes)
-- `references/ose-api-widgets.md` — Button, Dropdown, InputField, Slider, Switch, Text, TextArea, Shape (15 classes)
-- `references/ose-api-datasource.md` — DataSource, DataAction, DataBinding, DataLocking, DataChangeInsights (39 classes)
-- `references/ose-api-chart-viz.md` — Chart, Table, GeoMap, RVisualization, ValueDriverTree (20 classes)
-- `references/ose-api-planning-calendar.md` — Planning, PlanningModel, PlanningVersion, all Calendar classes (54 classes)
-- `references/ose-api-filtering-selection.md` — FilterLine, FilterValue, Selection, SortOrder (11 classes)
-- `references/ose-api-utilities.md` — BookmarkSet, MemberInfo, DimensionInfo, Timer, NavigationUtils, VariableInfo (37 classes)
-- `references/ose-api-types-enums.md` — Feed, Layout, NumberFormat, MemberAccessMode, VariableValue enums (70 classes)
+- `../skills/sap-sac-scripting/references/ose-api-application-core.md` — Application, PageBook, Panel, Popup, Widget base classes (15 classes)
+- `../skills/sap-sac-scripting/references/ose-api-widgets.md` — Button, Dropdown, InputField, Slider, Switch, Text, TextArea, Shape (15 classes)
+- `../skills/sap-sac-scripting/references/ose-api-datasource.md` — DataSource, DataAction, DataBinding, DataLocking, DataChangeInsights (39 classes)
+- `../skills/sap-sac-scripting/references/ose-api-chart-viz.md` — Chart, Table, GeoMap, RVisualization, ValueDriverTree (20 classes)
+- `../skills/sap-sac-scripting/references/ose-api-planning-calendar.md` — Planning, PlanningModel, PlanningVersion, all Calendar classes (54 classes)
+- `../skills/sap-sac-scripting/references/ose-api-filtering-selection.md` — FilterLine, FilterValue, Selection, SortOrder (11 classes)
+- `../skills/sap-sac-scripting/references/ose-api-utilities.md` — BookmarkSet, MemberInfo, DimensionInfo, Timer, NavigationUtils, VariableInfo (37 classes)
+- `../skills/sap-sac-scripting/references/ose-api-types-enums.md` — Feed, Layout, NumberFormat, MemberAccessMode, VariableValue enums (70 classes)
 
 **Analytics Designer Reference Files:**
-- `references/api-datasource.md` - DataSource API (36+ methods)
-- `references/api-widgets.md` - Chart, Table, Input Controls
-- `references/api-planning.md` - Planning API
-- `references/api-application.md` - Application object
-- `references/api-calendar-bookmarks.md` - Calendar, Bookmarks, Timer
-- `references/api-advanced-widgets.md` - Containers, R Viz, Custom Widgets
-- `references/api-data-operations.md` - Filters, hierarchies, members
+- `../skills/sap-sac-scripting/references/api-datasource.md` - DataSource API (36+ methods)
+- `../skills/sap-sac-scripting/references/api-widgets.md` - Chart, Table, Input Controls
+- `../skills/sap-sac-scripting/references/api-planning.md` - Planning API
+- `../skills/sap-sac-scripting/references/api-application.md` - Application object
+- `../skills/sap-sac-scripting/references/api-calendar-bookmarks.md` - Calendar, Bookmarks, Timer
+- `../skills/sap-sac-scripting/references/api-advanced-widgets.md` - Containers, R Viz, Custom Widgets
+- `../skills/sap-sac-scripting/references/api-data-operations.md` - Filters, hierarchies, members
 
 **Official Documentation Links:**
 - Analytics Designer API: https://help.sap.com/doc/958d4c11261f42e992e8d01a4c0dde25/release/en-US/

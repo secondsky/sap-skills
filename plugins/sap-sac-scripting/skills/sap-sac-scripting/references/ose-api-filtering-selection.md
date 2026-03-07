@@ -1,3 +1,10 @@
+---
+version: "2025.14"
+sac_release: "Q1 2026 (2026.2)"
+full_api_docs: "https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html"
+last_verified: "2026-03-07"
+---
+
 # OSE API: Filtering & Selection
 
 **Version**: 2025.14 | **SAC Release**: Q1 2026 (2026.2) | **Full API Docs**: [SAP Help Portal](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html)

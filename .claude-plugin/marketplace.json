@@ -648,10 +648,17 @@
         "api",
         "dashboard",
         "data",
+        "ose",
+        "ose-datasource",
+        "ose-planning-api",
+        "ose-scripting",
+        "ose-widget-api",
+        "optimized-story-experience",
         "sac",
         "sap",
         "sap-sac-scripting",
         "scripting",
+        "story-scripting",
         "visualization"
       ],
       "license": "GPL-3.0"
