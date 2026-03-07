@@ -1,9 +1,10 @@
 {
   "name": "sap-btp-intelligent-situation-automation",
   "description": "This skill provides comprehensive guidance for SAP BTP Intelligent Situation Automation setup, configuration, and operations. It should be used when implementing situation-based automation between SAP S/4HANA systems and SAP Business Technology Platform. The skill covers subscription setup, Event Mesh integration, destination configuration, system onboarding, user management with role collections, automatic situation resolution, and troubleshooting. Keywords: SAP BTP, Intelligent Situation Automation, ISA, situation handling, SAP S/4HANA, SAP S/4HANA Cloud, Event Mesh, Business Event Handling, situation automation, situation dashboard, analyze situations, SAP_COM_0345, SAP_COM_0376, SAP_COM_0092, SituationAutomationKeyUser, SituationAutomationAdminUser, Cloud Connector, cf-eu10, CA-SIT-ATM, business situations, situation types, situation actions",
-  "version": "2.1.1",
+  "version": "2.1.4",
   "author": {
-    "name": "E.J."
+    "name": "E.J.",
+    "email": "maintainers@example.com"
   },
   "license": "GPL-3.0",
   "repository": "https://github.com/secondsky/sap-skills",
@@ -18,5 +19,6 @@
     "sap",
     "sap-btp-intelligent-situation-automation",
     "situation"
-  ]
+  ],
+  "category": "btp"
 }

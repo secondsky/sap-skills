@@ -383,8 +383,8 @@ generate_plugin_json() {
     return 1
   fi
 
-  # Use skill directory for agents/commands, plugin directory for .claude-plugin
-  local claude_plugin_dir="$skill_dir/.claude-plugin"
+  # Write plugin.json to plugin root so agent/command paths resolve correctly
+  local claude_plugin_dir="$plugin_dir/.claude-plugin"
   local plugin_json="$claude_plugin_dir/plugin.json"
 
   # Extract YAML fields
