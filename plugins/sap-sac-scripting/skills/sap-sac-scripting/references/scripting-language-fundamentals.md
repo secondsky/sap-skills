@@ -16,6 +16,8 @@ Complete reference for the Analytics Designer scripting language based on offici
 8. [Arrays](#arrays)
 9. [Method Chaining](#method-chaining)
 10. [Script Runtime Security](#script-runtime-security)
+11. [Accessing Objects](#accessing-objects)
+12. [Call Statements](#call-statements)
 
 ---
 
@@ -495,6 +497,35 @@ Type partial names and use CTRL+Spacebar:
 - Completes automatically if unique match
 - Shows list if multiple matches
 - Works even with typos
+
+---
+
+## Call Statements
+
+Call statements execute an API method on a widget or data source. Each statement ends with a semicolon (`;`).
+
+```javascript
+CH_TaxesPerMonth.getDataSource().setDimensionFilter("0CALYEAR", "2018");
+```
+
+Breaking this down:
+
+- **Widget** (`CH_TaxesPerMonth`): The story component to influence. Ask: *which element should be affected?*
+- **Methods** (`getDataSource`, `setDimensionFilter`): Operations applied to the widget. Ask: *what should be done?* Available methods depend on widget type — data sources provide filter methods, visual components provide visibility methods like `setVisible`.
+- **Arguments** (`"0CALYEAR"`, `"2018"`): Details needed to execute the method. Ask: *what details are required?*
+
+More examples:
+
+```javascript
+// Show or hide a component
+Button_1.setVisible(true);
+
+// Refresh data
+Table_1.getDataSource().refreshData();
+
+// Add item to dropdown
+Dropdown_1.addItem("DE", "Germany");
+```
 
 ---
 
