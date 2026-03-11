@@ -383,7 +383,8 @@ generate_plugin_json() {
     return 1
   fi
 
-  # Write plugin.json to plugin root so agent/command paths resolve correctly
+  # Write plugin.json to $plugin_dir/.claude-plugin/; relative paths in the manifest
+  # (e.g. ./agents/foo.md) are resolved by the CLI from $plugin_dir (the plugin root)
   local claude_plugin_dir="$plugin_dir/.claude-plugin"
   local plugin_json="$claude_plugin_dir/plugin.json"
 
