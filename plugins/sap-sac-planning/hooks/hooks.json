@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "First, check if the file just written/edited is SAC Analytics Designer planning code. It is SAC planning code ONLY if the file content contains SAC planning-specific signatures such as: getPlanning(), PlanningModel, getDataLocking(), DataAction, publishVersion, createPrivateVersion, isDirty(), Application.showBusyIndicator, getDataSource(), PlanningSequence.\n\nIf the file is NOT SAC planning code, output nothing.\n\nIf it IS SAC planning code, provide a brief reminder about:\n- Testing with tracing enabled for data actions\n- Checking browser console for errors\n- Verifying version and lock states before production use\n\nKeep feedback concise.",
+            "prompt": "First, check if the file just written/edited is SAC Analytics Designer planning code. It is SAC planning code ONLY if the file content contains SAC planning-specific signatures such as: getPlanning(), PlanningModel, getDataLocking(), DataAction, publishVersion, createPrivateVersion, isDirty(), Application.showBusyIndicator, getDataSource(), PlanningSequence, or SAC Analytics Designer widget APIs like Chart_, Table_, Dropdown_, RadioButtonGroup_.\n\nIf the file is NOT SAC planning code, output nothing.\n\nIf it IS SAC planning code, provide a brief reminder about:\n- Testing with tracing enabled for data actions\n- Checking browser console for errors\n- Verifying version and lock states before production use\n\nKeep feedback concise.",
             "timeout": 15
           }
         ]

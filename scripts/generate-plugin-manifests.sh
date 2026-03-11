@@ -345,7 +345,7 @@ extract_yaml_list_field() {
               paths+=("$path")
             fi
           # Check for end of list (another field starts)
-          elif [[ "$line" =~ ^[a-z_]+: ]]; then
+          elif [[ "$line" =~ ^[[:alnum:]_-]+: ]]; then
             in_list=false
           fi
         fi
@@ -427,7 +427,7 @@ generate_plugin_json() {
   local yaml_commands_json
   yaml_commands_json=$(extract_yaml_list_field "$skill_md" "commands")
 
-  # Second: Scan for agents and commands at skill directory level (fallback)
+  # Second: Scan for agents and commands at plugin root level (fallback)
   local scanned_agents_json
   scanned_agents_json=$(scan_agents "$plugin_dir")
   local scanned_commands_json

@@ -181,7 +181,7 @@ or "the Code CLI" instead.
 
 ---
 
-**Last Updated**: 2026-02-06
+**Last Updated**: 2026-02-25
 **Next Review**: 2026-05-06 (Quarterly)
 **Maintainer**: E.J.
 </coding_guidelines>
