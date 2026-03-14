@@ -98,12 +98,12 @@ collect_plugins() {
     local plugin_name
     plugin_name=$(basename "$plugin_dir")
 
-    # Check nested structure first: plugins/[name]/skills/[name]/.claude-plugin/plugin.json
-    local plugin_json="$plugin_dir/skills/$plugin_name/.claude-plugin/plugin.json"
+    # Check root structure first: plugins/[name]/.claude-plugin/plugin.json
+    local plugin_json="$plugin_dir/.claude-plugin/plugin.json"
 
-    # Fallback to flat structure if nested not found: plugins/[name]/.claude-plugin/plugin.json
+    # Fallback to nested structure: plugins/[name]/skills/[name]/.claude-plugin/plugin.json
     if [ ! -f "$plugin_json" ]; then
-      plugin_json="$plugin_dir/.claude-plugin/plugin.json"
+      plugin_json="$plugin_dir/skills/$plugin_name/.claude-plugin/plugin.json"
     fi
 
     if [ ! -f "$plugin_json" ]; then

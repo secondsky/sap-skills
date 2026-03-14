@@ -345,7 +345,7 @@ extract_yaml_list_field() {
               paths+=("$path")
             fi
           # Check for end of list (another field starts)
-          elif [[ "$line" =~ ^[a-z_]+: ]]; then
+          elif [[ "$line" =~ ^[[:alnum:]_-]+: ]]; then
             in_list=false
           fi
         fi
@@ -383,8 +383,9 @@ generate_plugin_json() {
     return 1
   fi
 
-  # Use skill directory for agents/commands, plugin directory for .claude-plugin
-  local claude_plugin_dir="$skill_dir/.claude-plugin"
+  # Write plugin.json to $plugin_dir/.claude-plugin/; relative paths in the manifest
+  # (e.g. ./agents/foo.md) are resolved by the CLI from $plugin_dir (the plugin root)
+  local claude_plugin_dir="$plugin_dir/.claude-plugin"
   local plugin_json="$claude_plugin_dir/plugin.json"
 
   # Extract YAML fields
@@ -426,11 +427,11 @@ generate_plugin_json() {
   local yaml_commands_json
   yaml_commands_json=$(extract_yaml_list_field "$skill_md" "commands")
 
-  # Second: Scan for agents and commands at skill directory level (fallback)
+  # Second: Scan for agents and commands at plugin root level (fallback)
   local scanned_agents_json
-  scanned_agents_json=$(scan_agents "$skill_dir")
+  scanned_agents_json=$(scan_agents "$plugin_dir")
   local scanned_commands_json
-  scanned_commands_json=$(scan_commands "$skill_dir")
+  scanned_commands_json=$(scan_commands "$plugin_dir")
 
   # Merge YAML-specified paths with scanned paths
   # YAML paths take precedence; merge and deduplicate for uniqueItems compliance
