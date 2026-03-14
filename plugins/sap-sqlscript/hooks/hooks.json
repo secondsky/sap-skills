@@ -6,8 +6,8 @@
         "matcher": "Write|Edit",
         "hooks": [
           {
-            "type": "prompt",
-            "prompt": "If the file just written/edited has a .sql extension OR contains SQLScript/AMDP code (look for CREATE PROCEDURE, CREATE FUNCTION, BY DATABASE PROCEDURE, LANGUAGE SQLSCRIPT), perform a comprehensive quality check:\n\n1. **Error Handling Check**:\n   - Missing EXIT HANDLER for SQLEXCEPTION\n   - Unclosed cursors (OPEN without matching CLOSE)\n   - Missing CONDITION declarations for known error codes\n\n2. **Security Check**:\n   - Hardcoded schema names (should use DEFAULT SCHEMA or parameter)\n   - Dynamic SQL without proper escaping (EXECUTE IMMEDIATE with concatenation)\n   - SQL injection vulnerabilities in string concatenation\n\n3. **Performance Anti-Patterns**:\n   - Cursors inside loops (exponential performance impact)\n   - SELECT * usage (should specify columns)\n   - Missing WHERE clause on UPDATE/DELETE\n   - UNION instead of UNION ALL when duplicates are impossible\n   - Imperative logic that could be declarative\n\n4. **Naming Convention Check**:\n   - Variables should use prefixes (lv_, lt_, iv_, et_, etc.)\n   - Procedures should have descriptive names\n   - Parameters should indicate direction (iv_, ev_, etc.)\n\n5. **AMDP-Specific Checks** (if applicable):\n   - Missing IF_AMDP_MARKER_HDB interface\n   - COMMIT/ROLLBACK usage (not allowed in AMDP)\n   - Missing USING clause for referenced tables\n   - Non-value parameters (must use VALUE())\n\n6. **Transaction Check**:\n   - Missing COMMIT/ROLLBACK for DML operations (in non-AMDP)\n   - Implicit commits from DDL statements\n\n7. **Documentation Check**:\n   - Missing procedure/function header comments\n   - Undocumented complex logic\n\nIf issues are found, report them in a concise format:\n- Category: [Issue description] (Line X if identifiable)\n\nIf the file is NOT a SQLScript file, output nothing.",
+            "type": "command",
+            "command": "./hooks/dispatch.sh",
             "timeout": 45
           }
         ]

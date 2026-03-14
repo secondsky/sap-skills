@@ -6,8 +6,8 @@
         "matcher": "Write|Edit",
         "hooks": [
           {
-            "type": "prompt",
-            "prompt": "If the file just written/edited appears to be an SAC custom widget file (contains 'webcomponents', 'onCustomWidgetBeforeUpdate', 'onCustomWidgetAfterUpdate', 'customElements.define', or is named widget.json/widget.js), perform a quick quality check:\n\n1. **For widget.json files**:\n   - Verify required fields: id, version, name, vendor, webcomponents\n   - Check webcomponents has: kind, tag, url\n   - Verify tag uses lowercase with hyphens (e.g., 'my-widget')\n   - Check if ignoreIntegrity is true (warn: development only)\n   - Verify properties have valid types (string, integer, number, boolean, array, object, Color, Selection)\n   - Check dataBindings feeds have id, description, type\n\n2. **For widget.js files**:\n   - Verify class extends HTMLElement\n   - Check for attachShadow({ mode: 'open' }) call\n   - Verify onCustomWidgetBeforeUpdate exists\n   - Verify onCustomWidgetAfterUpdate exists\n   - Warn if onCustomWidgetResize is missing\n   - Warn if onCustomWidgetDestroy is missing\n   - Check property setters dispatch propertiesChanged event\n   - Check for customElements.define call\n\n3. **Performance checks**:\n   - Warn if resize handler not debounced\n   - Warn if chart library not disposed in onCustomWidgetDestroy\n   - Warn if innerHTML used (XSS risk)\n\n4. **Data binding checks**:\n   - If dataBindings accessed, verify null checks before data access\n   - Verify getDataBinding() pattern used correctly\n\nIf issues are found, report them concisely:\n- [Severity]: [Issue] - [Quick fix suggestion]\n\nSeverities: ERROR (must fix), WARN (should fix), INFO (suggestion)\n\nIf the file is NOT a widget file, output nothing.",
+            "type": "command",
+            "command": "./hooks/dispatch.sh",
             "timeout": 45
           }
         ]

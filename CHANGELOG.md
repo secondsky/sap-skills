@@ -5,6 +5,18 @@ All notable changes to SAP Skills will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.7] - 2026-03-14
+
+### Changed
+
+- **Hook validators hardening** (sap-cap-capire, sap-datasphere, sap-sac-custom-widget, sap-sac-planning, sap-sac-scripting, sap-sqlscript, sapui5): Four CodeRabbit-identified fixes applied to all 14 validator files (validator.mjs + validator.py per plugin):
+  - Added stdin `error` event handler in `readStdin()` to prevent Promise hang on I/O errors
+  - Security risk messages now enumerate **all** detected risks with explanations, not just the first
+  - Function constructor check upgraded to whitespace-tolerant regex (`new\s+function\s*\(`)
+  - WHERE clause detection upgraded to word-boundary regex (`\bwhere\b`) to catch newline-separated SQL
+
+---
+
 ## [2.1.6] - 2026-02-26
 
 ### Added
@@ -12,6 +24,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - New `scripts/setup-vscode.sh` detects VS Code, installs `@sap/hana-sqlscript-lsp` VSIX, checks HANA env vars
   - Command parses structured script output, writes/merges `.vscode/settings.json`, prints summary table
   - Hybrid approach: shell for deterministic steps, LLM for environment summary and settings authoring
+
+### Changed
+- **Hooks hardening**: Replaced broad prompt-based `Write|Edit` hooks with deterministic command hooks in 7 plugins
+  - Plugins: `sap-cap-capire`, `sapui5`, `sap-datasphere`, `sap-sac-planning`, `sap-sac-scripting`, `sap-sac-custom-widget`, `sap-sqlscript`
+  - Added runtime fallback per plugin hook: Node.js primary, Python fallback, fail-open allow mode
+  - Enforced structured JSON hook output and security-focused blocking (`PreToolUse` only); `PostToolUse` remains advisory
+  - Goal: prevent unrelated file edits from stopping continuation in mixed-plugin workflows (issue #60)
 
 ---
 
