@@ -5,6 +5,26 @@ All notable changes to SAP Skills will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.8] - 2026-04-02
+
+### Added
+- Frontmatter validation infrastructure ported from [claude-skills](https://github.com/secondsky/claude-skills)
+  - `scripts/validate-frontmatter.sh`: comprehensive SKILL.md YAML frontmatter checker
+  - `.github/workflows/validate-frontmatter.yml`: CI workflow (diff on PR, full scan on push)
+  - `.github/workflows/validate-json-schemas.yml`: CI workflow with artifact upload on failure
+  - `.githooks/pre-push`: validates changed SKILL.md files before push
+  - Enhanced `.githooks/pre-commit` with `--spec=draft7` consistency
+  - Split `quality-checks.yml` into focused workflows
+
+### Fixed
+- **sapui5**, **sapui5-linter**: Fixed YAML frontmatter parsing errors preventing skill installation (#63)
+- **sap-abap-cds**, **sap-btp-cloud-platform**: Fixed description overflow preventing skill installation (#65)
+- **sap-btp-connectivity**, **sap-btp-integration-suite**, **sap-datasphere**, **sap-sac-custom-widget**: Fixed description overflow (>1024 chars)
+- **sapui5-linter**: Fixed unclosed quote on `ui5_linter_version` metadata field
+- All 32 skills now pass frontmatter validation
+
+---
+
 ## [2.1.7] - 2026-03-14
 
 ### Changed

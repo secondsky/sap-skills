@@ -3,7 +3,7 @@
 
 **Repository**: https://github.com/secondsky/sap-skills
 **Purpose**: Production-ready skills for SAP development and AI coding assistants
-**Version**: 2.1.3 | **Plugins**: 32 | **Last Updated**: 2026-02-25
+**Version**: 2.1.8 | **Plugins**: 32 | **Last Updated**: 2026-04-02
 
 ---
 
@@ -181,7 +181,7 @@ or "the Code CLI" instead.
 
 ---
 
-**Last Updated**: 2026-02-25
-**Next Review**: 2026-05-06 (Quarterly)
+**Last Updated**: 2026-04-02
+**Next Review**: 2026-07-02 (Quarterly)
 **Maintainer**: E.J.
 </coding_guidelines>
