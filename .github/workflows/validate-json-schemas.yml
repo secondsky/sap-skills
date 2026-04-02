@@ -1,0 +1,43 @@
+name: Validate JSON Schemas
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-json-schemas:
+    name: Validate JSON Schemas
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install ajv-cli and ajv-formats
+        run: |
+          npm install -g ajv-cli ajv-formats
+          echo "Verifying ajv-cli installation..."
+          ajv help
+
+      - name: Make validation script executable
+        run: chmod +x scripts/validate-json-schemas.sh
+
+      - name: Run JSON schema validation
+        run: ./scripts/validate-json-schemas.sh
+
+      - name: Upload validation results on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-errors
+          path: |
+            .claude-plugin/marketplace.json
+            plugins/*/.claude-plugin/plugin.json
+          retention-days: 7

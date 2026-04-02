@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+#
+# Pre-push hook for SAP Skills repository
+#
+# Validates SKILL.md frontmatter for changed skills before push
+# Only validates CHANGED files for performance
+#
+# Setup (one-time):
+#   git config core.hooksPath .githooks
+#
+# Bypass (when necessary):
+#   git push --no-verify
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+remote="$1"
+url="$2"
+
+range=$(git rev-list --count HEAD...origin/main 2>/dev/null || echo "1")
+if [ "$range" = "0" ]; then
+  exit 0
+fi
+
+CHANGED_SKILLS=$(git diff --name-only origin/main...HEAD 2>/dev/null | grep -E '^plugins/[^/]+/skills/[^/]+/SKILL\.md$' || true)
+
+if [ -z "$CHANGED_SKILLS" ]; then
+  exit 0
+fi
+
+echo ""
+echo "Validating SKILL.md frontmatter for changed skills..."
+
+validation_failed=0
+validated_dirs=""
+
+while IFS= read -r skill_file; do
+  [ -z "$skill_file" ] && continue
+
+  full_path="$REPO_ROOT/$skill_file"
+
+  if [ ! -f "$full_path" ]; then
+    continue
+  fi
+
+  skill_name=$(echo "$skill_file" | awk -F'/' '{print $(NF-1)}')
+
+  plugin_dir="$(dirname "$(dirname "$(dirname "$full_path")")")"
+
+  if echo "$validated_dirs" | grep -qF "$plugin_dir"; then
+    continue
+  fi
+  validated_dirs="$validated_dirs $plugin_dir"
+
+  "$REPO_ROOT/scripts/validate-frontmatter.sh" --dir "$plugin_dir" --quiet
+  exit_code=$?
+
+  if [ $exit_code -ne 0 ]; then
+    echo "  FAIL $skill_name"
+    validation_failed=1
+  else
+    echo "  OK $skill_name"
+  fi
+done <<< "$CHANGED_SKILLS"
+
+echo ""
+
+if [ $validation_failed -eq 1 ]; then
+  echo "Frontmatter validation failed"
+  echo ""
+  echo "Fix the errors above, or bypass with:"
+  echo "  git push --no-verify"
+  echo ""
+  exit 1
+else
+  echo "All frontmatter valid"
+  echo ""
+  exit 0
+fi

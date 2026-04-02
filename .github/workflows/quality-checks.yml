@@ -14,49 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Validate YAML frontmatter
-        run: |
-          echo "Checking YAML frontmatter in SKILL.md files..."
-          errors=0
-          for skill_file in $(find plugins/*/skills/*/SKILL.md -type f 2>/dev/null); do
-            # Check for opening ---
-            first_line=$(head -1 "$skill_file")
-            if [ "$first_line" != "---" ]; then
-              echo "ERROR: $skill_file missing opening '---' delimiter"
-              errors=$((errors + 1))
-              continue
-            fi
-            # Check for closing ---
-            closing=$(awk 'NR>1 && /^---$/{found=1; exit} END{print found+0}' "$skill_file")
-            if [ "$closing" -ne 1 ]; then
-              echo "ERROR: $skill_file missing closing '---' delimiter"
-              errors=$((errors + 1))
-            fi
-          done
-          if [ $errors -gt 0 ]; then
-            echo "FAILED: $errors SKILL.md file(s) have invalid frontmatter"
-            exit 1
-          fi
-          echo "All SKILL.md files have valid YAML frontmatter delimiters"
-
-      - name: Check license field
-        run: |
-          echo "Checking license field in SKILL.md files..."
-          errors=0
-          for skill_file in $(find plugins/*/skills/*/SKILL.md -type f 2>/dev/null); do
-            # Extract frontmatter and check for license: GPL-3.0
-            frontmatter=$(awk '/^---$/{if(n++) exit; next} {print}' "$skill_file")
-            if ! echo "$frontmatter" | grep -q "^license: GPL-3.0"; then
-              echo "ERROR: $skill_file missing 'license: GPL-3.0' in frontmatter"
-              errors=$((errors + 1))
-            fi
-          done
-          if [ $errors -gt 0 ]; then
-            echo "FAILED: $errors SKILL.md file(s) missing GPL-3.0 license"
-            exit 1
-          fi
-          echo "All SKILL.md files have license: GPL-3.0"
-
       - name: Validate skill structure
         run: |
           echo "Checking skill directory structure..."
@@ -100,7 +57,6 @@ jobs:
                       continue
                   if in_code_block:
                       continue
-                  # Remove inline code spans before extracting links
                   cleaned = re.sub(r'`[^`]+`', '', line)
                   for m in re.finditer(r'\[(?:[^\]]*)\]\(([^)]+)\)', cleaned):
                       links.append(m.group(1))
@@ -109,7 +65,6 @@ jobs:
           print("Checking for broken internal links in markdown files...")
           errors = 0
           for root, dirs, files in os.walk('.'):
-              # Skip .git and node_modules
               dirs[:] = [d for d in dirs if d not in ('.git', 'node_modules')]
               for f in files:
                   if not f.endswith('.md'):
@@ -118,14 +73,11 @@ jobs:
                   with open(filepath, 'r', encoding='utf-8', errors='replace') as fh:
                       content = fh.read()
                   for link in extract_links_outside_code_blocks(content):
-                      # Skip URLs, anchors, mailto
                       if link.startswith(('http://', 'https://', '#', 'mailto:')):
                           continue
-                      # Remove anchor fragment
                       clean = link.split('#')[0]
                       if not clean:
                           continue
-                      # Resolve relative to file's directory
                       target = os.path.normpath(os.path.join(os.path.dirname(filepath), clean))
                       if not os.path.exists(target):
                           errors += 1
@@ -142,21 +94,3 @@ jobs:
         run: |
           chmod +x scripts/validate-reserved-words.sh
           ./scripts/validate-reserved-words.sh
-
-  validate-json-schemas:
-    name: Validate JSON Schemas
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install ajv-cli
-        run: npm install -g ajv-cli ajv-formats
-
-      - name: Run JSON Schema Validation
-        run: ./scripts/validate-json-schemas.sh

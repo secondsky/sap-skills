@@ -1,0 +1,56 @@
+name: Validate Frontmatter
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-frontmatter:
+    name: Validate SKILL.md Frontmatter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Make script executable
+        run: chmod +x scripts/validate-frontmatter.sh
+
+      - name: Validate changed SKILL.md files
+        if: github.event_name == 'pull_request'
+        run: |
+          CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep 'SKILL\.md$' || true)
+          if [ -z "$CHANGED" ]; then
+            echo "No SKILL.md files changed, skipping validation"
+            exit 0
+          fi
+          echo "Validating changed SKILL.md files:"
+          echo "$CHANGED"
+          FAILED=0
+          for file in $CHANGED; do
+            dir=$(dirname "$GITHUB_WORKSPACE/$file")
+            echo "Validating: $dir"
+            if ! ./scripts/validate-frontmatter.sh --dir "$dir" --quiet; then
+              FAILED=$((FAILED + 1))
+            fi
+          done
+          if [ "$FAILED" -gt 0 ]; then
+            echo "::error::$FAILED skill(s) failed frontmatter validation"
+            exit 1
+          fi
+
+      - name: Validate all SKILL.md frontmatter
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: ./scripts/validate-frontmatter.sh
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "### Frontmatter Validation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Validated \`SKILL.md\` files in \`plugins/\`" >> $GITHUB_STEP_SUMMARY
+          echo "Run \`./scripts/validate-frontmatter.sh\` locally to check before pushing." >> $GITHUB_STEP_SUMMARY
