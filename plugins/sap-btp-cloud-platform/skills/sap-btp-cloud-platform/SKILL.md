@@ -1,14 +1,12 @@
 ---
 name: sap-btp-cloud-platform
-description: |
-  Comprehensive SAP Business Technology Platform (BTP) reference for cloud development, deployment, and operations. Use when setting up BTP accounts (global accounts, directories, subaccounts), working with Cloud Foundry environment (orgs, spaces, buildpacks, service bindings), deploying to Kyma environment (Kubernetes, modules, serverless functions), developing in ABAP environment (RAP, CDS, ADT), managing entitlements and quotas, configuring identity providers (SAP Cloud Identity Services, XSUAA), implementing authentication and authorization (role collections, trust configuration), using btp CLI or CF CLI, deploying multi-target applications (MTA), setting up connectivity (destinations, Cloud Connector), implementing CI/CD pipelines (SAP Continuous Integration and Delivery), extending SAP solutions (S/4HANA Cloud, SuccessFactors), or troubleshooting BTP services. Covers all three runtime environments with production-tested patterns.
-
-  Keywords: SAP BTP, SAP Business Technology Platform, Cloud Foundry, CF, Kyma, ABAP environment, subaccount, global account, directory, entitlements, quotas, btp CLI, CF CLI, MTA, multi-target application, XSUAA, SAP Authorization and Trust Management, Cloud Identity Services, Identity Authentication, destinations, Cloud Connector, service binding, buildpack, Kubernetes, serverless, RAP, CDS, CAP, SAP Cloud Application Programming Model, CI/CD, SAP Continuous Integration and Delivery, extensions, formations, trial account, free tier, enterprise account, consumption-based, subscription-based, CPEA, BTPEA, regions, availability zones, high availability, disaster recovery, audit logging, role collections, platform users, business users, Neo environment, service broker, space, org, namespace, Helm, Docker, Istio, API Gateway, Eventing
+description: "Comprehensive SAP Business Technology Platform (BTP) reference for cloud development, deployment, and operations. Use when setting up BTP accounts, working with Cloud Foundry environment, deploying to Kyma (Kubernetes, serverless), developing in ABAP environment (RAP, CDS), managing entitlements and quotas, configuring identity providers (XSUAA), using btp CLI or CF CLI, deploying multi-target applications (MTA), setting up connectivity (destinations, Cloud Connector), implementing CI/CD pipelines, extending SAP solutions, or troubleshooting BTP services. Covers all three runtime environments."
 license: GPL-3.0
 metadata:
   version: "1.1.0"
   last_verified: "2025-11-27"
   source: "[https://github.com/SAP-docs/sap-btp-cloud-platform"](https://github.com/SAP-docs/sap-btp-cloud-platform")
+  keywords: [SAP BTP, Business Technology Platform, Cloud Foundry, Kyma, ABAP environment, subaccount, global account, entitlements, btp CLI, CF CLI, MTA, multi-target application, XSUAA, Cloud Identity Services, destinations, Cloud Connector, service binding, Kubernetes, serverless, RAP, CDS, CAP, CI/CD, extensions, trial account, free tier, enterprise account, CPEA, BTPEA, role collections, Neo environment, Helm, Docker, Istio, API Gateway, Eventing]
 ---
 
 # SAP BTP Cloud Platform

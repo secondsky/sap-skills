@@ -1,9 +1,6 @@
 ---
 name: sap-sac-custom-widget
-description: |
-  SAP Analytics Cloud (SAC) Custom Widget development skill. Use when building custom visualizations, interactive components, extending SAC with Web Components, or creating Widget Add-Ons to customize built-in widgets. Covers JSON metadata configuration, JavaScript Web Components, lifecycle functions, data binding with feeds, styling panels, builder panels, property/event/method definitions, custom types, script API data types, third-party library integration, hosting options, security, performance optimization, and debugging. Includes Widget Add-On feature (QRC Q4 2023+) for extending built-in widgets without creating from scratch. Provides templates for basic widgets, data-bound charts, styling panels, and KPI cards. Supports Optimized Story Experience and Analytics Designer. Prevents common errors: missing lifecycle functions, incorrect JSON schema, integrity warnings, CORS failures, property type mismatches, data binding issues, and performance anti-patterns.
-
-  Keywords: sap analytics cloud, sac custom widget, custom widget development, web component sac, json metadata widget, widget lifecycle functions, onCustomWidgetBeforeUpdate, onCustomWidgetAfterUpdate, onCustomWidgetResize, onCustomWidgetDestroy, sac data binding, widget data binding, dataBindings feeds, getDataBinding, getResultSet, styling panel widget, builder panel widget, widget properties events methods, propertiesChanged event, dispatchEvent custom widget, sac echarts integration, sac d3js integration, third party library sac, widget hosting sac, sac hosted widget, integrity hash widget, sha256 integrity, widget security cors, sac widget debugging, custom visualization sac, sac analytics designer widget, optimized story experience widget, sac widget api, widget add-on, sac script api widget, custom types enumeration, MemberInfo ResultMemberInfo Selection, widget installation admin, sac performance optimization, shadow dom web component, sac tooltip customization, plot area addon
+description: "SAP Analytics Cloud (SAC) Custom Widget development. Use when building custom visualizations, extending SAC with Web Components, or creating Widget Add-Ons. Covers JSON metadata, JavaScript Web Components, lifecycle functions, data binding with feeds, styling/builder panels, property/event/method definitions, third-party library integration, hosting, security, performance, and debugging. Includes Widget Add-On feature (QRC Q4 2023+) and templates for widgets, charts, and KPI cards."
 
 license: GPL-3.0
 metadata:
@@ -15,6 +12,7 @@ metadata:
     - "https://help.sap.com/docs/SAP_ANALYTICS_CLOUD/0ac8c6754ff84605a4372468d002f2bf/75311f67527c41638ceb89af9cd8af3e.html"
     - "https://help.sap.com/doc/c813a28922b54e50bd2a307b099787dc/release/en-US/CustomWidgetDevGuide_en.pdf"
   samples_repo: "https://github.com/SAP-samples/analytics-cloud-datasphere-community-content/tree/main/SAC_Custom_Widgets"
+  keywords: [sap analytics cloud, sac custom widget, web component sac, json metadata widget, widget lifecycle functions, onCustomWidgetBeforeUpdate, onCustomWidgetAfterUpdate, onCustomWidgetResize, onCustomWidgetDestroy, sac data binding, dataBindings feeds, styling panel widget, builder panel widget, sac echarts integration, sac d3js integration, third party library sac, widget hosting sac, integrity hash widget, sha256 integrity, widget security cors, sac widget debugging, sac analytics designer widget, optimized story experience widget, sac widget api, widget add-on, sac script api widget, shadow dom web component, sac tooltip customization, plot area addon]
 allowed-tools:
   - Read
   - Write

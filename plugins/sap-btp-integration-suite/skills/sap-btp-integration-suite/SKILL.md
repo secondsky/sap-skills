@@ -1,28 +1,7 @@
 ---
 name: sap-btp-integration-suite
-description: |
-  Develops and operates enterprise integration solutions using SAP Integration Suite on Business Technology Platform.
-  Covers Cloud Integration (iFlows), API Management, Event Mesh, Edge Integration Cell, Integration Advisor,
-  Trading Partner Management, Graph, OData Provisioning, Integration Assessment, and Migration Assessment.
+description: "Enterprise integration solutions using SAP Integration Suite on BTP. Covers Cloud Integration (iFlows), API Management, Event Mesh, Edge Integration Cell, Integration Advisor, Trading Partner Management, and Migration Assessment. Use for building integration flows, managing API proxies, event-driven architectures, B2B/EDI integrations, hybrid deployments, adapter configuration, Groovy/JavaScript message processing, and troubleshooting."
 
-  Use this skill when:
-  - Building integration flows (iFlows) to connect applications
-  - Creating, managing, or debugging API proxies and policies
-  - Implementing event-driven architectures with Event Mesh
-  - Setting up B2B/EDI integrations with Trading Partner Management
-  - Deploying hybrid integrations with Edge Integration Cell
-  - Migrating from SAP Process Orchestration (PO/PI)
-  - Configuring adapters (SFTP, HTTP, OData, RFC, AMQP, Kafka, etc.)
-  - Writing Groovy/JavaScript scripts for message processing
-  - Troubleshooting integration errors and monitoring message flows
-
-  Keywords: sap integration suite, cloud integration, cpi, scpi, sap cpi, iflow, integration flow,
-  api management, apim, api proxy, api policy, developer hub, developer portal, event mesh,
-  edge integration cell, integration advisor, trading partner management, tpm, b2b integration,
-  edi integration, migration assessment, integration assessment, isa-m, graph, odata provisioning,
-  sap btp integration, cloud platform integration, message mapping, groovy script, adapter configuration,
-  content modifier, splitter, aggregator, router, sftp adapter, http adapter, odata adapter, rfc adapter,
-  amqp adapter, kafka adapter, jms queue, data store, idempotent processing, exactly once
 
 license: GPL-3.0
 metadata:
@@ -31,6 +10,7 @@ metadata:
   documentation_source: [https://github.com/SAP-docs/sap-btp-integration-suite](https://github.com/SAP-docs/sap-btp-integration-suite)
   sap_help_portal: [https://help.sap.com/docs/integration-suite](https://help.sap.com/docs/integration-suite)
   status: production
+  keywords: [sap integration suite, cloud integration, cpi, iflow, api management, apim, event mesh, edge integration cell, integration advisor, trading partner management, b2b integration, edi integration, migration assessment, graph, odata provisioning, message mapping, groovy script, adapter configuration, sftp adapter, http adapter, odata adapter, rfc adapter, amqp adapter, kafka adapter, jms queue, data store, idempotent processing]
 
 allowed-tools:
   - Read
