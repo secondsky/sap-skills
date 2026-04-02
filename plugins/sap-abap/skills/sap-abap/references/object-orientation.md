@@ -2,6 +2,10 @@
 
 **Source**: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/04_ABAP_Object_Orientation.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/04_ABAP_Object_Orientation.md)
 
+> **Version Note**: `IS INSTANCE OF` and `CASE TYPE OF` require **7.50+**. On 7.40, use
+> `CAST` with `cx_sy_move_cast_error` handling or RTTI checks instead. All other
+> OO features (classes, interfaces, inheritance, events, friendship) are available from 7.40.
+
 ---
 
 ## Class Definition
@@ -307,10 +311,14 @@ DATA intf TYPE REF TO zif_my_interface.
 intf = NEW zcl_impl( ).
 DATA(result) = intf->process( 'input' ).
 
-" Check interface implementation
+" Check interface implementation                  " [7.50+] IS INSTANCE OF
 IF oref IS INSTANCE OF zif_my_interface.
   DATA(intf) = CAST zif_my_interface( oref ).
 ENDIF.
+
+" 7.40 alternative using RTTI:
+" DATA(type) = cl_abap_typedescr=>describe_by_object_ref( oref ).
+" IF type->is_instance_of( 'ZIF_MY_INTERFACE' ) = abap_true.
 ```
 
 ### Multiple Interfaces
@@ -362,10 +370,18 @@ processor->process( ).
 ## Type Checking and Casting
 
 ```abap
-" Check instance type
+" Check instance type                            " [7.50+] IS INSTANCE OF
 IF oref IS INSTANCE OF zcl_specific.
   " Is of type or subtype
 ENDIF.
+
+" 7.40 alternative: use CAST with error handling
+TRY.
+    DATA(specific_old) = CAST zcl_specific( general_ref ).
+    " Cast succeeded - is of type
+  CATCH cx_sy_move_cast_error.
+    " Not of type
+ENDTRY.
 
 " Safe casting with CAST
 TRY.

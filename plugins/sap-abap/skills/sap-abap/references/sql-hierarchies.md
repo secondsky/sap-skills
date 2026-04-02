@@ -2,6 +2,10 @@
 
 **Source**: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/10_ABAP_SQL_Hierarchies.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/10_ABAP_SQL_Hierarchies.md)
 
+> **Version Note**: SQL hierarchies require CTEs (`WITH`) which are available from **7.51+**.
+> `FINAL(...)` in code examples requires **7.50+** — replace with `DATA(...)` on 7.40.
+> Hierarchy navigators are available from **7.51+**.
+
 ---
 
 ## CTE Hierarchies

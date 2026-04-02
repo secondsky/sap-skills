@@ -2,6 +2,9 @@
 
 **Source**: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/24_Builtin_Functions.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/24_Builtin_Functions.md)
 
+> **Version Note**: `utclong` functions (`utclong_current`, `utclong_add`, `utclong_diff`)
+> require **7.54+**. All other built-in functions are available from 7.40 SP02+.
+
 ---
 
 ## String Functions

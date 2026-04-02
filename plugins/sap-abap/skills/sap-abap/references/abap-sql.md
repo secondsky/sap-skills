@@ -2,6 +2,14 @@
 
 **Source**: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/03_ABAP_SQL.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/03_ABAP_SQL.md)
 
+> **Version Note**: Features annotated with `[7.xx+]` require the specified ABAP release.
+> All unmarked features are available from 7.40 SP05+. Key version boundaries:
+> - `@` host variables, comma syntax, SQL expressions: **7.40 SP05+**
+> - `dbtab~*`, inline declarations in INTO, `RIGHT OUTER JOIN`: **7.40 SP08+**
+> - Host expressions `@(...)`, `UNION`: **7.50+**
+> - `WITH` (CTEs), `OFFSET`, `UPPER`/`LOWER`/`CONCAT_WITH_SPACE`/`LEFT`/`RIGHT`: **7.51+**
+> - `FROM @itab` (internal table as data source): **7.52+**
+
 ## Table of Contents
 
 1. [SELECT Statement Syntax](#select-statement-syntax)
@@ -58,7 +66,7 @@ ENDSELECT.
 " UP TO n ROWS
 SELECT * FROM zdemo_abap_fli INTO TABLE @DATA(first_10) UP TO 10 ROWS.
 
-" OFFSET (skip rows)
+" OFFSET (skip rows)                                         " [7.51+]
 SELECT * FROM zdemo_abap_fli INTO TABLE @DATA(page2)
   UP TO 10 ROWS OFFSET 10.
 ```
@@ -242,7 +250,7 @@ SELECT a~carrid, a~connid, b~carrname
   INTO TABLE @DATA(flights_with_carrier).
 
 " Multiple conditions
-SELECT f~*, c~carrname
+SELECT f~*, c~carrname                                      " [7.40 SP08+] f~*
   FROM zdemo_abap_fli AS f
   INNER JOIN zdemo_abap_carr AS c
     ON f~carrid = c~carrid
@@ -263,6 +271,7 @@ SELECT c~carrid, c~carrname, f~connid, f~fldate
 ### RIGHT OUTER JOIN
 
 ```abap
+" RIGHT OUTER JOIN                                        " [7.40 SP05+]
 " Returns all from right, matched from left (or NULL)
 SELECT c~carrid, c~carrname, f~connid, f~fldate
   FROM zdemo_abap_fli AS f
@@ -274,7 +283,7 @@ SELECT c~carrid, c~carrname, f~connid, f~fldate
 ### CROSS JOIN
 
 ```abap
-" Cartesian product
+" Cartesian product                                         " [7.51+]
 SELECT a~id AS a_id, b~id AS b_id
   FROM table_a AS a
   CROSS JOIN table_b AS b
@@ -344,6 +353,9 @@ SELECT carrid, connid,
 
 ## Common Table Expressions (CTE)
 
+> **[7.51+]** `WITH` statements require ABAP 7.51 or higher. On 7.40, use subqueries
+> or temporary tables instead.
+
 ```abap
 " WITH ... AS
 WITH
@@ -404,13 +416,13 @@ SELECT carrid, price,
 ```abap
 SELECT
   CONCAT( first_name, last_name ) AS full_name,
-  CONCAT_WITH_SPACE( first_name, last_name, 1 ) AS spaced_name,
+  CONCAT_WITH_SPACE( first_name, last_name, 1 ) AS spaced_name,  " [7.51+]
   LENGTH( description ) AS desc_length,
-  LEFT( code, 2 ) AS prefix,
-  RIGHT( code, 2 ) AS suffix,
+  LEFT( code, 2 ) AS prefix,                                    " [7.51+]
+  RIGHT( code, 2 ) AS suffix,                                   " [7.51+]
   SUBSTRING( text, 1, 10 ) AS excerpt,
-  UPPER( name ) AS upper_name,
-  LOWER( name ) AS lower_name,
+  UPPER( name ) AS upper_name,                                  " [7.51+]
+  LOWER( name ) AS lower_name,                                  " [7.51+]
   LTRIM( text, ' ' ) AS left_trimmed,
   RTRIM( text, ' ' ) AS right_trimmed,
   REPLACE( text, 'old', 'new' ) AS replaced,
@@ -468,7 +480,7 @@ INTO TABLE @DATA(null_handled).
 
 ```abap
 " Single row
-INSERT zdemo_abap_carr FROM @( VALUE #( carrid = 'XX' carrname = 'Test' ) ).
+INSERT zdemo_abap_carr FROM @( VALUE #( carrid = 'XX' carrname = 'Test' ) ).  " [7.50+]
 
 " From structure
 INSERT dbtab FROM @struc.
@@ -550,7 +562,7 @@ UPDATE dbtab FROM @struc INDICATORS SET STRUCTURE ind.
 ```abap
 " USING CLIENT (specific client)
 SELECT * FROM dbtab
-  USING CLIENT @( '100' )
+  USING CLIENT @( '100' )                                       " [7.50+]
   INTO TABLE @DATA(client100_data).
 
 " USING ALL CLIENTS (cross-client)

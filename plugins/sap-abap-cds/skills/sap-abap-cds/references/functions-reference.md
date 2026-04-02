@@ -4,6 +4,12 @@ Complete reference for all built-in functions available in ABAP CDS views.
 
 **Source**: [https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abencds_f1_builtin_functions.htm](https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abencds_f1_builtin_functions.htm)
 
+> **Version Note**: `concat()`, `substring()`, `replace()`, `length()` are available from
+> **7.40 SP08**. `upper()` and `lower()` require **7.51+**. Date/time conversion functions
+> (`tstmp_to_dats`, `dats_tims_to_tstmp`, etc.) require **7.51+**. Currency/unit conversion
+> functions are available from **7.40 SP08**. Numeric functions (`abs`, `ceil`, `floor`,
+> `round`, `division`) are available from **7.40 SP08**.
+
 ---
 
 ## String Functions

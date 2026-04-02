@@ -9,8 +9,12 @@ description: |
   ABAP and modern ABAP for Cloud Development patterns.
 license: GPL-3.0
 metadata:
-  version: "1.0.0"
-  last_updated: "2025-11-22"
+  version: "1.1.0"
+  last_updated: "2026-04-02"
+  abap_release: "7.40 SP08+ / 7.50+ / ABAP Cloud"
+  sources:
+    - "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/index.htm"
+    - "https://github.com/SAP-samples/abap-cheat-sheets"
 ---
 
 # SAP ABAP Development Skill
@@ -23,7 +27,56 @@ metadata:
 - **sap-fiori-tools**: Use when building Fiori applications with ABAP backends or consuming OData services from ABAP systems
 - **sap-api-style**: Use when documenting ABAP APIs or following SAP API documentation standards
 
+## Version Compatibility
+
+This skill covers ABAP syntax from **7.40 SP08** through **ABAP Cloud**. Features requiring
+a higher release are annotated with inline comments in code examples using the format
+`" [7.xx+]` or noted in reference files. The table below summarizes the key version boundaries.
+
+| Feature | 7.40 SP02 | 7.40 SP05 | 7.40 SP08 | 7.50 | 7.51 | 7.52 | 7.54 |
+|---------|:---------:|:---------:|:---------:|:----:|:----:|:----:|:----:|
+| Inline declarations `DATA(...)` | x | x | x | x | x | x | x |
+| Constructor operators (VALUE, NEW, CONV, COND, SWITCH, REF, EXACT, CAST) | x | x | x | x | x | x | x |
+| Table expressions `itab[...]` | x | x | x | x | x | x | x |
+| String templates | x | x | x | x | x | x | x |
+| `WITH EMPTY KEY` | x | x | x | x | x | x | x |
+| `line_exists()`, `line_index()` | x | x | x | x | x | x | x |
+| ABAP SQL: `@` host variables | | x | x | x | x | x | x |
+| ABAP SQL: comma-separated lists | | x | x | x | x | x | x |
+| ABAP SQL: SQL expressions in SELECT | | x | x | x | x | x | x |
+| `CORRESPONDING` operator | | x | x | x | x | x | x |
+| Table comprehensions (`FOR`) | | x | x | x | x | x | x |
+| `LET` expressions | | x | x | x | x | x | x |
+| `REDUCE` operator | | | x | x | x | x | x |
+| `FILTER` operator | | | x | x | x | x | x |
+| `BASE` addition | | | x | x | x | x | x |
+| `LOOP AT ... GROUP BY` | | | x | x | x | x | x |
+| ABAP SQL: `dbtab~*` in SELECT | | | x | x | x | x | x |
+| ABAP SQL: `RIGHT OUTER JOIN` | | x | x | x | x | x | x |
+| CDS views with parameters | | | x | x | x | x | x |
+| **`FINAL(...)` inline declaration** | | | | x | x | x | x |
+| **Host expressions `@( expr )`** | | | | x | x | x | x |
+| **`UNION` in SELECT** | | | | x | x | x | x |
+| **`IS INSTANCE OF` / `CASE TYPE OF`** | | | | x | x | x | x |
+| **`int8` type** | | | | x | x | x | x |
+| **CDS table functions** | | | | x | x | x | x |
+| **CDS access control (implicit)** | | | | x | x | x | x |
+| **`$session.user/client/system_language`** | | | | x | x | x | x |
+| **Test seams (`TEST-SEAM`)** | | | | x | x | x | x |
+| **Common Table Expressions (`WITH`)** | | | | | x | x | x |
+| **`OFFSET` in SELECT** | | | | | x | x | x |
+| **`UPPER`/`LOWER` in CDS** | | | | | x | x | x |
+| **Enumerated types** | | | | | x | x | x |
+| **Internal tables as data source `FROM @itab`** | | | | | | x | x |
+| **`WITH PRIVILEGED ACCESS`** | | | | | | x | x |
+| **`utclong` type and functions** | | | | | | | x |
+
+**On a 7.40 system**: Replace any `FINAL(...)` with `DATA(...)`, and avoid 7.50+ features
+marked in bold above. Most modern ABAP syntax (VALUE, NEW, CONV, inline declarations,
+table expressions, REDUCE, FILTER, GROUP BY) is available since 7.40 SP08.
+
 ## Table of Contents
+- [Version Compatibility](#version-compatibility)
 - [Quick Reference](#quick-reference)
 - [Bundled Resources](#bundled-resources)
 - [Common Patterns](#common-patterns)
@@ -43,7 +96,7 @@ DATA flag TYPE abap_bool VALUE abap_true.
 
 " Inline declarations
 DATA(result) = some_method( ).
-FINAL(immutable) = `constant value`.
+FINAL(immutable) = `constant value`.              " [7.50+] Use DATA(...) on 7.40
 
 " Structures
 DATA: BEGIN OF struc,
@@ -88,10 +141,10 @@ DELETE TABLE itab FROM VALUE #( col1 = 1 ).
 
 ```abap
 " SELECT into table
-SELECT * FROM dbtab INTO TABLE @DATA(result_tab).
+SELECT * FROM dbtab INTO TABLE @DATA(result_tab).   " @ syntax: 7.40 SP05+
 
 " SELECT with conditions
-SELECT carrid, connid, fldate
+SELECT carrid, connid, fldate                          " comma syntax: 7.40 SP05+
   FROM zdemo_abap_fli
   WHERE carrid = 'LH'
   INTO TABLE @DATA(flights).
@@ -332,6 +385,36 @@ out->write( result ).
 " Avoid: sy-datum, sy-uzeit, DESCRIBE TABLE, WRITE, MOVE...TO
 ```
 
+### ABAP 7.40 Compatibility
+
+When targeting ABAP 7.40 systems, replace 7.50+ syntax with these patterns:
+
+```abap
+" Instead of FINAL (7.50+):
+FINAL(value) = `constant`.              " 7.50+
+DATA(value) = `constant`.               " 7.40 compatible
+
+" Instead of host expressions (7.50+):
+SELECT * FROM dbtab WHERE col = @( lv_val ).   " 7.50+
+SELECT * FROM dbtab WHERE col = @lv_val.        " 7.40 compatible
+
+" Instead of UNION (7.50+):
+SELECT a FROM tab1 UNION SELECT a FROM tab2.    " 7.50+
+" Use two separate SELECTs on 7.40 and combine in ABAP:
+SELECT a FROM tab1 INTO TABLE @DATA(r1).
+SELECT a FROM tab2 INTO TABLE @DATA(r2).
+DATA(combined) = VALUE itab_type( FOR l1 IN r1 ( l1 )
+                                  FOR l2 IN r2 ( l2 ) ).
+
+" Instead of IS INSTANCE OF (7.50+):
+IF oref IS INSTANCE OF zcl_my_class.    " 7.50+
+IF CAST object( oref ) IS BOUND.        " 7.40 alternative (less precise)
+
+" Instead of CTEs WITH (7.51+):
+WITH +cte AS ( SELECT ... ) SELECT ...  " 7.51+
+" Use subqueries or temporary tables on 7.40
+```
+
 ---
 
 ## Error Catalog
@@ -373,4 +456,6 @@ out->write( result ).
 
 All content based on SAP official ABAP Cheat Sheets:
 - Repository: [https://github.com/SAP-samples/abap-cheat-sheets](https://github.com/SAP-samples/abap-cheat-sheets)
-- SAP Help: [https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/index.htm](https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/index.htm)
+- SAP Help (latest): [https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/index.htm](https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/index.htm)
+- SAP Help (7.40): [https://help.sap.com/doc/abapdocu_740_index_htm/7.40/en-US/index.htm](https://help.sap.com/doc/abapdocu_740_index_htm/7.40/en-US/index.htm)
+- ABAP Release News: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/33_ABAP_Release_News.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/33_ABAP_Release_News.md)

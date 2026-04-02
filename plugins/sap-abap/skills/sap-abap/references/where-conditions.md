@@ -2,6 +2,10 @@
 
 **Source**: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/31_WHERE_Conditions.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/31_WHERE_Conditions.md)
 
+> **Version Note**: `SELECT FROM @itab` (internal table as data source) requires **7.52+**.
+> `IS INSTANCE OF` in WHERE requires **7.50+**. On 7.40, use `FOR ALL ENTRIES` instead
+> of `FROM @itab`, and RTTI checks instead of `IS INSTANCE OF`.
+
 ---
 
 ## ABAP SQL WHERE Conditions

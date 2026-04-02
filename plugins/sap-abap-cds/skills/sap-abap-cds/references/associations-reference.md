@@ -4,6 +4,10 @@ Complete reference for defining and using associations in ABAP CDS views.
 
 **Source**: [https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-us/abencds_f1_association.htm](https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-us/abencds_f1_association.htm)
 
+> **Version Note**: Associations with explicit join type (`INNER`, `LEFT OUTER`) are available
+> from **7.40 SP08**. New cardinality syntax (`association to one`/`to many`) requires
+> **7.57+** / S/4HANA Cloud Release 2302+. On 7.40, use bracket notation `[0..1]`, `[1..*]`.
+
 ---
 
 ## What Are Associations?

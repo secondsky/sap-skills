@@ -2,6 +2,10 @@
 
 **Source**: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/13_Program_Flow_Logic.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/13_Program_Flow_Logic.md)
 
+> **Version Note**: `IS INSTANCE OF` and `CASE TYPE OF` require **7.50+**.
+> On 7.40, use RTTI (`cl_abap_typedescr=>describe_by_object_ref`) or
+> `CAST` with exception handling. All other flow control is available from 7.40+.
+
 ---
 
 ## IF Statements

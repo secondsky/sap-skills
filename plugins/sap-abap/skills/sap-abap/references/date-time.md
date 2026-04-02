@@ -2,6 +2,11 @@
 
 **Source**: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/23_Date_and_Time.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/23_Date_and_Time.md)
 
+> **Version Note**: The `utclong` type and its associated functions (`utclong_current()`,
+> `utclong_add()`, `utclong_diff()`) require **7.54+**. On earlier releases, use
+> `TIMESTAMP`/`TIMESTAMPL` types with `GET TIME STAMP` and `cl_abap_tstmp` methods.
+> Types `d` and `t` and their operations are available in all releases.
+
 ---
 
 ## Core Data Types

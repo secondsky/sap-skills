@@ -2,6 +2,10 @@
 
 **Source**: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/22_Released_ABAP_Classes.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/22_Released_ABAP_Classes.md)
 
+> **Version Note**: Released ABAP classes are primarily for **ABAP Cloud** development.
+> `int8` type and `cl_abap_bigint=>factory_from_int8` require **7.50+**. On 7.40,
+> use type `i` or `p` for integer operations.
+
 ---
 
 ## Overview

@@ -2,6 +2,9 @@
 
 **Source**: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/07_String_Processing.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/07_String_Processing.md)
 
+> **Version Note**: `FINAL(...)` requires **7.50+** — use `DATA(...)` on 7.40.
+> All string functions and templates are available from 7.40 SP02+.
+
 ## Table of Contents
 
 1. [String Data Types](#string-data-types)

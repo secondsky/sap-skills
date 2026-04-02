@@ -77,8 +77,22 @@ sap-abap/
 
 ## Last Updated
 
-- **Skill Version**: 1.0.0
-- **Last Updated**: 2025-11-22
-- **ABAP Release**: Latest (7.5x / Cloud)
+- **Skill Version**: 1.1.0
+- **Last Updated**: 2026-04-02
+- **ABAP Release**: 7.40 SP08+ / 7.50+ / ABAP Cloud
 - **Reference Files**: 28
 - **Total Lines**: ~25,000 across all reference files
+
+## Version Compatibility
+
+This skill targets ABAP 7.40 SP08 and above. Features requiring higher releases are
+annotated in individual reference files. Key boundaries:
+
+- **7.40 SP02**: Inline declarations, constructor expressions, table expressions, string templates
+- **7.40 SP05**: `@` host variables, comma syntax, SQL expressions, `CORRESPONDING`, `LET`, `FOR`
+- **7.40 SP08**: `REDUCE`, `FILTER`, `BASE`, `GROUP BY` for internal tables, CDS parameters
+- **7.50**: `FINAL(...)`, host expressions `@(...)`, `UNION`, `IS INSTANCE OF`, CDS table functions
+- **7.51**: CTEs (`WITH`), `OFFSET`, `UPPER`/`LOWER` in SQL, enumerated types
+- **7.52**: `FROM @itab`, `WITH PRIVILEGED ACCESS`, virtual sort
+
+See the Version Compatibility table in SKILL.md for the complete feature matrix.
