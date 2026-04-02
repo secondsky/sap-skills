@@ -65,8 +65,7 @@ echo ""
 failed_count=0
 passed_count=0
 
-while IFS= read -r plugin_json; do
-    if [ -z "$plugin_json" ]; then continue; fi
+echo "$plugin_files" | while IFS= read -r plugin_json; do
 
     plugin_name=$(basename "$(dirname "$(dirname "$plugin_json")")")
 
@@ -93,7 +92,7 @@ while IFS= read -r plugin_json; do
         failed_count=$((failed_count + 1))
         VALIDATION_FAILED=1
     fi
-done <<< "$plugin_files"
+done
 
 echo ""
 echo "═══════════════════════════════════════"

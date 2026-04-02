@@ -144,7 +144,7 @@ validate_skill() {
   local desc_text
   desc_text=$(echo "$frontmatter" | awk '
     /^description:/ { flag=1; sub(/^description:[[:space:]]*/, ""); print; next }
-    flag && /^[a-z-]+:/ { flag=0 }
+    flag && /^[a-z][a-z0-9-]*:/ { flag=0 }
     flag && /^  / { sub(/^  /, ""); print }
   ')
 
