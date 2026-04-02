@@ -5,7 +5,8 @@
 > **Version Note**: Features annotated with `[7.xx+]` require the specified ABAP release.
 > All unmarked features are available from 7.40 SP05+. Key version boundaries:
 > - `@` host variables, comma syntax, SQL expressions: **7.40 SP05+**
-> - `dbtab~*`, inline declarations in INTO, `RIGHT OUTER JOIN`: **7.40 SP08+**
+> - `dbtab~*`, inline declarations in INTO: **7.40 SP08+**
+> - `RIGHT OUTER JOIN`: **7.40 SP05+**
 > - Host expressions `@(...)`, `UNION`: **7.50+**
 > - `WITH` (CTEs), `OFFSET`, `UPPER`/`LOWER`/`CONCAT_WITH_SPACE`/`LEFT`/`RIGHT`: **7.51+**
 > - `FROM @itab` (internal table as data source): **7.52+**

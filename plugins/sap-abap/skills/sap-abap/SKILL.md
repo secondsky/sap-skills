@@ -10,7 +10,7 @@ description: |
 license: GPL-3.0
 metadata:
   version: "1.1.0"
-  last_updated: "2026-04-02"
+  last_verified: "2026-04-02"
   abap_release: "7.40 SP08+ / 7.50+ / ABAP Cloud"
   sources:
     - "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/index.htm"
@@ -408,7 +408,12 @@ DATA(combined) = VALUE itab_type( FOR l1 IN r1 ( l1 )
 
 " Instead of IS INSTANCE OF (7.50+):
 IF oref IS INSTANCE OF zcl_my_class.    " 7.50+
-IF CAST object( oref ) IS BOUND.        " 7.40 alternative (less precise)
+" 7.40 alternative — use typed CAST with exception handling:
+TRY.
+    DATA(lo) = CAST zcl_my_class( oref ).  " 7.40+
+  CATCH cx_sy_move_cast_error.
+    " oref is not compatible with zcl_my_class
+ENDTRY.
 
 " Instead of CTEs WITH (7.51+):
 WITH +cte AS ( SELECT ... ) SELECT ...  " 7.51+

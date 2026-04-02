@@ -33,8 +33,9 @@ This skill covers CDS features from **7.40 SP8** through **ABAP Cloud**. Key ver
 | CDS View (`DEFINE VIEW`) | x | x | x | x |
 | CDS associations, parameters, built-in functions | x | x | x | x |
 | CDS Table Functions (`DEFINE TABLE FUNCTION`) | | x | x | x |
+| CDS Access Control (DEFINE ROLE / pfcg_auth) | x | x | x | x |
 | CDS Access Control (implicit evaluation) | | x | x | x |
-| Session variables (`$session.user/client/system_language`) | | x | x | x |
+| Session variables (`$session.user/client/system_language`) | x | x | x | x |
 | `@Environment.systemField` annotation | | x | x | x |
 | `UPPER`/`LOWER` functions | | | x | x |
 | `$session.system_date` | | | x | x |
@@ -43,9 +44,11 @@ This skill covers CDS features from **7.40 SP8** through **ABAP Cloud**. Key ver
 | **CDS View Entity (`DEFINE VIEW ENTITY`)** | | | | x |
 | New cardinality syntax (`to one`/`to many`) | | | | 7.57+ |
 
-**On a 7.40 system**: Use `DEFINE VIEW` (not `DEFINE VIEW ENTITY`). CDS table functions,
-access control, and session variables are **not available** before 7.50. The templates
-in `templates/` include both classic CDS View and View Entity variants.
+**On a 7.40 system**: Use `DEFINE VIEW` (not `DEFINE VIEW ENTITY`). CDS table functions
+are **not available** before 7.50. Basic DCL (`DEFINE ROLE` with `pfcg_auth`) is available
+from 7.40 SP08, but implicit role evaluation in ABAP SQL requires 7.50+.
+`$session.user/client/system_language` are available from 7.40 SP08.
+The templates in `templates/` include both classic CDS View and View Entity variants.
 
 ## Table of Contents
 - [1. CDS View Fundamentals](#1-cds-view-fundamentals)
@@ -213,13 +216,13 @@ amount / 100 as Percentage,
 ### Session Variables
 
 **Available system variables** (SY fields equivalent):
-- `$session.user` (SY-UNAME) - Current user **[7.50+]**
-- `$session.client` (SY-MANDT) - Client **[7.50+]**
-- `$session.system_language` (SY-LANGU) - Language **[7.50+]**
+- `$session.user` (SY-UNAME) - Current user **[7.40 SP08+]**
+- `$session.client` (SY-MANDT) - Client **[7.40 SP08+]**
+- `$session.system_language` (SY-LANGU) - Language **[7.40 SP08+]**
 - `$session.system_date` (SY-DATUM) - Current date **[7.51+]**
 
-> **Note**: Session variables require ABAP 7.50+. On 7.40, pass values via
-> input parameters with `@Environment.systemField` (7.50+) or host variables.
+> **Note**: `$session.user/client/system_language` are available from 7.40 SP08.
+> `$session.system_date` requires 7.51+. `@Environment.systemField` requires 7.50+.
 
 **Complete Reference**: See `references/expressions-reference.md` for all system variables.
 
@@ -240,8 +243,8 @@ CDS provides comprehensive built-in functions for string, numeric, and date oper
 - **Date Functions**: dats_add_days(), dats_add_months(), dats_days_between()
 - **CAST Expression**: Convert between ABAP data types
 
-> **Note**: `upper()` and `lower()` in CDS require **7.51+**. On 7.40/7.50, handle
-> case conversion in ABAP after selecting, or use `CONCAT` (7.40 SP08+).
+> **Note**: `upper()` and `lower()` in CDS require **7.51+**. On 7.40/7.50, case
+> conversion must be performed in ABAP after selecting (there is no CDS equivalent).
 
 **Complete Reference**: See `references/functions-reference.md` for all 50+ functions with examples.
 

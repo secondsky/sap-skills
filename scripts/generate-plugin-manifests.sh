@@ -252,7 +252,11 @@ extract_yaml_field() {
           }
         }
       }
-      END { print desc }
+      END {
+        gsub(/^"/, "", desc)
+        gsub(/"$/, "", desc)
+        print desc
+      }
     ')
   else
     value=$(echo "$yaml_content" | grep "^${field}:" | sed "s/^${field}:[[:space:]]*//" | tr -d '"' || true)
