@@ -2,6 +2,10 @@
 
 **Source**: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/30_Generative_AI.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/30_Generative_AI.md)
 
+> **Version Note**: The ABAP AI SDK requires **ABAP Cloud** (SAP BTP ABAP Environment or
+> S/4HANA Cloud). Not available on 7.40 on-premise systems. `FINAL(...)` in examples
+> requires **7.50+** — replace with `DATA(...)` on earlier releases.
+
 ---
 
 ## Overview

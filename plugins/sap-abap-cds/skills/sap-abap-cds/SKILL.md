@@ -3,9 +3,9 @@ name: sap-abap-cds
 description: "Comprehensive SAP ABAP CDS (Core Data Services) reference for data modeling, view development, and semantic enrichment. Use when creating CDS views or view entities, defining data models with annotations, working with associations and cardinality, implementing input parameters, using built-in functions, writing CASE expressions, implementing access control with DCL, handling CURR/QUAN data types, troubleshooting CDS errors, querying CDS views from ABAP, or displaying data with SALV IDA. Covers ABAP 7.4+ through ABAP Cloud."
 license: GPL-3.0
 metadata:
-  version: "1.0.0"
-  last_verified: "2025-11-23"
-  abap_release: "7.4 SP8+ / ABAP Cloud"
+  version: "1.1.0"
+  last_verified: "2026-04-02"
+  abap_release: "7.4 SP8+ / 7.50+ / ABAP Cloud"
   sources:
     - "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abencds.html"
     - "https://github.com/SAP-samples/abap-cheat-sheets"
@@ -23,6 +23,32 @@ metadata:
 - **sap-api-style**: Use when documenting CDS-based OData services or following API documentation standards
 
 **Quick Reference**: [https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abencds.html](https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abencds.html) | SAP Cheat Sheets: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/15_CDS_View_Entities.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/15_CDS_View_Entities.md)
+
+## Version Compatibility
+
+This skill covers CDS features from **7.40 SP8** through **ABAP Cloud**. Key version boundaries:
+
+| Feature | 7.40 SP8 | 7.50 | 7.51 | 7.55+ |
+|---------|:--------:|:----:|:----:|:-----:|
+| CDS View (`DEFINE VIEW`) | x | x | x | x |
+| CDS associations, parameters, built-in functions | x | x | x | x |
+| CDS Table Functions (`DEFINE TABLE FUNCTION`) | | x | x | x |
+| CDS Access Control (DEFINE ROLE / pfcg_auth) | x | x | x | x |
+| CDS Access Control (implicit evaluation) | | x | x | x |
+| Session variables (`$session.user/client/system_language`) | x | x | x | x |
+| `@Environment.systemField` annotation | | x | x | x |
+| `UPPER`/`LOWER` functions | | | x | x |
+| `$session.system_date` | | | x | x |
+| CDS Metadata Extensions (`ANNOTATE VIEW`) | | | x | x |
+| Cross Join in CDS | | | x | x |
+| **CDS View Entity (`DEFINE VIEW ENTITY`)** | | | | x |
+| New cardinality syntax (`to one`/`to many`) | | | | 7.57+ |
+
+**On a 7.40 system**: Use `DEFINE VIEW` (not `DEFINE VIEW ENTITY`). CDS table functions
+are **not available** before 7.50. Basic DCL (`DEFINE ROLE` with `pfcg_auth`) is available
+from 7.40 SP08, but implicit role evaluation in ABAP SQL requires 7.50+.
+`$session.user/client/system_language` are available from 7.40 SP08.
+The templates in `templates/` include both classic CDS View and View Entity variants.
 
 ## Table of Contents
 - [1. CDS View Fundamentals](#1-cds-view-fundamentals)
@@ -190,10 +216,13 @@ amount / 100 as Percentage,
 ### Session Variables
 
 **Available system variables** (SY fields equivalent):
-- `$session.user` (SY-UNAME) - Current user
-- `$session.client` (SY-MANDT) - Client
-- `$session.system_language` (SY-LANGU) - Language
-- `$session.system_date` (SY-DATUM) - Current date
+- `$session.user` (SY-UNAME) - Current user **[7.40 SP08+]**
+- `$session.client` (SY-MANDT) - Client **[7.40 SP08+]**
+- `$session.system_language` (SY-LANGU) - Language **[7.40 SP08+]**
+- `$session.system_date` (SY-DATUM) - Current date **[7.51+]**
+
+> **Note**: `$session.user/client/system_language` are available from 7.40 SP08.
+> `$session.system_date` requires 7.51+. `@Environment.systemField` requires 7.50+.
 
 **Complete Reference**: See `references/expressions-reference.md` for all system variables.
 
@@ -213,6 +242,9 @@ CDS provides comprehensive built-in functions for string, numeric, and date oper
 - **Numeric Functions**: abs(), ceil(), floor(), round(), division()
 - **Date Functions**: dats_add_days(), dats_add_months(), dats_days_between()
 - **CAST Expression**: Convert between ABAP data types
+
+> **Note**: `upper()` and `lower()` in CDS require **7.51+**. On 7.40/7.50, case
+> conversion must be performed in ABAP after selecting (there is no CDS equivalent).
 
 **Complete Reference**: See `references/functions-reference.md` for all 50+ functions with examples.
 
@@ -250,10 +282,10 @@ inner join makt as t on m.matnr = t.matnr
 -- LEFT OUTER JOIN (all from left, matching from right)
 left outer join marc as c on m.matnr = c.matnr
 
--- RIGHT OUTER JOIN (all from right, matching from left)
+-- RIGHT OUTER JOIN (all from right, matching from left)  -- [7.51+]
 right outer join mvke as v on m.matnr = v.matnr
 
--- CROSS JOIN (cartesian product)
+-- CROSS JOIN (cartesian product)                         -- [7.51+]
 cross join t001 as co
 ```
 
@@ -513,8 +545,9 @@ For templates, see `templates/`:
 
 **Update this skill by checking**:
 - [https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abencds.html](https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abencds.html) (ABAP Cloud)
+- [https://help.sap.com/doc/abapdocu_740_index_htm/7.40/en-US/index.htm](https://help.sap.com/doc/abapdocu_740_index_htm/7.40/en-US/index.htm) (7.40 Reference)
 - [https://help.sap.com/docs/SAP_NETWEAVER_AS_ABAP_752/f2e545608079437ab165c105649b89db/7c078765ec6d4e6b88b71bdaf8a2bd9f.html](https://help.sap.com/docs/SAP_NETWEAVER_AS_ABAP_752/f2e545608079437ab165c105649b89db/7c078765ec6d4e6b88b71bdaf8a2bd9f.html) (NetWeaver 7.52 User Guide)
 - [https://github.com/SAP-samples/abap-cheat-sheets](https://github.com/SAP-samples/abap-cheat-sheets)
-- [https://community.sap.com/t5/tag/CDS%20Views/tg-p](https://community.sap.com/t5/tag/CDS%20Views/tg-p)
+- [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/33_ABAP_Release_News.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/33_ABAP_Release_News.md) (Release News)
 
-**Last Verified**: 2025-11-23
+**Last Verified**: 2026-04-02

@@ -4,6 +4,11 @@ Complete reference for implementing access control in ABAP CDS using DCL (Data C
 
 **Source**: [https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abencds_authorizations.htm](https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abencds_authorizations.htm)
 
+> **Version Note**: CDS access control with implicit role evaluation in ABAP SQL requires
+> **7.50+**. Basic DCL (`DEFINE ROLE` with `pfcg_auth`) is available from **7.40 SP08**.
+> Full access rules, inherited access rules, and user conditions require **7.51+**.
+> On 7.40, DCL roles are defined but not automatically enforced in ABAP SQL.
+
 ---
 
 ## Overview

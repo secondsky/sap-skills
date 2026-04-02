@@ -1,7 +1,7 @@
 {
   "name": "sap-datasphere",
   "description": "SAP Datasphere development skill with 3 specialized agents, 5 slash commands, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections, managing spaces and users, implementing data access controls, or using the datasphere CLI. Covers Data Builder, Business Builder, analytic models, 40+ connection types, real-time replication, task chains, content transport, and data marketplace.",
-  "version": "2.1.8",
+  "version": "2.2.0",
   "author": {
     "name": "E.J.",
     "email": "maintainers@example.com"

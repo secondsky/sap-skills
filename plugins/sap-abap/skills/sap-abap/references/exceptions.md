@@ -308,6 +308,9 @@ ENDCLASS.
 
 ### IF_T100_DYN_MSG Interface (Recommended)
 
+> **[7.50+]** `IF_T100_DYN_MSG` and the `MESSAGE` addition to `RAISE EXCEPTION`/`THROW`
+> require ABAP 7.50 or higher. On 7.40, use `IF_T100_MESSAGE` with explicit `textid` instead.
+
 ```abap
 " With MESSAGE addition
 RAISE EXCEPTION TYPE zcx_error

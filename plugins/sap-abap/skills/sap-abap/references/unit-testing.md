@@ -2,6 +2,10 @@
 
 **Source**: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/14_ABAP_Unit_Tests.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/14_ABAP_Unit_Tests.md)
 
+> **Version Note**: Test seams (`TEST-SEAM`/`TEST-INJECTION`) require **7.50+**.
+> Test relations (`@testing` ABAP Doc) require **7.52+**. All other ABAP Unit
+> features are available from 7.40+.
+
 ---
 
 ## Test Class Structure

@@ -4,6 +4,10 @@ Complete reference for expressions, operators, and conditional logic in ABAP CDS
 
 **Source**: [https://discoveringabap.com/2021/10/13/exploring-abap-on-hana-7-expressions-operations-in-cds-views/](https://discoveringabap.com/2021/10/13/exploring-abap-on-hana-7-expressions-operations-in-cds-views/)
 
+> **Version Note**: `$session.user`, `$session.client`, `$session.system_language` require **7.40 SP08**.
+> `$session.system_date` requires **7.51+**. CASE, arithmetic, and CAST expressions
+> are available from **7.40 SP08**.
+
 ---
 
 ## Projection List Elements

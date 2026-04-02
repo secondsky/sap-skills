@@ -2,6 +2,10 @@
 
 **Source**: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/29_Numeric_Operations.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/29_Numeric_Operations.md)
 
+> **Version Note**: The `int8` type requires **7.50+**. `utclong_add()` requires **7.54+**.
+> Use type `i` or `p` for large integers on 7.40. All other numeric operations are
+> available from 7.40+.
+
 ---
 
 ## Numeric Types

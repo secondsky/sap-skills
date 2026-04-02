@@ -2,6 +2,11 @@
 
 **Source**: [https://github.com/SAP-samples/abap-cheat-sheets/blob/main/05_Constructor_Expressions.md](https://github.com/SAP-samples/abap-cheat-sheets/blob/main/05_Constructor_Expressions.md)
 
+> **Version Note**: All constructor operators (VALUE, NEW, CONV, COND, SWITCH, REF, EXACT,
+> CAST, CORRESPONDING) are available since **7.40 SP02**. REDUCE and FILTER require
+> **7.40 SP08**. The `FINAL` inline declaration requires **7.50+** — use `DATA` on 7.40.
+> LET expressions require **7.40 SP05+**. BASE, LINES OF, OPTIONAL/DEFAULT require **7.40 SP08+**.
+
 ## Table of Contents
 
 1. [VALUE Operator](#value-operator)
