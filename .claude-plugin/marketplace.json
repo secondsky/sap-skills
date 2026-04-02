@@ -46,7 +46,7 @@
     {
       "name": "sap-abap-cds",
       "source": "./plugins/sap-abap-cds",
-      "description": "\"Comprehensive SAP ABAP CDS (Core Data Services) reference for data modeling, view development, and semantic enrichment. Use when creating CDS views or view entities, defining data models with annotations, working with associations and cardinality, implementing input parameters, using built-in functions, writing CASE expressions, implementing access control with DCL, handling CURR/QUAN data types, troubleshooting CDS errors, querying CDS views from ABAP, or displaying data with SALV IDA. Covers ABAP 7.4+ through ABAP Cloud.\"",
+      "description": "Comprehensive SAP ABAP CDS (Core Data Services) reference for data modeling, view development, and semantic enrichment. Use when creating CDS views or view entities, defining data models with annotations, working with associations and cardinality, implementing input parameters, using built-in functions, writing CASE expressions, implementing access control with DCL, handling CURR/QUAN data types, troubleshooting CDS errors, querying CDS views from ABAP, or displaying data with SALV IDA. Covers ABAP 7.4+ through ABAP Cloud.",
       "version": "2.1.8",
       "category": "abap",
       "keywords": [
@@ -219,7 +219,7 @@
     {
       "name": "sap-btp-cloud-platform",
       "source": "./plugins/sap-btp-cloud-platform",
-      "description": "\"Comprehensive SAP Business Technology Platform (BTP) reference for cloud development, deployment, and operations. Use when setting up BTP accounts, working with Cloud Foundry environment, deploying to Kyma (Kubernetes, serverless), developing in ABAP environment (RAP, CDS), managing entitlements and quotas, configuring identity providers (XSUAA), using btp CLI or CF CLI, deploying multi-target applications (MTA), setting up connectivity (destinations, Cloud Connector), implementing CI/CD pipelines, extending SAP solutions, or troubleshooting BTP services. Covers all three runtime environments.\"",
+      "description": "Comprehensive SAP Business Technology Platform (BTP) reference for cloud development, deployment, and operations. Use when setting up BTP accounts, working with Cloud Foundry environment, deploying to Kyma (Kubernetes, serverless), developing in ABAP environment (RAP, CDS), managing entitlements and quotas, configuring identity providers (XSUAA), using btp CLI or CF CLI, deploying multi-target applications (MTA), setting up connectivity (destinations, Cloud Connector), implementing CI/CD pipelines, extending SAP solutions, or troubleshooting BTP services. Covers all three runtime environments.",
       "version": "2.1.8",
       "category": "btp",
       "keywords": [
@@ -264,7 +264,7 @@
     {
       "name": "sap-btp-connectivity",
       "source": "./plugins/sap-btp-connectivity",
-      "description": "\"SAP BTP Connectivity skill covering Destination Service, Connectivity Service, Cloud Connector, Connectivity Proxy, and Transparent Proxy for Kubernetes. Use when configuring destinations (HTTP, RFC, LDAP, MAIL, TCP), setting up cloud-to-on-premise connectivity, implementing OAuth and principal propagation, deploying connectivity proxies in Kubernetes/Kyma, troubleshooting connectivity errors (405, 407, 503), or configuring multitenancy.\"",
+      "description": "SAP BTP Connectivity skill covering Destination Service, Connectivity Service, Cloud Connector, Connectivity Proxy, and Transparent Proxy for Kubernetes. Use when configuring destinations (HTTP, RFC, LDAP, MAIL, TCP), setting up cloud-to-on-premise connectivity, implementing OAuth and principal propagation, deploying connectivity proxies in Kubernetes/Kyma, troubleshooting connectivity errors (405, 407, 503), or configuring multitenancy.",
       "version": "2.1.8",
       "category": "btp",
       "keywords": [
@@ -311,7 +311,7 @@
     {
       "name": "sap-btp-integration-suite",
       "source": "./plugins/sap-btp-integration-suite",
-      "description": "\"Enterprise integration solutions using SAP Integration Suite on BTP. Covers Cloud Integration (iFlows), API Management, Event Mesh, Edge Integration Cell, Integration Advisor, Trading Partner Management, and Migration Assessment. Use for building integration flows, managing API proxies, event-driven architectures, B2B/EDI integrations, hybrid deployments, adapter configuration, Groovy/JavaScript message processing, and troubleshooting.\"",
+      "description": "Enterprise integration solutions using SAP Integration Suite on BTP. Covers Cloud Integration (iFlows), API Management, Event Mesh, Edge Integration Cell, Integration Advisor, Trading Partner Management, and Migration Assessment. Use for building integration flows, managing API proxies, event-driven architectures, B2B/EDI integrations, hybrid deployments, adapter configuration, Groovy/JavaScript message processing, and troubleshooting.",
       "version": "2.1.8",
       "category": "btp",
       "keywords": [
@@ -484,7 +484,7 @@
     {
       "name": "sap-datasphere",
       "source": "./plugins/sap-datasphere",
-      "description": "\"SAP Datasphere development skill with 3 specialized agents, 5 slash commands, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections, managing spaces and users, implementing data access controls, or using the datasphere CLI. Covers Data Builder, Business Builder, analytic models, 40+ connection types, real-time replication, task chains, content transport, and data marketplace.\"",
+      "description": "SAP Datasphere development skill with 3 specialized agents, 5 slash commands, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections, managing spaces and users, implementing data access controls, or using the datasphere CLI. Covers Data Builder, Business Builder, analytic models, 40+ connection types, real-time replication, task chains, content transport, and data marketplace.",
       "version": "2.1.8",
       "category": "data-analytics",
       "keywords": [
@@ -603,7 +603,7 @@
     {
       "name": "sap-sac-custom-widget",
       "source": "./plugins/sap-sac-custom-widget",
-      "description": "\"SAP Analytics Cloud (SAC) Custom Widget development. Use when building custom visualizations, extending SAC with Web Components, or creating Widget Add-Ons. Covers JSON metadata, JavaScript Web Components, lifecycle functions, data binding with feeds, styling/builder panels, property/event/method definitions, third-party library integration, hosting, security, performance, and debugging. Includes Widget Add-On feature (QRC Q4 2023+) and templates for widgets, charts, and KPI cards.\"",
+      "description": "SAP Analytics Cloud (SAC) Custom Widget development. Use when building custom visualizations, extending SAC with Web Components, or creating Widget Add-Ons. Covers JSON metadata, JavaScript Web Components, lifecycle functions, data binding with feeds, styling/builder panels, property/event/method definitions, third-party library integration, hosting, security, performance, and debugging. Includes Widget Add-On feature (QRC Q4 2023+) and templates for widgets, charts, and KPI cards.",
       "version": "2.1.8",
       "category": "data-analytics",
       "keywords": [
@@ -728,7 +728,7 @@
     {
       "name": "sapui5",
       "source": "./plugins/sapui5",
-      "description": "\"This skill should be used when developing SAP UI5 applications, including creating freestyle apps, Fiori Elements apps, custom controls, testing, data binding, OData integration, routing, and troubleshooting. Use when building enterprise web applications with SAP UI5 framework, implementing MVC patterns, configuring manifest.json, creating XML views, writing controllers, setting up data models (JSON, OData v2/v4), implementing responsive UI with sap.m controls, building Fiori Elements apps, writing unit tests with QUnit, integration tests with OPA5, setting up mock servers, handling security (XSS, CSP), optimizing performance, implementing accessibility features, or debugging UI5 applications. Also covers sap.ui.mdc controls and TypeScript control libraries.\"",
+      "description": "This skill should be used when developing SAP UI5 applications, including creating freestyle apps, Fiori Elements apps, custom controls, testing, data binding, OData integration, routing, and troubleshooting. Use when building enterprise web applications with SAP UI5 framework, implementing MVC patterns, configuring manifest.json, creating XML views, writing controllers, setting up data models (JSON, OData v2/v4), implementing responsive UI with sap.m controls, building Fiori Elements apps, writing unit tests with QUnit, integration tests with OPA5, setting up mock servers, handling security (XSS, CSP), optimizing performance, implementing accessibility features, or debugging UI5 applications. Also covers sap.ui.mdc controls and TypeScript control libraries.",
       "version": "2.1.8",
       "category": "ui-development",
       "keywords": [
@@ -779,7 +779,7 @@
     {
       "name": "sapui5-linter",
       "source": "./plugins/sapui5-linter",
-      "description": "\"Use this skill when working with the UI5 Linter (@ui5/linter) for static code analysis of SAPUI5/OpenUI5 applications and libraries. Covers setup, configuring linting rules, running the linter to detect deprecated APIs, global variable usage, CSP violations, and manifest issues. Supports autofix for deprecated API usage, global references, event handlers, and manifest properties. Includes CI/CD integration, pre-commit hooks, and UI5 2.x migration preparation.\"",
+      "description": "Use this skill when working with the UI5 Linter (@ui5/linter) for static code analysis of SAPUI5/OpenUI5 applications and libraries. Covers setup, configuring linting rules, running the linter to detect deprecated APIs, global variable usage, CSP violations, and manifest issues. Supports autofix for deprecated API usage, global references, event handlers, and manifest properties. Includes CI/CD integration, pre-commit hooks, and UI5 2.x migration preparation.",
       "version": "2.1.8",
       "category": "ui-development",
       "keywords": [

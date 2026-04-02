@@ -235,6 +235,10 @@ Run: `/use plugin-dev:skill-development`, `plugin-dev:plugin-structure`, etc.
 
 ## Recent Changes
 
+**v2.1.8** - Plugin manifest structure improvements and description sanitization
+
+**v2.1.7** - Plugin metadata and validation updates
+
 **v2.1.6** - SQLScript environment setup command with VS Code LSP integration
 
 **v2.1.5** - SAC Scripting MCP integration (90 tools across 11 service areas)
@@ -297,4 +301,4 @@ This project is licensed under the **GNU General Public License v3.0** - see the
 
 **Maintained by**: E.J.
 **Repository**: [https://github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)
-**Last Updated**: 2026-03-03 (v2.1.6)
+**Last Updated**: 2026-04-02 (v2.1.8)

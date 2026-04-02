@@ -65,7 +65,7 @@ echo ""
 failed_count=0
 passed_count=0
 
-for plugin_json in $plugin_files; do
+echo "$plugin_files" | while IFS= read -r plugin_json; do
 
     plugin_name=$(basename "$(dirname "$(dirname "$plugin_json")")")
 
