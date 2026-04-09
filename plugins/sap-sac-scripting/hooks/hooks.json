@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "./hooks/dispatch.sh",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/validator.mjs\"",
             "timeout": 30
           }
         ]
@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "./hooks/dispatch.sh",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/validator.mjs\"",
             "timeout": 15
           }
         ]
