@@ -99,24 +99,43 @@ The sapui5 plugin includes `.mcp.json` at the plugin root:
     "command": "npx",
     "args": ["-y", "@ui5/mcp-server"],
     "env": {
-      "UI5_PROJECT_DIR": "${cwd}",
-      "UI5_VERSION": "1.120.0",
       "UI5_MCP_SERVER_RESPONSE_NO_RESOURCES": "true"
     }
   }
 }
 ```
 
+### Cross-Platform Note
+
+The MCP config uses `npx` directly, which works on macOS and Linux. On **native Windows** (non-WSL), `npx` may fail to spawn because it is a `.cmd` batch file. If the MCP server fails to start on Windows, manually override `.mcp.json` to use `cmd /c npx`:
+
+```json
+{
+  "ui5-tooling": {
+    "command": "cmd",
+    "args": ["/c", "npx", "-y", "@ui5/mcp-server"],
+    "env": {
+      "UI5_MCP_SERVER_RESPONSE_NO_RESOURCES": "true"
+    }
+  }
+}
+```
+
+This decision trades automatic Windows compatibility for a config that works correctly on macOS and Linux without platform-specific branching (`.mcp.json` does not support platform conditionals).
+
 ### Environment Variables
+
+The `@ui5/mcp-server` recognizes the following environment variables:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `UI5_PROJECT_DIR` | `${cwd}` | Project root directory for context-aware operations |
-| `UI5_VERSION` | `1.120.0` | Default UI5 version for API lookups |
-| `UI5_MCP_SERVER_RESPONSE_NO_RESOURCES` | `true` | Disable resources for client compatibility |
-| `UI5_MCP_SERVER_ALLOWED_ODATA_DOMAINS` | `localhost, services.odata.org` | Comma-separated list of allowed OData domains |
+| `UI5_MCP_SERVER_RESPONSE_NO_RESOURCES` | — | Disable resources for client compatibility |
+| `UI5_MCP_SERVER_ALLOWED_DOMAINS` | — | Comma-separated list of allowed domains |
+| `UI5_MCP_SERVER_CDN_URL` | — | Custom CDN URL for UI5 resources |
 | `UI5_LOG_LVL` | `info` | Log level: silent, error, warn, info, perf, verbose, silly |
 | `UI5_DATA_DIR` | `~/.ui5` | Directory for cached data (API references) |
+
+Project discovery happens via a `path` parameter on each tool call (e.g., `get_project_info`), not via an environment variable. UI5 version is detected automatically from the project's `manifest.json`.
 
 ### User Settings Integration
 
@@ -589,11 +608,11 @@ If specific tools fail but MCP server is running:
 
 ### Issue: MCP tools return wrong version information
 
-**Cause**: Environment variable `UI5_VERSION` not set correctly
+**Cause**: UI5 version not detected correctly from the project
 
 **Solution**:
-1. Check `.mcp.json` configuration
-2. Verify project manifest.json has correct `minUI5Version`
+1. Verify project `manifest.json` has correct `minUI5Version`
+2. Pass the `path` parameter to MCP tools to ensure correct project context
 3. Override in `sapui5.local.md`:
 
 ```yaml
