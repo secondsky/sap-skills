@@ -5,6 +5,11 @@ All notable changes to SAP Skills will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.1] - 2026-05-30
+
+### Fixed
+- **Issue #74**: Removed blocking `UserPromptSubmit` hooks from `sap-sqlscript` and `sap-sac-custom-widget` that were stopping unrelated prompts (e.g., "hello"). Both skills now rely on non-blocking, command-based validation hooks only.
+
 ## [2.1.8] - 2026-04-02
 
 ### Added

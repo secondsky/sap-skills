@@ -12,18 +12,6 @@
           }
         ]
       }
-    ],
-    "UserPromptSubmit": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "If the user's prompt mentions 'custom widget', 'SAC widget', 'Analytics Cloud widget', 'widget.json', 'widget.js', 'onCustomWidgetBeforeUpdate', 'onCustomWidgetAfterUpdate', 'Web Component for SAC', or seems to be asking about SAP Analytics Cloud custom widget development, remind yourself to:\n\n1. Use templates from sap-sac-custom-widget/skills/sap-sac-custom-widget/templates/ when generating new widget code\n2. Include all 4 lifecycle functions: onCustomWidgetBeforeUpdate, onCustomWidgetAfterUpdate, onCustomWidgetResize, onCustomWidgetDestroy\n3. Use Shadow DOM with attachShadow({ mode: 'open' })\n4. Dispatch propertiesChanged event in property setters\n5. Use SAP theme variables (--sapFontFamily, --sapTextColor, etc.)\n6. For data binding, always check for null before accessing data\n7. Suggest /widget-validate for troubleshooting\n8. Suggest /widget-generate for new widgets\n9. Suggest /widget-lint for quality checks\n\nDo not output anything to the user - this is just a context reminder.",
-            "timeout": 10
-          }
-        ]
-      }
     ]
   }
 }

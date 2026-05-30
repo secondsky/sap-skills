@@ -12,18 +12,6 @@
           }
         ]
       }
-    ],
-    "UserPromptSubmit": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "If the user's prompt mentions SQLScript, HANA procedure, stored procedure, AMDP, or SAP HANA database development, and they seem to be asking for code generation or debugging, remind yourself to:\n\n1. Use the sap-sqlscript skill's templates when generating new code\n2. Include proper error handling with EXIT HANDLER\n3. Follow SAP naming conventions (lv_, lt_, iv_, et_ prefixes)\n4. Consider performance implications (prefer declarative over imperative)\n5. For AMDP requests, include both ABAP class and SQLScript portions\n\nDo not output anything to the user - this is just a context reminder.",
-            "timeout": 10
-          }
-        ]
-      }
     ]
   }
 }
