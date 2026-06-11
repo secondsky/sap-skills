@@ -1,6 +1,6 @@
 # OSE API: Data & DataSource
 
-**Version**: 2025.14 | **SAC Release**: Q1 2026 (2026.2) | **Full API Docs**: [SAP Help Portal](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html)
+**Version**: 2025.20 | **SAC Release**: Q2 2026 (2026.8) | **Full API Docs**: [SAP Help Portal](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html)
 
 Data access and management: DataSource API, data actions, data binding, data change insights, data locking, and file/external data sources.
 
@@ -39,6 +39,9 @@ Data access and management: DataSource API, data actions, data binding, data cha
 - [DataSourceComments](#datasourcecomments)
 - [DataSourceInfo](#datasourceinfo)
 - [DataUploadExecutionResponseStatus](#datauploadexecutionresponsestatus)
+- [DataUploadFileHandler](#datauploadfilehandler)
+- [DataUploadStarter](#datauploadstarter)
+- [DataUploadStatistics](#datauploadstatistics)
 - [FileDataSource](#filedatasource)
 - [InputControl](#inputcontrol)
 - [InputControlDataSource](#inputcontroldatasource)
@@ -3695,6 +3698,94 @@ Type Library\
 C\
 \
 
+---
+
+## DataUploadStarter
+
+Type Library: `planning` | Since: 2025.17 | Last Update: 2026.7
+
+Widget for initiating data uploads. Extends `Widget`.
+
+**Events**:
+
+| Event | Signature | Description |
+|-------|-----------|-------------|
+| `onAfterExecute` | `(status: DataUploadExecutionResponseStatus, message: string, statistics: DataUploadStatistics, rejectedDetails: string[][], versionName: string, fileName: string): void` | Called when the Data Upload Starter execution ends. Last Update: 2026.7 |
+| `onBeforeExecute` | `(): boolean` | Called when the user clicks the Data Upload Starter. Return `true` (default) to proceed, `false` to cancel. |
+| `onBeforeImport` | `(fileName: string, fileContent: string[][], versionName: string, firstRowAsHeaders: boolean): DataUploadFileHandler` | Called before data import. Return a `DataUploadFileHandler` to modify or cancel the import. Since: 2026.1 |
+
+```javascript
+DataUploadStarter_1.onAfterExecute = function(status, message, statistics, rejectedDetails, versionName, fileName) {
+    if (status === DataUploadExecutionResponseStatus.Success) {
+        Text_Status.setText("Upload complete: " + statistics.uploadedRowCount + " rows");
+    }
+    if (rejectedDetails.length > 0) {
+        Text_Warning.setText(rejectedDetails.length + " rows rejected");
+    }
+    Text_File.setText("File: " + fileName);
+    Text_Version.setText("Version: " + versionName);
+};
+
+DataUploadStarter_1.onBeforeImport = function(fileName, fileContent, versionName, firstRowAsHeaders) {
+    return {
+        continue: true,
+        modifiedFileContent: fileContent
+    };
+};
+```
+
+Inherited from Widget: `getCssClass()`, `getLayout()`, `isVisible()`, `setCssClass()`, `setVisible()`.
 
 ---
+
+## DataUploadStatistics
+
+Type Library: `planning` | Since: 2026.7 | Last Update: 2026.8
+
+An object defining the upload statistics of results for the data upload execution.
+
+**Properties**:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `deletedRowCount` | `integer` | Number of deleted rows |
+| `rejectedRowCount` | `integer` | Number of rejected rows |
+| `skippedDeletionCount` | `integer` | Number of skipped deletions |
+| `uploadedRowCount` | `integer` | Number of uploaded rows (Since: 2026.8) |
+
+```javascript
+var stats = event.statistics;
+console.log("Uploaded: " + stats.uploadedRowCount);
+console.log("Rejected: " + stats.rejectedRowCount);
+console.log("Deleted: " + stats.deletedRowCount);
+```
+
+---
+
+## DataUploadFileHandler
+
+Type Library: `planning` | Since: 2026.1
+
+An object defining a return value for the `onBeforeImport` event handler. Can be passed as a JSON object to method arguments.
+
+**Properties**:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `continue` | `boolean` | Whether the starter should continue with the execution |
+| `modifiedFileContent` | `string[][]` | Modified content to be used for the import |
+
+```javascript
+DataUploadStarter_1.onBeforeImport = function(fileName, fileContent, versionName, firstRowAsHeaders) {
+    var modified = fileContent.map(function(row) {
+        return row.map(function(cell) {
+            return cell.trim();
+        });
+    });
+    return {
+        continue: true,
+        modifiedFileContent: modified
+    };
+};
+```
 

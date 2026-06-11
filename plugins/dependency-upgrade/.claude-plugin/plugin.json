@@ -1,7 +1,7 @@
 {
   "name": "dependency-upgrade",
   "description": "Secure dependency upgrades with supply chain protection, cooldowns, and staged rollout. Use when upgrading deps, configuring security policies, or preventing supply chain attacks.",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "author": {
     "name": "E.J.",
     "email": "maintainers@example.com"

@@ -1,6 +1,6 @@
 # OSE API: Chart & Visualization
 
-**Version**: 2025.14 | **SAC Release**: Q1 2026 (2026.2) | **Full API Docs**: [SAP Help Portal](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html)
+**Version**: 2025.20 | **SAC Release**: Q2 2026 (2026.8) | **Full API Docs**: [SAP Help Portal](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html)
 
 Visualization classes: Chart, Table, GeoMap, R Visualization, Value Driver Tree, and associated axis/format/rank configuration classes.
 
@@ -2751,6 +2751,160 @@ Type Library\
 C\
 \
 
+---
+
+## ChartVariance
+
+Since: 2025.18
+
+Accessed via `Chart_1.getChartVariance()` on a chart widget instance. Methods for managing chart variance display — add, get, update, and remove variances on charts.
+
+**Methods**:
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `addVariance` | `(): Variance` | Creates and applies a variance to the chart |
+| `getVariances` | `(): Variance[]` | Returns all variances applied to the chart |
+| `removeVariance` | `(variance: Variance): void` | Removes the variance from the chart |
+| `updateVariance` | `(variance: Variance): void` | Modifies the variance |
+
+```javascript
+var variance = Chart_1.getChartVariance().addVariance();
+variance.setSourceMeasure("Actuals");
+variance.setTargetMeasure("Budget");
+variance.setShowDifferenceType([VarianceDifferenceType.Number, VarianceDifferenceType.Percentage]);
+variance.setShowVariance(VarianceShowType.Integrated);
+```
 
 ---
+
+## Variance
+
+Since: 2025.18
+
+Represents a single variance configuration on a chart. Provides methods to configure source/target measures, versions, time intervals, display settings, and formatting.
+
+**Methods**:
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `getName` | `(): string` | Returns the name of the variance |
+| `removeSourceTimeInterval` | `(): void` | Removes the time period from the source measure |
+| `removeSourceVersion` | `(): void` | Removes the version from the source measure |
+| `removeTargetTimeInterval` | `(): void` | Removes the time period from the target measure |
+| `removeTargetVersion` | `(): void` | Removes the version from the target measure |
+| `setAbsoluteBaseValue` | `(isAbsoluteBaseValue: boolean): void` | Use absolute base value for percentage change |
+| `setInvertColors` | `(isInvertColors: boolean): void` | Reverse colors of positive/negative variances |
+| `setName` | `(name: string): void` | Sets the variance name |
+| `setNoDataAsZero` | `(isNoDataAsZero: boolean): void` | Display null variance as zero |
+| `setNumberDecimalPlaces` | `(decimalPlaces: integer): void` | Decimal places for number display |
+| `setPercentageDecimalPlaces` | `(decimalPlaces: integer): void` | Decimal places for percentage display |
+| `setScaleWithBaseChart` | `(isScaleWithBaseChart: boolean): void` | Make variance chart scale match base chart |
+| `setShowAllValuesForAllTimeLevels` | `(isShowAllValuesForAllTimeLevels: boolean): void` | Calculate previous period independently per time hierarchy level |
+| `setShowDifferenceType` | `(varianceDifferenceType: VarianceDifferenceType[]): void` | Sets the type of difference (Number, Percentage, or both) |
+| `setShowIntegratedLabelWithBaseLabel` | `(isShowIntegratedLabelWithBaseLabel: boolean): void` | Put integrated variance label alongside base label |
+| `setShowVariance` | `(varianceShowType: VarianceShowType): void` | Sets the display type (Bar, DataLabel, Integrated, Waterfall) |
+| `setShowVarianceDisplayOn` | `(measure: string \| MeasureInfo JSON): void` | Sets the chart measure the variance is displayed on |
+| `setSourceMeasure` | `(measure: string \| MeasureInfo JSON): void` | Sets the source measure (COMPARE section) |
+| `setSourceTimeInterval` | `(dimension: string \| DimensionInfo JSON, varianceTime: VarianceTime): void` | Sets time period of source measure |
+| `setSourceVersion` | `(dimension: string \| DimensionInfo JSON, member: string \| MemberInfo JSON): void` | Sets version of source measure |
+| `setTargetMeasure` | `(measure: string \| MeasureInfo JSON): void` | Sets the target measure (TO section) |
+| `setTargetTimeInterval` | `(dimension: string \| DimensionInfo JSON, varianceTime: VarianceTime): void` | Sets time period of target measure |
+| `setTargetVersion` | `(dimension: string \| DimensionInfo JSON, member: string \| MemberInfo JSON): void` | Sets version of target measure |
+
+```javascript
+var variances = Chart_1.getChartVariance().getVariances();
+variances[0].setShowDifferenceType([VarianceDifferenceType.Number]);
+variances[0].setShowVariance(VarianceShowType.Bar);
+variances[0].setSourceTimeInterval("Date", VarianceTime.PreviousYear);
+Chart_1.getChartVariance().updateVariance(variances[0]);
+```
+
+---
+
+## VarianceDifferenceType
+
+Since: 2025.18 | Enum
+
+Specifies how to display variance differences.
+
+| Value | Description |
+|-------|-------------|
+| `Number` | Show absolute difference |
+| `Percentage` | Show percentage difference |
+
+```javascript
+variance.setShowDifferenceType([VarianceDifferenceType.Number, VarianceDifferenceType.Percentage]);
+```
+
+---
+
+## VarianceShowType
+
+Since: 2025.18 | Enum
+
+Specifies the visualization type for chart variance.
+
+| Value | Description |
+|-------|-------------|
+| `Bar` | Show variance as bars |
+| `DataLabel` | Show variance as data labels |
+| `Integrated` | Show variance integrated with base chart |
+| `Waterfall` | Show variance as waterfall chart |
+
+```javascript
+variance.setShowVariance(VarianceShowType.Integrated);
+```
+
+---
+
+## VarianceTime
+
+Since: 2025.18 | Enum
+
+Specifies the time comparison period for variance calculations.
+
+| Value | Description |
+|-------|-------------|
+| `CurrentTimeInterval` | Use current time interval |
+| `PreviousDay` | Compare to previous day |
+| `PreviousHalfYear` | Compare to previous half year |
+| `PreviousMonthOrPeriod` | Compare to previous month or period |
+| `PreviousQuarter` | Compare to previous quarter |
+| `PreviousTimeInterval` | Compare to previous time interval |
+| `PreviousWeek` | Compare to previous week |
+| `PreviousYear` | Compare to previous year |
+
+```javascript
+variance.setSourceTimeInterval("Date", VarianceTime.PreviousYear);
+variance.setTargetTimeInterval("Date", VarianceTime.CurrentTimeInterval);
+```
+
+---
+
+## VarianceAllMeasuresInUse
+
+Since: 2025.18 | Enum
+
+Specifies whether variance applies to all measures in use on the chart. Used as a parameter in variance configuration when all active measures should be included in variance calculations.
+
+Related: `ChartVariance`, `Variance`, `VarianceDifferenceType`, `VarianceShowType`, `VarianceTime`
+
+---
+
+## DataLabelType
+
+Type Library: `datasource` | Since: 2026.4 | Enum
+
+Specifies how data labels are displayed on charts.
+
+| Value | Description |
+|-------|-------------|
+| `Absolute` | Show data labels as absolute values |
+| `Both` | Show data labels as both absolute and percentage values (Funnel and Gauge charts only) |
+| `Percent` | Show data labels as percentage values |
+
+```javascript
+Chart_1.setDataLabelType(DataLabelType.Both);
+```
 

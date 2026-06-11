@@ -1,6 +1,6 @@
 # OSE API: Application & Core
 
-**Version**: 2025.14 | **SAC Release**: Q1 2026 (2026.2) | **Full API Docs**: [SAP Help Portal](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html)
+**Version**: 2025.20 | **SAC Release**: Q2 2026 (2026.8) | **Full API Docs**: [SAP Help Portal](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html)
 
 Core application classes for Optimized Story Experience: Application lifecycle, page management, panels, popups, and widget base types.
 

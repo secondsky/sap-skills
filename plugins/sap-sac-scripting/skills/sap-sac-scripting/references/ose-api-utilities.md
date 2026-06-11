@@ -1,6 +1,6 @@
 # OSE API: Utilities & Helpers
 
-**Version**: 2025.14 | **SAC Release**: Q1 2026 (2026.2) | **Full API Docs**: [SAP Help Portal](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html)
+**Version**: 2025.20 | **SAC Release**: Q2 2026 (2026.8) | **Full API Docs**: [SAP Help Portal](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html)
 
 Utility and helper classes: bookmarks, comments, dimension/member/measure info, navigation, notifications, variables, and timer.
 
@@ -544,13 +544,79 @@ Since
 2021.11 |
 
 Type Library
-[planning](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html#typelibraries_TLplanning)
+[datasource](https://help.sap.com/doc/1639cb9ccaa54b2592224df577abe822/release/en-US/index.html#typelibraries_TLdatasource)
 
 C
 
 
 
 ---
+
+## Math
+
+Type Library: `standard`
+
+A built-in object that has properties and methods for mathematical constants and functions. Mirrors the standard JavaScript `Math` object for use in SAC scripting. Note: SAC exposes specific arities for some methods (e.g., `max`/`min` take exactly two arguments, `hypot` takes one) rather than the variadic signatures of standard JS.
+
+**Constants** (static, read-only):
+
+| Constant | Type | Value |
+|----------|------|-------|
+| `E` | `number` | Euler's constant (~2.718) |
+| `LN10` | `number` | Natural log of 10 (~2.302) |
+| `LN2` | `number` | Natural log of 2 (~0.693) |
+| `LOG10E` | `number` | Base-10 log of E (~0.434) |
+| `LOG2E` | `number` | Base-2 log of E (~1.443) |
+| `PI` | `number` | Ratio of circle circumference to diameter (~3.14159) |
+| `SQRT1_2` | `number` | Square root of 1/2 (~0.707) |
+| `SQRT2` | `number` | Square root of 2 (~1.414) |
+
+**Methods** (all static):
+
+| Method | Signature | Returns | Description |
+|--------|-----------|---------|-------------|
+| `abs` | `(x: number): number` | `number` | Absolute value |
+| `acos` | `(x: number): number` | `number` | Arccosine in radians |
+| `acosh` | `(x: number): number` | `number` | Hyperbolic arccosine |
+| `asin` | `(x: number): number` | `number` | Arcsine in radians |
+| `asinh` | `(x: number): number` | `number` | Hyperbolic arcsine |
+| `atan` | `(x: number): number` | `number` | Arctangent in radians |
+| `atan2` | `(y: number, x: number): number` | `number` | Arctangent of y/x |
+| `atanh` | `(x: number): number` | `number` | Hyperbolic arctangent |
+| `cbrt` | `(x: number): number` | `number` | Cube root |
+| `ceil` | `(x: number): integer` | `integer` | Smallest integer >= x |
+| `clz32` | `(x: number): integer` | `integer` | Leading zero bits in 32-bit representation |
+| `cos` | `(x: number): number` | `number` | Cosine |
+| `cosh` | `(x: number): number` | `number` | Hyperbolic cosine |
+| `exp` | `(x: number): number` | `number` | E^x |
+| `expm1` | `(x: number): number` | `number` | exp(x) - 1 |
+| `floor` | `(x: number): integer` | `integer` | Largest integer <= x |
+| `fround` | `(x: number): integer` | `integer` | Nearest single-precision float |
+| `hypot` | `(value: number): number` | `number` | Square root of sum of squares |
+| `imul` | `(a: number, b: number): integer` | `integer` | 32-bit integer multiplication |
+| `log` | `(x: number): number` | `number` | Natural logarithm (ln) |
+| `log10` | `(x: number): number` | `number` | Base-10 logarithm |
+| `log1p` | `(x: number): number` | `number` | Natural log of (1 + x) |
+| `log2` | `(x: number): number` | `number` | Base-2 logarithm |
+| `max` | `(a: number, b: number): number` | `number` | Largest of arguments |
+| `min` | `(a: number, b: number): number` | `number` | Smallest of arguments |
+| `pow` | `(base: number, exponent: number): number` | `number` | base^exponent |
+| `random` | `(): number` | `number` | Pseudo-random in [0, 1) |
+| `round` | `(x: number): integer` | `integer` | Round to nearest integer |
+| `sign` | `(x: number): integer` | `integer` | Sign of number (-1, 0, 1) |
+| `sin` | `(x: number): number` | `number` | Sine |
+| `sinh` | `(x: number): number` | `number` | Hyperbolic sine |
+| `sqrt` | `(x: number): number` | `number` | Square root |
+| `tan` | `(x: number): number` | `number` | Tangent |
+| `tanh` | `(x: number): number` | `number` | Hyperbolic tangent |
+| `trunc` | `(x: number): integer` | `integer` | Integer part (remove fractional digits) |
+
+```javascript
+var radius = 5;
+var area = Math.PI * Math.pow(radius, 2);
+var rounded = Math.round(area * 100) / 100;
+var clamped = Math.max(0, Math.min(100, someValue));
+```
 
 <a name="commentinfo"></a>
 

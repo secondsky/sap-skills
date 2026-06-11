@@ -4,12 +4,12 @@ description: |
   Comprehensive SAC scripting skill for SAP Analytics Cloud Analytics Designer and Optimized Story Experience. This skill should be used when the user asks to "create SAC script", "debug Analytics Designer", "optimize SAC performance", "planning operations in SAC", "filter data in SAC", "use DataSource API", "chart scripting", "table manipulation", "SAC event handlers", "version management", "data locking", "Optimized Story Experience API", "OSE scripting", "OSE widget API", "OSE DataSource", "story scripting API", "OSE planning API", "OSE method", "optimized story", "SAC story scripting", "story script", "SAC scripting", or works with SAC widgets, planning models, or analytics applications.
 license: GPL-3.0
 metadata:
-  version: 3.0.1
-  last_verified: 2026-03-07
-  sac_version: "Q1 2026 (2026.2)"
-  api_reference_version: "2025.14 (OSE Q1 2026)"
+  version: 3.1.0
+  last_verified: 2026-06-11
+  sac_version: "Q2 2026 (2026.8)"
+  api_reference_version: "2025.20 (OSE Q2 2026)"
   documentation_source: https://help.sap.com/docs/SAP_ANALYTICS_CLOUD
-  reference_files: 63
+  reference_files: 65
   template_patterns: 56
   agents: 4
   commands: 4
@@ -33,7 +33,7 @@ When the user invokes this skill with no specific task (e.g. "help with SAC scri
 >
 > First, which environment are you working in?
 > 1. **Analytics Designer** — application-based scripting, full API
-> 2. **Optimized Story Experience** — story-based scripting, OSE API (v2025.14)
+> 2. **Optimized Story Experience** — story-based scripting, OSE API (v2025.20)
 >
 > Then, what do you need help with?
 > - Write a new script (filter, planning, navigation, export...)
@@ -98,16 +98,18 @@ If not installed, ask the user once: **"Would you like help setting up the SAC M
 
 This prevents re-prompting in future sessions.
 
-## What's New in Q1 2026 (2026.2)
+## What's New in Q2 2026 (2026.8)
 
 Key scripting enhancements in the latest SAC release:
-- **Chart Variance APIs** - Script control over chart variance display
-- **Compass for Seamless Planning** - Enhanced planning integration
-- **Data Actions Enhancements** - Automatic dimension mapping, input control binding
-- **Time Series Forecast API** - Programmatic forecasting control
-- **Comments APIs** - Widget and cell comment management
+- **Enhanced `onAfterExecute` Event** - Upload events now include message, statistics, rejected records, target version, and filename
+- **Data Export API Job Monitoring** - New job monitor tab for delta extraction and calculation jobs
+- **Data Import Service API** - Import master data to public dimensions in SAP Datasphere; import external fact data to private versions
+- **Multi-Action API Step** - HTTP 204 response now allowed; enhanced header field restrictions
+- **Export to S/4HANA Deprecated** - Use write-back integration scenario instead
+- **Asymmetric Reporting** - Differing time ranges, hierarchies, and measures per row/column
+- **Composite Versioning** - Manage multiple composite versions during story design
 
-See `references/whats-new-2025.23.md` for complete details.
+See `references/whats-new-qrc2-2026.md` for complete details.
 
 ## Environment Detection
 
@@ -128,7 +130,7 @@ Before writing or analyzing any script, identify which SAC environment the user 
 Do not ask again after the user answers.
 
 **After confirmation**, use the correct references:
-- **OSE** → `references/ose-api-*.md` (8 files, Q1 2026, v2025.14)
+- **OSE** → `references/ose-api-*.md` (8 files, Q2 2026, v2025.20)
 - **Analytics Designer** → `references/api-*.md` (existing files)
 
 ## Quick Start
@@ -213,13 +215,13 @@ console.log("Selections:", JSON.stringify(Chart_1.getSelections()));
 
 ## Bundled Resources
 
-**Reference Files** (63 files):
+**Reference Files** (65 files):
 - Core APIs: `references/api-datasource.md`, `references/api-widgets.md`, `references/api-planning.md`
 - Advanced: `references/api-calendar-bookmarks.md`, `references/api-advanced-widgets.md`
 - Best Practices: `references/best-practices-developer.md`, `references/best-practices-planning-stories.md`
 - Language: `references/scripting-language-fundamentals.md`
-- Q1 2026-relevant API updates: `references/whats-new-2025.23.md`, `references/chart-variance-apis.md`
-- **OSE API (Q1 2026, v2025.14)** — complete method/parameter/return documentation:
+- Q2 2026-relevant API updates: `references/whats-new-qrc2-2026.md`, `references/whats-new-2025.23.md`, `references/chart-variance-apis.md`
+- **OSE API (Q2 2026, v2025.20)** — complete method/parameter/return documentation:
   - `references/ose-api-application-core.md` — Application, PageBook, Panel, Popup, Widget (15 classes)
   - `references/ose-api-widgets.md` — Button, Dropdown, InputField, Slider, Switch, Text, TextArea (15 classes)
   - `references/ose-api-datasource.md` — DataSource, DataAction, DataBinding, DataLocking, DataChangeInsights (39 classes)

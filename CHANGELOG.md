@@ -5,6 +5,20 @@ All notable changes to SAP Skills will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.3] - 2026-06-12
+
+### Changed
+- **sap-sac-scripting**: Refreshed to QRC2 2026 (SAC 2026.8, OSE API v2025.20)
+  - Skill version bumped 3.0.1 → 3.1.0
+  - New `references/whats-new-qrc2-2026.md` covering Q2 2026 scripting changes
+  - All 8 OSE API reference files updated from v2025.14 to v2025.20
+  - Added 13 missing OSE API classes (DataUpload*, Variance*, Compass, Math, DataLabelType)
+  - Reference count: 63 → 65
+- **sap-sac-planning**: Refreshed to QRC2 2026 (SAC 2026.8)
+- **README.md**: Restructured with universal installation via [vercel-labs/skills](https://github.com/vercel-labs/skills), compacted plugin tables, added table of contents
+
+---
+
 ## [2.2.2] - 2026-05-30
 
 ### Added
