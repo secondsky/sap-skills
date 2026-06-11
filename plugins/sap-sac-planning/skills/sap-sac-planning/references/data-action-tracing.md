@@ -365,5 +365,5 @@ Tracing captures data snapshots in memory:
 ---
 
 **Version**: 1.0.0
-**Last Updated**: 2025-12-27
-**SAC Version**: 2025.25
+**Last Updated**: 2026-06-11
+**SAC Version**: 2026.8

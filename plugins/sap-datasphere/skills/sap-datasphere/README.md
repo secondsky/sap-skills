@@ -1,10 +1,10 @@
 # SAP Datasphere Skill
 
-Comprehensive Claude Code plugin for SAP Datasphere development with 3 specialized agents, 4 slash commands, validation hooks, and 13 reference documents covering data warehouse creation, analytic modeling, data integration, CLI automation, data marketplace, and governance.
+Comprehensive Claude Code plugin for SAP Datasphere development with 3 specialized agents, 4 slash commands, validation hooks, and 17 reference documents covering data warehouse creation, analytic modeling, data integration, CLI automation, data marketplace, governance, and SAP Business Data Cloud.
 
 ## Overview
 
-SAP Datasphere is SAP's cloud-native data warehouse solution on SAP Business Technology Platform (BTP). This plugin provides comprehensive guidance for building enterprise data warehouses with SAP Datasphere, including 2025 features like Generic HTTP connections and REST API task chains.
+SAP Datasphere is SAP's cloud-native data warehouse solution on SAP Business Technology Platform (BTP) and the data foundation of SAP Business Data Cloud (BDC). This plugin provides comprehensive guidance for building enterprise data warehouses with SAP Datasphere, including 2026 features like task chain ports, replication flow enhancements, SAP Snowflake integration, and BDC data products.
 
 ## When to Use
 
@@ -132,7 +132,7 @@ See [mcp-use-cases.md](references/mcp-use-cases.md) for 8 comprehensive use case
 
 **Transport**: content transport, export package, import package, csn json, cloud transport management
 
-**2025 Features**: generic http connection, rest api task, sap business data cloud, analytic model enhancements, elastic compute auto-scaling
+**2025–2026 Features**: generic http connection, rest api task, sap business data cloud, bdc, analytic model enhancements, elastic compute auto-scaling, task chain ports, auto-retry, technical user scheduling, sap databricks, sap snowflake, data composer
 
 **Errors**: datasphere deployment failed, connection timeout, replication error, out of memory, permission denied, circular dependency
 
@@ -175,6 +175,8 @@ plugins/sap-datasphere/
             ├── catalog-governance.md
             ├── best-practices-patterns.md
             ├── whats-new-2025.md
+            ├── whats-new-2026.md
+            ├── business-data-cloud.md
             ├── mcp-tools-reference.md    # MCP technical reference
             └── mcp-use-cases.md          # MCP real-world use cases
 ```
@@ -194,7 +196,7 @@ This plugin provides comprehensive coverage of SAP Datasphere with:
 
 | Component | Count | Description |
 |-----------|-------|-------------|
-| Reference Files | 15 | Core documentation covering all major topics + MCP integration |
+| Reference Files | 17 | Core documentation covering all major topics + MCP integration + BDC + 2026 updates |
 | Agents | 3 | Specialized agents for modeling, integration, admin |
 | Commands | 4 | Template generators and CLI reference |
 | Hooks | 2 | Validation and optimization suggestions |
@@ -202,9 +204,9 @@ This plugin provides comprehensive coverage of SAP Datasphere with:
 ## Version
 
 - **Plugin Version**: 3.0.0
-- **Skill Version**: 2.0.0
-- **Last Verified**: 2025-12-27
-- **SAP Datasphere Version**: 2025.24 (November 2025)
+- **Skill Version**: 2.2.0
+- **Last Verified**: 2026-06-11
+- **SAP Datasphere Version**: 2026.12 (June 2026)
 
 ## License
 

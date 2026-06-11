@@ -1,4 +1,4 @@
-# Multi Actions — Quick Reference (SAC 2025.23)
+# Multi Actions — Quick Reference (SAC 2026.8)
 
 Purpose: orchestrate cross-model planning workflows (data actions, publishing, predictive, imports, API calls, data locking) with parameterized, restartable steps.
 
@@ -12,7 +12,7 @@ Purpose: orchestrate cross-model planning workflows (data actions, publishing, p
 - **Version Management Step**: publish a version; options: fail on warnings vs ignore warnings.
 - **Predictive Step**: time-series scenario; actions: Train & Forecast, Train Only, Apply Only; choose input/output versions; optional past-period values and prediction interval versions.
 - **Data Import Step**: run import job (model or master data). Unsupported: job groups, export jobs, Concur/ERP/Fieldglass/Dataset, local-file imported models.
-- **API Step**: HTTP POST with headers/body; supports CSRF token fetch; sync/async result mapping; parameters can be inserted into payload.
+- **API Step**: HTTP POST with headers/body; supports CSRF token fetch; sync/async result mapping; parameters can be inserted into payload. HTTP 204 (No Content) is now accepted as a success response (QRC2 2026 / 2026.8+). Enhanced restrictions on HTTP header field names for security.
 - **PaPM Integration Step**: trigger PaPM process/activity with parameters and follow-up options (delete process, mark complete).
 - **Data Locking Step**: set lock state (Open/Locked/Restricted) via driving-dimension filters.
 

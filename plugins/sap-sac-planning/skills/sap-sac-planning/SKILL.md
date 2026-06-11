@@ -4,12 +4,12 @@ description: |
   This skill should be used when developing SAP Analytics Cloud (SAC) planning applications, including building planning-enabled stories, analytics designer applications with planning functionality, data actions, multi actions, version management, and planning workflows. Use when creating planning models, implementing data entry forms, configuring spreading/distribution/allocation, setting up data locking, building calendar-based planning processes with approval workflows, writing JavaScript scripts for planning automation, using the getPlanning() API, PlanningModel API, or DataSource API for planning scenarios, troubleshooting planning performance issues, integrating predictive forecasting into planning workflows, implementing Seamless Planning with SAP Datasphere, configuring BPC live connections for BW on HANA integration, building value driver trees for what-if analysis, or debugging data actions with tracing.
 license: GPL-3.0
 metadata:
-  version: 1.4.0
-  last_verified: 2025-12-27
-  sac_version: "2025.25"
+  version: 1.5.0
+  last_verified: 2026-06-11
+  sac_version: "2026.8"
   documentation_source: "https://help.sap.com/docs/SAP_ANALYTICS_CLOUD/00f68c2e08b941f081002fd3691d86a7"
-  api_reference: "https://help.sap.com/doc/958d4c11261f42e992e8d01a4c0dde25/2025.25/en-US/index.html"
-  reference_files: 24
+  api_reference: "https://help.sap.com/doc/958d4c11261f42e992e8d01a4c0dde25/2026.8/en-US/index.html"
+  reference_files: 25
   status: production
 ---
 
@@ -19,13 +19,14 @@ Comprehensive skill for building enterprise planning applications with SAP Analy
 
 ---
 
-## Reference Add-Ons (2025.25)
+## Reference Add-Ons (2026)
 
 - Execution guides: `references/data-actions.md`, `references/multi-actions.md`, `references/allocations.md`, `references/scheduling-calendar.md`, `references/data-locking.md`
 - Modeling & governance: `references/modeling-basics.md`, `references/version-management.md`, `references/version-edit-modes.md`, `references/version-publishing-notes.md`
 - Calculations & intelligence: `references/advanced-formulas.md`, `references/predictive-conversion.md`, `references/ai-planning-analytics.md`, `references/api-snippets.md`
 - Workflow aids: `references/input-tasks.md`, `references/job-monitoring.md`
-- **New in 2025**: `references/seamless-planning-datasphere.md`, `references/bpc-live-connection.md`, `references/value-driver-trees.md`, `references/data-action-tracing.md`
+- **Added in 2025**: `references/seamless-planning-datasphere.md`, `references/bpc-live-connection.md`, `references/value-driver-trees.md`, `references/data-action-tracing.md`
+- **New in 2026**: `references/whats-new-2026-planning.md`
 - Ready-to-use templates: `templates/data-action-checklist.md`, `templates/multi-action-checklist.md`, `templates/parameter-table.md`
 
 Use these to keep instructions concise in this file while deep-dives remain one click away.
@@ -41,6 +42,7 @@ Use these to keep instructions concise in this file while deep-dives remain one 
 - [BPC Live Connection](#bpc-live-connection)
 - [Value Driver Trees](#value-driver-trees)
 - [Data Action Tracing](#data-action-tracing)
+- [What's New in 2026](#whats-new-in-2026)
 - [Bundled Resources](#bundled-resources)
 
 ## When to Use This Skill
@@ -904,7 +906,7 @@ console.log("Lock state: " + lockState);
 
 ## Bundled Reference Files
 
-This skill includes comprehensive reference documentation (24 files):
+This skill includes comprehensive reference documentation (25 files):
 
 **API & Scripting**:
 1. **references/api-reference.md**: Complete Analytics Designer API for planning
@@ -944,6 +946,9 @@ This skill includes comprehensive reference documentation (24 files):
 23. **references/value-driver-trees.md**: Value driver tree setup, node configuration, JavaScript API
 24. **references/data-action-tracing.md**: Data action tracing, tracepoints, debugging techniques
 
+**New in 2026**:
+25. **references/whats-new-2026-planning.md**: QRC1 and QRC2 2026 planning features, asymmetric reporting, composite versioning, AI-assisted data actions, API enhancements
+
 ---
 
 ## Instructions for Claude
@@ -968,6 +973,30 @@ For troubleshooting:
 - Test with simplified scenarios first
 - Check user permissions and data access
 
+## What's New in 2026
+
+### QRC1 2026 (2026.3)
+
+- **AI-Assisted Data Actions**: Generate advanced formula scripts from natural-language comments, or generate comments from existing scripts.
+- **Live Data Connectivity to Snowflake**: Planning-capable models can connect live to Snowflake.
+- **Story Versioning**: Up to 10 major versions of stories for safe iterative development.
+
+### QRC2 2026 (2026.8)
+
+- **Asymmetric Reporting**: Tables with differing time ranges, hierarchies, and measures per row/column. Supports planning data entry.
+- **Composite Versioning**: Manage up to 10 versions of composites with rollback support.
+- **Data Export API in Job Monitor**: Track data extraction and delta calculation jobs.
+- **Data Import Service API Enhancements**: Import master data into Datasphere public dimensions; import external fact data to seamless planning private versions.
+- **onAfterExecute Event Enhancement**: Additional upload info (message, statistics, rejected records, target version, file name).
+- **Multi-Action API Step: HTTP 204 Response**: Accepted as success response.
+- **Calendar: Team References Retained**: Teams auto-sync on event activation.
+- **Mixing Advanced Filters in Just Ask**: Exclude date members with date range filters.
+- **Deprecation: Export Model Data to S/4HANA**: Use write-back integration instead.
+
+**Reference**: See `references/whats-new-2026-planning.md` for detailed descriptions, usage instructions, and source citations.
+
+---
+
 ## Bundled Resources
 
 ### Reference Documentation
@@ -988,6 +1017,6 @@ For troubleshooting:
 ---
 
 **License**: GPL-3.0
-**Version**: 1.4.0
+**Version**: 1.5.0
 **Maintained by**: E.J.
 **Repository**: [https://github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)

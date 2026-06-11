@@ -3,9 +3,9 @@ name: sap-datasphere
 description: "SAP Datasphere development skill with 3 specialized agents, 5 slash commands, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections, managing spaces and users, implementing data access controls, or using the datasphere CLI. Covers Data Builder, Business Builder, analytic models, 40+ connection types, real-time replication, task chains, content transport, and data marketplace."
 license: GPL-3.0
 metadata:
-  version: 2.1.0
-  last_verified: 2025-12-28
-  keywords: [sap datasphere, data warehouse cloud, dwc, data builder, business builder, analytic model, graphical view, sql view, transformation flow, replication flow, data flow, task chain, remote table, local table, datasphere connection, datasphere space, data access control, elastic compute node, datasphere cli, data products, data marketplace, catalog, governance]
+  version: 2.2.0
+  last_verified: 2026-06-11
+  keywords: [sap datasphere, data warehouse cloud, dwc, data builder, business builder, analytic model, graphical view, sql view, transformation flow, replication flow, data flow, task chain, remote table, local table, datasphere connection, datasphere space, data access control, elastic compute node, datasphere cli, data products, data marketplace, catalog, governance, business data cloud, bdc, sap databricks]
 ---
 
 # SAP Datasphere Skill
@@ -42,7 +42,9 @@ metadata:
 
 ## Overview
 
-SAP Datasphere is SAP's cloud-native data warehouse solution on SAP Business Technology Platform (BTP). This skill provides comprehensive guidance for data acquisition, preparation, modeling, administration, and integration.
+SAP Datasphere is SAP's cloud-native data warehouse solution on SAP Business Technology Platform (BTP). It serves as the **data foundation** within **SAP Business Data Cloud (BDC)**, SAP's unified data and analytics platform that also includes SAP Analytics Cloud, SAP HANA Cloud, SAP Databricks, and curated data products. See `references/business-data-cloud.md` for the BDC architecture and how Datasphere fits within it.
+
+This skill provides comprehensive guidance for data acquisition, preparation, modeling, administration, and integration.
 
 **Use this skill when**:
 - Creating data warehouses on SAP BTP
@@ -592,11 +594,17 @@ For transport procedures, see `references/content-transport.md`.
 
 **Best Practices & Updates:**
 12. **`references/best-practices-patterns.md`** - Architecture patterns, naming conventions, performance optimization, checklists
-13. **`references/whats-new-2025.md`** - Q1-Q4 2025 features, Generic HTTP, REST API tasks, deprecations
+13. **`references/whats-new-2025.md`** - 2025 archive: Q1-Q4 2025 features, Generic HTTP, REST API tasks, deprecations
+14. **`references/whats-new-2026.md`** - Q1-Q2 2026 features, BDC data products, task chain enhancements, SAP Snowflake, SAPPHIRE announcements
+
+**Platform Context:**
+15. **`references/business-data-cloud.md`** - SAP Business Data Cloud architecture, Databricks integration, data products vs. marketplace, BDC Connect
 
 **MCP Integration:**
 14. **`references/mcp-tools-reference.md`** - Complete MCP tool reference, 45 tools across 8 categories, API documentation, authentication patterns
 15. **`references/mcp-use-cases.md`** - 8 real-world use cases with personas, time savings, and ROI analysis ($159K+/year savings)
+16. **`references/whats-new-2026.md`** - Q1-Q2 2026 features, BDC data products, task chain enhancements, SAP Snowflake, SAPPHIRE announcements
+17. **`references/business-data-cloud.md`** - SAP Business Data Cloud architecture, Databricks integration, data products vs. marketplace, BDC Connect
 
 ### Plugin Components
 
@@ -688,7 +696,9 @@ plugins/sap-datasphere/
             ├── catalog-governance.md
             ├── best-practices-patterns.md
             ├── whats-new-2025.md
-            └── mcp-tools-reference.md    # MCP technical reference
+            ├── whats-new-2026.md
+            ├── business-data-cloud.md
+            ├── mcp-tools-reference.md    # MCP technical reference
 ```
 
 ## Documentation Links
@@ -700,4 +710,4 @@ plugins/sap-datasphere/
 
 ---
 
-**Version**: 2.1.0 | **Last Verified**: 2025-12-28
+**Version**: 2.2.0 | **Last Verified**: 2026-06-11

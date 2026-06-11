@@ -280,6 +280,30 @@ When migrating existing SAC planning models to Seamless Planning:
 
 ---
 
+## 2026 Enhancements (QRC2 2026 / 2026.8+)
+
+### Data Import Service API: Master Data into Datasphere Public Dimensions
+
+The Data Import Service API now supports importing master data into public dimensions stored in SAP Datasphere. This extends programmatic master data maintenance to Datasphere-managed dimensions used in seamless planning models.
+
+**Use case**: Automate master data synchronization from source systems (e.g., S/4HANA) into Datasphere public dimensions consumed by seamless planning models, without manual UI operations.
+
+Source: https://help.sap.com/whats-new/42e4f84a0e5e458792b1047eaf81c31a?locale=en-US
+
+### Data Import Service API: External Fact Data to Private Versions
+
+The Data Import Service API now allows importing external fact data — from sources other than SAC and Datasphere — into an existing private version of a seamless planning model. This enables loading data from third-party planning tools or market data providers directly into SAC private versions for comparison and validation before publishing.
+
+Source: https://help.sap.com/whats-new/42e4f84a0e5e458792b1047eaf81c31a?locale=en-US
+
+### Automatic Smart Insights Top Contributors
+
+For seamless planning models, progressive loading of Top Contributors is now enabled automatically when dimensions or hierarchy levels exceed 20. No configuration required. Not supported for non-additive measures.
+
+Source: https://help.sap.com/whats-new/42e4f84a0e5e458792b1047eaf81c31a?locale=en-US
+
+---
+
 ## Official Documentation Links
 
 - **Seamless Planning Help**: https://help.sap.com/docs/SAP_ANALYTICS_CLOUD/00f68c2e08b941f081002fd3691d86a7/6d81dcce234b417e8afb8450abab785e.html
@@ -290,6 +314,6 @@ When migrating existing SAC planning models to Seamless Planning:
 
 ---
 
-**Version**: 1.0.0
-**Last Updated**: 2025-12-27
-**SAC Version**: 2025.25
+**Version**: 1.1.0
+**Last Updated**: 2026-06-11
+**SAC Version**: 2026.8

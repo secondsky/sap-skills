@@ -14,10 +14,11 @@ This skill provides comprehensive guidance for SAP Analytics Cloud planning deve
 - **Calendar-based planning processes**
 - **JavaScript API for planning automation**
 - **Data locking and approval workflows**
-- **Seamless Planning with SAP Datasphere** (New in 2025)
-- **BPC Live Connection for BW on HANA** (New in 2025)
-- **Value Driver Trees for what-if analysis** (New in 2025)
-- **Data Action Tracing and debugging** (New in 2025)
+- **Seamless Planning with SAP Datasphere** (Added in 2025)
+- **BPC Live Connection for BW on HANA** (Added in 2025)
+- **Value Driver Trees for what-if analysis** (Added in 2025)
+- **Data Action Tracing and debugging** (Added in 2025)
+- **What's New 2026 Planning Features** (New in 2026)
 
 ---
 
@@ -192,7 +193,7 @@ plugins/sap-sac-planning/
     ├── .claude-plugin/plugin.json    # Skill manifest
     ├── SKILL.md                      # Main skill instructions
     ├── README.md                     # This file
-    ├── references/                   # 24 reference files
+    ├── references/                   # 25 reference files
     │   ├── api-reference.md          # Analytics Designer API
     │   ├── data-actions.md           # Data Actions & Multi Actions
     │   ├── planning-workflows.md     # Calendar, Tasks, Approvals
@@ -203,6 +204,7 @@ plugins/sap-sac-planning/
     │   ├── bpc-live-connection.md    # NEW: BPC Live Connection
     │   ├── value-driver-trees.md     # NEW: VDT configuration
     │   ├── data-action-tracing.md    # NEW: Tracing & debugging
+    │   ├── whats-new-2026-planning.md # NEW: 2026 QRC1/QRC2 features
     │   └── ... (14 more reference files)
     └── templates/                    # (Reserved for future templates)
 ```
@@ -297,7 +299,7 @@ This skill is based on official SAP documentation and verified community resourc
 
 ## Compatibility
 
-- **SAP Analytics Cloud Version**: 2025.25+
+- **SAP Analytics Cloud Version**: 2026.8+
 - **Analytics Designer**: Supported
 - **Optimized Story Experience**: Partial (some APIs differ)
 - **Seamless Planning**: Requires HANA Cloud + Datasphere tenant linkage
@@ -309,8 +311,8 @@ This skill is based on official SAP documentation and verified community resourc
 
 This skill follows quarterly update cycle:
 
-- **Last Verified**: 2025-12-27
-- **Next Review**: 2026-03-27
+- **Last Verified**: 2026-06-11
+- **Next Review**: 2026-09-11
 - **Plugin Version**: 2.2.0
 
 ### Update Checklist
