@@ -152,6 +152,14 @@ Complete reference for the JSON metadata file that defines custom widgets.
 | `license` | string | No | License type (MIT, Apache-2.0, proprietary) |
 | `icon` | string | No | URL to widget icon (recommended: 32x32 PNG) |
 | `newInstancePrefix` | string | No | Prefix for auto-generated script variable names |
+| `eula` | string | No | End-user license agreement text |
+| `imports` | string[] | No | Type libraries for Script API data types (e.g., `"@sap/sac-analytics-designer"`) |
+| `supportsMobile` | boolean | No | Whether the widget renders on mobile devices (default: false) |
+| `supportsExport` | boolean | No | Whether the widget supports PDF/PPTX/Google Slides export (default: false) |
+| `supportsLinkedAnalysisFilterOnSelection` | boolean | No | Optimized Story Experience only; enables linked analysis based on Filter on Data Point Selection (default: false) |
+| `supportsViewportLoading` | boolean | No | Optimized Story Experience only; enables lazy loading when the widget scrolls into the viewport (default: false) |
+| `supportsBookmark` | boolean | No | Optimized Story Experience only; enables bookmark support (default: false) |
+| `types` | object | No | Custom data structure and enumeration definitions |
 | `webcomponents` | array | **Yes** | Array of web component definitions |
 | `properties` | object | No | Widget properties accessible via script |
 | `methods` | object | No | Methods callable from script |
@@ -217,6 +225,7 @@ Each widget can have up to three web components:
 | `url` | string | **Yes** | URL to JavaScript file (HTTPS required for external hosting) |
 | `integrity` | string | No | SHA256 hash for subresource integrity |
 | `ignoreIntegrity` | boolean | No | Skip integrity check (development only, default: false) |
+| `type` | string | No | Set to `"module"` to load as ES module (maps to `<script type="module">`) |
 
 ### Tag Naming Rules
 
@@ -272,6 +281,16 @@ Each widget can have up to three web components:
     "type": "number[]",
     "default": [1, 2, 3],
     "description": "Array of numbers"
+  },
+  "integerArray": {
+    "type": "integer[]",
+    "default": [1, 2, 3],
+    "description": "Array of integers"
+  },
+  "booleanArray": {
+    "type": "boolean[]",
+    "default": [true, false],
+    "description": "Array of booleans"
   }
 }
 ```
@@ -319,6 +338,7 @@ Each widget can have up to three web components:
 | `type` | string | **Yes** | Data type |
 | `default` | varies | **Yes** | Default value matching type |
 | `description` | string | No | Description for documentation |
+| `includeInBookmarks` | boolean | No | Whether this property is saved in bookmarks (default: true). Set to `false` to exclude from bookmark serialization. |
 
 ---
 
@@ -576,4 +596,14 @@ Before deploying, verify your JSON:
 - [SAP Custom Widget Developer Guide (PDF)](https://help.sap.com/doc/c813a28922b54e50bd2a307b099787dc/release/en-US/CustomWidgetDevGuide_en.pdf)
 - [SAP Help Portal - Custom Widgets](https://help.sap.com/docs/SAP_ANALYTICS_CLOUD/0ac8c6754ff84605a4372468d002f2bf/75311f67527c41638ceb89af9cd8af3e.html)
 
-**Last Updated**: 2025-11-22
+### Changes Documented in Q2 2026 Refresh (2026-06-12)
+
+Sourced from the Custom Widget Developer Guide PDF (version 2025.21) cross-referenced against this reference file:
+
+- **8 previously undocumented root properties added**: `eula`, `imports`, `supportsMobile`, `supportsExport`, `supportsLinkedAnalysisFilterOnSelection`, `supportsViewportLoading`, `supportsBookmark`, `types`. These existed in the 2025.21 Developer Guide but were not captured in the original v1.0.0 reference.
+- **Webcomponent `type` property added**: Optional field set to `"module"` for ES module loading (`<script type="module">`).
+- **Per-property `includeInBookmarks` flag added**: Controls bookmark serialization per property (default: `true`).
+- **Array types `boolean[]` and `integer[]` added**: Previously undocumented array type variants.
+- **No custom-widget framework changes in QRC1/QRC2 2026**: The SAC Q2 2026 (2026.8) release notes contain no custom-widget-specific changes. The JSON metadata schema, lifecycle functions, data binding feeds, and widget add-on extension points are unchanged from 2025.21.
+
+**Last Updated**: 2026-06-12

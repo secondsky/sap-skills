@@ -647,6 +647,53 @@ _render() {
 
 ---
 
+## Export & Viewport Loading (2026-06-12)
+
+### PDF/PPTX/Google Slides Export
+
+To support export, set `"supportsExport": true` in the root object and implement `serializeCustomWidgetToImage()`:
+
+```javascript
+async serializeCustomWidgetToImage(exportOptions) {
+  const canvas = await html2canvas(this._shadowRoot.querySelector(".container"));
+  return canvas.toDataURL("image/png");
+}
+```
+
+The `exportOptions` object (from the Optimized Story Experience) provides `IExportOptions` with page size, paper size, and orientation. The method must return a Base64-encoded image string. The framework calls this method automatically when a user exports the story.
+
+**Prerequisite**: `supportsExport: true` in widget.json root object. Only available in Optimized Story Experience.
+
+### Viewport Loading
+
+When `supportsViewportLoading` is set to `true`, the widget is lazy-loaded when it scrolls into the visible viewport. To signal rendering completion (for performance measurement), fire the `customWidgetRenderComplete` custom event:
+
+```javascript
+onCustomWidgetAfterUpdate(changedProperties) {
+  this._render();
+  this.dispatchEvent(new Event("customWidgetRenderComplete"));
+}
+```
+
+**Prerequisite**: `supportsViewportLoading: true` in widget.json root object. Optimized Story Experience only.
+
+### Linked Analysis Filter on Selection
+
+When `supportsLinkedAnalysisFilterOnSelection` is set to `true`, the widget participates in linked analysis based on Filter on Data Point Selection. Data binding linked analysis APIs:
+
+```javascript
+const binding = this.dataBindings.getDataBinding("myDataBinding");
+const linkedAnalysis = binding.getLinkedAnalysis();
+
+linkedAnalysis.setFilters(selection);
+linkedAnalysis.removeFilters();
+const isEnabled = linkedAnalysis.isDataPointSelectionEnabled();
+```
+
+**Prerequisite**: `supportsLinkedAnalysisFilterOnSelection: true` in widget.json root object. Optimized Story Experience only.
+
+---
+
 ## Resources
 
 - [SAP Custom Widget Developer Guide (PDF)](https://help.sap.com/doc/c813a28922b54e50bd2a307b099787dc/release/en-US/CustomWidgetDevGuide_en.pdf)
@@ -655,4 +702,4 @@ _render() {
 
 ---
 
-**Last Updated**: 2025-11-22
+**Last Updated**: 2026-06-12

@@ -412,4 +412,4 @@ Same process as custom widgets:
 
 ---
 
-**Last Updated**: 2025-11-22
+**Last Updated**: 2026-06-12
