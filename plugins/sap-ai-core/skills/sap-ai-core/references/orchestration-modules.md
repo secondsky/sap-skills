@@ -48,6 +48,23 @@ If migrating from V1 to V2:
 | Module structure | `module_configurations` | `config.modules` |
 | Embeddings | Not available | `POST /v2/embeddings` |
 
+### V2 Module Naming
+
+In the V2 API, modules use short keys within `config.modules`:
+
+| Module | V1 Key | V2 Key | Required |
+|--------|--------|--------|----------|
+| Templating | `templating_module_config` | `prompt_templating` | Yes |
+| Model | `llm_module_config` | (included in `llm`) | Yes |
+| Grounding | `grounding_module_config` | `grounding` | No |
+| Filtering | `filtering_module_config` | `filtering` | No |
+| Masking | `masking_module_config` | `masking` | No |
+| Translation | `translation_module_config` | `translation` | No |
+
+### V2 Output with Citations
+
+For Perplexity Sonar and Sonar Pro models, the V2 orchestration response includes a citations section with source URLs. This is the only model family that supports citations output.
+
 ---
 
 ## Module Execution Order

@@ -19,6 +19,8 @@ metadata:
 - **sap-btp-service-manager**: Use for service lifecycle management and programmatic service operations
 - **sap-btp-developer-guide**: Use for development workflows, CAP integration, and application patterns
 - **sap-cap-capire**: Use when designing CAP applications on BTP or implementing multitenancy
+- **sap-ai-core**: Use for AI Core platform setup, model deployment, and orchestration configuration
+- **sap-cloud-sdk-ai**: Use for SDK-level AI integration in CAP or standalone BTP applications
 - **sap-fiori-tools**: Use for UI deployment strategies and frontend application guidelines
 
 Production-ready SAP BTP implementation guidance based on official SAP documentation.
@@ -244,7 +246,16 @@ SAP BTP provides AI capabilities through **SAP AI Core** for:
 
 **Use Cases**: 20+ samples including chatbots, PDF extraction, procurement.
 
-**See**: `references/ai-development-best-practices.md` for patterns and examples
+**CAP + AI Integration Patterns**:
+- Use SAP Cloud SDK for AI (`@sap-ai-sdk/orchestration`) inside CAP event handlers — never raw HTTP calls to LLM providers
+- Bind AI Core service instance to CAP app via MTA (plan: `extended`) — credentials are managed by BTP, not in code
+- Always process LLM calls asynchronously in production: return `202 Accepted`, process in background via `cds.spawn`. LLM responses can take 30-60 seconds, exceeding BTP load balancer timeouts
+- Externalize prompts into JSON files or CDS entities so they can be updated without redeployment
+- Use HANA Cloud `Vector(1536)` type in CDS entities for RAG scenarios with the HANA Vector Engine
+- Allocate at least **512MB** memory for Node.js containers processing large text payloads with the AI SDK
+- Implement resilience: validate LLM outputs before writing to the database (prevent injection attacks), cache frequent responses for cost control
+
+**See**: `references/ai-development-best-practices.md` for patterns and examples. For CAP-specific code patterns, see **sap-cap-capire** skill. For SDK integration, see **sap-cloud-sdk-ai** skill.
 
 ---
 

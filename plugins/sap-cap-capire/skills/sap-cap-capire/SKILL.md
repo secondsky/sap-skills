@@ -26,6 +26,8 @@ metadata:
 - **sap-abap**: Use for ABAP system integration, external service consumption, and SAP extensions
 - **sap-btp-best-practices**: Use for production deployment patterns and architectural guidance
 - **sap-ai-core**: Use when adding AI capabilities to CAP applications or integrating with SAP AI services
+- **sap-cloud-sdk-ai**: Use for SDK-level AI integration (chat completion, streaming, tool calling) in CAP event handlers
+- **sap-cloud-sdk-ai-python**: Use for Python-based AI integration with CAP Java or standalone BTP services
 - **sap-api-style**: Use when documenting CAP OData services or following API documentation standards
 - **dependency-upgrade**: Use for secure dependency, lockfile, and supply-chain upgrade controls in CAP service repos
 
@@ -33,6 +35,7 @@ metadata:
 - [Quick Start](#quick-start)
 - [Project Structure](#project-structure)
 - [Core Concepts](#core-concepts)
+- [AI Integration](#ai-integration)
 - [Database Setup](#database-setup)
 - [Deployment](#deployment)
 - [Bundled Resources](#bundled-resources)
@@ -186,6 +189,127 @@ await INSERT.into(Books)
 await UPDATE(Books, bookId)
   .set({ stock: { '-=': 1 } });
 ```
+
+## AI Integration
+
+CAP applications integrate with SAP AI Core via the SAP Cloud SDK for AI. The recommended pattern uses the Orchestration Service through CAP event handlers, with all credential management handled by BTP service bindings.
+
+### Service Binding (MTA)
+
+```yaml
+resources:
+  - name: my-ai-core
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: aicore
+      service-plan: extended
+```
+
+### Local Development (Hybrid Mode)
+
+```bash
+cds bind -2 <AICORE_INSTANCE> && cds-tsx watch --profile hybrid
+```
+
+### Event Handler Pattern (Node.js/TypeScript)
+
+```js
+import { OrchestrationClient } from '@sap-ai-sdk/orchestration';
+
+module.exports = class AnalysisService extends cds.ApplicationService {
+  async init() {
+    const { Feedback } = this.entities;
+
+    this.on('analyzeFeedback', async (req) => {
+      const userText = req.data.text;
+
+      const client = new OrchestrationClient({
+        promptTemplating: {
+          model: { name: 'gpt-4o' },
+          prompt: [
+            { role: 'system', content: 'Categorize feedback as JSON: sentiment, category, urgency.' },
+            { role: 'user', content: '{{?userText}}' }
+          ]
+        }
+      });
+
+      const response = await client.chatCompletion({
+        placeholderValues: { userText }
+      });
+
+      const aiResult = response.getContent();
+
+      await INSERT.into('FeedbackResults').entries({
+        originalText: userText,
+        analysisJson: aiResult
+      });
+
+      return aiResult;
+    });
+
+    return super.init();
+  }
+};
+```
+
+### Asynchronous Processing (Production Pattern)
+
+LLM calls can take 30-60 seconds. Never process them synchronously in production — the BTP load balancer will timeout before the LLM responds.
+
+```js
+this.on('analyzeFeedback', async (req) => {
+  const id = await INSERT.into('FeedbackResults').entries({
+    originalText: req.data.text,
+    status: 'processing'
+  });
+
+  cds.spawn(() => processWithLLM(id, req.data.text));
+
+  return req.reply(202, { id, status: 'processing' });
+});
+
+async function processWithLLM(id, text) {
+  const response = await client.chatCompletion({
+    placeholderValues: { userText: text }
+  });
+  await UPDATE('FeedbackResults', id).set({
+    analysisJson: response.getContent(),
+    status: 'completed'
+  });
+}
+```
+
+### HANA Vector Type for RAG
+
+```cds
+entity Documents {
+  key id    : UUID;
+  content   : String(5000);
+  embedding : Vector(1536);
+}
+```
+
+Use this with the HANA Cloud Vector Engine and AI Core orchestration grounding to build RAG scenarios directly in your CAP data model.
+
+### Prompt Externalization
+
+Do not hardcode prompts in event handlers. Store them in JSON files or a CDS configuration entity so they can be updated without redeployment:
+
+```cds
+entity PromptTemplates {
+  key id       : UUID;
+  name         : String(100);
+  systemPrompt : LargeString;
+  updatedBy    : String;
+  modifiedAt   : Timestamp;
+}
+```
+
+### Memory and Deployment
+
+Node.js containers with AI SDK processing large text payloads require at least **512MB** memory in the MTA descriptor. The AI SDK and JSON payload handling consume more memory than typical CAP services.
+
+For complete SDK documentation, see **sap-cloud-sdk-ai** skill. For AI Core platform setup and orchestration configuration, see **sap-ai-core** skill.
 
 ## Database Setup
 

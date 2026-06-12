@@ -14,16 +14,18 @@ Comprehensive reference for SAP AI Launchpad features and operations.
 4. [User Roles](#user-roles)
 5. [Generative AI Hub](#generative-ai-hub)
 6. [Prompt Editor](#prompt-editor)
-7. [Orchestration Workflows](#orchestration-workflows)
-8. [ML Operations](#ml-operations)
-9. [Configurations](#configurations)
-10. [Deployments](#deployments)
-11. [Executions and Runs](#executions-and-runs)
-12. [Schedules](#schedules)
-13. [Datasets and Artifacts](#datasets-and-artifacts)
-14. [Model Comparison](#model-comparison)
-15. [Applications](#applications)
-16. [Meta API and Custom Runtime Capabilities](#meta-api-and-custom-runtime-capabilities)
+7. [Prompt Registry](#prompt-registry)
+8. [Prompt Optimization](#prompt-optimization)
+9. [Orchestration Workflows](#orchestration-workflows)
+10. [ML Operations](#ml-operations)
+11. [Configurations](#configurations)
+12. [Deployments](#deployments)
+13. [Executions and Runs](#executions-and-runs)
+14. [Schedules](#schedules)
+15. [Datasets and Artifacts](#datasets-and-artifacts)
+16. [Model Comparison](#model-comparison)
+17. [Applications](#applications)
+18. [Meta API and Custom Runtime Capabilities](#meta-api-and-custom-runtime-capabilities)
 
 ---
 
@@ -227,6 +229,116 @@ Use `{{variable_name}}` for placeholders with definitions section.
 | Inferencing | Sentiment, entity extraction |
 | Transformations | Translation, format conversion |
 | Expansions | Content generation |
+
+---
+
+## Prompt Registry
+
+**Access:** Generative AI Hub → Prompt Registry
+
+The Prompt Registry manages the lifecycle of prompt templates from design to runtime. It integrates prompt templates into SAP AI Core, making them discoverable across applications and orchestration workflows.
+
+### Two Management Interfaces
+
+| Interface | Method | Best For | Versioning |
+|-----------|--------|----------|------------|
+| **Imperative API** | REST API (full CRUD) | Design-time refinement | History tracked via `/history` endpoint |
+| **Declarative API** | Git repository sync | Runtime use cases, CI/CD | Git-managed, auto-synced |
+
+### Imperative API: Create a Prompt Template
+
+Send a POST request to `{{apiurl}}/v2/lm/promptTemplates`:
+
+```json
+{
+  "name": "summarization-template",
+  "scenarioId": "foundation-models",
+  "version": "0.0.1",
+  "template": [
+    {"role": "system", "content": "Summarize the following text concisely."},
+    {"role": "user", "content": "{{?input_text}}"}
+  ],
+  "defaults": {
+    "input_text": ""
+  },
+  "additional_fields": {}
+}
+```
+
+### Declarative API: Create via Git
+
+1. Create a prompt template file: `<name>.prompttemplate.ai.sap.yaml`
+2. Push to a synced git repository
+3. The template auto-syncs within minutes
+4. Verify via `GET {{apiurl}}/v2/lm/promptTemplates`
+5. Declarative templates are marked `managedBy: <declarative>` and are always the head version
+
+### Using a Prompt Template at Runtime
+
+Fill a template by ID:
+
+```
+POST {{apiurl}}/v2/lm/promptTemplates/{{promptTemplateId}}/substitution
+```
+
+Or fill by name, scenario, and version:
+
+```
+POST {{apiurl}}/v2/lm/scenarios/{{scenarioId}}/promptTemplates/{{promptTemplateName}}/versions/{{versionId}}/substitution
+```
+
+Include variable values in the request body. Add query parameter `metadata=true` to return the full template definition.
+
+### Resource Group Scope
+
+By default, prompt templates are managed at the main-tenant level. To scope to a resource group:
+
+```
+--header 'AI-Resource-Group-Scope: true'
+--header 'AI-Resource-Group: <resource group>'
+```
+
+### Integration with Orchestration
+
+Prompt templates from the registry can be referenced in orchestration workflows via the templating module, enabling centralized prompt management across multiple applications.
+
+### Required Roles
+
+| Role | Capabilities |
+|------|--------------|
+| `prompt_manager` | Create, update, delete prompt templates |
+| `prompt_experimenter` | Use saved prompt templates |
+
+---
+
+## Prompt Optimization
+
+**Access:** Generative AI Hub → Prompt Optimization
+
+Prompt Optimization evaluates and refines prompts using reference datasets. Available since Q1 2026.
+
+### Key Features
+
+- Variable mapping to reconcile mismatches between prompts and datasets
+- Metrics including `EXACT_MATCH` (Boolean: output exactly matches reference)
+- Automated evaluation against ground-truth responses
+
+### Variable Mapping
+
+When prompt variable names differ from dataset column names, variable mapping aligns them:
+
+```json
+{
+  "variable_mapping": [
+    {"prompt_variable": "user_query", "dataset_column": "question"},
+    {"prompt_variable": "context_text", "dataset_column": "document"}
+  ]
+}
+```
+
+### Configuration
+
+Create a configuration for prompt optimization via the API, referencing a prompt template from the Prompt Registry and a dataset in the object store.
 
 ---
 

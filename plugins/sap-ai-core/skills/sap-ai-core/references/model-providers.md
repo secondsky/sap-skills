@@ -2,7 +2,7 @@
 
 Complete reference for SAP AI Core model providers and available models.
 
-**Documentation Source:** [https://github.com/SAP-docs/sap-artificial-intelligence/tree/main/docs/sap-ai-core](https://github.com/SAP-docs/sap-artificial-intelligence/tree/main/docs/sap-ai-core)
+**Documentation Source:** [SAP Help Portal - SAP AI Core](https://help.sap.com/docs/sap-ai-core)
 
 **Latest Models:** SAP Note 3437766
 
@@ -10,7 +10,7 @@ Complete reference for SAP AI Core model providers and available models.
 
 ## Overview
 
-SAP AI Core provides access to models from six providers via the Generative AI Hub. All models are accessed through a unified API, allowing easy switching between providers.
+SAP AI Core provides access to models from multiple providers via the Generative AI Hub. All models are accessed through a unified API, allowing easy switching between providers.
 
 ---
 
@@ -18,12 +18,13 @@ SAP AI Core provides access to models from six providers via the Generative AI H
 
 | Provider | Executable ID | Access Type | Model Categories |
 |----------|---------------|-------------|------------------|
-| Azure OpenAI | `azure-openai` | Remote | Chat, Embeddings, Vision |
+| Azure OpenAI | `azure-openai` | Remote | Chat, Embeddings, Vision, Reasoning, Realtime |
 | SAP Open Source | `aicore-opensource` | Local | Chat, Embeddings, Vision |
-| Google Vertex AI | `gcp-vertexai` | Remote | Chat, Embeddings, Code |
+| Google Vertex AI | `gcp-vertexai` | Remote | Chat, Embeddings, Vision, Code, Image Gen |
 | AWS Bedrock | `aws-bedrock` | Remote | Chat, Embeddings |
 | Mistral AI | `aicore-mistralai` | Local | Chat, Code |
 | IBM | `aicore-ibm` | Local | Chat, Code |
+| Perplexity | `aicore-perplexity` | Remote | Chat with Citations, Deep Research |
 
 ---
 
@@ -32,15 +33,46 @@ SAP AI Core provides access to models from six providers via the Generative AI H
 **Executable ID:** `azure-openai`
 **Access Type:** Remote (Azure-hosted)
 
-### Chat Models
+### Flagship Models (GPT-5 Family)
 
 | Model | Context | Capabilities | Use Case |
 |-------|---------|--------------|----------|
-| gpt-4o | 128K | Chat, Vision | Advanced reasoning, multimodal |
-| gpt-4o-mini | 128K | Chat, Vision | Cost-efficient, fast |
-| gpt-4-turbo | 128K | Chat, Vision | Previous flagship |
-| gpt-4 | 8K/32K | Chat | Reasoning, analysis |
-| gpt-35-turbo | 4K/16K | Chat | Fast, economical |
+| gpt-5.5 | 256K | Chat, Vision, Reasoning | Most advanced (available since June 2026) |
+| gpt-5.4 | 256K | Chat, Vision | High performance (available since April 2026) |
+| gpt-5.4-nano | 128K | Chat | Cost-efficient within GPT-5.4 tier |
+| gpt-5.3-codex | 128K | Chat, Code | Code-focused variant |
+| gpt-5 | 128K | Chat, Vision | Base GPT-5 (available since August 2025) |
+| gpt-5-mini | 128K | Chat | Mid-tier GPT-5 |
+| gpt-5-nano | 128K | Chat | Most cost-efficient GPT-5 |
+
+### GPT-4.1 Family
+
+| Model | Context | Capabilities | Use Case |
+|-------|---------|--------------|----------|
+| gpt-4.1 | 128K | Chat, Vision | Replacement for GPT-4 (available since May 2025) |
+| gpt-4.1-mini | 128K | Chat, Vision | Mid-tier |
+| gpt-4.1-nano | 128K | Chat | Lightweight |
+
+### Legacy Models
+
+| Model | Context | Capabilities | Use Case |
+|-------|---------|--------------|----------|
+| gpt-4o | 128K | Chat, Vision | Vision/multimodal |
+
+**Deprecated:** gpt-4 (0613), gpt-4-turbo, gpt-4-32k, gpt-35-turbo — migrate to GPT-4.1 or GPT-5.
+
+### Reasoning Models
+
+| Model | Context | Capabilities | Use Case |
+|-------|---------|--------------|----------|
+| o3 | - | Reasoning | Complex reasoning chains |
+| o4-mini | - | Reasoning | Cost-efficient reasoning |
+
+### Special Models
+
+| Model | Use Case |
+|-------|----------|
+| gpt-realtime | Realtime conversational API (available since May 2026) |
 
 ### Embedding Models
 
@@ -48,7 +80,6 @@ SAP AI Core provides access to models from six providers via the Generative AI H
 |-------|------------|----------|
 | text-embedding-3-large | 3072 | High accuracy embeddings |
 | text-embedding-3-small | 1536 | Cost-efficient embeddings |
-| text-embedding-ada-002 | 1536 | Legacy embeddings |
 
 ### Configuration Example
 
@@ -75,6 +106,9 @@ SAP AI Core provides access to models from six providers via the Generative AI H
 
 | Model | Parameters | Context | Capabilities |
 |-------|------------|---------|--------------|
+| llama-4-maverick | 400B MoE | 1M | Advanced reasoning (available since Q2 2026) |
+| llama-4-scout | 109B MoE | 10M | Long context (available since Q2 2026) |
+| llama-3.3-70b | 70B | 128K | Strong reasoning |
 | llama-3.1-405b | 405B | 128K | Advanced reasoning |
 | llama-3.1-70b | 70B | 128K | Strong reasoning |
 | llama-3.1-8b | 8B | 128K | Fast, efficient |
@@ -117,30 +151,36 @@ SAP AI Core provides access to models from six providers via the Generative AI H
 **Executable ID:** `gcp-vertexai`
 **Access Type:** Remote (Google Cloud)
 
-### Gemini Models
+### Gemini 2.5 Family
 
 | Model | Context | Capabilities |
 |-------|---------|--------------|
-| gemini-2.5-pro | 2M | Chat, Vision, Code, Long context |
-| gemini-2.5-flash | 1M | Fast, multimodal |
+| gemini-2.5-pro | 2M | Chat, Vision, Code, Long context, latest preview |
+| gemini-2.5-flash | 1M | Fast, multimodal, image generation |
 | gemini-2.5-flash-lite | 1M | Fast, lower-cost multimodal |
+
+### Gemini 2.0 Family
+
+| Model | Context | Capabilities |
+|-------|---------|--------------|
 | gemini-2.0-flash | 1M | Flash family, multimodal |
 | gemini-2.0-flash-lite | 1M | Flash family, lower-cost |
 
-### PaLM 2 Models
+### Deprecated Models
 
-| Model | Use Case |
-|-------|----------|
-| text-bison | Text generation |
-| chat-bison | Conversational |
-| code-bison | Code generation |
+| Model | Use Case | Status |
+|-------|----------|--------|
+| gemini-1.5-pro | Long context | **Deprecated** — migrate to gemini-2.0-flash or 2.5 |
+| gemini-1.5-flash | Fast chat | **Deprecated** — migrate to gemini-2.5-flash-lite |
+| text-bison | Text generation | **Retired** — migrate to Gemini |
+| chat-bison | Conversational | **Retired** — migrate to Gemini |
+| code-bison | Code generation | **Retired** — migrate to Gemini |
 
 ### Embedding Models
 
 | Model | Dimensions |
 |-------|------------|
 | text-embedding-004 | 768 |
-| textembedding-gecko | 768 |
 
 ### Configuration Example
 
@@ -167,30 +207,23 @@ SAP AI Core provides access to models from six providers via the Generative AI H
 
 | Model | Context | Capabilities |
 |-------|---------|--------------|
-| claude-sonnet-4-5 | 200K | Latest, advanced reasoning |
-| claude-4-opus | 200K | Highest capability |
-| claude-4-sonnet | 200K | Balanced, high performance |
-| claude-opus-4-1 | 200K | Extended Opus capabilities |
-| claude-3-7-sonnet | 200K | Improved Sonnet 3.5 |
-| claude-3-5-sonnet | 200K | Advanced reasoning |
+| claude-4.7-opus | 200K | Highest capability (available since May 2026) |
+| claude-4.6-opus | 200K | Advanced reasoning (available since March 2026) |
+| claude-4.5-opus | 200K | High capability (available since January 2026) |
+| claude-4.5-sonnet | 200K | Balanced, high performance |
+| claude-4.5-haiku | 200K | Fast, efficient |
+| claude-3.7-sonnet | 200K | Improved Sonnet |
+| claude-3.5-sonnet | 200K | Advanced reasoning |
 | claude-3-opus | 200K | High capability |
-| claude-3-sonnet | 200K | Balanced performance |
-| claude-3-haiku | 200K | Fast, efficient |
 
-### Amazon Titan Models
+### Amazon Models
 
-| Model | Use Case |
-|-------|----------|
-| titan-text-express | General text |
-| titan-text-lite | Lightweight |
-| titan-embed-text | Embeddings |
-
-### Meta Llama 3 (Bedrock)
-
-| Model | Parameters |
-|-------|------------|
-| llama-3-70b | 70B |
-| llama-3-8b | 8B |
+| Model | Context | Use Case |
+|-------|---------|----------|
+| amazon-nova-lite-2-0 | - | Cost-efficient |
+| titan-text-express | - | General text |
+| titan-text-lite | - | Lightweight |
+| titan-embed-text | - | Embeddings |
 
 ### Configuration Example
 
@@ -247,6 +280,7 @@ SAP AI Core provides access to models from six providers via the Generative AI H
 
 | Model | Parameters | Use Case |
 |-------|------------|----------|
+| granite-3-0 | Various | Latest Granite generation (available since early 2026) |
 | granite-13b-chat | 13B | Conversational |
 | granite-13b-instruct | 13B | Task completion |
 | granite-code | - | Code generation |
@@ -267,37 +301,77 @@ SAP AI Core provides access to models from six providers via the Generative AI H
 
 ---
 
+## 7. Perplexity
+
+**Executable ID:** `aicore-perplexity`
+**Access Type:** Remote (Perplexity-hosted)
+**Available since:** Q1 2026
+
+### Models
+
+| Model | Use Case |
+|-------|----------|
+| perplexity-sonar-deep-research | Deep research with comprehensive citations |
+| perplexity-sonar-pro | Advanced web-grounded chat with citations |
+| perplexity-sonar | Web-grounded chat with citations |
+
+**Unique Features:**
+- Returns citation URLs alongside responses
+- Web-grounded responses for up-to-date information
+- Supports output-with-citations in orchestration workflows
+
+### Configuration Example
+
+```json
+{
+  "name": "perplexity-config",
+  "executableId": "aicore-perplexity",
+  "scenarioId": "foundation-models",
+  "parameterBindings": [
+    {"key": "modelName", "value": "perplexity--sonar"},
+    {"key": "modelVersion", "value": "latest"}
+  ]
+}
+```
+
+---
+
 ## Model Selection Guide
 
 ### By Use Case
 
 | Use Case | Recommended Models |
 |----------|-------------------|
-| General chat | gpt-4o, claude-3-5-sonnet, gemini-1.5-pro |
-| Code generation | gpt-4o, codestral, claude-3-5-sonnet |
-| Long documents | gemini-1.5-pro (2M), claude-3 (200K), gpt-4o (128K) |
-| Vision/images | gpt-4o, gemini-1.5-pro, llama-3.2-vision |
+| General chat | gpt-5.4, claude-4.5-sonnet, gemini-2.5-pro |
+| Code generation | gpt-5.3-codex, gpt-5.4, claude-4.5-sonnet |
+| Long documents | gemini-2.5-pro (2M), gpt-5.5 (256K), llama-4-scout (10M) |
+| Vision/images | gpt-4o, gemini-2.5-pro, gemini-2.5-flash (image gen) |
 | Embeddings | text-embedding-3-large, text-embedding-004 |
-| Cost-sensitive | gpt-4o-mini, mistral-small, llama-3.1-8b |
-| High throughput | gpt-35-turbo, claude-3-haiku, mistral-small |
+| Cost-sensitive | gpt-5-nano, gpt-4.1-mini, mistral-small |
+| High throughput | gpt-4.1-mini, claude-4.5-haiku, mistral-small |
+| Reasoning | o3, o4-mini, claude-4.7-opus |
+| Web-grounded / citations | perplexity-sonar, perplexity-sonar-pro |
+| Deep research | perplexity-sonar-deep-research |
+| Realtime | gpt-realtime |
 
 ### By Budget
 
 | Budget | Tier | Models |
 |--------|------|--------|
-| Low | Economy | gpt-4o-mini, claude-3-haiku, mistral-small |
-| Medium | Standard | gpt-4o, claude-3-sonnet, gemini-1.5-flash |
-| High | Premium | claude-3-opus, gpt-4-turbo, gemini-1.5-pro |
+| Low | Economy | gpt-5-nano, claude-4.5-haiku, mistral-small |
+| Medium | Standard | gpt-5, claude-4.5-sonnet, gemini-2.5-flash |
+| High | Premium | gpt-5.5, claude-4.7-opus, gemini-2.5-pro |
 
 ### By Capability
 
 | Capability | Best Models |
 |------------|-------------|
-| Reasoning | claude-3-opus, gpt-4o, llama-3.1-405b |
-| Speed | claude-3-haiku, gpt-35-turbo, mistral-small |
-| Context length | gemini-1.5-pro (2M), claude-3 (200K) |
-| Multimodal | gpt-4o, gemini-1.5-pro, llama-3.2-vision |
-| Code | codestral, gpt-4o, claude-3-5-sonnet |
+| Reasoning | o3, claude-4.7-opus, gpt-5.5 |
+| Speed | claude-4.5-haiku, gpt-5-nano, mistral-small |
+| Context length | gemini-2.5-pro (2M), llama-4-scout (10M) |
+| Multimodal | gpt-4o, gemini-2.5-pro, llama-3.2-vision |
+| Code | gpt-5.3-codex, gpt-5.4, claude-4.5-sonnet |
+| Citations | perplexity-sonar, perplexity-sonar-pro, perplexity-sonar-deep-research |
 
 ---
 
@@ -383,7 +457,7 @@ def call_with_retry(func, max_retries=3):
 
 ## Documentation Links
 
-- Supported Models: [https://github.com/SAP-docs/sap-artificial-intelligence/blob/main/docs/sap-ai-core/supported-models-509e588.md](https://github.com/SAP-docs/sap-artificial-intelligence/blob/main/docs/sap-ai-core/supported-models-509e588.md)
-- Generative AI Hub: [https://github.com/SAP-docs/sap-artificial-intelligence/blob/main/docs/sap-ai-core/generative-ai-hub-7db524e.md](https://github.com/SAP-docs/sap-artificial-intelligence/blob/main/docs/sap-ai-core/generative-ai-hub-7db524e.md)
+- Supported Models: [https://help.sap.com/docs/sap-ai-core/generative-ai/supported-models](https://help.sap.com/docs/sap-ai-core/generative-ai/supported-models)
+- Generative AI Hub: [https://help.sap.com/docs/sap-ai-core/generative-ai/generative-ai-hub](https://help.sap.com/docs/sap-ai-core/generative-ai/generative-ai-hub)
 - SAP Note 3437766: Token rates, limits, deprecation dates
 - SAP Discovery Center: [https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core)

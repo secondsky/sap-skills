@@ -1,11 +1,11 @@
 ---
 name: sap-ai-core
 description: |
-  Guides development with SAP AI Core and SAP AI Launchpad for enterprise AI/ML workloads on SAP BTP. Use when: deploying generative AI models (GPT, Llama, Gemini, Mistral), building orchestration workflows with templating/filtering/grounding, implementing RAG with vector databases, managing ML training pipelines with Argo Workflows, configuring content filtering and data masking for PII protection, using the Generative AI Hub for prompt experimentation, or integrating AI capabilities into SAP applications. Covers service plans (Free/Standard/Extended), model providers (Azure OpenAI, AWS Bedrock, GCP Vertex AI, Mistral, IBM), orchestration modules, embeddings, tool calling, and structured outputs.
+  Guides development with SAP AI Core and SAP AI Launchpad for enterprise AI/ML workloads on SAP BTP. Use when: deploying generative AI models, building orchestration workflows with templating/filtering/grounding, implementing RAG with vector databases, managing ML training pipelines with Argo Workflows, configuring content filtering and data masking for PII protection, using the Generative AI Hub for prompt experimentation, managing prompt templates via the Prompt Registry, or integrating AI capabilities into SAP applications. Covers service plans (Free/Standard/Extended), model providers (Azure OpenAI, AWS Bedrock, GCP Vertex AI, Mistral, IBM, Perplexity), orchestration modules, embeddings, tool calling, and structured outputs.
 license: GPL-3.0
 metadata:
-  version: "1.1.1"
-  last_verified: "2026-02-25"
+  version: "1.2.0"
+  last_verified: "2026-06-12"
   production_tested: "Yes, examples verified against SAP documentation"
 ---
 
@@ -34,11 +34,12 @@ metadata:
 12. [ML Training](#ml-training)
 13. [Deployments](#deployments)
 14. [Bundled Resources](#bundled-resources)
-14. [SAP AI Launchpad](#sap-ai-launchpad)
-15. [API Reference](#api-reference)
-16. [Common Patterns](#common-patterns)
-17. [Troubleshooting](#troubleshooting)
-18. [References](#references)
+15. [SAP AI Launchpad](#sap-ai-launchpad)
+16. [Prompt Registry](#prompt-registry)
+17. [API Reference](#api-reference)
+18. [Common Patterns](#common-patterns)
+19. [Troubleshooting](#troubleshooting)
+20. [References](#references)
 
 ## Overview
 
@@ -152,13 +153,14 @@ curl -X POST "$ORCHESTRATION_URL/v2/completion" \
 
 ## Model Providers
 
-SAP AI Core provides access to models from six providers:
-- **Azure OpenAI**: GPT-4o, GPT-4 Turbo, GPT-3.5
-- **SAP Open Source**: Llama, Falcon, Mistral variants
-- **Google Vertex AI**: Gemini Pro, PaLM 2
-- **AWS Bedrock**: Claude, Amazon Titan
+SAP AI Core provides access to models from multiple providers:
+- **Azure OpenAI**: GPT-5.5, GPT-5.4, GPT-5, GPT-4.1, o3, o4-mini, GPT Realtime
+- **SAP Open Source**: Llama 3.1/3.2/3.3/4, Falcon
+- **Google Vertex AI**: Gemini 2.5 Pro/Flash/Flash-Lite, Gemini 2.0 Flash
+- **AWS Bedrock**: Claude 4.7/4.6/4.5 Opus, Claude 4.5 Sonnet/Haiku
 - **Mistral AI**: Mistral Large, Medium, Small
 - **IBM**: Granite models
+- **Perplexity**: Sonar, Sonar Pro, Sonar Deep Research
 
 For detailed provider configurations and model lists, see `references/model-providers.md`.
 
@@ -217,6 +219,21 @@ Web-based UI with 4 key applications:
 
 Required roles include `genai_manager`, `genai_experimenter`, `prompt_manager`, `orchestration_executor`, and `mloperations_editor`. For complete guide, see `references/ai-launchpad-guide.md`.
 
+## Prompt Registry
+
+The Prompt Registry manages the lifecycle of prompt templates from design to runtime, integrating them into SAP AI Core and orchestration workflows.
+
+**Two management interfaces:**
+- **Imperative API**: Full CRUD via REST, for design-time prompt refinement
+- **Declarative API**: Git repository sync, for runtime and CI/CD use cases
+
+**Key endpoints:**
+- `POST /v2/lm/promptTemplates` — Create a prompt template
+- `POST /v2/lm/promptTemplates/{id}/substitution` — Fill template by ID
+- `POST /v2/lm/scenarios/{scenario}/promptTemplates/{name}/versions/{version}/substitution` — Fill by name
+
+For complete Prompt Registry documentation, see `references/ai-launchpad-guide.md`.
+
 ## API Reference
 
 ### Core Endpoints
@@ -225,11 +242,13 @@ Key endpoints: `/v2/lm/scenarios`, `/v2/lm/configurations`, `/v2/lm/deployments`
 
 ## Common Patterns
 
+**CAP Integration**: SAP CAP is the primary consumer framework for AI Core on BTP. Bind an AI Core service instance to your CAP app via MTA, then call the orchestration API from CAP event handlers using the SAP Cloud SDK for AI. Always process LLM calls asynchronously in production (return `202 Accepted`, process in background via `cds.spawn`) to avoid BTP load balancer timeouts. See **sap-cap-capire** and **sap-cloud-sdk-ai** skills for complete code examples.
+
 **Simple Chat**: Basic model invocation with templating module
 **RAG with Grounding**: Combine vector search with LLM for context-aware responses
 **Secure Enterprise Chat**: Filtering + masking + grounding for PII protection
 Templates available in `templates/orchestration-workflow.json`.
-        "masking_providers": [{
+
   ## Troubleshooting
 
 **Common Issues**:

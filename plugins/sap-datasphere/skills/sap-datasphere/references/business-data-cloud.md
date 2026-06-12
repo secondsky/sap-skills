@@ -2,7 +2,7 @@
 
 ## Overview
 
-SAP Business Data Cloud (BDC) is SAP's unified data and analytics platform that brings together SAP Datasphere, SAP Analytics Cloud, SAP HANA Cloud, and curated data products under a single SaaS offering. Announced in late 2025 and rapidly evolving through 2026, BDC provides an integrated environment for data management, analytics, planning, and enterprise AI.
+SAP Business Data Cloud (BDC) is SAP's unified data and analytics platform that brings together SAP Datasphere, SAP Analytics Cloud, SAP HANA Cloud, and curated data products under a single SaaS offering. Launched at SAP Business Unleashed on February 13, 2025, with controlled commercial availability expanding through 2025 and 2026, BDC provides an integrated environment for data management, analytics, planning, and enterprise AI.
 
 **Official Help Portal**: https://help.sap.com/docs/business-data-cloud
 

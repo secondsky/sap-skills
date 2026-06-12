@@ -124,6 +124,161 @@ def mask_pii(text: str) -> str:
 
 ---
 
+## CAP + AI Integration Patterns
+
+Production-tested patterns for integrating LLMs into CAP applications on SAP BTP.
+
+### Architecture
+
+```
+Fiori Frontend → CAP Service → SAP Cloud SDK for AI → AI Core (Orchestration) → LLM Provider
+                     ↓                                       ↑
+              HANA Database                          BTP Service Binding
+              (Vector columns)                    (No API keys in code)
+```
+
+The CAP service never holds LLM provider credentials. It authenticates via BTP service binding to AI Core, which routes to the configured provider (Azure OpenAI, AWS Bedrock, etc.). Changing providers requires only an AI Core configuration change, no code modification.
+
+### Service Binding (MTA)
+
+```yaml
+resources:
+  - name: my-ai-core
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: aicore
+      service-plan: extended  # Required for Generative AI Hub
+```
+
+### Dependencies
+
+```bash
+npm install @sap-ai-sdk/orchestration
+```
+
+### CAP Event Handler with AI (TypeScript/JavaScript)
+
+```typescript
+import { OrchestrationClient } from '@sap-ai-sdk/orchestration';
+import cds from '@sap/cds';
+
+export default class FeedbackService extends cds.ApplicationService {
+  async init() {
+    const client = new OrchestrationClient({
+      promptTemplating: {
+        model: { name: 'gpt-4o' },
+        prompt: [
+          { role: 'system', content: 'Categorize feedback as JSON: sentiment, category, urgency.' },
+          { role: 'user', content: '{{?feedback}}' }
+        ]
+      }
+    });
+
+    this.on('analyzeFeedback', async (req) => {
+      const response = await client.chatCompletion({
+        placeholderValues: { feedback: req.data.text }
+      });
+      return response.getContent();
+    });
+
+    return super.init();
+  }
+}
+```
+
+### Asynchronous Processing (Critical for Production)
+
+LLM responses can take 30-60 seconds. The BTP load balancer and database connection pool will timeout before the LLM responds. **Never call LLMs synchronously in production CAP services.**
+
+```typescript
+this.on('analyzeFeedback', async (req) => {
+  // 1. Immediately persist with "processing" status
+  const entry = await INSERT.into('FeedbackResults').entries({
+    originalText: req.data.text,
+    status: 'processing'
+  });
+
+  // 2. Spawn background job for LLM call
+  cds.spawn(() => this.processWithLLM(entry.ID, req.data.text));
+
+  // 3. Return 202 Accepted
+  return req.reply(202, { id: entry.ID, status: 'processing' });
+});
+
+async processWithLLM(id: string, text: string) {
+  try {
+    const response = await this.client.chatCompletion({
+      placeholderValues: { feedback: text }
+    });
+    await UPDATE('FeedbackResults', id).set({
+      analysisJson: response.getContent(),
+      status: 'completed'
+    });
+  } catch (error) {
+    await UPDATE('FeedbackResults', id).set({
+      status: 'failed',
+      error: error.message
+    });
+  }
+}
+```
+
+### HANA Vector Engine for RAG
+
+Define vector columns in CDS for embedding storage:
+
+```cds
+entity Documents {
+  key id       : UUID;
+  content      : String(5000);
+  embedding    : Vector(1536);  // OpenAI ada-002 dimension
+  source       : String;
+  createdAt    : Timestamp;
+}
+```
+
+Combine with AI Core orchestration grounding module for production RAG pipelines.
+
+### Prompt Externalization
+
+Do not hardcode prompts in event handlers. Externalize for maintainability:
+
+```cds
+entity PromptTemplates {
+  key id          : UUID;
+  name            : String(100);
+  systemPrompt    : LargeString;
+  temperature     : Decimal(3,2);
+  modifiedAt      : Timestamp;
+}
+```
+
+This allows prompt tuning without redeployment — update the database row and the next LLM call picks up the change.
+
+### Resilience and Cost Control
+
+| Concern | Pattern |
+|---------|---------|
+| **LLM timeout** | Async processing with `cds.spawn`, return 202 |
+| **LLM failure** | Try/catch with error status in DB, retry logic |
+| **Injection attacks** | Validate/sanitize LLM output before DB write |
+| **Cost** | Cache frequent responses, use smaller models for simple tasks |
+| **Memory** | Allocate minimum 512MB for Node.js containers with AI SDK |
+
+### Local Development
+
+```bash
+# Bind to AI Core service instance locally
+cds bind -2 <AICORE_INSTANCE> && cds-tsx watch --profile hybrid
+```
+
+### Source
+
+These patterns are derived from production deployments documented by CloudDNA and SAP BTP AI best practices.
+For complete CAP context, see the **sap-cap-capire** skill. For SDK details, see **sap-cloud-sdk-ai** skill.
+
+---
+
 ## Narrow AI Best Practices
 
 ### Regression Models

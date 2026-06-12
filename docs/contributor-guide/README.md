@@ -209,7 +209,7 @@ The SAP skills repository manages **33 production plugins** using a marketplace 
 
 **Scale**: 33 plugins across 5 user-facing groups:
 - Tooling & Development (2 plugins)
-- SAP BTP Platform (14 skills)
+- SAP BTP Platform (15 skills)
 - UI Development (4 skills)
 - Data & Analytics (5 skills)
 - Core Technologies (7 skills)

@@ -2,7 +2,7 @@
 
 Complete reference for SAP AI Core Generative AI Hub.
 
-**Documentation Source:** [https://github.com/SAP-docs/sap-artificial-intelligence/tree/main/docs/sap-ai-core](https://github.com/SAP-docs/sap-artificial-intelligence/tree/main/docs/sap-ai-core)
+**Documentation Source:** [SAP Help Portal - SAP AI Core](https://help.sap.com/docs/sap-ai-core)
 
 ---
 
@@ -12,10 +12,11 @@ The Generative AI Hub integrates large language models (LLMs) into SAP AI Core a
 
 ### Key Features
 
-- Access to LLMs from 6 providers via unified API
+- Access to LLMs from multiple providers via unified API
 - Harmonized API for model switching without code changes
 - Prompt experimentation in AI Launchpad UI
-- Orchestration workflows with filtering, masking, grounding
+- Prompt Registry for prompt template lifecycle management (available since Q1 2026)
+- Orchestration workflows with filtering, masking, grounding, translation
 - Token-based metering and billing
 
 ### Prerequisites
@@ -44,12 +45,19 @@ Two scenarios provide generative AI access:
 Access to OpenAI models via Azure's private instance.
 
 **Models:**
-- GPT-4o, GPT-4o-mini
-- GPT-4 Turbo, GPT-4
-- GPT-3.5 Turbo
+- GPT-5.5 (flagship, available since June 2026)
+- GPT-5.4, GPT-5.4-nano (available since April 2026)
+- GPT-5.3-Codex (code-focused, available since April 2026)
+- GPT-5, GPT-5 Mini, GPT-5 Nano (available since August 2025)
+- GPT-4.1, GPT-4.1-mini, GPT-4.1-nano (replacement for GPT-4)
+- GPT-4o (vision/multimodal)
+- o3, o4-mini (reasoning models)
+- GPT Realtime (realtime API, available since May 2026)
 - text-embedding-3-large, text-embedding-3-small
 
-**Capabilities:** Chat, embeddings, vision
+**Deprecated:** GPT-4 (0613), GPT-4 Turbo (2024-04-09), GPT-4-32k, GPT-3.5 Turbo — migrate to GPT-4.1 or GPT-5 family.
+
+**Capabilities:** Chat, embeddings, vision, reasoning, realtime
 
 ### 2. SAP-Hosted Open Source (`aicore-opensource`)
 
@@ -58,6 +66,8 @@ SAP-hosted open source models via OpenAI-compatible API.
 **Models:**
 - Llama 3.1 (8B, 70B, 405B)
 - Llama 3.2 (1B, 3B, 11B-Vision, 90B-Vision)
+- Llama 3.3 70B (available since early 2026)
+- Llama 4 Scout, Llama 4 Maverick (available since Q2 2026)
 - Mistral 7B, Mixtral 8x7B
 - Falcon 40B
 
@@ -68,22 +78,29 @@ SAP-hosted open source models via OpenAI-compatible API.
 Access to Google's AI models.
 
 **Models:**
-- Gemini 1.5 Pro, Gemini 1.5 Flash
-- Gemini 1.0 Pro
-- PaLM 2 (text-bison, chat-bison)
+- Gemini 2.5 Pro Preview 06-05 (latest, available since June 2026)
+- Gemini 2.5 Flash (supports image generation, available since May 2026)
+- Gemini 2.5 Flash Lite (available since December 2025)
+- Gemini 2.0 Flash, Gemini 2.0 Flash Lite
 - text-embedding-004
 
-**Capabilities:** Chat, embeddings, vision, code
+**Deprecated:** Gemini 1.5 Pro, Gemini 1.5 Flash — migrate to Gemini 2.0 Flash or 2.5 family. PaLM 2 models (text-bison, chat-bison) have been retired.
+
+**Capabilities:** Chat, embeddings, vision, code, image generation
 
 ### 4. AWS Bedrock (`aws-bedrock`)
 
 Access to models via AWS Bedrock.
 
 **Models:**
-- Anthropic Claude 3.5 Sonnet, Claude 3 Opus/Sonnet/Haiku
+- Anthropic Claude 4.7 Opus (available since May 2026)
+- Anthropic Claude 4.6 Opus (available since March 2026)
+- Anthropic Claude 4.5 Opus (available since January 2026)
+- Anthropic Claude 4.5 Sonnet, Claude 4.5 Haiku
+- Anthropic Claude 3.7 Sonnet, Claude 3.5 Sonnet
+- Anthropic Claude 3 Opus
+- Amazon Nova Lite 2.0
 - Amazon Titan Text, Titan Embeddings
-- Meta Llama 3
-- Cohere Command
 
 **Capabilities:** Chat, embeddings
 
@@ -107,8 +124,22 @@ SAP-hosted IBM models.
 **Models:**
 - Granite 13B Chat, Granite 13B Instruct
 - Granite Code
+- Granite 3.0 models (available since early 2026)
 
 **Capabilities:** Chat, code
+
+### 7. Perplexity (`aicore-perplexity`)
+
+Perplexity AI models accessed through SAP AI Core (available since Q1 2026).
+
+**Models:**
+- Perplexity Sonar Deep Research (deep research with citations, available since 2026)
+- Perplexity Sonar Pro
+- Perplexity Sonar
+
+**Capabilities:** Chat with citations, web-grounded responses
+
+**Note:** Sonar and Sonar Pro models support an output-with-citations feature in orchestration, returning source URLs alongside responses.
 
 ---
 
@@ -432,12 +463,16 @@ Submit support ticket:
 
 | Use Case | Recommended Model |
 |----------|-------------------|
-| General chat | GPT-4o, Claude 3.5 Sonnet |
-| Cost-sensitive | GPT-4o-mini, Mistral Small |
-| Long context | GPT-4o (128K), Claude 3 (200K) |
+| General chat | GPT-5.4, Claude 4.5 Sonnet, Gemini 2.5 Pro |
+| Cost-sensitive | GPT-5 Nano, GPT-4.1-mini, Mistral Small |
+| Long context | Gemini 2.5 Pro (2M), GPT-5 (128K+) |
 | Embeddings | text-embedding-3-large |
-| Code | Codestral, GPT-4o |
-| Vision | GPT-4o, Gemini 1.5 Pro |
+| Code | GPT-5.3-Codex, GPT-5.4, Claude 4.5 Sonnet |
+| Vision | GPT-4o, Gemini 2.5 Pro |
+| Reasoning | o3, o4-mini, Claude 4.7 Opus |
+| Citations / web-grounded | Perplexity Sonar, Sonar Pro, Sonar Deep Research |
+| Deep research | Perplexity Sonar Deep Research |
+| Realtime | GPT Realtime |
 
 ### Cost Optimization
 
@@ -458,7 +493,7 @@ Submit support ticket:
 
 ## Documentation Links
 
-- Generative AI Hub: [https://github.com/SAP-docs/sap-artificial-intelligence/blob/main/docs/sap-ai-core/generative-ai-hub-7db524e.md](https://github.com/SAP-docs/sap-artificial-intelligence/blob/main/docs/sap-ai-core/generative-ai-hub-7db524e.md)
-- Supported Models: [https://github.com/SAP-docs/sap-artificial-intelligence/blob/main/docs/sap-ai-core/supported-models-509e588.md](https://github.com/SAP-docs/sap-artificial-intelligence/blob/main/docs/sap-ai-core/supported-models-509e588.md)
+- Generative AI Hub: [https://help.sap.com/docs/sap-ai-core/generative-ai/generative-ai-hub](https://help.sap.com/docs/sap-ai-core/generative-ai/generative-ai-hub)
+- Supported Models: [https://help.sap.com/docs/sap-ai-core/generative-ai/supported-models](https://help.sap.com/docs/sap-ai-core/generative-ai/supported-models)
 - SAP Note 3437766: Token rates, limits, deprecation
 - SAP Discovery Center: [https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core)

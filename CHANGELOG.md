@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.2.3] - 2026-06-12
 
+### Added
+- **sap-cloud-sdk-ai-python**: New plugin at `plugins/sap-cloud-sdk-ai-python` with comprehensive guides and orchestration support
+  - 5 reference docs: getting-started-auth, langchain-guide, native-clients-guide, orchestration-guide, troubleshooting
+  - 385-line SKILL.md covering SAP Cloud SDK for AI Python client
+- **sap-btp-cloud-identity-services**: New plugin at `plugins/sap-btp-cloud-identity-services` with core documentation references
+  - 4 reference docs: app-integration-patterns, authorization-management, cloud-foundry-security, xsuaa-integration-guide
+  - 165-line SKILL.md covering authentication, authorization, and identity patterns on BTP
+- **sap-ai-core**: Expanded AI Launchpad guide, generative AI hub, model providers, and orchestration modules references
+- **sap-btp-best-practices**: Added `ai-development-best-practices.md` reference (155 lines)
+- **sap-cap-capire**: Added comprehensive patterns for CAP integration with SAP Cloud SDK for AI including asynchronous processing guidelines
+- **sap-cloud-sdk-ai**: Added 59 lines of new patterns for AI integration
+- **sap-btp-developer-guide**: Added AI development best practices references
+
 ### Changed
 - **sap-sac-scripting**: Refreshed to QRC2 2026 (SAC 2026.8, OSE API v2025.20)
   - Skill version bumped 3.0.1 → 3.1.0
@@ -14,6 +27,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - All 8 OSE API reference files updated from v2025.14 to v2025.20
   - Added 13 missing OSE API classes (DataUpload*, Variance*, Compass, Math, DataLabelType)
   - Reference count: 63 → 65
+- **sap-sac-custom-widget**: Refreshed to QRC2 2026
+  - Documented missing schema properties in `json-schema-reference.md`
+  - Expanded `advanced-topics.md` with 49 new lines
+  - Updated README and SKILL.md
 - **sap-sac-planning**: Refreshed to QRC2 2026 (SAC 2026.8)
 - **README.md**: Restructured with universal installation via [vercel-labs/skills](https://github.com/vercel-labs/skills), compacted plugin tables, added table of contents
 
