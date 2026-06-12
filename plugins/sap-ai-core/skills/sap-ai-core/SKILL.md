@@ -242,6 +242,8 @@ Key endpoints: `/v2/lm/scenarios`, `/v2/lm/configurations`, `/v2/lm/deployments`
 
 ## Common Patterns
 
+**CAP Integration**: SAP CAP is the primary consumer framework for AI Core on BTP. Bind an AI Core service instance to your CAP app via MTA, then call the orchestration API from CAP event handlers using the SAP Cloud SDK for AI. Always process LLM calls asynchronously in production (return `202 Accepted`, process in background via `cds.spawn`) to avoid BTP load balancer timeouts. See **sap-cap-capire** and **sap-cloud-sdk-ai** skills for complete code examples.
+
 **Simple Chat**: Basic model invocation with templating module
 **RAG with Grounding**: Combine vector search with LLM for context-aware responses
 **Secure Enterprise Chat**: Filtering + masking + grounding for PII protection

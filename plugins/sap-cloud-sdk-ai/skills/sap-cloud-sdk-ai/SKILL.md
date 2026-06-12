@@ -12,6 +12,8 @@ metadata:
 
 ## Related Skills
 
+- **sap-cap-capire**: Use for building CAP applications that consume AI services, including event handler patterns and async LLM orchestration
+- **sap-ai-core**: Use for AI Core platform setup, orchestration configuration, and model deployment
 - **dependency-upgrade**: Hardening guidance for npm package upgrades, lockfile policies, and secure dependency workflows
 
 The official SDK for SAP AI Core, SAP Generative AI Hub, and Orchestration Service.
@@ -234,6 +236,63 @@ const client = new OrchestrationClient({
   }
 });
 ```
+
+### CAP Integration
+
+The SDK integrates natively with CAP event handlers. Use `OrchestrationClient` inside CAP service classes to add AI capabilities to your CAP services.
+
+**Service binding in MTA**:
+```yaml
+resources:
+  - name: my-ai-core
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: aicore
+      service-plan: extended
+```
+
+**CAP event handler with AI**:
+```js
+import { OrchestrationClient } from '@sap-ai-sdk/orchestration';
+import cds from '@sap/cds';
+
+export default class AnalysisService extends cds.ApplicationService {
+  async init() {
+    const client = new OrchestrationClient({
+      promptTemplating: {
+        model: { name: 'gpt-4o' },
+        prompt: [
+          { role: 'system', content: 'Analyze and categorize as JSON.' },
+          { role: 'user', content: '{{?input}}' }
+        ]
+      }
+    });
+
+    this.on('analyzeText', async (req) => {
+      const response = await client.chatCompletion({
+        placeholderValues: { input: req.data.text }
+      });
+      return response.getContent();
+    });
+
+    return super.init();
+  }
+}
+```
+
+**Critical: Use async processing for production LLM calls.** LLM responses can take 30-60 seconds, exceeding BTP load balancer timeouts. Return `202 Accepted` and process in the background:
+
+```js
+this.on('analyzeText', async (req) => {
+  const entry = await INSERT.into('Results').entries({
+    text: req.data.text, status: 'processing'
+  });
+  cds.spawn(() => processLLM(entry.id, req.data.text, client));
+  return req.reply(202, { id: entry.id, status: 'processing' });
+});
+```
+
+For the complete CAP + AI integration guide including HANA Vector types for RAG and prompt externalization, see the **sap-cap-capire** skill.
 
 ## Response Helpers
 
