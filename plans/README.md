@@ -15,7 +15,7 @@ starting, honor its STOP conditions, and update your row when done.
 | [002](002-refresh-sap-sac-planning-qrc2-2026.md) | Refresh sap-sac-planning from SAC 2025.25 to QRC2 2026 | P1 | M | — | DONE |
 | [004](004-refresh-sap-sac-scripting-qrc2-2026.md) | Refresh sap-sac-scripting to QRC2 2026 + fix metadata drift | P2 | S | — | DONE |
 | [003](003-refresh-sap-sac-custom-widget-qrc2-2026.md) | Refresh sap-sac-custom-widget from SAC 2025.21 to QRC2 2026 | P2 | S–M | — | DONE |
-| [005](005-new-skill-sap-cloud-sdk-ai-python.md) | New plugin: sap-cloud-sdk-ai-python (Python SDK `sap-ai-sdk-gen`) | P2 | L | — | TODO |
+| [005](005-new-skill-sap-cloud-sdk-ai-python.md) | New plugin: sap-cloud-sdk-ai-python (Python SDK `sap-ai-sdk-gen`) | P2 | L | — | DONE |
 | [007](007-enrich-sap-ai-core-genai-hub.md) | Enrich sap-ai-core Generative AI Hub coverage (models, orchestration, prompt registry) | P2 | M | — | TODO |
 | [006](006-new-skill-sap-btp-cloud-identity-services.md) | New plugin: sap-btp-cloud-identity-services (IAS/IPS/AMS) | P3 | L | — | TODO |
 

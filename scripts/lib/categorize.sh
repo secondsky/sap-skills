@@ -25,7 +25,7 @@ categorize_skill() {
     sap-sac-*|sap-datasphere) echo "data-analytics" ;;
 
     # AI & Machine Learning
-    sap-ai-*|sap-cloud-sdk-ai) echo "ai" ;;
+    sap-ai-*|sap-cloud-sdk-ai*) echo "ai" ;;
 
     # API & Styling
     sap-api-*) echo "tooling" ;;

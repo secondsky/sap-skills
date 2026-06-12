@@ -1,9 +1,9 @@
 # SAP Skills for AI Coding Assistants
 
-33 production-ready plugins for SAP development
+34 production-ready plugins for SAP development
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENSE)
-[![Plugins](https://img.shields.io/badge/Plugins-33-brightgreen.svg)](.claude-plugin/marketplace.json)
+[![Plugins](https://img.shields.io/badge/Plugins-34-brightgreen.svg)](.claude-plugin/marketplace.json)
 [![Version](https://img.shields.io/badge/Version-2.2.3-orange.svg)](CHANGELOG.md)
 
 Production-ready plugins for SAP development with AI coding assistants. Each plugin provides context-aware skills that activate automatically when you work with SAP BTP, CAP, Fiori, ABAP, Analytics, and more.
@@ -12,7 +12,7 @@ Production-ready plugins for SAP development with AI coding assistants. Each plu
 
 - [Quick Start](#quick-start) — Install for any AI assistant
 - [How It Works](#how-it-works) — Auto-activation examples
-- [Available Plugins](#available-plugins-33) — 33 plugins by category
+- [Available Plugins](#available-plugins-34) — 34 plugins by category
 - [Repository Structure](#repository-structure) — Architecture overview
 - [Building New Plugins](#building-new-plugins) — Contribution workflow
 - [Documentation](#documentation) — Guides and references
@@ -74,7 +74,7 @@ No manual invocation needed — the AI assistant loads relevant skills when you 
 
 ---
 
-## Available Plugins (33)
+## Available Plugins (34)
 
 Feature icons: ⌘ = commands · 🤖 = agents · 🔌 = MCP · LSP = language server
 
@@ -124,7 +124,7 @@ Feature icons: ⌘ = commands · 🤖 = agents · 🔌 = MCP · LSP = language s
 | **sap-sac-planning** | ⌘3 · 🤖3 | SAP Analytics Cloud planning applications |
 | **sap-sac-scripting** | ⌘4 · 🤖4 · 🔌MCP | SAP Analytics Cloud scripting API |
 
-### ⚙️ Core Technologies (7)
+### ⚙️ Core Technologies (8)
 
 | Plugin | Features | Description |
 |--------|----------|-------------|
@@ -133,6 +133,7 @@ Feature icons: ⌘ = commands · 🤖 = agents · 🔌 = MCP · LSP = language s
 | **sap-ai-core** | | SAP AI Core machine learning development |
 | **sap-cap-capire** | ⌘5 · 🤖4 · 🔌MCP · LSP | SAP Cloud Application Programming Model (CAP) |
 | **sap-cloud-sdk-ai** | | SAP Cloud SDK for AI development |
+| **sap-cloud-sdk-ai-python** | | SAP Cloud SDK for AI for Python (generative AI hub SDK) |
 | **sap-hana-ml** | | SAP HANA Machine Learning (ML) library |
 | **sap-sqlscript** | ⌘4 · 🤖3 · LSP | SAP HANA SQLScript development |
 
@@ -145,7 +146,7 @@ sap-skills/
 ├── .claude-plugin/
 │   └── marketplace.json          # Marketplace catalog
 │
-└── plugins/                       # All plugins (33)
+└── plugins/                       # All plugins (34)
     └── [plugin-name]/
         ├── .claude-plugin/
         │   └── plugin.json       # Plugin manifest
