@@ -95,11 +95,8 @@ errors that break functionality.
 **Cross-References**: 14 plugins reference related skills
 
 **Categories**:
-- Tooling & Development (3 skills)
-- SAP BTP Platform (14 skills)
-- UI Development (4 skills)
-- Data & Analytics (5 skills)
-- Core Technologies (7 skills)
+- Category counts are maintained in [README.md](README.md)
+- Validate plugin and marketplace inventory with `./scripts/validate-inventory.sh`
 
 ### Automation Scripts
 
@@ -110,7 +107,7 @@ errors that break functionality.
 
 **generate-plugin-manifests.sh**: SKILL.md YAML → plugin.json conversion
 
-**generate-marketplace.sh**: Aggregates 34 root plugin manifests into central registry
+**generate-marketplace.sh**: Aggregates root plugin manifests into central registry
 
 **Usage**:
 ```bash

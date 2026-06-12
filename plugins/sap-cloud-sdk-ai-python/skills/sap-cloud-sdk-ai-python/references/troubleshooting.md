@@ -238,8 +238,8 @@ and is currently at v6.10.0. Key additions since the rename include:
 
 | sap-ai-sdk-gen | Python | ai-core-sdk | Key Feature |
 |----------------|--------|-------------|-------------|
-| 6.10.0 | 3.8+ | Bundled | Responses API, RPT-1, Orchestration v2 |
-| 6.x | 3.8+ | Bundled | Google GenAI native client |
+| 6.10.0 | 3.9+ | Bundled | Responses API, RPT-1, Orchestration v2 |
+| 6.x | 3.9+ | Bundled | Google GenAI native client |
 | 5.x | 3.8+ | Bundled | Initial rename from generative-ai-hub-sdk |
 
 The `ai-core-sdk` (`AICoreV2Client`) is included as a dependency of `sap-ai-sdk-gen`.

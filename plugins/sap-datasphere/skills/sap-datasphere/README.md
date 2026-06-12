@@ -1,6 +1,6 @@
 # SAP Datasphere Skill
 
-Comprehensive Claude Code plugin for SAP Datasphere development with 3 specialized agents, 4 slash commands, validation hooks, and 17 reference documents covering data warehouse creation, analytic modeling, data integration, CLI automation, data marketplace, governance, and SAP Business Data Cloud.
+Comprehensive Claude Code plugin for SAP Datasphere development with 3 specialized agents, 5 slash commands, validation hooks, and 17 reference documents covering data warehouse creation, analytic modeling, data integration, CLI automation, data marketplace, governance, and SAP Business Data Cloud.
 
 ## Overview
 
@@ -35,6 +35,7 @@ This skill activates when working with:
 - `/datasphere-view-template` - Generate view templates
 - `/datasphere-connection-guide` - Step-by-step connection setup
 - `/datasphere-cli` - CLI command reference
+- `/datasphere-mcp-tools` - SAP Datasphere MCP tool reference and usage guidance
 
 **Hooks:**
 - PreToolUse validation for SQL/SQLScript quality

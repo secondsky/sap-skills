@@ -601,10 +601,8 @@ For transport procedures, see `references/content-transport.md`.
 15. **`references/business-data-cloud.md`** - SAP Business Data Cloud architecture, Databricks integration, data products vs. marketplace, BDC Connect
 
 **MCP Integration:**
-14. **`references/mcp-tools-reference.md`** - Complete MCP tool reference, 45 tools across 8 categories, API documentation, authentication patterns
-15. **`references/mcp-use-cases.md`** - 8 real-world use cases with personas, time savings, and ROI analysis ($159K+/year savings)
-16. **`references/whats-new-2026.md`** - Q1-Q2 2026 features, BDC data products, task chain enhancements, SAP Snowflake, SAPPHIRE announcements
-17. **`references/business-data-cloud.md`** - SAP Business Data Cloud architecture, Databricks integration, data products vs. marketplace, BDC Connect
+16. **`references/mcp-tools-reference.md`** - Complete MCP tool reference, 45 tools across 8 categories, API documentation, authentication patterns
+17. **`references/mcp-use-cases.md`** - 8 real-world use cases with personas, time savings, and ROI analysis ($159K+/year savings)
 
 ### Plugin Components
 
@@ -620,6 +618,7 @@ This plugin includes 3 specialized agents, 5 slash commands, and validation hook
 - `/datasphere-view-template` - Generate view templates (graphical/SQL)
 - `/datasphere-connection-guide` - Step-by-step connection setup
 - `/datasphere-cli` - CLI command reference and examples
+- `/datasphere-mcp-tools` - SAP Datasphere MCP tool reference and usage guidance
 
 **Hooks** (in `hooks/`):
 - PreToolUse validation for SQL/SQLScript code quality

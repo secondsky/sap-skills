@@ -38,7 +38,7 @@ The import paths under `gen_ai_hub` remain the same between the old and new pack
 
 ## Python Version
 
-The SDK requires Python 3.8+.
+The SDK requires Python 3.9+.
 
 ## Prerequisites
 
