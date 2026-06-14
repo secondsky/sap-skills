@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "oracle": {
+      "type": "stdio",
+      "command": "bun",
+      "args": ["run", "oracle:mcp"]
+    }
+  }
+}

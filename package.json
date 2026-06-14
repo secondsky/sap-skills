@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "oracle": "oracle",
+    "oracle:login": "oracle --engine browser --browser-manual-login --browser-keep-browser --browser-input-timeout 120000 -p \"HI\"",
+    "oracle:status": "oracle status --hours 72",
+    "oracle:mcp": "oracle-mcp",
     "validate": "./scripts/validate-json-schemas.sh && ./scripts/validate-reserved-words.sh && ./scripts/validate-bundled-resources.mjs && ./scripts/validate-command-agent-frontmatter.mjs && ./scripts/validate-inventory.sh && ./scripts/validate-mcp-security.mjs && ./scripts/validate-skill-quality.mjs && ./scripts/audit-effectiveness.mjs --validate && ./scripts/test-hooks.sh",
     "validate:marketplace": "ajv validate -s schemas/marketplace.schema.json -d .claude-plugin/marketplace.json --strict=false -c ajv-formats --all-errors",
     "validate:plugins": "./scripts/validate-json-schemas.sh",
@@ -17,6 +21,7 @@
     "test:hooks": "./scripts/test-hooks.sh"
   },
   "devDependencies": {
+    "@steipete/oracle": "0.14.0",
     "ajv-cli": "^5.0.0",
     "ajv-formats": "^3.0.1"
   }

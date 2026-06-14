@@ -1,3 +1,50 @@
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Dependencies and build output
+node_modules/
+.cache/
+.turbo/
+dist/
+build/
+coverage/
+
+# Python noise
 __pycache__/
 *.pyc
-.DS_Store
+*.pyo
+
+# Logs and debug reports
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+bun-debug.log*
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.token
+*.credentials
+
+# Oracle local artifacts
+.oracle/*
+!.oracle/config.json
+.oracle/sessions/
+.oracle/generated/
+.oracle/browser-profile/
+.oracle-perf-*.json

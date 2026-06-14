@@ -83,6 +83,25 @@ For all general plugin development tasks:
 **Why**: Skills require context-aware decisions. Automation introduces subtle
 errors that break functionality.
 
+### 3. Oracle Shared Reviews
+
+Use Oracle as a browser-first second-opinion tool when stuck, for architecture
+review, before risky refactors, or for second-model validation of important
+plans. Default to subscription-backed ChatGPT browser mode; API mode is
+separately billed and requires explicit user approval before use.
+
+Before sending large context, run a dry run with a file report:
+
+```bash
+bun run oracle -- --dry-run summary --files-report -p "Review this plan" --file "plugins/**"
+```
+
+Never include secrets, `.env` files, credentials, tokens, private browser
+profiles, or machine-local config paths in Oracle requests. Do not rerun long
+browser sessions blindly; check `bun run oracle:status` first, then reattach
+with `bun run oracle -- session <id> --render`. For MCP consults, prefer
+`preset: "chatgpt-pro-heavy"` or explicit `engine: "browser"`.
+
 ---
 
 ## SAP-Specific Infrastructure

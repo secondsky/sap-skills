@@ -1,0 +1,14 @@
+{
+  "engine": "browser",
+  "model": "gpt-5.5-pro",
+  "filesReport": true,
+  "heartbeatSeconds": 30,
+  "browser": {
+    "manualLogin": true,
+    "thinkingTime": "extended",
+    "modelStrategy": "current",
+    "autoReattachDelayMs": 5000,
+    "autoReattachIntervalMs": 3000,
+    "autoReattachTimeoutMs": 60000
+  }
+}
