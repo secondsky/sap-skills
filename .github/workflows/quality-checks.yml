@@ -108,8 +108,5 @@ jobs:
       - name: Validate command and agent frontmatter
         run: ./scripts/validate-command-agent-frontmatter.mjs
 
-      - name: Validate dependency-upgrade mirror
-        run: ./scripts/sync-dependency-upgrade-mirror.sh --check
-
       - name: Run hook fixture tests
         run: ./scripts/test-hooks.sh

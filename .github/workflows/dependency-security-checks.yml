@@ -45,15 +45,22 @@ jobs:
           fi
 
           REQUIRED_TEMPLATES=(
-            "plugins/dependency-upgrade/skills/dependency-upgrade/templates/npmrc-security.tmpl"
-            "plugins/dependency-upgrade/skills/dependency-upgrade/templates/bunfig-security.tmpl"
-            "plugins/dependency-upgrade/skills/dependency-upgrade/templates/pnpm-workspace-security.tmpl"
-            "plugins/dependency-upgrade/skills/dependency-upgrade/templates/yarnrc-security.tmpl"
-            "plugins/dependency-upgrade/skills/dependency-upgrade/templates/dependabot-security.tmpl"
-            "plugins/dependency-upgrade/skills/dependency-upgrade/templates/renovate-security.tmpl"
-            "plugins/dependency-upgrade/skills/dependency-upgrade/templates/socket-fix-ci.tmpl"
-            "plugins/dependency-upgrade/skills/dependency-upgrade/templates/socket-scan-ci.tmpl"
-            "plugins/dependency-upgrade/skills/dependency-upgrade/templates/devcontainer-security.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/abap-gcts-review.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/btp-cf-mbt-review.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/bunfig-security.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/container-trivy.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/dependabot-security.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/devcontainer-security.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/gradle-security.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/maven-security.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/npmrc-security.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/pnpm-workspace-security.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/python-security.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/renovate-security.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/sap-mcp-config.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/socket-fix-ci.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/socket-scan-ci.tmpl"
+            "plugins/sap-dependency-security/skills/sap-dependency-security/templates/yarnrc-security.tmpl"
           )
 
           DEPENDENCY_SKILL_PATHS=(
@@ -83,11 +90,9 @@ jobs:
           done
 
           if [ "$missing_templates" -ne 0 ]; then
-            echo "Dependency hardening templates are incomplete. Update plugins/dependency-upgrade/skills/dependency-upgrade/templates first."
+            echo "Dependency hardening templates are incomplete. Update plugins/sap-dependency-security/skills/sap-dependency-security/templates first."
             exit 1
           fi
-
-          ./scripts/sync-dependency-upgrade-mirror.sh --check
 
           while IFS= read -r file; do
             [ -z "$file" ] && continue
@@ -97,7 +102,7 @@ jobs:
                 case " ${DEPENDENCY_SKILL_PATHS[*]} " in
                   *" $file "*)
                     has_dependency_context=true
-                    if ! grep -qi "dependency-upgrade" "$file"; then
+                    if ! grep -qi "sap-dependency-security" "$file"; then
                       missing_skill_references+=("$file")
                     fi
                     ;;
@@ -118,9 +123,9 @@ jobs:
           fi
 
           if [ ${#missing_skill_references[@]} -gt 0 ]; then
-            echo "::error::Dependency-focused skill/workflow changes must include a dependency-upgrade reference."
+            echo "::error::Dependency-focused skill/workflow changes must include a sap-dependency-security reference."
             for item in "${missing_skill_references[@]}"; do
-              echo "::error file=$item::Add a 'dependency-upgrade' entry in this SKILL.md's Related Skills section."
+              echo "::error file=$item::Add a 'sap-dependency-security' entry in this SKILL.md's Related Skills section."
             done
             exit 1
           fi
