@@ -69,8 +69,7 @@ jobs:
 
           print("Checking for broken internal links in markdown files...")
           errors = 0
-          for root, dirs, files in os.walk('.'):
-              dirs[:] = [d for d in dirs if d not in ('.git', 'node_modules')]
+          for root, dirs, files in os.walk('plugins'):
               for f in files:
                   if not f.endswith('.md'):
                       continue

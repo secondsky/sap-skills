@@ -1,878 +1,965 @@
-# Plan 008: Create a promotional website for SAP Skills
+# Plan 008: Build the SAP Skills website
 
 > **Executor instructions**: Follow this plan phase by phase. Each phase has
-> clear deliverables and verification steps. Do not skip phases. When done,
-> update the status row in `plans/README.md`.
+> concrete deliverables and verification steps. Do not reintroduce runtime
+> Cloudflare bindings, paid services, or a server API unless a STOP condition is
+> reached and the maintainer explicitly approves a redesign. When done, update
+> the status row in `plans/README.md`.
 >
-> **Critical**: This plan creates a SEPARATE Next.js application in a `website/`
-> directory at the repo root. It does NOT modify any existing skill content,
-> manifests, or validation scripts. The only shared integration point is reading
-> `marketplace.json` at build time.
+> **Critical**: This plan creates a separate static Next.js application in a
+> root-level `website/` directory. Existing skill content, plugin manifests, and
+> validation scripts remain the source of truth and must not be changed for the
+> website, except for launch documentation links called out in Phase 8.
 
 ## Status
 
 - **Priority**: P2
-- **Effort**: XL (new application)
-- **Risk**: MEDIUM (new codebase, design iteration needed)
+- **Effort**: XL (new static website and data pipeline)
+- **Risk**: MEDIUM (new app, generated data, deployment workflow)
 - **Depends on**: none
-- **Category**: direction (marketing/website)
-- **Planned at**: 2026-06-12
+- **Category**: direction (website/catalog)
+- **Planned at**: 2026-06-13
 
-## Decisions resolved (interview)
+## Decisions resolved
 
 | Decision | Choice |
 |----------|--------|
-| Target audience | SAP developers using AI coding assistants |
-| Domain | `sap-skills.pages.dev` (Cloudflare Pages subdomain) |
-| Data source | Static at build time from marketplace.json |
-| CF services | Cloudflare Pages + R2 (for stats JSON + any future assets) |
-| Animations | Framer Motion (motion) |
-| Visual style | Clean light theme (design exploration phase before implementation) |
-| Site structure | Multi-page: Home, Skills list, Skill detail pages, About |
-| Skill detail depth | Rich parsed metadata: description, feature badges, keyword pills, related skills, install command, GitHub link |
-| Search | Client-side fuzzy search (fuse.js) |
-| Filter | Category pills (8 categories from marketplace.json) |
-| Primary CTA | Copy install command with toast confirmation |
-| Hero | Bold headline + dual CTAs (npx skills add + Claude Code command) |
-| Install guide | Multi-tool tabs: Claude Code, Cursor, Windsurf, Copilot |
-| Social proof | Animated stat counters (35 plugins, 24 agents, etc.) + GitHub stars + total installs |
-| Live stats | GitHub Actions cron → scrape skills.sh + GitHub API → write to R2 → read at build time |
-| Color palette | Design exploration via playground skill (10 mockups, pick one) |
-| Typography | Inter (body) + JetBrains Mono (code) |
-| Footer | GitHub link, GPL-3.0 license, author (E.J.), last updated date. NO Next.js/CF credit |
-
----
+| Primary product role | Polished SAP Skills catalog, not a guided advisor |
+| Target audience | SAP developers, SAP consultants, BTP architects, and AI coding assistant users |
+| Domain | `sap-skills.pages.dev` for v1 |
+| Framework | Next.js App Router + TypeScript + Tailwind + shadcn/ui |
+| Hosting | Cloudflare Pages static export |
+| Build output | `website/out` |
+| Runtime model | Static pages only; no Pages Functions, no Workers runtime, no R2 binding in app code |
+| Stats delivery | Public R2 `stats.json` fetched client-side with generated fallback |
+| Analytics | Free Cloudflare Web Analytics plus optional free Zaraz `zaraz.track()` events |
+| Data source | Generated from `.claude-plugin/marketplace.json`, plugin manifests, `.mcp.json`, and `SKILL.md` frontmatter/sections |
+| Generated data | Produced by `website/scripts/build-data.ts` during `predev`, `prebuild`, and test setup |
+| Related skills | Parse explicit `## Related Skills`; infer missing relations deterministically |
+| Install story | Universal `npx skills add secondsky/sap-skills` first |
+| Per-skill install | `npx skills add secondsky/sap-skills --skill <slug>` |
+| Bundle install | Repeat `--skill` once per bundle skill |
+| Detail depth | Rich metadata profile, not a full SKILL.md docs mirror |
+| Search | Inline search/filter plus Cmd/Ctrl+K focus or compact command dialog |
+| Motion | Restrained Framer Motion only where it clarifies hierarchy |
+| Visual style | Product-system visuals, clean light theme, no dark mode in v1 |
+| OG strategy | Static branded OG image with a provided Nano Banana prompt |
+| QA level | Unit tests + Playwright E2E + build/lint/typecheck + Lighthouse |
+| Docs scope | Full launch docs refresh after the site ships |
 
 ## Why this matters
 
-The repo has 35 production-tested SAP skills with 4,300+ installs and 336 GitHub
-stars, but discovery is limited to the GitHub README and skills.sh listing. A
-dedicated promotional website with search, filtering, rich skill details, and
-install guides will significantly increase visibility and adoption. It positions
-the project as a first-class ecosystem rather than a GitHub README.
+The repository contains 35 production-ready SAP plugins, 24 agents, 29 commands,
+6 MCP integrations, and more than 4,300 installs on skills.sh. Discovery is
+currently split between the GitHub README and the skills.sh listing. A dedicated
+website should make the ecosystem feel credible, searchable, and easy to adopt
+without copying the full documentation set into another surface.
 
----
+The site should answer four user questions quickly:
 
-## Architecture overview
+1. What is SAP Skills?
+2. Which SAP capability or bundle fits my work?
+3. How do I install it for my AI coding assistant?
+4. Where is the authoritative source on GitHub?
 
+## Architecture
+
+```text
+Git repository
+  .claude-plugin/marketplace.json
+  plugins/*/.claude-plugin/plugin.json
+  plugins/*/.mcp.json
+  plugins/*/skills/*/SKILL.md
+        |
+        | website/scripts/build-data.ts
+        v
+website/src/generated/*.json
+        |
+        | next build with output: "export"
+        v
+website/out
+        |
+        | Cloudflare Pages static hosting
+        v
+https://sap-skills.pages.dev
+
+Scheduled GitHub Actions
+  GitHub API + skills.sh HTML
+        |
+        | website/scripts/scrape-stats.ts
+        v
+public R2 stats.json
+        |
+        | client-side fetch with generated fallback
+        v
+stats counters and best-effort per-skill install counts
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    Cloudflare Pages                      │
-│              (Next.js static export @edge)                │
-│                                                          │
-│  ┌──────────┐  ┌──────────┐  ┌───────────────────────┐  │
-│  │ Homepage  │  │ Skills   │  │ /skills/[slug]        │  │
-│  │           │  │ list     │  │ (per-skill detail)     │  │
-│  └──────────┘  └──────────┘  └───────────────────────┘  │
-│                                                          │
-│  Build-time data: marketplace.json → static JSON          │
-│  Runtime data: R2 stats.json (GitHub stars, installs)     │
-└─────────────────────────────────────────────────────────┘
-         │
-         │ (build time reads)
-         ▼
-┌─────────────────────────────────────────────────────────┐
-│                    R2 Bucket                             │
-│  stats.json — { stars, totalInstalls, skillInstalls }    │
-│  Updated by GitHub Actions cron (every 6 hours)          │
-└─────────────────────────────────────────────────────────┘
-         ▲
-         │ (writes)
-┌─────────────────────────────────────────────────────────┐
-│                GitHub Actions Workflow                    │
-│  schedule: every 6 hours + on push to main                │
-│  1. Fetch GitHub stars via API                            │
-│  2. Scrape skills.sh for install counts                   │
-│  3. Write stats.json to R2                                │
-│  4. Trigger Pages rebuild (dispatch-build)                │
-└─────────────────────────────────────────────────────────┘
-```
 
----
+Do **not** use `@cloudflare/next-on-pages`, OpenNext, Pages Functions, runtime
+R2 bindings, D1, KV, Durable Objects, Queues, Workers Analytics Engine, or a
+custom runtime API for v1.
 
 ## Phase 0: Design exploration
 
-**Goal**: Generate 10 distinct design mockups using the playground skill, pick one direction.
+**Goal**: Create 10 real homepage mockups, choose one direction, and document
+the selected design system before implementation.
 
-### Steps
+### Requirements
 
-1. **Generate mockups** — Use the playground skill to create 10 different homepage mockups:
-   - Provide it with: skill data (marketplace.json excerpt), category list, stat numbers, install commands
-   - Vary: hero treatments, card layouts, color palettes, animation styles
-   - Each mockup should be a single HTML file that can be opened in a browser
+- Create `website/mockups/` with 10 standalone HTML mockups.
+- Each mockup must be a complete first-pass homepage concept, not only a hero.
+- Each mockup must include:
+  - Hero with universal install command.
+  - Stats/social proof band.
+  - Six consultant bundle previews.
+  - Skills catalog preview with search/filter treatment.
+  - Install guide treatment.
+  - Footer treatment.
+- Use product-system visuals:
+  - Code-native UI previews.
+  - Category icons.
+  - Skill cards and metadata badges.
+  - Generated branded OG/hero art where useful.
+- Avoid:
+  - Generic enterprise stock imagery.
+  - Official SAP logos or marks.
+  - Decorative blobs/orbs.
+  - Dark mode.
+  - Marketing-only pages with no catalog signal.
 
-2. **Review and select** — Present all 10 to the maintainer for selection
+### Nano Banana OG prompt
 
-3. **Refine the winner** — Iterate on the chosen design with 2-3 refinement rounds:
-   - Finalize color palette (primary, secondary, accent, background, foreground)
-   - Finalize card design (skill card in grid, skill detail page layout)
-   - Finalize hero section layout and animation choreography
-   - Document the chosen design tokens as CSS variables / Tailwind config
+Use this prompt manually to generate the static Open Graph image:
+
+```text
+Create a polished 1200x630 Open Graph image for "SAP Skills", a developer catalog of AI coding assistant skills for SAP. Clean light enterprise design, crisp product-system aesthetic, white background, subtle SAP-inspired blue accents without using the official SAP logo, elegant grid of skill cards, small terminal/install command motif, hints of BTP, CAP, Fiori, ABAP, Analytics, and AI as abstract product UI elements. Include only the text: "SAP Skills" and "35 production-ready plugins for AI coding assistants". High contrast, readable at small size, modern developer-tool branding, no people, no stock-photo look, no official corporate marks.
+```
 
 ### Deliverables
 
-- [ ] 10 mockup HTML files in `website/mockups/` (untracked in .gitignore)
-- [ ] Chosen design documented as `website/DESIGN.md` with color tokens, typography, spacing
-- [ ] Maintainer sign-off on final design direction
+- [ ] `website/mockups/` with 10 HTML mockups.
+- [ ] Maintainer-selected winning direction.
+- [ ] `website/DESIGN.md` with:
+  - Chosen mockup reference.
+  - Color tokens.
+  - Typography tokens.
+  - Spacing/radius/elevation rules.
+  - Motion rules.
+  - Component inventory.
+  - OG image prompt and final asset location.
 
 ### Verify
 
-- Maintainer confirms design direction before any implementation begins
-
----
+- Maintainer signs off on the chosen design before Phase 1 implementation.
+- The selected design can support all required pages and responsive states.
 
 ## Phase 1: Project scaffolding
 
-**Goal**: Set up the Next.js project with all tooling configured.
+**Goal**: Create a static Next.js website project that can build to `out/` and
+run locally via Cloudflare Pages static preview.
 
 ### Steps
 
-1. **Create Next.js app** in `website/` at repo root:
+1. Create the app:
 
    ```bash
    npx create-next-app@latest website --typescript --tailwind --eslint --app --src-dir --import-alias "@/*"
    ```
 
-2. **Install dependencies**:
+2. Install runtime dependencies:
 
    ```bash
    cd website
-   npm install framer-motion fuse.js
-   npm install -D @cloudflare/next-on-pages wrangler
-   npm install shadcn
+   npm install framer-motion fuse.js zod gray-matter lucide-react sonner
    ```
 
-3. **Initialize shadcn** — configure with clean light theme, Inter + JetBrains Mono fonts:
+3. Install development dependencies:
+
+   ```bash
+   npm install -D tsx vitest @vitest/coverage-v8 @playwright/test wrangler @types/node
+   ```
+
+4. Initialize shadcn/ui:
 
    ```bash
    npx shadcn@latest init
    ```
 
-   - Style: Default (clean)
-   - Base color: neutral
-   - CSS variables: yes
+   Use:
+   - Style: default or the closest match to `website/DESIGN.md`.
+   - Base color: neutral.
+   - CSS variables: yes.
+   - Icon library: lucide.
 
-4. **Add shadcn components** (all needed for the site):
+5. Add shadcn components:
 
    ```bash
-   npx shadcn@latest add button card badge input tabs dialog command tooltip separator scroll-area
+   npx shadcn@latest add button card badge input tabs dialog command tooltip separator scroll-area sheet sonner breadcrumb toggle-group alert skeleton
    ```
 
-5. **Configure Tailwind** — extend with design tokens from Phase 0:
+6. Configure `next.config.ts` for static export:
 
-   - Custom colors based on chosen design
-   - Font families: Inter (sans), JetBrains Mono (mono)
-   - Animation keyframes for stat counters, card reveals, page transitions
+   ```ts
+   import type { NextConfig } from "next";
 
-6. **Configure `@cloudflare/next-on-pages`**:
+   const nextConfig: NextConfig = {
+     output: "export",
+     trailingSlash: true,
+     images: {
+       unoptimized: true
+     }
+   };
 
-   - Add `wrangler.toml` for local dev with R2 bindings
-   - Configure `next.config.js` for static export compatibility with CF Pages
-   - Add R2 binding config for stats reading
+   export default nextConfig;
+   ```
 
-7. **Add `.gitignore` entries** — the `website/` directory should be independently managed but live in the monorepo
+7. Add package scripts:
 
-8. **Create build script** that reads marketplace.json and generates static data:
+   ```json
+   {
+     "predev": "tsx scripts/build-data.ts",
+     "dev": "next dev",
+     "prebuild": "tsx scripts/build-data.ts",
+     "build": "next build",
+     "typecheck": "tsc --noEmit",
+     "test": "vitest run",
+     "test:watch": "vitest",
+     "e2e": "playwright test",
+     "preview:pages": "wrangler pages dev out"
+   }
+   ```
 
-   - `website/scripts/build-data.ts` — reads `../.claude-plugin/marketplace.json`, transforms into typed JSON files
-   - Output: `website/src/data/skills.json`, `website/src/data/categories.json`, `website/src/data/stats.json` (from R2 or fallback)
+   Keep the lint command produced by `create-next-app`. If the generated project
+   uses `eslint` directly rather than `next lint`, keep that generated command.
+
+8. Add static hosting files:
+   - `website/public/_headers`
+   - `website/public/robots.txt`
+   - `website/public/og/sap-skills.png` after the generated asset exists.
+
+9. Add `.gitignore` rules only for build outputs and local artifacts:
+   - `website/.next/`
+   - `website/out/`
+   - `website/test-results/`
+   - `website/playwright-report/`
 
 ### Deliverables
 
-- [ ] `website/` directory with working Next.js + shadcn + Tailwind + Framer Motion
-- [ ] `wrangler.toml` with R2 binding
-- [ ] Build data script that reads marketplace.json
-- [ ] Dev server runs: `npm run dev` works in `website/`
-- [ ] CF Pages build works: `npx @cloudflare/next-on-pages`
+- [ ] Static Next.js app in `website/`.
+- [ ] shadcn/ui installed and verified.
+- [ ] `next.config.ts` uses `output: "export"` and `trailingSlash: true`.
+- [ ] No `@cloudflare/next-on-pages`.
+- [ ] `npm run build` emits `website/out`.
+- [ ] `npm run preview:pages` serves `out/`.
 
 ### Verify
 
 ```bash
 cd website
-npm run dev          # loads at localhost:3000
-npm run build        # builds without errors
-npx wrangler pages dev .vercel/output/static  # CF Pages local dev works
+npm run typecheck
+npm test
+npm run build
+npx wrangler pages dev out
 ```
-
----
 
 ## Phase 2: Data layer
 
-**Goal**: Parse marketplace.json into rich, typed data structures for the site.
+**Goal**: Generate validated, typed website data from existing repo sources.
 
-### Data model
+### Types to add
 
-```typescript
-interface Skill {
-  slug: string;              // "sap-abap", "sap-cap-capire", etc.
-  name: string;              // from marketplace.json
-  description: string;       // from marketplace.json
-  category: Category;        // enum of 8 categories
-  keywords: string[];        // from marketplace.json
-  hasAgents: boolean;        // derived from agents array
-  hasCommands: boolean;      // derived from commands array
-  hasMcp: boolean;           // derived from mcpServers in plugin.json
-  hasHooks: boolean;         // derived from hooks presence
-  hasLsp: boolean;           // derived from lsp config
-  agentCount: number;
-  commandCount: number;
-  referenceFileCount: number; // counted from references/ dir
-  templateCount: number;      // counted from templates/ dir
-  version: string;           // from metadata
-  lastVerified: string;      // from metadata
-  relatedSkills: string[];   // parsed from SKILL.md "Related Skills" section
-  githubUrl: string;         // constructed: github.com/secondsky/sap-skills/tree/main/plugins/{slug}
-  installCount?: number;     // from skills.sh stats (R2)
-  categoryLabel: string;     // human-readable: "SAP BTP Platform", "Data & Analytics", etc.
-  categoryIcon: string;      // icon name for the category
+Create `website/src/types/index.ts` with at least:
+
+```ts
+export type CategoryId =
+  | "abap"
+  | "ai"
+  | "btp"
+  | "cap"
+  | "data-analytics"
+  | "hana"
+  | "tooling"
+  | "ui-development";
+
+export interface Skill {
+  slug: string;
+  name: string;
+  description: string;
+  category: CategoryId;
+  categoryLabel: string;
+  categoryIcon: string;
+  keywords: string[];
+  featureSummary: {
+    hasAgents: boolean;
+    hasCommands: boolean;
+    hasMcp: boolean;
+    hasHooks: boolean;
+    hasLsp: boolean;
+    agentCount: number;
+    commandCount: number;
+    mcpServerCount: number;
+  };
+  counts: {
+    references: number;
+    templates: number;
+  };
+  metadata: {
+    version?: string;
+    lastVerified?: string;
+    frameworkVersion?: string;
+    sdkVersion?: string;
+  };
+  relatedSkills: string[];
+  inferredRelatedSkills: boolean;
+  installCommand: string;
+  githubUrl: string;
+  skillsShUrl?: string;
 }
 
-interface Category {
-  id: string;                // "abap", "ai", "btp", etc.
-  label: string;             // "ABAP", "AI & Machine Learning", etc.
-  description: string;       // one-line description
-  icon: string;              // lucide icon name
-  count: number;             // number of skills in category
+export interface Category {
+  id: CategoryId;
+  label: string;
+  description: string;
+  icon: string;
+  count: number;
 }
 
-interface SiteStats {
-  totalSkills: number;
-  totalAgents: number;
-  totalCommands: number;
-  totalMcpServers: number;
-  categories: number;
+export interface Bundle {
+  id: string;
+  title: string;
+  description: string;
+  consultantUseCase: string;
+  skillSlugs: string[];
+  installCommand: string;
+}
+
+export interface SiteStats {
   githubStars: number;
+  forks: number;
   totalInstalls: number;
-  skillInstalls: Record<string, number>;  // slug → install count
-  lastUpdated: string;
+  skillInstalls: Record<string, number>;
+  skillsListed: number;
+  updatedAt: string;
+  source: {
+    github: string;
+    skillsSh: string;
+  };
+}
+
+export interface AnalyticsEvent {
+  name: "install_copy" | "bundle_copy" | "github_click" | "skill_card_open";
+  skillSlug?: string;
+  bundleId?: string;
+  source: string;
 }
 ```
 
-### Category metadata (static)
+### Category metadata
+
+Use exactly these category labels unless the maintainer changes them in
+`website/DESIGN.md`:
 
 | id | label | description | icon |
-|---|---|---|---|
-| abap | ABAP | Core ABAP development patterns and CDS views | code-2 |
-| ai | AI & Machine Learning | SAP AI Core, Cloud SDK for AI, GenAI Hub | brain |
-| btp | SAP BTP Platform | Business Technology Platform services and tools | cloud |
-| cap | CAP | Cloud Application Programming Model | layers |
-| data-analytics | Data & Analytics | Datasphere, Analytics Cloud, SQLScript | bar-chart-3 |
-| hana | SAP HANA | HANA Cloud, ML, CLI, Data Intelligence | database |
-| tooling | Tooling | Development tools, API standards, dependency management | wrench |
-| ui-development | UI Development | SAPUI5, Fiori Tools, linters | monitor |
+|----|-------|-------------|------|
+| `abap` | ABAP | ABAP development, CDS views, and backend extension patterns | `Code2` |
+| `ai` | AI & Machine Learning | SAP AI Core, Generative AI Hub, and SAP Cloud SDK for AI | `Brain` |
+| `btp` | SAP BTP Platform | Platform services, operations, connectivity, identity, and transport | `Cloud` |
+| `cap` | CAP | Cloud Application Programming Model services and full-stack apps | `Layers` |
+| `data-analytics` | Data & Analytics | Datasphere, Analytics Cloud, planning, widgets, and SQLScript | `BarChart3` |
+| `hana` | SAP HANA | HANA Cloud, CLI, machine learning, and data intelligence | `Database` |
+| `tooling` | Tooling | API standards, dependency automation, and development utilities | `Wrench` |
+| `ui-development` | UI Development | SAPUI5, Fiori tools, UI5 CLI, and linting | `Monitor` |
 
-### Steps
+### Consultant bundles
 
-1. **Create `website/scripts/build-data.ts`** — Node.js script that:
-   - Reads `../.claude-plugin/marketplace.json`
-   - For each plugin, reads its `plugin.json` for agent/command/mcp/hook counts
-   - Reads the SKILL.md frontmatter for metadata, version, related skills
-   - Counts reference and template files via filesystem
-   - Optionally reads stats from R2 (or falls back to hardcoded)
-   - Writes typed JSON to `website/src/data/`
+Create these six bundles in generated data. The build must fail if any slug is
+missing from the marketplace.
 
-2. **Generate static params** for all 35 skill detail pages
+| id | title | skill slugs |
+|----|-------|-------------|
+| `cap-fiori` | CAP + Fiori Delivery | `sap-cap-capire`, `sap-fiori-tools`, `sapui5`, `sapui5-cli`, `sap-api-style`, `sap-btp-cloud-platform` |
+| `btp-operations` | BTP Operations | `sap-btp-cloud-platform`, `sap-btp-best-practices`, `sap-btp-connectivity`, `sap-btp-service-manager`, `sap-btp-cloud-logging`, `sap-btp-cloud-transport-management`, `sap-btp-job-scheduling`, `sap-btp-cias`, `sap-btp-cloud-identity-services` |
+| `data-platform` | Data Platform | `sap-datasphere`, `sap-hana-cli`, `sap-hana-cloud-data-intelligence`, `sap-hana-ml`, `sap-sqlscript`, `sap-btp-master-data-integration` |
+| `sac-planning` | SAC Planning | `sap-sac-planning`, `sap-sac-scripting`, `sap-sac-custom-widget`, `sap-datasphere` |
+| `hana-sql` | HANA + SQLScript | `sap-hana-cli`, `sap-sqlscript`, `sap-hana-ml`, `sap-hana-cloud-data-intelligence`, `sap-cap-capire` |
+| `ai-on-btp` | AI on SAP BTP | `sap-ai-core`, `sap-cloud-sdk-ai`, `sap-cloud-sdk-ai-python`, `sap-cap-capire`, `sap-btp-cloud-platform`, `sap-api-style` |
 
-3. **Create a search index** for fuse.js — pre-computed at build time:
-   - Fields: name, description, keywords, category label
-   - Weights: name (2x), keywords (1.5x), description (1x)
+Bundle install command format:
+
+```bash
+npx skills add secondsky/sap-skills --skill sap-cap-capire --skill sap-fiori-tools
+```
+
+### Data generation rules
+
+Create `website/scripts/build-data.ts`:
+
+- Read root `.claude-plugin/marketplace.json`.
+- For each plugin:
+  - Use `name`, `description`, `category`, `keywords`, `version`, and `source`.
+  - Read `plugins/<slug>/.claude-plugin/plugin.json` for agents and commands.
+  - Detect MCP with `plugins/<slug>/.mcp.json`.
+  - Detect hooks with `plugins/<slug>/hooks`.
+  - Detect LSP from SKILL frontmatter metadata keys containing `lsp` or from
+    known plugin metadata such as CAP and SQLScript.
+  - Read `plugins/<slug>/skills/<slug>/SKILL.md` frontmatter with `gray-matter`.
+  - Count Markdown files under `references/`.
+  - Count files under `templates/`.
+  - Parse explicit related skills from a `## Related Skills` section when
+    present.
+  - Infer 3-6 related skills when no explicit section exists.
+- Related inference order:
+  1. Same category, highest feature overlap.
+  2. Known SAP journey adjacency from bundle membership.
+  3. Keyword overlap.
+  4. Fill from same category alphabetically.
+- Write generated JSON to `website/src/generated/`:
+  - `skills.json`
+  - `categories.json`
+  - `bundles.json`
+  - `site-stats-fallback.json`
+  - `search-index.json`
+- Generated JSON is build output. It is produced by scripts and should not be
+  hand-edited.
+
+### Validation rules
+
+Use Zod in `website/scripts/build-data.ts` or `website/src/lib/schema.ts`.
+
+Build must fail on:
+
+- Duplicate skill slugs.
+- Unknown categories.
+- Bundle slug references that do not exist.
+- Related skill references that do not exist.
+- Invalid stat shape.
+- Empty install commands.
+- Missing `githubUrl`.
 
 ### Deliverables
 
-- [ ] `website/scripts/build-data.ts` reads marketplace.json and generates all data files
-- [ ] `website/src/data/skills.json` — array of 35 Skill objects
-- [ ] `website/src/data/categories.json` — array of 8 Category objects with counts
-- [ ] `website/src/data/search-index.json` — fuse.js optimized index
-- [ ] TypeScript types in `website/src/types/`
+- [ ] `website/scripts/build-data.ts`
+- [ ] `website/src/types/index.ts`
+- [ ] `website/src/generated/*.json`
+- [ ] `website/src/lib/schema.ts`
+- [ ] Unit tests for parser, relation inference, bundle commands, and schema failures.
 
 ### Verify
 
 ```bash
 cd website
-npx tsx scripts/build-data.ts   # generates all data files
-cat src/data/skills.json | python3 -c "import json,sys; skills=json.load(sys.stdin); print(f'{len(skills)} skills'); print([s['slug'] for s in skills[:3]])"
-# Expected: 35 skills, first 3 slugs printed
+npm run prebuild
+npm test
+node -e "const s=require('./src/generated/skills.json'); console.log(s.length)"
+# Expected: 35
 ```
 
----
+## Phase 3: Stats pipeline
 
-## Phase 3: Shared layout and components
+**Goal**: Publish fresh public stats JSON without introducing a runtime app.
 
-**Goal**: Build the reusable layout shell and core UI components.
+### Stats script
 
-### Components to build
+Create `website/scripts/scrape-stats.ts`:
 
-#### Layout components
+- Fetch GitHub stats from `https://api.github.com/repos/secondsky/sap-skills`.
+- Fetch `https://www.skills.sh/secondsky/sap-skills`.
+- Parse:
+  - GitHub stars.
+  - GitHub forks.
+  - Total installs.
+  - Per-skill install counts where skills.sh lists them.
+  - Number of skills listed on skills.sh.
+- Output `SiteStats` JSON.
+- If skills.sh parsing fails:
+  - Preserve GitHub stats if available.
+  - Use generated fallback install stats.
+  - Set source metadata so the UI can indicate stale/fallback data if needed.
 
-1. **`<SiteHeader>`** — sticky top navigation
-   - Logo/text: "SAP Skills" wordmark
-   - Nav links: Home, Skills, About
-   - GitHub icon link (opens repo)
-   - Mobile: hamburger menu with slide-out nav
-   - Framer Motion: subtle backdrop blur on scroll
+Current expected reality at planning time:
 
-2. **`<SiteFooter>`** — simple footer
-   - Left: "© 2026 E.J. · GPL-3.0 License"
-   - Center: "Last updated: {date}"
-   - Right: GitHub link icon
-   - No Next.js or Cloudflare credits
+- Repo skills: 35.
+- skills.sh listed skills: 30.
+- GitHub stars: 336.
+- Forks: 88.
+- Total installs: about 4.3K.
 
-3. **`<PageTransition>`** — Framer Motion wrapper
-   - Fade + slight slide-up on page enter
-   - Fade-out on page exit
-   - Wraps all page content
+Do not require skills.sh to list all 35 skills. For unlisted skills, the UI
+shows "New" or omits the install badge.
 
-#### Feature components
+### GitHub Actions workflow
 
-4. **`<SkillCard>`** — card for the skills grid
-   - Category badge (colored)
-   - Skill name
-   - Short description (truncated to 2 lines)
-   - Feature pills: Agents (x), Commands (x), MCP, Hooks, LSP
-   - Install count badge (if available)
-   - Hover: subtle lift + shadow animation (Framer Motion)
-   - Click: navigates to `/skills/{slug}`
+Create `.github/workflows/update-website-stats.yml`:
 
-5. **`<CategoryPill>`** — filter button
-   - Icon + label + count
-   - Active state: filled with category color
-   - Inactive: outlined
-   - "All" pill as default
+- Trigger:
+  - `workflow_dispatch`
+  - `schedule: "0 */6 * * *"`
+- Steps:
+  - Checkout.
+  - Setup Node.
+  - Install website dependencies.
+  - Run `npx tsx website/scripts/scrape-stats.ts > stats.json`.
+  - Validate JSON shape.
+  - Upload to R2:
 
-6. **`<SearchBar>`** — fuse.js powered search
-   - Input with search icon
-   - Debounced search (200ms)
-   - Results update the skills grid in real-time
-   - Clear button (x)
-   - Keyboard shortcut: Cmd/Ctrl + K to focus
+    ```bash
+    npx wrangler r2 object put sap-skills-website-stats/stats.json --file stats.json --content-type application/json
+    ```
 
-7. **`<CopyButton>`** — copy-to-clipboard with toast
-   - Shows command text (monospace)
-   - Click copies to clipboard
-   - Shows checkmark for 2 seconds (animated)
-   - Toast: "Command copied!"
+- Required secrets:
+  - `CLOUDFLARE_API_TOKEN`
+  - `CLOUDFLARE_ACCOUNT_ID`
 
-8. **`<StatCounter>`** — animated number counter
-   - Props: value, label, icon, suffix ("+", "K")
-   - Framer Motion: count-up animation on scroll into view (useInView)
-   - Duration: 1.5s, ease-out
+### Public R2 configuration
 
-9. **`<FeatureBadge>`** — small pill for agents/commands/etc.
-   - Variants: agent (blue), command (green), mcp (purple), hook (orange), lsp (pink)
-   - Shows count if > 1
-   - Small, chip-like appearance
+Configure the R2 bucket with a public URL or public custom domain. Add that URL
+to the Pages environment as:
 
-10. **`<InstallTabs>`** — tabbed install guide
-    - Tabs: Claude Code, Cursor, Windsurf, Copilot
-    - Each tab shows:
-      - Step-by-step instructions
-      - Copy-able install command
-      - Brief description of how skills work in that tool
-    - Animated tab content transitions
+```text
+NEXT_PUBLIC_STATS_URL=https://<public-r2-host>/stats.json
+```
 
-11. **`<SkillsGrid>`** — the main grid/list
-    - Props: skills array, categories for filter
-    - Layout: responsive grid (1 col mobile, 2 tablet, 3 desktop)
-    - Staggered entrance animation (Framer Motion: 50ms delay per card)
-    - Integrates search bar + category pills + grid
-    - Empty state: "No skills match your search"
+The website must function without this environment variable by using
+`site-stats-fallback.json`.
 
 ### Deliverables
 
-- [ ] All 11 components implemented in `website/src/components/`
-- [ ] Root layout with header + footer + page transitions
-- [ ] Mobile responsive at all breakpoints (320px, 768px, 1024px, 1440px)
+- [ ] `website/scripts/scrape-stats.ts`
+- [ ] `.github/workflows/update-website-stats.yml`
+- [ ] Public R2 URL documented in `website/README.md`
+- [ ] Client-side stats loader with fallback behavior
 
 ### Verify
 
 ```bash
 cd website
-npm run dev
-# Manually verify: header sticky, footer renders, mobile menu works
-npm run build  # no errors
+npx tsx scripts/scrape-stats.ts
+npm test
 ```
 
----
-
-## Phase 4: Pages
-
-### 4.1 Homepage (`/`)
-
-**Sections in order**:
-
-1. **Hero section**
-   - H1: "35 Production-Ready SAP Skills for AI Coding Assistants"
-   - Subtitle: "Auto-activating skills for BTP, CAP, Fiori, ABAP, Analytics, and more. Install once, works everywhere."
-   - Two CTAs in a row:
-     - Primary: `npx skills add secondsky/sap-skills` with CopyButton
-     - Secondary: "Install for Claude Code" with CopyButton showing `claude skills add secondsky/sap-skills`
-   - Framer Motion: headline fades in + slides up, CTAs fade in with 300ms delay
-
-2. **Stats bar**
-   - Horizontal row of StatCounters:
-     - 35 Plugins | 24 Agents | 29 Commands | 6 MCP Servers | 8 Categories | {stars} GitHub Stars | {4.3K} Total Installs
-   - Light background band to separate from hero
-   - Counters animate when scrolled into view
-
-3. **How it works section**
-   - 3-step visual: "Browse" → "Install" → "Auto-activate"
-   - Each step: icon + title + short description
-   - Code example showing auto-activation (e.g., user mentions CAP → skill loads)
-   - Framer Motion: staggered reveal
-
-4. **Install guide tabs**
-   - Tabs component with 4 tools: Claude Code, Cursor, Windsurf, GitHub Copilot
-   - Each tab shows:
-     - Tool name + logo/icon
-     - Install command (copyable)
-     - 2-3 sentence explanation
-   - Claude Code tab (default):
-     - `claude skills add secondsky/sap-skills`
-     - "Native skills marketplace integration. Skills auto-activate when you mention SAP topics."
-   - Cursor tab:
-     - MCP server setup for sap-cap-capire, sapui5, sap-datasphere, sap-sac-scripting, sap-hana-cli, sap-fiori-tools
-     - "Add MCP servers from individual plugins that offer them. Configure in Cursor's MCP settings."
-   - Windsurf tab:
-     - Similar to Cursor — MCP-based
-     - "Configure MCP servers in your Windsurf settings for SAP-aware AI assistance."
-   - GitHub Copilot tab:
-     - "Use individual skill markdown files as custom instructions in your Copilot configuration."
-     - Link to GitHub repo for manual file access
-
-5. **Skills grid section**
-   - Heading: "Browse All Skills"
-   - SearchBar (full-width)
-   - CategoryPills row (horizontal scroll on mobile)
-   - SkillsGrid: all 35 skills as SkillCards
-   - Framer Motion: staggered card entrance (50ms per card)
-
-6. **Footer**
-   - GitHub link | GPL-3.0 License | © 2026 E.J. | Last updated: {date}
-
-### 4.2 Skills list page (`/skills`)
-
-- Same grid section from homepage but as a dedicated full-page experience
-- URL-shareable with search params: `/skills?q=cap&category=btp`
-- Breadcrumb: Home > Skills
-- All skills shown, filterable and searchable
-
-### 4.3 Skill detail page (`/skills/[slug]`)
-
-**Layout**: header → back link → main content → related skills → footer
-
-**Sections**:
-
-1. **Back navigation** — "← Back to Skills" link
-
-2. **Hero area**
-   - Category badge (colored)
-   - Skill name (H1)
-   - Full description
-   - Feature badges row: Agents (x), Commands (x), MCP ✓, Hooks ✓, LSP ✓
-   - Install command with CopyButton: `npx skills add secondsky/sap-skills --skill {slug}`
-   - GitHub link button: "View on GitHub →"
-
-3. **Details grid** (2-column on desktop)
-   - Left column:
-     - "About" — full description (longer than hero)
-     - "Keywords" — keyword pills
-   - Right column:
-     - "Quick Stats" card: version, last verified, reference files, templates
-     - "Install count" (if available from skills.sh data)
-
-4. **Related skills** — horizontal scroll of SkillCards for related skills
-   - Parsed from SKILL.md "Related Skills" section
-
-5. **Footer**
-
-### 4.4 About page (`/about`)
-
-- Brief: what this project is, who maintains it, license
-- Link to GitHub, contributing guidelines
-- Link to skills.sh page
-
-### Deliverables
-
-- [ ] Homepage with all 6 sections, fully responsive
-- [ ] Skills list page at `/skills` with URL params
-- [ ] 35 skill detail pages at `/skills/[slug]` (statically generated)
-- [ ] About page at `/about`
-- [ ] All pages have page transitions (Framer Motion)
-- [ ] All CTAs functional (copy to clipboard)
-
-### Verify
+Manually verify workflow:
 
 ```bash
-cd website
-npm run build  # should generate 35+1+1+1 static pages
-npx wrangler pages dev .vercel/output/static
-# Visit every route:
-# /              — homepage with all sections
-# /skills        — skills grid with search/filter
-# /skills/sap-cap-capire  — detail page
-# /skills/sap-abap        — detail page (no agents/commands variant)
-# /about         — about page
-# Test: Cmd+K search, category pills, copy buttons, mobile responsive
+gh workflow run update-website-stats.yml
 ```
 
----
+## Phase 4: Shared UI and interactions
 
-## Phase 5: Live stats pipeline
+**Goal**: Build reusable components that match `website/DESIGN.md`.
 
-**Goal**: GitHub Actions workflow that keeps stats fresh in R2.
+### Component inventory
 
-### Architecture
+Create focused components under `website/src/components/`:
 
-```
-GitHub Actions (cron every 6h + on push to main)
-    │
-    ├── 1. Fetch GitHub stars
-    │     curl api.github.com/repos/secondsky/sap-skills
-    │     → stargazers_count
-    │
-    ├── 2. Scrape skills.sh install counts
-    │     Fetch https://www.skills.sh/secondsky/sap-skills
-    │     Parse HTML for per-skill install numbers + total
-    │     (skills.sh has no public API — scrape the page)
-    │
-    ├── 3. Write stats.json to R2
-    │     wrangler r2 object put sap-skills-assets/stats.json
-    │
-    └── 4. Trigger Pages rebuild
-          curl -X POST Cloudflare Pages dispatch-build endpoint
-```
+- `site-header.tsx`
+- `site-footer.tsx`
+- `skill-card.tsx`
+- `skills-grid.tsx`
+- `category-filter.tsx`
+- `search-box.tsx`
+- `copy-button.tsx`
+- `feature-badge.tsx`
+- `stat-counter.tsx`
+- `install-tabs.tsx`
+- `bundle-card.tsx`
+- `command-palette.tsx` or Cmd/Ctrl+K search focus behavior
+- `stats-provider.tsx`
 
-### stats.json schema
+Use shadcn components where appropriate. Follow shadcn composition rules:
 
-```json
-{
-  "githubStars": 336,
-  "totalInstalls": 4300,
-  "skillInstalls": {
-    "sap-abap": 375,
-    "sap-fiori-tools": 309,
-    "sap-cap-capire": 299,
-    "sap-btp-developer-guide": 281,
-    "sap-btp-best-practices": 250,
-    "sap-abap-cds": 209,
-    "sap-btp-connectivity": 193,
-    "sapui5-cli": 168,
-    "sap-btp-cloud-logging": 154,
-    "sap-api-style": 137,
-    "sap-ai-core": 122,
-    "sap-hana-cli": 120,
-    "sap-sqlscript": 117,
-    "sap-datasphere": 116,
-    "sap-cloud-sdk-ai": 114,
-    "sap-btp-business-application-studio": 108,
-    "sap-btp-master-data-integration": 104,
-    "sap-btp-build-work-zone-advanced": 104,
-    "sap-btp-job-scheduling": 103,
-    "sap-btp-intelligent-situation-automation": 95,
-    "sap-hana-ml": 92,
-    "sap-hana-cloud-data-intelligence": 91,
-    "sap-sac-scripting": 90,
-    "sap-btp-service-manager": 90,
-    "sap-btp-cloud-transport-management": 88,
-    "sap-btp-cias": 87,
-    "sap-sac-planning": 79,
-    "sap-sac-custom-widget": 77,
-    "sapui5-linter": 76,
-    "dependency-upgrade": 8
-  },
-  "updatedAt": "2026-06-12T10:00:00Z"
+- Use `Badge` for status/feature chips.
+- Use `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, and
+  `CardFooter` for cards.
+- Use `TabsTrigger` only inside `TabsList`.
+- Use `Sheet` for mobile navigation.
+- Use `sonner` for copy confirmations.
+- Use `gap-*`, not `space-x-*` or `space-y-*`.
+- Use semantic theme tokens for colors.
+
+### Analytics helper
+
+Create `website/src/lib/analytics.ts`:
+
+```ts
+import type { AnalyticsEvent } from "@/types";
+
+declare global {
+  interface Window {
+    zaraz?: {
+      track?: (name: string, payload?: Record<string, unknown>) => void;
+    };
+  }
+}
+
+export function trackEvent(event: AnalyticsEvent) {
+  if (typeof window === "undefined") return;
+  window.zaraz?.track?.(event.name, event);
 }
 ```
 
-### Steps
+Call this helper on:
 
-1. **Create R2 bucket**: `sap-skills-website-stats`
+- Install command copy.
+- Bundle command copy.
+- GitHub link click.
+- Skill card open.
 
-2. **Create GitHub Actions workflow** at `.github/workflows/update-stats.yml`:
-   - `schedule: cron: '0 */6 * * *'` (every 6 hours)
-   - Also triggers on `push` to `main` (for initial setup + testing)
-   - Steps:
-     - Checkout repo
-     - Install wrangler
-     - Fetch GitHub stars via `gh api repos/secondsky/sap-skills`
-     - Scrape skills.sh page, parse install counts (use Node.js script)
-     - Write `stats.json` to R2 via `wrangler r2 object put`
-     - Trigger Cloudflare Pages rebuild via `curl` to dispatch-build webhook
-   - Uses `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets
-
-3. **Create scraping script** at `website/scripts/scrape-stats.ts`:
-   - Fetches `https://www.skills.sh/secondsky/sap-skills`
-   - Parses HTML to extract per-skill install counts
-   - Outputs JSON matching stats.json schema
-   - Handles errors gracefully (returns last known good data if scrape fails)
-
-4. **Update build-data.ts** to optionally read from R2:
-   - At build time, fetch `stats.json` from R2 public URL
-   - If R2 is empty or fetch fails, use fallback hardcoded stats
-   - Merge stats into skill data
+No event call may throw if Zaraz is not configured.
 
 ### Deliverables
 
-- [ ] R2 bucket created
-- [ ] `.github/workflows/update-stats.yml` workflow
-- [ ] `website/scripts/scrape-stats.ts` scraping script
-- [ ] Build process reads stats from R2 with fallback
-- [ ] stats.json updates every 6 hours automatically
+- [ ] Shared components implemented.
+- [ ] All copy buttons work.
+- [ ] Cmd/Ctrl+K focuses search or opens compact command dialog.
+- [ ] Mobile navigation works.
+- [ ] Zaraz calls are guarded and no-op locally.
 
 ### Verify
 
 ```bash
-# Manual test of scraping script
 cd website
-npx tsx scripts/scrape-stats.ts
-# Should print JSON with githubStars, totalInstalls, skillInstalls
-
-# Manual test of R2 write
-echo '{"test": true}' | npx wrangler r2 object put sap-skills-website-stats/test.json
-
-# Verify workflow triggers
-gh workflow run update-stats.yml
+npm run typecheck
+npm test
+npm run build
 ```
 
----
+## Phase 5: Pages
 
-## Phase 6: Deployment
+**Goal**: Build the complete static catalog experience.
 
-**Goal**: Deploy to Cloudflare Pages with R2 binding.
+### Homepage (`/`)
 
-### Steps
+Sections in order:
 
-1. **Create Cloudflare Pages project**:
-   - Connect to GitHub repo `secondsky/sap-skills`
-   - Build command: `cd website && npm run build`
-   - Build output: `website/.vercel/output/static`
-   - Root directory: `/` (monorepo root)
+1. Hero:
+   - H1: `SAP Skills for AI Coding Assistants`
+   - Supporting copy focused on 35 production-ready SAP plugins.
+   - Primary copy command: `npx skills add secondsky/sap-skills`
+   - Secondary link to `/skills`.
+2. Stats band:
+   - 35 plugins.
+   - 24 agents.
+   - 29 commands.
+   - 6 MCP integrations.
+   - 8 categories.
+   - GitHub stars.
+   - Total installs.
+3. Consultant bundles:
+   - Six bundle cards.
+   - Copyable bundle install command.
+4. Install guide:
+   - Universal CLI tab first.
+   - Claude Code marketplace/plugin commands from README.
+   - Cursor/Windsurf MCP guidance.
+   - GitHub Copilot custom-instructions guidance.
+5. Catalog preview:
+   - Search.
+   - Category filters.
+   - Skill grid.
+6. Footer:
+   - GitHub.
+   - GPL-3.0.
+   - E.J.
+   - Last updated.
+   - No Next.js or Cloudflare promotional credit.
 
-2. **Configure R2 binding** in Pages settings:
-   - Bucket: `sap-skills-website-stats`
-   - Variable name: `STATS_BUCKET`
+### Skills list (`/skills`)
 
-3. **Set environment secrets**:
-   - `CLOUDFLARE_API_TOKEN` (for GitHub Actions)
-   - `CLOUDFLARE_ACCOUNT_ID` (for GitHub Actions)
+- Full catalog.
+- URL-searchable:
+  - `/skills?q=cap`
+  - `/skills?category=btp`
+  - `/skills?q=planning&category=data-analytics`
+- Search and category filters preserve URL state.
+- Empty state uses shadcn `Alert` or `Card`, not custom loose markup.
 
-4. **Configure custom headers** in `_headers` file:
-   ```
-   /skills/*
-     Cache-Control: public, max-age=3600
-   /*
-     X-Content-Type-Options: nosniff
-   ```
+### Skill detail (`/skills/[slug]`)
 
-5. **Verify deployment**:
-   - Site loads at `sap-skills.pages.dev`
-   - All 35 skill pages render
-   - Search works
-   - Copy buttons work
-   - Mobile responsive
-   - Stats counters animate
-   - Lighthouse score > 90 for performance
+Use `generateStaticParams()` for all 35 slugs.
+
+Sections:
+
+1. Breadcrumb/back link.
+2. Skill hero:
+   - Category.
+   - Name.
+   - Description.
+   - Feature badges.
+   - Install command.
+   - GitHub link.
+3. Metadata:
+   - Version.
+   - Last verified.
+   - Agents.
+   - Commands.
+   - MCP integration.
+   - Hooks.
+   - LSP.
+   - Reference/template counts.
+   - Skills.sh install count if available.
+4. Keywords.
+5. Related skills:
+   - Show whether relations were inferred only in non-prominent metadata, not as a scary user-facing warning.
+6. Bundle membership:
+   - List bundles that include the skill.
+
+### About (`/about`)
+
+Include:
+
+- What SAP Skills is.
+- Maintainer.
+- GPL-3.0 license.
+- Links to GitHub, contributing guide, README, skills.sh.
+- Short explanation that content remains sourced from the repository.
+
+### Not found
+
+Create `not-found.tsx` with a link back to `/skills`.
 
 ### Deliverables
 
-- [ ] Live site at `sap-skills.pages.dev`
-- [ ] R2 binding configured
-- [ ] GitHub Actions workflow deployed and running
-- [ ] Lighthouse audit > 90 performance
+- [ ] `/`
+- [ ] `/skills`
+- [ ] `/skills/[slug]/` for all 35 skills.
+- [ ] `/about`
+- [ ] 404 page.
+- [ ] Static metadata for each route.
+- [ ] Sitemap and robots.
 
 ### Verify
 
 ```bash
-# Deploy preview
 cd website
-npx wrangler pages deploy .vercel/output/static --project-name=sap-skills
-
-# Check live site
-curl -s https://sap-skills.pages.dev | head -20
-
-# Lighthouse
-npx lighthouse https://sap-skills.pages.dev --output=json --chrome-flags="--headless" | python3 -c "import json,sys; r=json.load(sys.stdin); print(f'Performance: {r[\"categories\"][\"performance\"][\"score\"]*100:.0f}')"
+npm run build
+npx wrangler pages dev out
 ```
 
----
+Manually visit:
 
-## Phase 7: Polish and QA
+- `/`
+- `/skills/`
+- `/skills/sap-cap-capire/`
+- `/skills/sap-abap/`
+- `/skills/sap-sac-planning/`
+- `/about/`
 
-**Goal**: Final quality pass before considering the site "launched".
+## Phase 6: SEO, assets, and static hosting
 
-### Steps
+**Goal**: Make the static site shareable, indexable, and Cloudflare Pages ready.
 
-1. **SEO**:
-   - Meta tags per page (title, description, og:image)
-   - Generate `sitemap.xml` with all routes
-   - Add `robots.txt`
-   - Structured data (JSON-LD) for the software project
+### SEO
 
-2. **Accessibility**:
-   - All interactive elements keyboard-navigable
-   - ARIA labels on icon-only buttons
-   - Color contrast WCAG AA compliant
-   - Focus visible states
+- Use route-level metadata:
+  - Home title and description.
+  - Skills list title and description.
+  - Per-skill title and description.
+  - About title and description.
+- Add static OG image:
+  - `website/public/og/sap-skills.png`
+  - Referenced from all core routes.
+- Generate `sitemap.xml` at build time or commit a static sitemap generator.
+- Add `robots.txt`.
+- Add JSON-LD:
+  - `WebSite`
+  - `SoftwareSourceCode` or `CollectionPage` for the catalog.
+  - `SoftwareApplication` where appropriate for skill detail pages.
 
-3. **Performance**:
-   - Lazy-load Framer Motion animations (use `React.lazy` where possible)
-   - Optimize fuse.js search (only load on search interaction)
-   - Image optimization (Next.js Image component for any assets)
-   - Preload critical fonts
+### Cloudflare Pages settings
 
-4. **Cross-browser testing**:
-   - Chrome, Firefox, Safari, Edge (latest)
-   - iOS Safari, Android Chrome
+Use:
 
-5. **Error states**:
-   - 404 page with link back to home
-   - Skill not found → redirect to skills list
-   - Stats unavailable → show hardcoded fallback numbers
+```text
+Framework preset: Next.js (Static HTML Export)
+Build command: cd website && npm ci && npm run build
+Build output directory: website/out
+Root directory: /
+```
 
-6. **Analytics** (optional, if free):
-   - Cloudflare Web Analytics (free, privacy-respecting)
-   - Track: page views, skill page visits, install button clicks
+Do not use:
+
+```text
+npx @cloudflare/next-on-pages
+.vercel/output/static
+Workers/OpenNext deployment
+```
+
+### Free-tier guardrails
+
+STOP and report if any requirement appears to need:
+
+- Paid Cloudflare plan.
+- Paid Zaraz usage.
+- Paid analytics provider.
+- Pages Functions.
+- Worker runtime.
+- Private R2 reads from app code.
+- Build output over Cloudflare Pages Free limits.
 
 ### Deliverables
 
-- [ ] sitemap.xml and robots.txt
-- [ ] All pages have proper meta tags
-- [ ] Lighthouse: Performance > 90, Accessibility > 90, SEO > 90
-- [ ] 404 page implemented
-- [ ] Cross-browser verified
+- [ ] Static OG image.
+- [ ] Metadata and JSON-LD.
+- [ ] Sitemap and robots.
+- [ ] `_headers` file.
+- [ ] `website/README.md` with build/deploy/stats environment notes.
 
----
+### Verify
 
-## Critical review notes
-
-### Risks and mitigations
-
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| skills.sh scraping breaks if they change HTML | Medium | Graceful fallback to last known stats; scraping script has error handling |
-| Design exploration takes too long | Low | Cap at 10 mockups + 3 refinement rounds; fall back to shadcn defaults |
-| 35 static pages = slower builds | Low | Next.js static generation is fast; < 30s for 35 pages |
-| R2 stats pipeline complexity | Medium | Stats are optional enhancement; site works without them (hardcoded fallback) |
-| Mobile performance with Framer Motion | Medium | Lazy-load animation library; use CSS animations for mobile if needed |
-
-### What this plan does NOT do
-
-- Does NOT modify any existing skill content, manifests, or scripts
-- Does NOT add a `website/` reference to CLAUDE.md or README.md (maintainer decides)
-- Does NOT set up a custom domain (uses pages.dev subdomain)
-- Does NOT implement dark mode (light theme only per decision)
-- Does NOT render full SKILL.md content (parsed metadata only)
-- Does NOT use D1, Durable Objects, Workers, Queues, or Analytics Engine (not needed for this scope)
-
-### Data freshness
-
-- Skill data: updates on every git push (via Pages rebuild)
-- GitHub stars: updates every 6 hours (via GitHub Actions)
-- Install counts: updates every 6 hours (via GitHub Actions + skills.sh scrape)
-- Site content: static, cached at CDN edge
-
-### Current live stats (hardcoded fallback)
-
-- GitHub stars: 336
-- Forks: 88
-- Total installs: ~4,300
-- Top skills by installs: sap-abap (375), sap-fiori-tools (309), sap-cap-capire (299)
-- skills.sh shows 30 of 35 skills (5 newer skills not yet listed there)
-
----
-
-## Directory structure (website/)
-
-```
-website/
-├── .gitignore
-├── next.config.ts
-├── package.json
-├── tailwind.config.ts
-├── tsconfig.json
-├── wrangler.toml
-├── public/
-│   ├── _headers
-│   ├── _redirects
-│   ├── robots.txt
-│   └── sitemap.xml (generated at build)
-├── scripts/
-│   ├── build-data.ts          # Reads marketplace.json → static JSON
-│   └── scrape-stats.ts        # Scrapes skills.sh → stats JSON
-├── src/
-│   ├── app/
-│   │   ├── layout.tsx         # Root layout (header + footer + fonts)
-│   │   ├── page.tsx           # Homepage
-│   │   ├── about/
-│   │   │   └── page.tsx       # About page
-│   │   ├── skills/
-│   │   │   ├── page.tsx       # Skills list page
-│   │   │   └── [slug]/
-│   │   │       └── page.tsx   # Skill detail page (35 static pages)
-│   │   └── not-found.tsx      # 404 page
-│   ├── components/
-│   │   ├── site-header.tsx
-│   │   ├── site-footer.tsx
-│   │   ├── page-transition.tsx
-│   │   ├── skill-card.tsx
-│   │   ├── category-pill.tsx
-│   │   ├── search-bar.tsx
-│   │   ├── copy-button.tsx
-│   │   ├── stat-counter.tsx
-│   │   ├── feature-badge.tsx
-│   │   ├── install-tabs.tsx
-│   │   └── skills-grid.tsx
-│   ├── data/
-│   │   ├── skills.json        # Generated by build-data.ts
-│   │   ├── categories.json    # Generated by build-data.ts
-│   │   └── search-index.json  # Generated by build-data.ts
-│   ├── lib/
-│   │   ├── search.ts          # fuse.js wrapper
-│   │   └── utils.ts           # shadcn cn() helper
-│   └── types/
-│       └── index.ts           # Skill, Category, SiteStats types
+```bash
+cd website
+npm run build
+npx wrangler pages dev out
 ```
 
----
+Run Lighthouse against the local or deployed site. Targets:
 
-## Execution order
+- Performance > 90.
+- Accessibility > 90.
+- Best Practices > 90.
+- SEO > 90.
 
-Phases must be executed sequentially:
+## Phase 7: Tests and QA
 
+**Goal**: Make the website safe to maintain as repo metadata changes.
+
+### Unit tests
+
+Use Vitest for:
+
+- Marketplace parsing.
+- SKILL.md frontmatter parsing.
+- Explicit related skill parsing.
+- Inferred related skill fallback.
+- Bundle install command generation.
+- Zod validation failures.
+- Stats fallback behavior.
+- Zaraz no-op behavior.
+
+### Playwright E2E
+
+Cover:
+
+- Home renders hero, stats, bundles, install guide, and catalog preview.
+- Skills page search works.
+- Category filter works.
+- Search params are read and updated.
+- Detail pages render for:
+  - `sap-cap-capire` (agents, commands, MCP, LSP).
+  - `sap-abap` (minimal-feature variant).
+  - `sap-sac-planning` (planning/data-analytics variant).
+- Copy buttons write to clipboard.
+- Cmd/Ctrl+K behavior works.
+- Mobile nav opens and closes.
+- Stats fetch failure uses fallback.
+- Zaraz absent does not throw.
+
+### Visual QA
+
+After implementation:
+
+- Start the local site.
+- Capture desktop and mobile screenshots.
+- Compare against the accepted design direction in `website/DESIGN.md`.
+- Fix visible drift in layout, copy, typography, palette, card anatomy, spacing,
+  and responsive behavior before marking the plan done.
+
+### Required checks
+
+```bash
+cd website
+npm run lint
+npm run typecheck
+npm test
+npm run build
+npm run e2e
+npx wrangler pages dev out
 ```
-Phase 0 (Design) → Phase 1 (Scaffolding) → Phase 2 (Data) → Phase 3 (Components) → Phase 4 (Pages) → Phase 5 (Stats) → Phase 6 (Deploy) → Phase 7 (Polish)
-```
 
-Phase 5 (Stats pipeline) can be developed in parallel with Phases 3-4 since it's independent infrastructure.
+## Phase 8: Launch and docs refresh
 
----
+**Goal**: Launch the website and make it discoverable from the repo.
 
-## Done criteria
+### Deployment
 
-ALL must hold:
+1. Create Cloudflare Pages project for `sap-skills`.
+2. Configure build command and output exactly as in Phase 6.
+3. Configure `NEXT_PUBLIC_STATS_URL` when public R2 URL is ready.
+4. Configure Cloudflare Web Analytics.
+5. Configure Zaraz only if it stays within the free allocation.
+6. Deploy preview.
+7. Validate all key routes.
+8. Promote to production at `sap-skills.pages.dev`.
 
-- [ ] `website/` contains a complete Next.js + shadcn application
-- [ ] `npm run build` succeeds in `website/`
-- [ ] All 35 skill pages render at `/skills/{slug}` with correct data
-- [ ] Homepage has all 6 sections (hero, stats, how-it-works, install tabs, skills grid, footer)
-- [ ] Search works with fuzzy matching across skill names, descriptions, keywords
-- [ ] Category filter pills work
-- [ ] Copy-to-clipboard works for all install commands
-- [ ] All pages mobile responsive (320px → 1440px)
-- [ ] Page transitions animate smoothly
-- [ ] Stat counters animate on scroll
-- [ ] Live stats pipeline runs every 6 hours
-- [ ] Deployed to `sap-skills.pages.dev`
-- [ ] Lighthouse Performance > 90
-- [ ] No modifications to existing repo files outside `website/` and `.github/workflows/`
-- [ ] `plans/README.md` status row updated
+### Docs to update after launch
+
+Update:
+
+- `README.md`
+- `docs/getting-started/installation.md`
+- `docs/getting-started/quick-reference.md`
+- `docs/architecture/project-structure.md` or its generated successor if the
+  repo uses codemap regeneration.
+- `plans/README.md` status row.
+
+Docs must mention:
+
+- Website URL.
+- Universal install command.
+- Skills catalog/search.
+- GitHub as source of truth.
+- Stats are best-effort and may omit newer skills until skills.sh lists them.
+
+### Done criteria
+
+All must hold:
+
+- [ ] `website/` contains a complete static Next.js + shadcn application.
+- [ ] `npm run build` succeeds in `website/`.
+- [ ] `website/out` is generated.
+- [ ] All 35 skill detail pages render.
+- [ ] Search and category filters work.
+- [ ] Six consultant bundles render with valid install commands.
+- [ ] Copy-to-clipboard works.
+- [ ] Stats load from public URL or generated fallback.
+- [ ] Unlisted skills do not show misleading install counts.
+- [ ] Zaraz tracking no-ops when absent.
+- [ ] Playwright E2E passes.
+- [ ] Lighthouse targets pass.
+- [ ] Site is deployed to `sap-skills.pages.dev`.
+- [ ] Launch docs are refreshed.
+- [ ] `plans/README.md` status row is updated.
+
+## Explicit non-goals
+
+- No dark mode in v1.
+- No full SKILL.md docs mirror.
+- No custom domain beyond `pages.dev`.
+- No paid Cloudflare or third-party services.
+- No runtime database.
+- No server-rendered runtime pages.
+- No edits to existing skill content to improve website data.
+- No replacement of GitHub as the source of truth.
+
+## Source references checked during planning
+
+- Cloudflare Pages static Next.js guide: static export builds to `out`.
+- Next.js static export guide: use `output: "export"`; unsupported dynamic
+  server features remain out of scope.
+- Cloudflare Zaraz pricing: free allocation exists; do not enable paid usage.
+- vercel-labs `skills` README: `npx skills add <repo> --skill <name>` is valid.
 
 ## STOP conditions
 
-Stop and report back if:
+Stop and report before proceeding if:
 
-- `@cloudflare/next-on-pages` does not support the required Next.js features (App Router, static generation)
-- The chosen design direction from Phase 0 is fundamentally incompatible with shadcn component structure
-- skills.sh aggressively blocks scraping (returns 403/captcha) — stats pipeline needs redesign
-- R2 free tier limits are exceeded (unlikely: single JSON file, < 1MB)
-- Build time exceeds 5 minutes (CF Pages limit)
+- Static export cannot support the accepted design or route structure.
+- Any required feature needs Pages Functions, Workers, OpenNext, or runtime R2
+  bindings.
+- Public R2 stats delivery cannot be made free and public.
+- skills.sh blocks scraping with 403/captcha or unstable markup that cannot be
+  parsed reliably.
+- Generated data validation reveals stale or inconsistent repo metadata that
+  would mislead users.
+- Lighthouse targets cannot be met without removing core design or functionality.
+- Cloudflare Pages Free limits are exceeded.

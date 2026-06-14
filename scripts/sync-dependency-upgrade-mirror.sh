@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 CANONICAL="$REPO_ROOT/plugins/dependency-upgrade/skills/dependency-upgrade"
-MIRROR="$REPO_ROOT/.agents/dependency-upgrade"
+MIRROR="$REPO_ROOT/.agents/skills/dependency-upgrade"
 ITEMS=(SKILL.md references scripts templates)
 
 usage() {
@@ -57,7 +57,7 @@ for item in "${ITEMS[@]}"; do
     continue
   fi
   if [ ! -e "$MIRROR/$item" ]; then
-    echo "Missing mirror item: .agents/dependency-upgrade/$item" >&2
+    echo "Missing mirror item: .agents/skills/dependency-upgrade/$item" >&2
     missing=$((missing + 1))
     continue
   fi

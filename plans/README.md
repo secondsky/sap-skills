@@ -18,7 +18,7 @@ starting, honor its STOP conditions, and update your row when done.
 | [005](005-new-skill-sap-cloud-sdk-ai-python.md) | New plugin: sap-cloud-sdk-ai-python (Python SDK `sap-ai-sdk-gen`) | P2 | L | — | DONE |
 | [007](007-enrich-sap-ai-core-genai-hub.md) | Enrich sap-ai-core Generative AI Hub coverage (models, orchestration, prompt registry) | P2 | M | — | DONE |
 | [006](006-new-skill-sap-btp-cloud-identity-services.md) | New plugin: sap-btp-cloud-identity-services (IAS/IPS/AMS) | P3 | L | — | DONE |
-| [008](008-skills-website.md) | Promotional website: Next.js + shadcn on Cloudflare Pages | P2 | XL | — | TODO |
+| [008](008-skills-website.md) | Static SAP Skills website catalog: Next.js + shadcn on Cloudflare Pages | P2 | XL | — | TODO |
 
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (with one-line reason) | REJECTED (with one-line rationale — finding fixed independently or approach abandoned)
 
