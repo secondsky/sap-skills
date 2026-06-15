@@ -4,6 +4,10 @@
 **Plugin Version**: 2.1.0 (Plugin) / 2.0.0 (Skill)
 **Validator**: Plugin-Dev Best Practices Compliance Check
 
+> Historical audit artifact. This report predates the repository 2.3.0
+> marketplace structure and is retained outside packaged plugin content for
+> audit history only.
+
 ---
 
 ## Executive Summary

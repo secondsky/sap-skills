@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-06-15",
+  "collectionMethod": "Public package registry checks from npm view and pip index. This is package freshness evidence only, not live SAP tenant/runtime verification.",
+  "npm": {
+    "@ui5/mcp-server": {
+      "latest": "0.2.12",
+      "command": "npm view @ui5/mcp-server version dist-tags --json",
+      "repoApprovedPin": "0.2.11",
+      "status": "upgrade_candidate"
+    },
+    "@mariodefe/sap-datasphere-mcp": {
+      "latest": "1.4.0",
+      "command": "npm view @mariodefe/sap-datasphere-mcp version dist-tags --json",
+      "repoApprovedPin": "1.2.1",
+      "status": "upgrade_candidate"
+    },
+    "@cap-js/mcp-server": {
+      "latest": "0.0.5",
+      "command": "npm view @cap-js/mcp-server version dist-tags --json",
+      "repoApprovedPin": "0.0.5",
+      "status": "current"
+    },
+    "@sap-ux/fiori-mcp-server": {
+      "latest": "1.4.0",
+      "command": "npm view @sap-ux/fiori-mcp-server version dist-tags --json",
+      "repoApprovedPin": "1.4.0",
+      "status": "current"
+    },
+    "hana-mcp-server": {
+      "latest": "0.3.1",
+      "command": "npm view hana-mcp-server version dist-tags --json",
+      "repoApprovedPin": "0.3.1",
+      "status": "current"
+    }
+  },
+  "pypi": {
+    "sap-datasphere-mcp": {
+      "latest": "1.4.0",
+      "command": "python3 -m pip index versions sap-datasphere-mcp",
+      "repoApprovedPin": "1.2.1",
+      "status": "upgrade_candidate"
+    }
+  }
+}

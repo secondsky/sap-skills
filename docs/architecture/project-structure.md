@@ -235,8 +235,8 @@
 │   │   │   └── [2m... 1 file[0m
 │   │   ├── [1;34m  skills/sapui5/[0m [2m(23 files, 311.2KB, all .md)[0m
 │   │   │   └── [2m... 3 directories, 2 files[0m
-│   │   └── [31m.mcp.json[0m[2m[0m            [32msapui5.local.md[0m[2m[0m      
-│   │       [32mVALIDATION_REPORT.md[0m[2m[0m 
+│   │   ├── [1;34m  templates/[0m [2m(1 file, local settings template)[0m
+│   │   └── [31m.mcp.json[0m[2m[0m
 │   ├── [1;34m  sapui5-cli/[0m [2m(21 files, 246.7KB)[0m
 │   │   ├── [1;34m  .claude-plugin/[0m [2m(867.0B)[0m
 │   │   │   └── [2m... 1 file[0m

@@ -1,43 +1,89 @@
 {
   "policy": {
     "sapCooldownDays": 14,
-    "lastVerified": "2026-06-14",
-    "notes": "SAP MCP servers are executable dependencies. Use exact npm pins or documented source commits; no @latest or bare npx package specs."
+    "lastVerified": "2026-06-15",
+    "freshnessEvidence": "docs/project/package-evidence/2026-06-15.json",
+    "notes": "SAP MCP servers are executable dependencies. Use exact npm pins or documented source commits; no @latest or bare npx package specs. Observed latest versions are freshness evidence only; do not update approvedVersion without compatibility review."
   },
   "npmPackages": {
     "@cap-js/mcp-server": {
       "approvedVersion": "0.0.5",
+      "observedLatest": "0.0.5",
+      "observedAt": "2026-06-15",
+      "source": "npm view @cap-js/mcp-server version dist-tags --json",
+      "cooldownUntil": "2026-06-29",
+      "approvalReason": "Current approved exact pin remains aligned with public latest.",
       "owner": "CAP project",
       "usedBy": "plugins/sap-cap-capire/.mcp.json",
       "trust": "CAP model and documentation access; no tenant credentials in the bundled config.",
+      "envContract": [],
       "scan": "npm view @cap-js/mcp-server@0.0.5 version dist.integrity && npm audit --package-lock-only"
     },
     "@mariodefe/sap-datasphere-mcp": {
       "approvedVersion": "1.2.1",
+      "observedLatest": "1.4.0",
+      "observedAt": "2026-06-15",
+      "source": "npm view @mariodefe/sap-datasphere-mcp version dist-tags --json",
+      "cooldownUntil": "2026-06-29",
+      "approvalReason": "Upgrade candidate only; tenant-safe masking and tool compatibility must be reviewed before pin changes.",
       "owner": "Community package",
       "usedBy": "plugins/sap-datasphere/.mcp.json",
       "trust": "Datasphere tenant access through OAuth environment variables; update only after explicit review.",
+      "envContract": [
+        {"name": "DATASPHERE_BASE_URL", "secret": false, "required": true, "format": "https URL for the tenant", "access": "tenant metadata/API endpoint"},
+        {"name": "DATASPHERE_CLIENT_ID", "secret": true, "required": true, "format": "OAuth client id placeholder", "access": "tenant OAuth client"},
+        {"name": "DATASPHERE_CLIENT_SECRET", "secret": true, "required": true, "format": "environment placeholder only", "access": "tenant OAuth secret"},
+        {"name": "DATASPHERE_TOKEN_URL", "secret": false, "required": true, "format": "https OAuth token URL", "access": "tenant OAuth endpoint"}
+      ],
       "scan": "npm view @mariodefe/sap-datasphere-mcp@1.2.1 version dist.integrity && npm audit --package-lock-only"
     },
     "@sap-ux/fiori-mcp-server": {
       "approvedVersion": "1.4.0",
+      "observedLatest": "1.4.0",
+      "observedAt": "2026-06-15",
+      "source": "npm view @sap-ux/fiori-mcp-server version dist-tags --json",
+      "cooldownUntil": "2026-06-29",
+      "approvalReason": "Current approved exact pin remains aligned with public latest.",
       "owner": "SAP Fiori tools / open-ux-tools",
       "usedBy": "plugins/sap-fiori-tools/.mcp.json",
       "trust": "Newest exact pin approved by maintainer request on 2026-06-14 despite the SAP 14-day cooldown default.",
+      "envContract": [],
       "scan": "npm view @sap-ux/fiori-mcp-server@1.4.0 version dist.integrity && npm audit --package-lock-only"
     },
     "@ui5/mcp-server": {
       "approvedVersion": "0.2.11",
+      "observedLatest": "0.2.12",
+      "observedAt": "2026-06-15",
+      "source": "npm view @ui5/mcp-server version dist-tags --json",
+      "cooldownUntil": "2026-06-29",
+      "approvalReason": "Upgrade candidate only; tool-name and lint/scaffold compatibility must be reviewed before pin changes.",
       "owner": "UI5 project",
       "usedBy": "plugins/sapui5/.mcp.json",
       "trust": "UI5 documentation, scaffolding, and lint tooling; no tenant credentials in the bundled config.",
+      "envContract": [
+        {"name": "UI5_MCP_SERVER_RESPONSE_NO_RESOURCES", "secret": false, "required": false, "format": "boolean string", "access": "response-size compatibility flag"}
+      ],
       "scan": "npm view @ui5/mcp-server@0.2.11 version dist.integrity && npm audit --package-lock-only"
     },
     "hana-mcp-server": {
       "approvedVersion": "0.3.1",
+      "observedLatest": "0.3.1",
+      "observedAt": "2026-06-15",
+      "source": "npm view hana-mcp-server version dist-tags --json",
+      "cooldownUntil": "2026-06-29",
+      "approvalReason": "Current approved exact pin remains aligned with public latest.",
       "owner": "Community package",
       "usedBy": "plugins/sap-hana-cli/.mcp.json",
       "trust": "HANA database access through environment variables; update only after explicit review.",
+      "envContract": [
+        {"name": "HANA_HOST", "secret": false, "required": true, "format": "hostname", "access": "HANA endpoint"},
+        {"name": "HANA_PORT", "secret": false, "required": true, "format": "numeric port", "access": "HANA endpoint"},
+        {"name": "HANA_USER", "secret": true, "required": true, "format": "database username placeholder", "access": "HANA database user"},
+        {"name": "HANA_PASSWORD", "secret": true, "required": true, "format": "environment placeholder only", "access": "HANA database password"},
+        {"name": "HANA_ENCRYPT", "secret": false, "required": false, "format": "boolean string; default true", "access": "TLS mode"},
+        {"name": "HANA_DATABASE", "secret": false, "required": false, "format": "database name", "access": "database selector"},
+        {"name": "HANA_CONNECTION_TYPE", "secret": false, "required": false, "format": "single-container or hdi style", "access": "connection mode"}
+      ],
       "scan": "npm view hana-mcp-server@0.3.1 version dist.integrity && npm audit --package-lock-only"
     }
   },
@@ -45,10 +91,23 @@
     "plugins/sap-sac-scripting/.mcp.json:sac-mcp": {
       "repo": "https://github.com/secondsky/sap_analytics_cloud_mcp",
       "commit": "2020235505d98111c2889598ab2217c1619b6943",
+      "observedLatest": "source-commit",
+      "observedAt": "2026-06-15",
+      "source": "Pinned source install; verify with git rev-parse before runtime use.",
+      "cooldownUntil": "2026-06-29",
+      "approvalReason": "Source MCP remains pinned by commit and path token; update only after source review.",
       "pathEnv": "SAC_MCP_PATH",
       "commitEnv": "SAC_MCP_COMMIT",
       "usedBy": "plugins/sap-sac-scripting/.mcp.json",
       "trust": "Trusted secondsky fork source install. This MCP uses SAC OAuth credentials and exposes read/write SAC REST API tools.",
+      "envContract": [
+        {"name": "SAC_MCP_PATH", "secret": false, "required": true, "format": "local path placeholder", "access": "local source checkout"},
+        {"name": "SAC_MCP_COMMIT", "secret": false, "required": true, "format": "exact git commit", "access": "source provenance"},
+        {"name": "SAC_BASE_URL", "secret": false, "required": true, "format": "https SAC tenant URL", "access": "SAC tenant endpoint"},
+        {"name": "SAC_TOKEN_URL", "secret": false, "required": true, "format": "https OAuth token URL", "access": "SAC OAuth endpoint"},
+        {"name": "SAC_CLIENT_ID", "secret": true, "required": true, "format": "OAuth client id placeholder", "access": "SAC OAuth client"},
+        {"name": "SAC_CLIENT_SECRET", "secret": true, "required": true, "format": "environment placeholder only", "access": "SAC OAuth secret"}
+      ],
       "scan": "git -C \"$SAC_MCP_PATH\" rev-parse HEAD && npm --prefix \"$SAC_MCP_PATH\" ci --ignore-scripts && npm --prefix \"$SAC_MCP_PATH\" audit"
     }
   }

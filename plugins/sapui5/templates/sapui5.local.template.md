@@ -1,6 +1,6 @@
 ---
-# SAPUI5 Plugin User Settings
-# This file is in .gitignore - customize locally without affecting team
+# SAPUI5 Plugin User Settings Template
+# Copy this template to sapui5.local.md in your project or plugin workspace for local overrides.
 
 ui5_version: "1.120.0"
 ui5_theme: "sap_horizon"

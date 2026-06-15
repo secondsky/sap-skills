@@ -14,7 +14,7 @@ Continuous Integration (CI) and Continuous Delivery (CD) are complementary DevOp
 
 ### Continuous Delivery (CD)
 - Extends CI with deployment automation
-- Successfully tested changes ready for production
+- Successfully tested changes ready for release review
 - Code built, tested, and packaged in deployable format
 - Deploy at management's discretion
 
