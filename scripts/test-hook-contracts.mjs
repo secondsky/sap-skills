@@ -113,7 +113,7 @@ function postToolUseVariant(payloadText) {
     return null;
   }
 
-  if (payload.tool_name === "Bash") {
+  if (payload.hook_event_name !== "PreToolUse" || payload.tool_name === "Bash") {
     return null;
   }
 

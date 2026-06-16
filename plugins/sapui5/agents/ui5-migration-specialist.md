@@ -809,7 +809,7 @@ AskUserQuestion({
 ```
 
 3. **Execute Changes**:
-   - Provide per-file diffs or exact replacement snippets for code changes; apply them only when the active harness supports edits and the user confirmed the change
+   - Provide per-file diffs or exact replacement snippets for code changes; apply them only when the active harness supports edits and the user explicitly requested execution and confirmed the exact target files
    - Provide dependency update commands and run them only when the active harness has approval to mutate the workspace
    - Show progress for each file
 
@@ -820,6 +820,7 @@ AskUserQuestion({
 
 5. **Checkpoint**:
    - Confirm all validation passed
+   - Confirm the completed changes match only the exact target files approved for this phase
    - Provide a suggested checkpoint label or commit message, for example `Phase X: {{phaseName}}`
    - Proceed to next phase or pause
 
