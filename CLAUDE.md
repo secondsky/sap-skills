@@ -9,7 +9,7 @@
 
 ## What This Repository Is
 
-35 SAP development skills for SAP technologies: BTP, CAP, Fiori, ABAP,
+36 SAP development skills for SAP technologies: BTP, CAP, Fiori, ABAP,
 Analytics, and more. Public-source/package-registry verification is tracked
 where available; live tenant/system validation is tracked per plugin in
 `docs/project/source-verification-ledger.json`.
@@ -121,10 +121,10 @@ prefer `preset: "chatgpt-pro-heavy"` or explicit `engine: "browser"`.
 
 ### Marketplace System
 
-**Scale**: 35 plugins with coordinated versioning
+**Scale**: 36 plugins with coordinated versioning
 **Structure**: Single root manifest per plugin (`plugins/*/.claude-plugin/plugin.json`)
 **Registry**: Central marketplace.json (~40KB, auto-generated)
-**Cross-References**: 14 plugins reference related skills
+**Cross-References**: 15 plugins reference related skills
 
 **Categories**:
 - Category counts are maintained in [README.md](README.md)
@@ -210,7 +210,7 @@ or "the Code CLI" instead.
 
 ---
 
-**Last Updated**: 2026-06-14
+**Last Updated**: 2026-06-17
 **Next Review**: 2026-08-31 (Quarterly)
 **Maintainer**: E.J.
 </coding_guidelines>
