@@ -24,7 +24,7 @@ Use the safest approved discovery backend for:
 - First-pass profile/scenario drafts for review.
 - Interactive triage of failed deterministic tests.
 
-Discovery backends can include manual observation, installed Microsoft Edge/CDP, Chrome DevTools MCP with Edge `--executablePath` or approved attach, local agent-browser, or Playwright-driven exploration. Use Firecrawl only for public documentation research unless private-data handling is explicitly approved.
+Discovery backends can include manual observation, Chrome DevTools MCP with supported Chrome/Chrome for Testing, installed Microsoft Edge/CDP, Chrome DevTools MCP with Edge `--executablePath` or approved attach, local agent-browser, or Playwright-driven exploration. Use Firecrawl only for public documentation research unless private-data handling is explicitly approved.
 
 Use Playwright for:
 
@@ -49,6 +49,7 @@ sac-automation/
       baselines/
       discovery/
         manual/
+        chrome-devtools-mcp/
         edge-cdp/
         agent-browser/
   src/

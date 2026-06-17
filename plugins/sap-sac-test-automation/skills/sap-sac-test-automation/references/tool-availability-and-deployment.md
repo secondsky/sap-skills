@@ -1,6 +1,6 @@
 # Tool Availability and Deployment
 
-Source: Derived summary from `SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md`, Microsoft Edge DevTools Protocol documentation, Microsoft Edge DevTools MCP documentation, Playwright browser documentation, Chrome DevTools MCP issue #1235/PR #1229, and Firecrawl public docs.
+Source: Derived summary from `SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md`, Microsoft Edge DevTools Protocol documentation, Microsoft Edge DevTools MCP documentation, Playwright browser documentation, the `ChromeDevTools/chrome-devtools-mcp` v1.2.0 README/CLI/tool/troubleshooting docs, issue #1235/PR #1229, and Firecrawl public docs.
 
 Treat browser tooling as optional. Restricted company laptops, Windows desktops, locked-down CI images, private npm registries, and enterprise browser policies can remove tools that are convenient in open development environments.
 
@@ -10,7 +10,7 @@ Before recommending a workflow, record:
 
 - Operating system and shell: Windows PowerShell, macOS zsh, Linux shell, CI runner, or managed virtual desktop.
 - SAC environment class: public demo, QA tenant, production read-only, planning/writeback, permission-sensitive, or private customer tenant.
-- Available local tools: Microsoft Edge, Node.js, npm/npx, Playwright project dependency, Chrome DevTools MCP, agent-browser, curl/PowerShell web requests.
+- Available local tools: Google Chrome/Chrome for Testing, Microsoft Edge, Node.js LTS, npm/npx, Playwright project dependency, Chrome DevTools MCP server, experimental `chrome-devtools` CLI, agent-browser, curl/PowerShell web requests.
 - Network policy: public npm allowed, internal npm registry required, browser downloads allowed, artifact mirror required, proxy required, custom CA required, outbound web blocked.
 - Browser policy: Edge `RemoteDebuggingAllowed`, mandatory extensions, profile restrictions, certificate/SSO requirements, and whether a dedicated automation profile is allowed.
 - Data handling policy: whether external research tools such as Firecrawl may receive URLs, rendered content, screenshots, HARs, or files.
@@ -22,7 +22,8 @@ Choose the first safe backend that satisfies both capability and policy:
 | Manual observation packet | No automation tools are available or policy blocks browser control. | The user expects deterministic CI coverage. |
 | Firecrawl public research | Researching public SAP, Microsoft, Playwright, Chrome DevTools MCP, GitHub, or browser docs. | The URL/content is authenticated, internal, customer-specific, or private unless security/legal approved the exact deployment and retention mode. |
 | Installed Edge/CDP | Edge is installed, remote debugging is allowed, and local discovery needs SSO/certs/corporate browser behavior. | Remote debugging is blocked, only a daily user profile is available, or the port cannot be kept loopback-only. |
-| Chrome DevTools MCP with Edge | MCP is installed/approved and Edge can be launched through `--executablePath` or attached through approved `--autoConnect`/`--browser-url`. | The plan depends on direct `--browser=edge` support, or public `npx @latest` is blocked and no pinned/internal package is available. |
+| Chrome DevTools MCP with Chrome | Chrome/Chrome for Testing and an approved MCP package are available for read-only discovery, console/network inspection, screenshots, Lighthouse, or performance traces. | The tool would handle private SAC without telemetry/update/CrUX controls, URL/profile controls, or an approved package source. |
+| Chrome DevTools MCP with Edge | MCP is installed/approved and Edge can be launched through `--executablePath` or attached through approved `--autoConnect`/`--browser-url`. | The plan depends on direct `--browser=edge` support, or unpinned public package execution is blocked and no pinned/internal package is available. |
 | Playwright project | The project has approved dependencies and needs deterministic regression/CI. | Browser downloads/dependencies are unavailable and no installed browser/channel fallback exists. |
 | agent-browser | The CLI is available and read-only snapshot/ref exploration is useful. | It is not installed, not approved, or would encourage unreviewed autonomous writes. |
 | Enterprise browser lab | The organization provides an approved remote browser/test service with proper tenant/data controls. | Data residency, retention, auth, or artifact handling is unclear. |
@@ -44,6 +45,8 @@ Get-Command npm -ErrorAction SilentlyContinue
 Get-Command npx -ErrorAction SilentlyContinue
 Get-Command agent-browser -ErrorAction SilentlyContinue
 Get-Command playwright -ErrorAction SilentlyContinue
+Get-Command chrome-devtools -ErrorAction SilentlyContinue
+Get-Command chrome-devtools-mcp -ErrorAction SilentlyContinue
 ```
 
 For browser policy, check with the workstation owner or administrator first. If allowed to inspect local policy, use read-only registry checks such as:
@@ -57,9 +60,10 @@ If `RemoteDebuggingAllowed` is disabled or unknown and policy owners do not appr
 
 ## Restricted Package and Browser Downloads
 
-- Prefer checked-in project dependencies and pinned package versions over `npx ...@latest`.
+- Prefer checked-in project dependencies and pinned package versions over unpinned moving package tags.
 - If public npm is blocked, use the internal npm registry or an approved cached package/tarball. Do not instruct users to bypass company package controls.
 - If Playwright browser downloads are blocked, use `PLAYWRIGHT_DOWNLOAD_HOST` for an internal artifact repository, `HTTPS_PROXY` for approved proxy egress, `NODE_EXTRA_CA_CERTS` for enterprise CAs, or a pre-provisioned `PLAYWRIGHT_BROWSERS_PATH`.
+- For Chrome DevTools MCP in private SAC contexts, prefer `chrome-devtools-mcp@<approved-version>`, disable usage statistics/update checks/CrUX lookups, use isolated profiles, and capture large outputs to files.
 - If the organization requires Microsoft Edge, use Playwright `channel: 'msedge'` in controlled runners with Edge already installed.
 - If local Edge policies or mandatory extensions interfere with Playwright, keep local work to manual or Edge/CDP discovery and run deterministic tests on approved CI images.
 

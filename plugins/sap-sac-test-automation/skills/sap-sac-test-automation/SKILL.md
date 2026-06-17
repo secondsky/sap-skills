@@ -10,8 +10,8 @@ metadata:
   documentation_source: "SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md"
   primary_tools:
     - Playwright
-    - Microsoft Edge CDP
     - Chrome DevTools MCP
+    - Microsoft Edge CDP
     - Vercel Labs agent-browser
     - Manual discovery
   status: docs_audited_runtime_pending
@@ -33,7 +33,7 @@ Apply the core rule: **discovery proposes, humans approve, Playwright executes, 
 - **sap-dependency-security**: Use before adding source-pinned browser tools, MCP servers, CI dependencies, or executable automation that handles SAC credentials.
 - **agent-browser**: Optionally load when the Vercel Labs agent-browser CLI is available and exact command syntax, snapshot/ref usage, screenshots, console, or network inspection is needed.
 - **playwright**: Optionally load for CLI-based browser driving and debugging. For durable `@playwright/test` suites, use this SAC skill as the test architecture guide and follow the local project's Playwright conventions.
-- **chrome-devtools**: Optionally load when Chrome DevTools MCP or local DevTools Protocol tooling is available. For Microsoft Edge, prefer documented `--executablePath`, `--browser-url`, or `--autoConnect` patterns; do not rely on `--browser=edge` unless the installed tool advertises that flag.
+- **chrome-devtools**: Optionally load when Chrome DevTools MCP is installed and approved for read-only browser discovery, console/network inspection, screenshots, Lighthouse, or performance traces. Use `references/chrome-devtools-mcp.md` for SAC-safe defaults and Edge boundaries.
 
 ## When to Use This Skill
 
@@ -51,7 +51,7 @@ Do not use this skill as the main guide for generic web applications. Use genera
 
 1. Classify the SAC story: production read-only, QA clone, planning/writeback, comments, permission-sensitive, or exploratory.
 2. Establish the automation policy: allowed tenants, allowed users, auth storage handling, writeback approval, baseline approval, and CI triggers.
-3. Run the capability and policy gate: choose manual discovery, Firecrawl public research, installed Microsoft Edge/CDP, Chrome DevTools MCP, Playwright, agent-browser, or an approved enterprise browser lab based on what is installed and allowed.
+3. Run the capability and policy gate: choose manual discovery, Firecrawl public research, Chrome DevTools MCP with supported Chrome, Microsoft Edge/CDP, Chrome DevTools MCP with Edge best-effort, Playwright, agent-browser, or an approved enterprise browser lab based on what is installed and allowed.
 4. Run read-only discovery with the selected backend: capture snapshots, annotated screenshots, console/page errors, network clues, and candidate component maps without sending private SAC content to unapproved external services.
 5. Convert discovery into a human-reviewed dashboard profile: pages, widgets, locators, readiness markers, roles, data baselines, visual baselines, and known restrictions.
 6. Implement deterministic Playwright tests through reusable adapters. Keep scenario files selector-free; route interactions through component IDs from the profile.
@@ -75,6 +75,7 @@ Load these references only as needed:
 
 - `references/architecture.md`: hybrid architecture, feasibility boundaries, reliable SAC test categories, and reusable project shape.
 - `references/tool-availability-and-deployment.md`: backend decision matrix, Windows/restricted-environment checks, Firecrawl public-research policy, and no-tool fallbacks.
+- `references/chrome-devtools-mcp.md`: Chrome DevTools MCP modes, SAC-safe configuration, tool categories, CLI usage, Windows/restricted deployment, and enterprise safety boundaries.
 - `references/edge-cdp-enterprise.md`: installed Microsoft Edge/CDP discovery, Chrome DevTools MCP Edge patterns, profile safety, loopback-only CDP, and Windows/macOS launch checks.
 - `references/dashboard-profiles-and-scenarios.md`: dashboard profile contract, scenario contract, adapter responsibilities, and onboarding flow.
 - `references/agent-browser-discovery.md`: optional agent-browser read-only discovery workflow, command patterns, output artifacts, and human review checklist.
@@ -93,10 +94,12 @@ When implementing against a live project, also inspect the project's existing Pl
 - Do not approve visual or data drift automatically. Require owner review, baseline reason, and pull-request evidence.
 - Do not use chart pixels as the only business-value assertion. Pair chart screenshots with table/KPI/data assertions where possible.
 - Do not assume agent-browser, Playwright CLI, Chrome DevTools MCP, Firecrawl MCP, public npm, browser downloads, or remote debugging are available in company environments. Use the capability gate and document fallbacks.
+- Do not use Chrome DevTools MCP as the audited CI release gate. Use it for discovery/debugging; convert approved findings into profile-driven Playwright tests.
+- Do not run Chrome DevTools MCP against private SAC without disabling usage statistics, update checks, and CrUX field-data lookups, and without applying profile, URL, screenshot, and network-output controls.
 - Do not expose CDP beyond loopback, publish `webSocketDebuggerUrl`, attach to a daily user browser profile, or bypass Edge `RemoteDebuggingAllowed` policy.
 - Do not send authenticated SAC tenant pages, screenshots, HARs, cookies, storage state, internal URLs, customer data, or private company docs to Firecrawl unless the exact deployment and retention mode are approved.
 - Do not assume SAC optimized story features, tenant configuration, live data, localization, or prompt persistence behave identically across customers.
 
 ## Source and Verification Notes
 
-Derived from `SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md`, which cites SAP Help, Vercel Labs agent-browser, and Playwright documentation as planning sources. Edge/CDP guidance also considers Microsoft Edge DevTools Protocol documentation, Microsoft Edge DevTools MCP guidance, Edge `RemoteDebuggingAllowed` policy, Chrome DevTools MCP issue #1235 and PR #1229, and Firecrawl public documentation for MCP/search/scrape safety. This skill is docs-audited only; live SAC tenant execution, SSO behavior, CI behavior, planning writeback, and visual baseline stability remain tenant-specific and must be validated before making runtime claims.
+Derived from `SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md`, which cites SAP Help, Vercel Labs agent-browser, and Playwright documentation as planning sources. Edge/CDP and Chrome DevTools MCP guidance also considers the `ChromeDevTools/chrome-devtools-mcp` README, CLI docs, tool reference, troubleshooting guide, package metadata, bundled skills, issue #1235 and PR #1229, Microsoft Edge DevTools Protocol documentation, Microsoft Edge DevTools MCP guidance, Edge `RemoteDebuggingAllowed` policy, and Firecrawl public documentation for MCP/search/scrape safety. This skill is docs-audited only; live SAC tenant execution, Chrome DevTools MCP runtime behavior, SSO behavior, CI behavior, planning writeback, and visual baseline stability remain tenant-specific and must be validated before making runtime claims.

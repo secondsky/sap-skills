@@ -32,7 +32,10 @@ This skill helps AI coding assistants turn SAC dashboard testing plans into reus
 - Vercel agent-browser Playwright
 - Microsoft Edge CDP SAC testing
 - Edge DevTools Protocol SAC discovery
+- Chrome DevTools MCP SAC discovery
+- Chrome DevTools MCP CLI
 - Chrome DevTools MCP Edge
+- Chrome for Testing SAC
 - SAC Windows restricted environment
 - Firecrawl public research SAC
 - SAC dashboard profile
@@ -60,6 +63,7 @@ plugins/sap-sac-test-automation/
     └── references/
         ├── architecture.md
         ├── tool-availability-and-deployment.md
+        ├── chrome-devtools-mcp.md
         ├── edge-cdp-enterprise.md
         ├── dashboard-profiles-and-scenarios.md
         ├── agent-browser-discovery.md
@@ -72,7 +76,7 @@ plugins/sap-sac-test-automation/
 
 - Design a new SAC automated test framework.
 - Onboard one SAC story/dashboard into a profile-driven Playwright suite.
-- Run read-only discovery with manual inspection, Edge/CDP, Chrome DevTools MCP, agent-browser, or Playwright and turn artifacts into reviewed profile drafts.
+- Run read-only discovery with manual inspection, Chrome DevTools MCP with supported Chrome, Edge/CDP, Chrome DevTools MCP with Edge best-effort, agent-browser, or Playwright and turn artifacts into reviewed profile drafts.
 - Plan restricted Windows/company deployment where npm, browser downloads, agent-browser, Playwright, Firecrawl, or remote debugging may be unavailable.
 - Define safe CI gates for read-only, visual, data, permission, comment, planning, and data-action tests.
 - Review a SAC automation architecture for unsafe writeback, brittle selectors, weak readiness checks, or missing evidence.

@@ -8,6 +8,7 @@ Use installed Microsoft Edge/CDP as a local discovery and triage mode when enter
 
 - Microsoft Edge DevTools Protocol matches Chrome DevTools Protocol APIs and exposes `/json/version`, `/json/protocol`, `/json/list`, and target `webSocketDebuggerUrl` endpoints.
 - Microsoft's Edge guidance for Chrome DevTools MCP uses `--executablePath`, `--autoConnect`, and `--user-data-dir` to launch or attach to Edge/WebView2.
+- Upstream `ChromeDevTools/chrome-devtools-mcp` officially supports Chrome and Chrome for Testing. Microsoft Edge is best-effort even when Microsoft documents compatible `--executablePath`, `--browser-url`, or `--autoConnect` usage.
 - Chrome DevTools MCP issue #1235 and PR #1229 show that direct built-in Edge support such as `--browser=edge` was not accepted as a guaranteed upstream path. Treat `--browser=edge` as unavailable unless the installed version explicitly advertises it.
 - Playwright supports installed Microsoft Edge through `channel: 'msedge'`, `msedge-beta`, `msedge-dev`, and `msedge-canary`. Prefer this for deterministic tests when the environment is controlled.
 
@@ -101,14 +102,45 @@ Launch Edge through the executable path:
         "-y",
         "chrome-devtools-mcp@<approved-version>",
         "--executablePath=%ProgramFiles(x86)%\\Microsoft\\Edge\\Application\\msedge.exe",
-        "--isolated"
-      ]
+        "--isolated",
+        "--redact-network-headers",
+        "--performance-crux=false",
+        "--usage-statistics=false"
+      ],
+      "env": {
+        "CHROME_DEVTOOLS_MCP_NO_UPDATE_CHECKS": "1",
+        "CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS": "1"
+      }
     }
   }
 }
 ```
 
-Attach to an already-running approved Edge instance only when needed for SSO or corporate cert triage:
+Attach to an already-running approved Edge instance only when needed for SSO or corporate certificate triage. Start that Edge session with loopback-only remote debugging and a dedicated automation profile, then attach by URL:
+
+```json
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@<approved-version>",
+        "--browser-url=http://127.0.0.1:9222",
+        "--redact-network-headers",
+        "--performance-crux=false",
+        "--usage-statistics=false"
+      ],
+      "env": {
+        "CHROME_DEVTOOLS_MCP_NO_UPDATE_CHECKS": "1",
+        "CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS": "1"
+      }
+    }
+  }
+}
+```
+
+Use `--autoConnect` only for an approved automation profile that already exists on the workstation:
 
 ```json
 {
@@ -119,14 +151,21 @@ Attach to an already-running approved Edge instance only when needed for SSO or 
         "-y",
         "chrome-devtools-mcp@<approved-version>",
         "--autoConnect",
-        "--user-data-dir=%LocalAppData%\\Microsoft\\Edge\\User Data"
-      ]
+        "--user-data-dir=%LocalAppData%\\SAC-Automation\\EdgeProfile",
+        "--redact-network-headers",
+        "--performance-crux=false",
+        "--usage-statistics=false"
+      ],
+      "env": {
+        "CHROME_DEVTOOLS_MCP_NO_UPDATE_CHECKS": "1",
+        "CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS": "1"
+      }
     }
   }
 }
 ```
 
-Auto-connect inherits the browser session, cookies, accounts, and JavaScript-visible data. Use it only with a trusted agent, approved profile, and private-data handling rules.
+Auto-connect inherits the browser session, cookies, accounts, and JavaScript-visible data for the selected profile. Use it only with a trusted agent, approved profile, and private-data handling rules. Do not point it at a daily user profile unless there is explicit, user-assisted triage approval and the evidence-handling policy is documented.
 
 ## Playwright and CDP
 

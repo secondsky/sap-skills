@@ -11,7 +11,7 @@ Load the `agent-browser` skill only when the CLI is installed and approved. Use 
 - Capture discovery artifacts in the dashboard profile directory, not as loose top-level files.
 - Prefer accessibility snapshots, annotated screenshots, visible labels, text, roles, and SAC widget names over private DOM selectors.
 - Re-run snapshots after tab changes, filter dialogs, prompts, overlays, or any UI state change.
-- If agent-browser is missing, use manual discovery, Edge/CDP discovery, Chrome DevTools MCP with Edge, or Playwright exploration according to the capability gate.
+- If agent-browser is missing, use manual discovery, Chrome DevTools MCP with supported Chrome, Edge/CDP discovery, Chrome DevTools MCP with Edge best-effort, or Playwright exploration according to the capability gate.
 
 ## Typical Commands
 

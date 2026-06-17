@@ -77,6 +77,7 @@ Treat browser-control tooling as part of the testability contract:
 - Avoid daily user profiles except for explicitly approved, user-assisted triage.
 - Keep CDP loopback-only and never publish `webSocketDebuggerUrl`.
 - Respect Edge `RemoteDebuggingAllowed`; do not bypass group policy or endpoint controls.
+- For private SAC with Chrome DevTools MCP, use approved/pinned packages, isolated profiles, redacted network headers, bounded/file-based screenshots and traces, disabled CrUX/usage/update checks, and reviewed URL allow/block patterns.
 - Use Firecrawl only for public-source research by default. Do not send authenticated SAC pages, screenshots, HARs, cookies, storage state, internal URLs, customer data, or private company docs unless the exact deployment and retention mode are approved.
 
 ## Production Policy
