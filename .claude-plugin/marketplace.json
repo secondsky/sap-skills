@@ -8,8 +8,8 @@
   },
   "metadata": {
     "version": "2.3.0",
-    "last_updated": "2026-06-15",
-    "total_skills": 35,
+    "last_updated": "2026-06-17",
+    "total_skills": 36,
     "categories": [
       "abap",
       "ai",
@@ -866,6 +866,29 @@
       ],
       "hooks": "./hooks/hooks.json",
       "mcpServers": "./.mcp.json"
+    },
+    {
+      "name": "sap-sac-test-automation",
+      "source": "./plugins/sap-sac-test-automation",
+      "description": "SAP Analytics Cloud (SAC) automated testing skill for designing capability-gated browser discovery and deterministic Playwright test suites for SAC stories, dashboards, reports, planning workflows, comments, permissions, visual regression, and reusable QA automation. This skill should be used when building SAC end-to-end tests, onboarding SAC dashboards into Playwright, creating dashboard profiles or scenario YAML, using Microsoft Edge/CDP, Chrome DevTools MCP, Vercel Labs agent-browser, or manual discovery for SAC components, testing SAC optimized stories, configuring SAC auth storage state, managing visual/data baselines, testing comments, planning writeback, data actions, multi actions, role-based views, restricted Windows/company environments, or creating SAC failure triage artifacts.",
+      "version": "2.3.0",
+      "category": "data-analytics",
+      "keywords": [
+        "analytics",
+        "automation",
+        "cap",
+        "dashboard",
+        "data",
+        "edge",
+        "rest",
+        "sac",
+        "sap",
+        "sap-sac-test-automation",
+        "test",
+        "visualization",
+        "yaml"
+      ],
+      "license": "GPL-3.0"
     },
     {
       "name": "sap-sqlscript",
