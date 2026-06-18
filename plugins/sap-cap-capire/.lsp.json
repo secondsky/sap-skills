@@ -1,7 +1,7 @@
 {
   "cds": {
-    "command": "cds-lsp",
-    "args": ["--stdio"],
+    "command": "node",
+    "args": ["${CLAUDE_PLUGIN_ROOT}/lsp/cds-lsp-launcher.mjs", "--stdio"],
     "extensionToLanguage": {
       ".cds": "cds"
     }

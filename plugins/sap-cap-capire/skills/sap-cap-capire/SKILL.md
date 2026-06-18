@@ -134,7 +134,9 @@ Use MCP first for local model and docs questions, then fall back to direct file 
 
 - Use `references/mcp-integration.md` for MCP configuration and package pin checks.
 - Use `references/mcp-use-cases.md` only for workflow selection and illustrative impact examples.
-- Use `.lsp.json` as a sidecar for editor integration; it is intentionally not exposed as a manifest field.
+- Use `.lsp.json` as a Claude-compatible sidecar for CAP editor integration; other harnesses should not assume it is auto-loaded.
+- For Codex, OpenCode, editors, or other LSP-capable clients, configure the command manually as `node <sap-cap-capire-plugin-root>/lsp/cds-lsp-launcher.mjs --stdio`. This still requires `@sap/cds-lsp` installed on PATH.
+- Without LSP integration, use the Markdown guidance, bundled references, `rg`, and CAP CLI checks directly.
 - Mark live deployment, HANA, XSUAA, and multitenancy verification pending unless the target project or tenant evidence is available.
 
 ## Project Structure

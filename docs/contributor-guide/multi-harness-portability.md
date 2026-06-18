@@ -13,9 +13,9 @@ Treat every plugin as two layers:
   verification status, and fallback workflow without assuming Claude-specific
   runtime features.
 - **Claude activation layer**: `.claude-plugin/plugin.json`, command
-  frontmatter, agents, hooks, and `.mcp.json`. These files improve activation in
-  Claude-compatible clients but must not be the only place where safety or usage
-  rules are documented.
+  frontmatter, agents, hooks, `.mcp.json`, and `.lsp.json`. These files improve
+  activation in Claude-compatible clients but must not be the only place where
+  safety or usage rules are documented.
 
 ## Harness Behavior
 
@@ -26,6 +26,7 @@ Treat every plugin as two layers:
 | Agents | Specialized subagents when supported | Main-thread guidance or role descriptions |
 | Hooks | Automatic PreToolUse/PostToolUse checks | Manual validators or optional scripts |
 | MCP configs | Plugin MCP activation recipes | Connection recipes; user/client must configure MCP support |
+| LSP configs | Plugin language server activation recipes | Manual LSP client configuration or direct launcher commands |
 
 ## Authoring Rules
 
@@ -41,8 +42,9 @@ Treat every plugin as two layers:
   unsupported harnesses should use the same guidance in the main thread or run
   the validator script manually.
 - Use `${CLAUDE_PLUGIN_ROOT}` only in Claude plugin activation files where the
-  official plugin format supports it. Shell scripts should still resolve their
-  own location so they can be run directly outside Claude.
+  plugin format supports it. Shell and Node scripts should still resolve their
+  own location or accept explicit paths so they can be run directly outside
+  Claude.
 
 ## Review Checklist
 
