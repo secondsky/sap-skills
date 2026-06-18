@@ -1,0 +1,78 @@
+schemaVersion: 1
+
+scenario:
+  id: TODO(profile-id)-read-only-smoke
+  title: Open SAC story and verify critical read-only dashboard readiness
+  profile: profiles/TODO(profile-id)/dashboard.yaml
+  tags:
+    - smoke
+    - readonly
+    - ci-safe
+  riskLevel: low
+  role: viewer
+  serial: true
+
+preconditions:
+  environmentClass: TODO(QA | production-read-only)
+  bookmark: TODO(QA_BASELINE)
+  page: page.overview
+  noPlanningWriteback: true
+  noComments: true
+  noDataActions: true
+  authState: playwright/.auth/qa-viewer.json
+
+steps:
+  - id: open-story
+    action: openStory
+    waitFor: storyReady
+
+  - id: assert-overview-page
+    component: page.overview
+    action: assertPageReady
+    waitFor:
+      - type: text
+        value: TODO(visible-page-marker)
+
+assertions:
+  - id: no-sac-error-text
+    type: forbiddenTextAbsent
+    values:
+      - "An error occurred"
+      - "Could not load"
+      - "You do not have permission"
+
+  - id: critical-kpi-visible
+    type: componentVisible
+    component: TODO(kpi.revenue)
+
+  - id: critical-table-visible
+    type: componentVisible
+    component: TODO(tbl.primary)
+
+  - id: companion-business-value
+    type: tableOrKpiValue
+    component: TODO(kpi-or-table-component)
+    expected: TODO(owner-approved-expected-value)
+    tolerance:
+      absolute: TODO(absolute-tolerance)
+      relative: TODO(relative-tolerance)
+
+cleanup:
+  - action: none
+    reason: read-only smoke scenario
+
+failureClassificationHints:
+  auth:
+    - login page
+    - IdP redirect
+    - 401
+    - 403
+  selector:
+    - critical component not found after story ready
+  dataDrift:
+    - component loaded but owner-approved value differs
+  performance:
+    - storyReady timeout
+    - critical widget timeout
+  permission:
+    - expected visible component is hidden for viewer role

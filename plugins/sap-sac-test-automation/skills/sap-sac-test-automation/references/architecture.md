@@ -1,6 +1,6 @@
 # SAC Test Automation Architecture
 
-Source: Derived summary from `SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md`.
+Source: Derived summary from incorporated SAC automated-suite planning content and `docs/project/sac-test-automation-source-review-2026-06-17.md`.
 
 Use a hybrid, profile-driven architecture:
 

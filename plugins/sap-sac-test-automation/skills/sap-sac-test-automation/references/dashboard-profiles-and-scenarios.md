@@ -1,8 +1,10 @@
 # Dashboard Profiles and Scenarios
 
-Source: Derived summary from `SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md`.
+Source: Derived summary from incorporated SAC automated-suite planning content and extracted onboarding templates.
 
 Use dashboard profiles to keep SAC tests reusable and reviewable. A profile describes the dashboard contract; scenarios describe user workflows against component IDs from that contract.
+
+Start new dashboards with `/sac-test-onboard` when commands are available. Use the bundled `templates/intake.md`, `templates/dashboard-profile.yaml`, and `templates/scenario-read-only-smoke.yaml` as starter artifacts, then replace every `TODO(...)` with reviewed tenant/project facts.
 
 ## Profile Contents
 
@@ -49,11 +51,13 @@ Use adapters so scenarios never hard-code selectors:
 ## Onboarding Flow
 
 1. Inventory dashboard candidates and choose a low-risk pilot.
-2. Define policy for auth, tenants, production read-only limits, writeback approval, and baseline ownership.
-3. Prepare dedicated users, role matrix, and QA story copies for writeback/comment flows.
-4. Stabilize SAC widget names, visible labels, page names, and bookmarks.
-5. Run the approved discovery backend and save artifacts under `profiles/<dashboard>/discovery/`.
-6. Review discovery output with dashboard owner and replace guesses with official SAC widget names where possible.
-7. Approve profile selectors, expected values, tolerances, role expectations, and unsupported features.
-8. Implement adapters and scenarios for smoke, navigation, filters, tables, chart visual checks, exports, permissions, and controlled stateful flows.
-9. Burn in the pilot for five scheduled runs or classify all remaining failures as environment/data drift before scaling.
+2. Run `/sac-test-onboard` or manually create the intake/profile/scenario starter artifacts from templates.
+3. Define policy for auth, tenants, production read-only limits, writeback approval, and baseline ownership.
+4. Prepare dedicated users, role matrix, and QA story copies for writeback/comment flows.
+5. Stabilize SAC widget names, visible labels, page names, and bookmarks.
+6. Run the approved discovery backend and save artifacts under `profiles/<dashboard>/discovery/`.
+7. Review discovery output with dashboard owner and replace guesses with approved SAC widget names where possible.
+8. Approve profile selectors, expected values, tolerances, role expectations, and unsupported features.
+9. Review the intake/profile/scenario packet with `sac-test-profile-reviewer` when available.
+10. Implement adapters and scenarios for smoke, navigation, filters, tables, chart visual checks, exports, permissions, and controlled stateful flows.
+11. Burn in the pilot for five scheduled runs or classify all remaining failures as environment/data drift before scaling.

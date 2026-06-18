@@ -8,12 +8,12 @@ Portable, documentation-audited skill for designing capability-gated discovery p
 
 | Capability | Status |
 |------------|--------|
-| Commands | No |
-| Agents | No |
+| Commands | Yes: `/sac-test-onboard` |
+| Agents | Yes: `sac-test-profile-reviewer` |
 | Hooks | No |
 | MCP | No |
 | LSP | No |
-| Source Freshness | `last_verified`: 2026-06-17; initial docs-audited skill derived from the SAC automated suite plan. |
+| Source Freshness | `last_verified`: 2026-06-17; docs-audited skill with incorporated SAC automation planning content and extracted onboarding templates. |
 | Verification | `npm run validate`; live SAC tenant, SSO, CI, and writeback checks pending. |
 
 ## Overview
@@ -23,6 +23,7 @@ This skill helps AI coding assistants turn SAC dashboard testing plans into reus
 ## Keywords for Auto-Discovery
 
 - SAC test automation
+- SAC test onboarding
 - SAP Analytics Cloud Playwright
 - SAC Playwright tests
 - SAC dashboard testing
@@ -52,30 +53,32 @@ This skill helps AI coding assistants turn SAC dashboard testing plans into reus
 - SAC failure triage
 - SAC trace screenshots
 - SAC testability contract
+- SAC profile reviewer
 
 ## File Structure
 
 ```text
 plugins/sap-sac-test-automation/
+├── commands/
+│   └── sac-test-onboard.md
+├── agents/
+│   └── sac-test-profile-reviewer.md
 └── skills/sap-sac-test-automation/
     ├── SKILL.md
     ├── README.md
-    └── references/
-        ├── architecture.md
-        ├── tool-availability-and-deployment.md
-        ├── chrome-devtools-mcp.md
-        ├── edge-cdp-enterprise.md
-        ├── dashboard-profiles-and-scenarios.md
-        ├── agent-browser-discovery.md
-        ├── playwright-execution.md
-        ├── governance-and-sac-testability.md
-        └── failure-triage-and-artifacts.md
+    ├── references/
+    └── templates/
+        ├── intake.md
+        ├── dashboard-profile.yaml
+        └── scenario-read-only-smoke.yaml
 ```
 
 ## Primary Use Cases
 
 - Design a new SAC automated test framework.
+- Start onboarding with `/sac-test-onboard` and produce a reviewed intake/profile/scenario starter packet.
 - Onboard one SAC story/dashboard into a profile-driven Playwright suite.
+- Review intake, dashboard profile, and scenario YAML with `sac-test-profile-reviewer`.
 - Run read-only discovery with manual inspection, Chrome DevTools MCP with supported Chrome, Edge/CDP, Chrome DevTools MCP with Edge best-effort, agent-browser, or Playwright and turn artifacts into reviewed profile drafts.
 - Plan restricted Windows/company deployment where npm, browser downloads, agent-browser, Playwright, Firecrawl, or remote debugging may be unavailable.
 - Define safe CI gates for read-only, visual, data, permission, comment, planning, and data-action tests.
@@ -90,3 +93,8 @@ plugins/sap-sac-test-automation/
 - `agent-browser`
 - `playwright`
 - `chrome-devtools`
+
+## Command and Agent
+
+- `/sac-test-onboard`: two-stage guided intake for one SAC dashboard, with optional confirmed file creation under `profiles/<profile-id>/`.
+- `sac-test-profile-reviewer`: read-only review of intake, dashboard profile, and scenario YAML for selector quality, readiness, baseline ownership, role assumptions, and risky SAC flows.

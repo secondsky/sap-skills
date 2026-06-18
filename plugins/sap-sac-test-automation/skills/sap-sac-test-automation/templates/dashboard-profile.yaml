@@ -1,0 +1,164 @@
+schemaVersion: 1
+
+dashboard:
+  id: TODO(profile-id)
+  name: TODO(dashboard-name)
+  owner: TODO(owner-team)
+  riskClass: TODO(production-readonly | qa-readonly | planning-writeback | permission-sensitive)
+  sac:
+    tenantBaseUrl: "${SAC_BASE_URL}"
+    storyId: "${SAC_STORY_ID}"
+    storyUrlPattern: TODO(redacted-story-url-pattern)
+    openMode: view
+    defaultBookmark: TODO(QA_BASELINE)
+    optimizedStory: TODO(true | false | unknown)
+
+execution:
+  browserProject: chromium-linux
+  viewport:
+    width: 1440
+    height: 1000
+  locale: en-US
+  timezoneId: UTC
+  authStates:
+    viewer: playwright/.auth/qa-viewer.json
+    planner: TODO(optional-planner-auth-state)
+    admin: TODO(optional-admin-auth-state)
+    restricted: TODO(optional-restricted-auth-state)
+  defaultTimeoutMs: 120000
+  workersPolicy: serial-for-this-dashboard-until-proven-safe
+
+toolPolicy:
+  discoveryBackend: TODO(manual | chrome-devtools-mcp | edge-cdp | playwright | agent-browser | enterprise-browser-lab)
+  regressionRunner: Playwright
+  privateDataRules:
+    firecrawlPrivateContentAllowed: false
+    commitCookiesStorageStateProfiles: false
+    requireHumanReviewForDiscoveryOutput: true
+
+readiness:
+  storyShell:
+    requiredTexts:
+      - TODO(story-title-or-page-marker)
+    forbiddenTexts:
+      - "An error occurred"
+      - "Could not load"
+      - "You do not have permission"
+    loadingIndicators:
+      - "text=Loading"
+      - "[aria-label*='Busy']"
+    networkQuietMs: 2000
+  criticalWidgets:
+    - componentId: TODO(component-id)
+
+pages:
+  - id: page.overview
+    title: TODO(Overview)
+    type: Tab
+    locator:
+      role:
+        role: tab
+        name: TODO(Overview)
+    pageReadyText: TODO(visible-text-on-page)
+
+components:
+  - id: TODO(kpi.revenue)
+    type: Kpi
+    widgetName: TODO(SAC_WIDGET_NAME_FROM_OUTLINE)
+    page: page.overview
+    title: TODO(Revenue)
+    criticality: high
+    locator:
+      nearText: TODO(Revenue)
+      cssFallbackReviewed: false
+    numericParsing:
+      locale: en-US
+      scaleSuffixes: true
+      currencySymbols: true
+    tolerances:
+      absolute: 1
+      relative: 0.001
+
+  - id: TODO(tbl.primary)
+    type: Table
+    widgetName: TODO(SAC_TABLE_WIDGET_NAME)
+    page: page.overview
+    title: TODO(primary-table-title)
+    criticality: high
+    locator:
+      nearText: TODO(primary-table-title)
+      cssFallbackReviewed: false
+    table:
+      keyColumns:
+        - TODO(key-column)
+      valueColumns:
+        - TODO(value-column)
+      virtualization: TODO(true | false | unknown)
+      scrollStrategy: TODO(visible-only | search-row-label | export-fallback)
+      expectedData: profiles/TODO(profile-id)/expected-data/TODO(file).csv
+
+  - id: TODO(chart.primary)
+    type: Chart
+    widgetName: TODO(SAC_CHART_WIDGET_NAME)
+    page: page.overview
+    title: TODO(primary-chart-title)
+    criticality: medium
+    locator:
+      nearText: TODO(primary-chart-title)
+    screenshot:
+      region: widget
+      baseline: profiles/TODO(profile-id)/baselines/chromium-linux/TODO(chart).png
+      maxDiffPixelRatio: 0.005
+      masks: []
+    dataAssertionSource:
+      componentId: TODO(companion-table-or-kpi)
+
+planning:
+  enabled: false
+  model: TODO(QA-model-or-out-of-scope)
+  defaultVersionStrategy: private-per-run
+  publicTestVersion: TODO(QA_PUBLIC_AUTOMATION)
+  reset:
+    required: true
+    command: TODO(reset-command)
+  publishPolicy:
+    allowed: false
+    requiresManualApproval: true
+
+comments:
+  enabled: false
+  policy:
+    isolatedStoryRequired: true
+    uniquePrefix: "QA_AUTOMATION_${RUN_ID}"
+    cleanup: best-effort
+    serialOnly: true
+
+permissions:
+  expectedByRole:
+    viewer:
+      visible:
+        - page.overview
+      hidden: []
+    restricted:
+      visible:
+        - page.overview
+      hidden: []
+      dataFilters: {}
+
+baselines:
+  visual:
+    owner: TODO(dashboard-owner)
+    approvalRequired: true
+    maskVolatileUi: true
+  data:
+    owner: TODO(data-owner)
+    snapshot: TODO(data-snapshot-name)
+    approvalRequired: true
+  permission:
+    owner: TODO(security-owner)
+    approvalRequired: true
+
+knownRisks:
+  - id: TODO(risk-id)
+    category: TODO(selector | data-drift | permission | performance | planning-conflict | visual-regression | sac-unsupported-feature)
+    mitigation: TODO(mitigation)

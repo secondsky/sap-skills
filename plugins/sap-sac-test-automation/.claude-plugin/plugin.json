@@ -22,5 +22,11 @@
     "visualization",
     "yaml"
   ],
-  "category": "data-analytics"
+  "category": "data-analytics",
+  "agents": [
+    "./agents/sac-test-profile-reviewer.md"
+  ],
+  "commands": [
+    "./commands/sac-test-onboard.md"
+  ]
 }

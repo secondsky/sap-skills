@@ -7,7 +7,7 @@ metadata:
   version: "2.3.0"
   last_verified: 2026-06-17
   sac_version: "2026.8"
-  documentation_source: "SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md"
+  documentation_source: "docs/project/sac-test-automation-source-review-2026-06-17.md"
   primary_tools:
     - Playwright
     - Chrome DevTools MCP
@@ -34,6 +34,17 @@ Apply the core rule: **discovery proposes, humans approve, Playwright executes, 
 - **agent-browser**: Optionally load when the Vercel Labs agent-browser CLI is available and exact command syntax, snapshot/ref usage, screenshots, console, or network inspection is needed.
 - **playwright**: Optionally load for CLI-based browser driving and debugging. For durable `@playwright/test` suites, use this SAC skill as the test architecture guide and follow the local project's Playwright conventions.
 - **chrome-devtools**: Optionally load when Chrome DevTools MCP is installed and approved for read-only browser discovery, console/network inspection, screenshots, Lighthouse, or performance traces. Use `references/chrome-devtools-mcp.md` for SAC-safe defaults and Edge boundaries.
+
+## Initial Guidance
+
+When the user is starting SAC automation or has not supplied a reviewed dashboard profile, route them through `/sac-test-onboard` or follow the same intake sequence manually. Use a two-stage intake:
+
+- Stage 1: environment class, tenant risk, allowed discovery/execution tools, auth and roles, writeback/comment scope, and baseline ownership.
+- Stage 2: planning/writeback, comments, permissions, visual/data baselines, custom widgets, CI stages, and failure evidence.
+
+Default to draft-only artifacts until the user explicitly confirms file creation and target directory. If writing is confirmed, use `profiles/<profile-id>/intake.md`, `profiles/<profile-id>/dashboard.yaml`, and `profiles/<profile-id>/scenarios/read-only-smoke.yaml` based on the bundled templates.
+
+After a profile or scenario draft exists, route safety review to `sac-test-profile-reviewer` when available. Keep the reviewer focused on intake/profile/scenario safety, not broad Playwright suite implementation.
 
 ## When to Use This Skill
 
@@ -82,6 +93,9 @@ Load these references only as needed:
 - `references/playwright-execution.md`: Playwright test runner guidance, auth, readiness, CI stages, and test category policy.
 - `references/governance-and-sac-testability.md`: SAC testability contract, auth/SSO, planning/comment safety, baseline approval, and role governance.
 - `references/failure-triage-and-artifacts.md`: required evidence, failure packet shape, root-cause categories, and performance/readiness metrics.
+- `templates/intake.md`: guided intake packet for policy, tooling, roles, risk, baselines, and approvals.
+- `templates/dashboard-profile.yaml`: starter dashboard profile with SAC metadata, readiness, components, roles, baselines, and risk policy.
+- `templates/scenario-read-only-smoke.yaml`: selector-free starter smoke scenario using profile component IDs.
 
 When implementing against a live project, also inspect the project's existing Playwright config, package manager, CI, profile schema, and artifact conventions before adding new structure.
 
@@ -102,4 +116,4 @@ When implementing against a live project, also inspect the project's existing Pl
 
 ## Source and Verification Notes
 
-Derived from `SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md`, which cites SAP Help, Vercel Labs agent-browser, and Playwright documentation as planning sources. Edge/CDP and Chrome DevTools MCP guidance also considers the `ChromeDevTools/chrome-devtools-mcp` README, CLI docs, tool reference, troubleshooting guide, package metadata, bundled skills, issue #1235 and PR #1229, Microsoft Edge DevTools Protocol documentation, Microsoft Edge DevTools MCP guidance, Edge `RemoteDebuggingAllowed` policy, and Firecrawl public documentation for MCP/search/scrape safety. This skill is docs-audited only; live SAC tenant execution, Chrome DevTools MCP runtime behavior, SSO behavior, CI behavior, planning writeback, and visual baseline stability remain tenant-specific and must be validated before making runtime claims.
+Derived from incorporated SAC automated-suite planning content recorded in `docs/project/sac-test-automation-source-review-2026-06-17.md`, plus extracted profile/scenario templates bundled with this skill. The planning sources cite SAP Help, Vercel Labs agent-browser, and Playwright documentation. Edge/CDP and Chrome DevTools MCP guidance also considers the `ChromeDevTools/chrome-devtools-mcp` README, CLI docs, tool reference, troubleshooting guide, package metadata, bundled skills, issue #1235 and PR #1229, Microsoft Edge DevTools Protocol documentation, Microsoft Edge DevTools MCP guidance, Edge `RemoteDebuggingAllowed` policy, and Firecrawl public documentation for MCP/search/scrape safety. This skill is docs-audited only; live SAC tenant execution, Chrome DevTools MCP runtime behavior, SSO behavior, CI behavior, planning writeback, and visual baseline stability remain tenant-specific and must be validated before making runtime claims.

@@ -8,7 +8,7 @@
   },
   "metadata": {
     "version": "2.3.0",
-    "last_updated": "2026-06-17",
+    "last_updated": "2026-06-18",
     "total_skills": 36,
     "categories": [
       "abap",
@@ -888,7 +888,13 @@
         "visualization",
         "yaml"
       ],
-      "license": "GPL-3.0"
+      "license": "GPL-3.0",
+      "agents": [
+        "./agents/sac-test-profile-reviewer.md"
+      ],
+      "commands": [
+        "./commands/sac-test-onboard.md"
+      ]
     },
     {
       "name": "sap-sqlscript",

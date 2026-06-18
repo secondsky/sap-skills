@@ -1,10 +1,10 @@
 # SAC Test Automation Source Review
 
-Source: Repository-local planning artifact `SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md`.
+Source: Incorporated SAC automated-suite planning content extracted into the `sap-sac-test-automation` skill package.
 
-This note records the source basis for the initial `sap-sac-test-automation` skill. The skill distills the local plan into a concise `SKILL.md` plus targeted references for architecture, tool availability, Chrome DevTools MCP discovery, Edge/CDP discovery, profile/scenario contracts, agent-browser discovery, Playwright execution, governance/testability, and failure triage.
+This note records the source basis for the initial `sap-sac-test-automation` skill. The skill distills incorporated SAC automation planning content into a concise `SKILL.md` plus targeted references for architecture, tool availability, Chrome DevTools MCP discovery, Edge/CDP discovery, profile/scenario contracts, agent-browser discovery, Playwright execution, governance/testability, failure triage, onboarding command guidance, and starter templates.
 
-The source plan cites SAP Help material for SAC optimized stories, scripting, comments, planning versions, data-entry errors, and validation rules; Vercel Labs `agent-browser`; and Playwright documentation for installation, locators, auto-waiting, authentication, traces, screenshots, videos, visual comparisons, reporters, and CI.
+The incorporated planning content cites SAP Help material for SAC optimized stories, scripting, comments, planning versions, data-entry errors, and validation rules; Vercel Labs `agent-browser`; and Playwright documentation for installation, locators, auto-waiting, authentication, traces, screenshots, videos, visual comparisons, reporters, and CI. Its durable profile/scenario/intake content now lives in the skill references, `/sac-test-onboard` command, and bundled templates rather than a top-level planning artifact.
 
 The enterprise browser update also reviewed Microsoft Edge DevTools Protocol documentation, Microsoft Edge DevTools MCP guidance, Microsoft Edge `RemoteDebuggingAllowed` policy documentation, Playwright browser/channel guidance for `msedge`, Chrome DevTools MCP issue #1235 and PR #1229, and Firecrawl public documentation for MCP setup, lockdown mode, PII redaction, and interact sessions. The skill records these as docs-audited constraints only; it does not claim that any live SAC tenant, corporate Edge profile, or Firecrawl deployment was exercised.
 

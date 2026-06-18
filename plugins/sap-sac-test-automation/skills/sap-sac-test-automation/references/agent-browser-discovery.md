@@ -1,6 +1,6 @@
 # Optional agent-browser Discovery Workflow
 
-Source: Derived summary from `SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md` and local agent-browser skill behavior.
+Source: Derived summary from incorporated SAC automated-suite planning content and local agent-browser skill behavior.
 
 Load the `agent-browser` skill only when the CLI is installed and approved. Use `tool-availability-and-deployment.md` first in restricted environments, because agent-browser may be unavailable on managed Windows desktops, locked-down CI images, or networks that block tool installation.
 

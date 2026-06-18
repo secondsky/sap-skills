@@ -1,6 +1,6 @@
 # Playwright Execution Layer
 
-Source: Derived summary from `SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md`.
+Source: Derived summary from incorporated SAC automated-suite planning content and Playwright documentation.
 
 Use Playwright as the deterministic execution layer for reviewed tests and CI. Load the local `playwright` skill for CLI browser-driving/debugging syntax when needed, but keep durable SAC regression suites in normal `@playwright/test` project code.
 

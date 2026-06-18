@@ -1,6 +1,6 @@
 # Failure Triage and Artifacts
 
-Source: Derived summary from `SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md`.
+Source: Derived summary from incorporated SAC automated-suite planning content.
 
 Every SAC failure should produce evidence a dashboard owner, data owner, SAC admin, and automation engineer can understand without replaying the test manually.
 

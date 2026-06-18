@@ -1,6 +1,6 @@
 # Tool Availability and Deployment
 
-Source: Derived summary from `SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md`, Microsoft Edge DevTools Protocol documentation, Microsoft Edge DevTools MCP documentation, Playwright browser documentation, the `ChromeDevTools/chrome-devtools-mcp` v1.2.0 README/CLI/tool/troubleshooting docs, issue #1235/PR #1229, and Firecrawl public docs.
+Source: Derived summary from incorporated SAC automated-suite planning content, Microsoft Edge DevTools Protocol documentation, Microsoft Edge DevTools MCP documentation, Playwright browser documentation, the `ChromeDevTools/chrome-devtools-mcp` v1.2.0 README/CLI/tool/troubleshooting docs, issue #1235/PR #1229, and Firecrawl public docs.
 
 Treat browser tooling as optional. Restricted company laptops, Windows desktops, locked-down CI images, private npm registries, and enterprise browser policies can remove tools that are convenient in open development environments.
 

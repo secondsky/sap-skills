@@ -1,6 +1,6 @@
 # Governance and SAC Testability
 
-Source: Derived summary from `SAC_Automated_Test_Suite_Playwright_AgentBrowser_Plan.md`.
+Source: Derived summary from incorporated SAC automated-suite planning content.
 
 The hardest part of SAC automation is the testability contract, not browser control. Establish ownership and safety before scaling tests.
 
