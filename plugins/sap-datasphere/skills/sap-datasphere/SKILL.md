@@ -3,7 +3,7 @@ name: sap-datasphere
 description: "SAP Datasphere development skill with 3 specialized agents, 5 slash commands, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections, managing spaces and users, implementing data access controls, or using the datasphere CLI. Covers Data Builder, Business Builder, analytic models, 40+ connection types, real-time replication, task chains, content transport, and data marketplace."
 license: GPL-3.0
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   last_verified: 2026-06-11
   keywords: [sap datasphere, data warehouse cloud, dwc, data builder, business builder, analytic model, graphical view, sql view, transformation flow, replication flow, data flow, task chain, remote table, local table, datasphere connection, datasphere space, data access control, elastic compute node, datasphere cli, data products, data marketplace, catalog, governance, business data cloud, bdc, sap databricks]
 ---

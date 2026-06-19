@@ -4,7 +4,7 @@ description: |
   Configures and integrates SAP Master Data Integration (MDI) service on SAP Business Technology Platform. Use when setting up MDI tenants, connecting applications (S/4HANA, SuccessFactors, Ariba, Fieldglass, etc.), configuring distribution models, SOAP APIs for business partners, extensibility, or troubleshooting master data replication. Covers One Domain Model integration, Business Data Orchestration, client authentication (OAuth2, mTLS), and security configurations.
 license: GPL-3.0
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   last_verified: "2025-11-27"
 ---
 

@@ -3,7 +3,7 @@ name: sap-dependency-security
 description: "SAP dependency security and MCP executable trust policy with secure upgrades, cooldowns, staged rollout, and supply-chain protection. Use when upgrading deps, configuring security policies, preventing supply chain attacks, pinning SAP MCP servers, or reviewing SAP CAP/UI5/Fiori/HANA/Datasphere/SAC/BTP/ABAP dependency workflows."
 license: GPL-3.0
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   last_verified: "2026-06-14"
   known_issues: []
 ---

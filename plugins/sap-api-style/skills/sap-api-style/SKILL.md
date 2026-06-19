@@ -11,7 +11,7 @@ description: |
   API deprecation, x-sap-stateInfo, Entity Data Model, EDM, documentation tags, API quality, API templates
 license: GPL-3.0
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   last_verified: "2026-02-25"
   source_version: "2025.01"
   source_commit: "902247f3afb6a0cb3fa110b284bb5d93a65c1268"
@@ -436,7 +436,7 @@ See individual reference files for complete anti-patterns and fixes.
 
 ---
 
-**Skill Version**: 2.3.0
+**Skill Version**: 2.3.1
 **Last Updated**: 2026-06-14
 **License**: GPL-3.0
 **Maintainer**: SAP Skills Team | [https://github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)

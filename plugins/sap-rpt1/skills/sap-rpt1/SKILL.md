@@ -9,7 +9,7 @@ allowed-tools:
   - Read
   - Bash
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   model_source: "SAP/sap-rpt-1-oss"
   python_version: "3.11"
   last_verified: "2026-06-18"

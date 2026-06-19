@@ -2,7 +2,7 @@
 
 Comprehensive guide for developing, maintaining, and publishing SAP skills for Claude Code.
 
-**Version**: 2.3.0 | **Last Updated**: 2026-06-14
+**Version**: 2.3.1 | **Last Updated**: 2026-06-19
 
 ---
 
@@ -208,29 +208,29 @@ npm outdated  # Check for SAP package updates
 
 ### Overview
 
-The SAP skills repository manages **35 production plugins** using a marketplace system with:
-- Coordinated versioning (all at v2.3.0)
+The SAP skills repository manages **37 production plugins** using a marketplace system with:
+- Coordinated versioning (all at v2.3.1)
 - Cross-references between related skills
 - Central registry (.claude-plugin/marketplace.json)
 - Single root manifest architecture
 
-**Scale**: 35 plugins across 5 user-facing groups:
-- Tooling & Development (2 plugins)
-- SAP BTP Platform (15 skills)
-- UI Development (4 skills)
-- Data & Analytics (5 skills)
-- Core Technologies (7 skills)
+**Scale**: 37 plugins across 5 user-facing groups:
+- Tooling & Development (3 plugins)
+- SAP BTP Platform (15 plugins)
+- UI Development (4 plugins)
+- Data & Analytics (6 plugins)
+- Core Technologies (9 plugins)
 
 ### Key Concepts
 
 #### Skill Families
 
 Skills are organized into families for better discoverability:
-- **BTP Platform**: 14 skills covering Cloud Foundry, services, integration
-- **Core Technologies**: CAP, ABAP, HANA, AI/ML (7 skills)
-- **UI Development**: Fiori, SAPUI5, tooling (4 skills)
-- **Data & Analytics**: SAC, Datasphere, Data Intelligence (5 skills)
-- **Tooling**: API style guidance and dependency upgrade hardening (2 plugins)
+- **BTP Platform**: 15 plugins covering Cloud Foundry, services, integration
+- **Core Technologies**: CAP, ABAP, HANA, AI/ML, and FI/CO prediction workflows (9 plugins)
+- **UI Development**: Fiori, SAPUI5, tooling (4 plugins)
+- **Data & Analytics**: SAC, Datasphere, Data Intelligence, and SAC test automation (6 plugins)
+- **Tooling**: API style guidance, dependency security, and HANA CLI operations (3 plugins)
 
 #### Cross-References
 
@@ -247,7 +247,7 @@ This enables Claude to discover complementary skills automatically.
 
 **Single Source of Truth**: `marketplace.json` metadata.version field
 
-All plugins share the same version (currently 2.3.0) and are updated together:
+All plugins share the same version (currently 2.3.1) and are updated together:
 ```bash
 # Update version in marketplace.json
 vim .claude-plugin/marketplace.json
@@ -332,7 +332,7 @@ Every SAP skill must document SDK versions:
 ---
 name: sap-cap-capire
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   cap_version: "@sap/cds 9.4.x"
   last_verified: "2025-12-28"
   sap_btp_compatible: true
@@ -678,8 +678,8 @@ NOT:
 ./scripts/generate-marketplace.sh --dry-run
 
 # Validate output
-jq '.plugins | length' .claude-plugin/marketplace.json  # Should be 35
-jq '.metadata.total_skills' .claude-plugin/marketplace.json  # Should be 35
+jq '.plugins | length' .claude-plugin/marketplace.json  # Should be 37
+jq '.metadata.total_skills' .claude-plugin/marketplace.json  # Should be 37
 ```
 
 ---
@@ -709,7 +709,7 @@ jq '.metadata.total_skills' .claude-plugin/marketplace.json  # Should be 35
 3. **Update skill metadata**:
    ```yaml
    metadata:
-     version: "2.3.0"
+     version: "2.3.1"
      cap_version: "@sap/cds 9.5.x"  # Updated
      last_verified: "2026-03-28"     # Updated
    ```
@@ -854,7 +854,7 @@ https://github.com/secondsky/sap-skills/issues
 
 ---
 
-**Last Updated**: 2026-06-14
+**Last Updated**: 2026-06-19
 **Next Review**: 2026-08-31 (Quarterly)
-**Version**: 2.3.0
+**Version**: 2.3.1
 **Maintainer**: SAP Skills Repository Team | [github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)

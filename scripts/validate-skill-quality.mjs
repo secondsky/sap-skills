@@ -15,7 +15,7 @@ const repoRoot = repoRootFrom(import.meta.url);
 const pluginsRoot = path.join(repoRoot, "plugins");
 const auditReport = path.join(repoRoot, "docs/project/plugin-skills-audit-2026-06-14.md");
 const ledgerPath = path.join(repoRoot, "docs/project/source-verification-ledger.json");
-const expectedVersion = "2.3.0";
+const expectedVersion = "2.3.1";
 const staleAfterDays = 90;
 const allowedSkillRootEntries = new Set([
   "SKILL.md",

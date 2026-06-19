@@ -4,7 +4,7 @@ description: |
   Comprehensive SAC scripting skill for SAP Analytics Cloud Analytics Designer and Optimized Story Experience. This skill should be used when the user asks to "create SAC script", "debug Analytics Designer", "optimize SAC performance", "planning operations in SAC", "filter data in SAC", "use DataSource API", "chart scripting", "table manipulation", "SAC event handlers", "version management", "data locking", "Optimized Story Experience API", "OSE scripting", "OSE widget API", "OSE DataSource", "story scripting API", "OSE planning API", "OSE method", "optimized story", "SAC story scripting", "story script", "SAC scripting", or works with SAC widgets, planning models, or analytics applications.
 license: GPL-3.0
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   last_verified: 2026-06-11
   sac_version: "Q2 2026 (2026.8)"
   api_reference_version: "2025.20 (OSE Q2 2026)"

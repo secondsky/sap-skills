@@ -8,7 +8,7 @@ description: |
   Keywords: SAP BTP, Business Technology Platform, CAP, Cloud Application Programming Model, ABAP Cloud, Cloud Foundry, Kyma, SAP HANA Cloud, SAP Fiori, SAPUI5, CI/CD, observability, multitenant, SaaS, SAP BTP ABAP environment, SAP Business Application Studio, SAP Cloud SDK, SAP Integration Suite, SAP Event Mesh, SAP Connectivity Service, SAP Destination Service, XSUAA, OAuth, OpenID Connect, OData, CDS, Core Data Services, ABAP CDS, ABAP RESTful Application Programming Model, RAP, ABAP development, SAP BTP development
 license: GPL-3.0
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   last_verified: 2025-11-27
   source_last_updated: 2025-11-21
   review_status: "Complete - Phase 1-14 audit"

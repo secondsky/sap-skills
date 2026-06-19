@@ -4,7 +4,7 @@ description: "SAP Analytics Cloud (SAC) Custom Widget development. Use when buil
 
 license: GPL-3.0
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   last_verified: 2026-06-12
   sac_version: "2026.8"
   errors_prevented: 25+

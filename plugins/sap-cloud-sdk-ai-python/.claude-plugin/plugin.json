@@ -1,7 +1,7 @@
 {
   "name": "sap-cloud-sdk-ai-python",
   "description": "Integrates the SAP Cloud SDK for AI for Python (sap-ai-sdk-gen, formerly generative-ai-hub-sdk) into Python applications. Use when building Python apps with SAP AI Core, Generative AI Hub, or the Orchestration Service: chat completion, embeddings, streaming, LangChain integration, templating, content filtering, data masking, and document grounding. Supports OpenAI GPT models, Llama, Gemini, Amazon Nova, and other foundation models via SAP BTP.",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "author": {
     "name": "E.J."
   },

@@ -4,7 +4,7 @@ description: |
   SAP Cloud Identity Services for BTP applications: Identity Authentication (IAS), Identity Provisioning (IPS), and Authorization Management (AMS). Use when configuring authentication for BTP apps, setting up OIDC or SAML app registrations, federating corporate identity providers, establishing subaccount trust, provisioning users, writing AMS authorization policies, migrating from XSUAA to IAS-based authentication, or troubleshooting token and trust errors.
 license: GPL-3.0
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   last_verified: "2026-06-12"
   documentation_source: https://help.sap.com/docs/cloud-identity-services
   ias_docs: https://github.com/SAP-docs/btp-cloud-identity-services

@@ -8,7 +8,7 @@ description: |
   Node.js and Java runtimes, event handlers, OData services, and CAP plugins.
 license: GPL-3.0
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   last_verified: "2026-02-22"
   cap_version: "@sap/cds 9.7.x"
   mcp_version: "@cap-js/mcp-server 0.0.5"

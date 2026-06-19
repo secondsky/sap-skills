@@ -10,7 +10,7 @@ description: |
   ingestion methods (Cloud Foundry, Kyma, OpenTelemetry, JSON API), and security best practices.
 license: GPL-3.0
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   last_verified: "2025-11-27"
   source_documentation: "https://github.com/SAP-docs/btp-cloud-logging"
   sap_help_portal: "https://help.sap.com/docs/cloud-logging"

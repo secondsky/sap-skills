@@ -5,6 +5,26 @@ All notable changes to SAP Skills will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.1] - 2026-06-19
+
+### Added
+- Added `sap-sac-test-automation` for SAP Analytics Cloud browser and Playwright automation, including dashboard profile/scenario guidance, governance and testability notes, failure-triage artifacts, Edge/CDP patterns, Chrome DevTools MCP coverage, and `/sac-test-onboard`.
+- Added `sap-rpt1` for SAP-RPT-1-OSS FI/CO local tabular prediction workflows, including prepare/predict commands, sample FI/CO datasets, leakage checks, governance guidance, enterprise portability notes, and source-review evidence.
+- Added CAP CDS LSP launcher support and exposed the CAP LSP configuration through generated plugin and marketplace metadata.
+- Added SAC custom widget design/runtime guidance, AI-assisted composite generation notes, CSS/styling compliance coverage, browser runtime references, and design-runtime templates.
+- Added an SAP Integration Suite HTTPS-to-SFTP iFlow package authoring reference and reusable template package.
+- Added Oracle shared review tooling and multi-harness portability documentation for using the same SAP skills across supported AI coding assistants.
+
+### Changed
+- Bumped the coordinated repository, marketplace, plugin manifest, and skill metadata versions to 2.3.1.
+- Updated README and current-state marketplace documentation for the 37-plugin inventory: 64 commands, 31 agents, 8 hook-enabled plugins, 6 MCP-enabled plugins, and 1 LSP-enabled plugin.
+- Strengthened validation coverage for manifest drift, MCP security and environment contracts, packaging hygiene, public claims, Oracle browser safety, reference provenance, templates, command/agent contracts, hook contracts, and skill quality.
+- Improved multi-harness wording and evidence language so Claude-specific sidecars are described as portable guidance where clients do not support them natively.
+
+### Fixed
+- Removed outdated website planning documents and stale marketplace backup artifacts from the packaged repository state.
+- Addressed SAP-RPT-1 follow-up review items, including third-party attribution cleanup.
+
 ## [2.3.0] - 2026-06-14
 
 ### Added

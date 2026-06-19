@@ -5,7 +5,7 @@ description: "Enterprise integration solutions using SAP Integration Suite on BT
 
 license: GPL-3.0
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   last_verified: 2025-11-27
   documentation_source: "https://github.com/SAP-docs/sap-btp-integration-suite"
   sap_help_portal: "https://help.sap.com/docs/integration-suite"

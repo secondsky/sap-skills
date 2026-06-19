@@ -4,7 +4,7 @@ description: |
   SAP Analytics Cloud (SAC) planning guidance for planning models, planning-enabled stories, data actions, multi actions, version management, data locking, calendar/input workflows, allocations, value driver trees, BPC live planning, and Seamless Planning with SAP Datasphere. Use this for planning design, planning APIs, data action debugging, and planning performance reviews; use sap-sac-scripting for non-planning SAC scripts and sap-datasphere for Datasphere modeling.
 license: GPL-3.0
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   last_verified: 2026-06-11
   sac_version: "2026.8"
   documentation_source: "https://help.sap.com/docs/SAP_ANALYTICS_CLOUD/00f68c2e08b941f081002fd3691d86a7"

@@ -4,7 +4,7 @@
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENSE)
 [![Plugins](https://img.shields.io/badge/Plugins-37-brightgreen.svg)](.claude-plugin/marketplace.json)
-[![Version](https://img.shields.io/badge/Version-2.3.0-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-2.3.1-orange.svg)](CHANGELOG.md)
 
 SAP development plugins for AI coding assistants, with public-source or package-registry verification tracked where available. Live tenant and system validation is tracked per plugin in `docs/project/source-verification-ledger.json`.
 
@@ -251,4 +251,4 @@ Open source under **GPL-3.0**. Contributions welcome:
 
 ---
 
-**Maintained by**: E.J. · **Repository**: [github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills) · **Last Updated**: 2026-06-14 (v2.3.0)
+**Maintained by**: E.J. · **Repository**: [github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills) · **Last Updated**: 2026-06-19 (v2.3.1)

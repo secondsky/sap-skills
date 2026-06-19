@@ -4,7 +4,7 @@ description: |
   SAP Analytics Cloud (SAC) automated testing skill for designing capability-gated browser discovery and deterministic Playwright test suites for SAC stories, dashboards, reports, planning workflows, comments, permissions, visual regression, and reusable QA automation. This skill should be used when building SAC end-to-end tests, onboarding SAC dashboards into Playwright, creating dashboard profiles or scenario YAML, using Microsoft Edge/CDP, Chrome DevTools MCP, Vercel Labs agent-browser, or manual discovery for SAC components, testing SAC optimized stories, configuring SAC auth storage state, managing visual/data baselines, testing comments, planning writeback, data actions, multi actions, role-based views, restricted Windows/company environments, or creating SAC failure triage artifacts.
 license: GPL-3.0
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
   last_verified: 2026-06-17
   sac_version: "2026.8"
   documentation_source: "docs/project/sac-test-automation-source-review-2026-06-17.md"
