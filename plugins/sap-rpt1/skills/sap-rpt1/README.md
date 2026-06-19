@@ -28,6 +28,9 @@ Primary resources:
 - `SKILL.md`
 - `references/fico-use-cases.md`
 - `references/data-governance.md`
+- `references/enterprise-portability.md`
 - `references/source-review-2026-06-18.md`
 - `scripts/fico_data_prep.py`
 - `scripts/rpt1_oss_predict.py`
+
+Cross-platform note: run the scripts with an approved Python 3.11 executable for the workstation, such as `py -3.11` on Windows, `.venv\Scripts\python.exe` in a Windows virtual environment, `python3.11` on macOS/Linux, or `.venv/bin/python` in a macOS/Linux virtual environment. The scripts do not require administrator rights for dry-run inspection.

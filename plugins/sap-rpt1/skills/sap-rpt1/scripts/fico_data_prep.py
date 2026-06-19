@@ -93,6 +93,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", help="Optional JSON report path. Never written in --dry-run mode.")
     parser.add_argument("--stdout", action="store_true", help="Print the JSON report to stdout.")
     parser.add_argument("--dry-run", action="store_true", help="Inspect and report without writing files.")
+    parser.add_argument("--encoding", default="utf-8-sig", help="CSV encoding. Default: utf-8-sig.")
+    parser.add_argument("--delimiter", default=",", help="CSV delimiter. Default: comma.")
+    parser.add_argument("--overwrite", action="store_true", help="Allow --output to replace an existing report.")
     parser.add_argument(
         "--sample-size",
         type=int,
@@ -109,6 +112,27 @@ def safe_path(value: str) -> Path:
     if not path.is_file():
         raise SystemExit(f"Input path is not a file: {path}")
     return path
+
+
+def same_path(left: Path, right: Path) -> bool:
+    try:
+        return left.resolve(strict=False) == right.resolve(strict=False)
+    except OSError:
+        return left.absolute() == right.absolute()
+
+
+def prepare_output_path(value: str, input_path: Path, overwrite: bool) -> Path:
+    output_path = Path(value).expanduser()
+    if same_path(output_path, input_path):
+        raise SystemExit("Output path must not be the input CSV path.")
+    if output_path.exists() and not overwrite:
+        raise SystemExit(f"Output file already exists: {output_path}. Use --overwrite to replace it.")
+    parent = output_path.parent
+    if not parent.exists():
+        raise SystemExit(f"Output directory does not exist: {parent}")
+    if not parent.is_dir():
+        raise SystemExit(f"Output parent is not a directory: {parent}")
+    return output_path
 
 
 def normalize_column(name: str) -> str:
@@ -129,16 +153,21 @@ def looks_numeric(values: list[str]) -> bool:
     return numeric_count / len(non_empty) >= 0.9
 
 
-def inspect_csv(path: Path, sample_size: int) -> tuple[list[str], list[dict[str, str]], int]:
-    with path.open(newline="", encoding="utf-8-sig") as handle:
-        reader = csv.DictReader(handle)
-        if not reader.fieldnames:
-            raise SystemExit("CSV has no header row.")
-        rows = []
-        for index, row in enumerate(reader):
-            if index >= sample_size:
-                break
-            rows.append(row)
+def inspect_csv(path: Path, sample_size: int, encoding: str, delimiter: str) -> tuple[list[str], list[dict[str, str]], int]:
+    try:
+        with path.open(newline="", encoding=encoding) as handle:
+            reader = csv.DictReader(handle, delimiter=delimiter)
+            if not reader.fieldnames:
+                raise SystemExit("CSV has no header row.")
+            rows = []
+            for index, row in enumerate(reader):
+                if index >= sample_size:
+                    break
+                rows.append(row)
+    except UnicodeError as error:
+        raise SystemExit(f"Could not decode CSV with encoding {encoding}: {error}") from error
+    except csv.Error as error:
+        raise SystemExit(f"Could not parse CSV: {error}") from error
     return list(reader.fieldnames), rows, len(rows)
 
 
@@ -189,9 +218,10 @@ def candidate_use_case(columns: list[str]) -> str:
     return "unknown"
 
 
-def build_report(args: argparse.Namespace) -> dict[str, Any]:
-    input_path = safe_path(args.input)
-    columns, rows, sampled_rows = inspect_csv(input_path, max(args.sample_size, 1))
+def build_report(args: argparse.Namespace, input_path: Path) -> dict[str, Any]:
+    if len(args.delimiter) != 1:
+        raise SystemExit("--delimiter must be exactly one character.")
+    columns, rows, sampled_rows = inspect_csv(input_path, max(args.sample_size, 1), args.encoding, args.delimiter)
     if args.target and args.target not in columns:
         raise SystemExit(f"Target column not found: {args.target}")
     if args.as_of_column and args.as_of_column not in columns:
@@ -212,6 +242,8 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
         "target": args.target,
         "task": infer_task(columns_info, args.target, args.task),
         "as_of_column": args.as_of_column,
+        "encoding": args.encoding,
+        "delimiter": args.delimiter,
         "candidate_use_case": candidate_use_case(columns),
         "leakage_columns": leakage_columns,
         "possible_sensitive_columns": sensitive_columns,
@@ -220,6 +252,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
             "No input data was modified.",
             "Review all leakage findings with the prediction point before inference.",
             "Mask personal, bank, payment reference, and free-text fields before using real FI/CO data.",
+            "If only one column appears, rerun with the export delimiter, such as --delimiter ';'.",
         ],
     }
 
@@ -233,6 +266,8 @@ def print_human(report: dict[str, Any]) -> None:
     print(f"Task hint: {report['task']}")
     print(f"Candidate use case: {report['candidate_use_case']}")
     print(f"As-of column: {report['as_of_column'] or 'not provided'}")
+    print(f"Encoding: {report['encoding']}")
+    print(f"Delimiter: {report['delimiter']}")
     print("")
     print("Potential leakage columns:")
     if report["leakage_columns"]:
@@ -259,7 +294,12 @@ def print_human(report: dict[str, Any]) -> None:
 
 def main() -> int:
     args = parse_args()
-    report = build_report(args)
+    input_path = safe_path(args.input)
+    output_path = None
+    if args.output and not args.dry_run:
+        output_path = prepare_output_path(args.output, input_path, args.overwrite)
+
+    report = build_report(args, input_path)
     if args.stdout:
         print(json.dumps(report, indent=2, sort_keys=True))
     else:
@@ -269,8 +309,12 @@ def main() -> int:
         if args.dry_run:
             print(f"Dry run: no report written to {args.output}")
         else:
-            output_path = Path(args.output).expanduser()
-            output_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+            if output_path is None:
+                raise SystemExit("Internal error: output path was not prepared.")
+            try:
+                output_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+            except OSError as error:
+                raise SystemExit(f"Could not write report: {error}") from error
             print(f"Report written to {output_path}")
     return 0
 

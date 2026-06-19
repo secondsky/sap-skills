@@ -38,9 +38,11 @@ Do not use this skill as a hosted SAP-RPT API integration guide, production scor
 1. Confirm the task is a local prototype using synthetic or approved masked FI/CO CSV data.
 2. Read `references/data-governance.md` before touching real finance data.
 3. Choose one prediction point and one target column. Define what was known at that point in time.
-4. Use `scripts/fico_data_prep.py --dry-run --input <file.csv> --target <column>` to inspect schema and leakage risks.
-5. Use `scripts/rpt1_oss_predict.py --dry-run --input <file.csv> --target <column>` to review local SAP-RPT-1-OSS prerequisites.
-6. Run local inference only after explicit user request, Hugging Face access, license review, and an explicit output path or stdout mode.
+4. Select the Python executable from an approved Python 3.11 environment. On Windows this might be `py -3.11` or `.venv\Scripts\python.exe`; on macOS/Linux this might be `python3.11` or `.venv/bin/python`.
+5. Use `scripts/fico_data_prep.py --dry-run --input "<file.csv>" --target <column>` to inspect schema and leakage risks.
+6. Use `scripts/rpt1_oss_predict.py --dry-run --input "<file.csv>" --target <column>` to review local SAP-RPT-1-OSS prerequisites.
+7. Add `--encoding <encoding>` or `--delimiter ';'` when enterprise CSV exports are not UTF-8 comma-delimited.
+8. Run local inference only after explicit user request, Hugging Face access, license review, and an explicit output path or stdout mode.
 
 ## FI/CO Use-Case Matrix
 
@@ -76,11 +78,14 @@ Before using real FI/CO data, confirm business owner approval, legal/compliance 
 
 Do not use predictions as the sole basis for payment blocking, credit decisions, collections action, write-offs, audit conclusions, or control sign-off.
 
+For Windows, macOS, Linux, and managed non-admin workstations, use `references/enterprise-portability.md` before suggesting setup or execution commands. Prefer user-writable virtual environments, approved cache locations, quoted paths, and explicit output locations.
+
 ## Bundled Resources
 
 - `references/source-review-2026-06-18.md`: public source/model/product-page review and open upstream issue list.
 - `references/fico-use-cases.md`: detailed FI-AR, FI-AP, and FI-GL recipes plus starter matrix rows.
 - `references/data-governance.md`: minimum data governance and model-card checklist.
+- `references/enterprise-portability.md`: Windows, macOS, Linux, non-admin, proxy/cache, and CSV export guidance.
 - `references/third-party-attribution.md`: attribution and license boundary notes.
 - `scripts/fico_data_prep.py`: read-only CSV schema, target, and leakage inspection helper.
 - `scripts/rpt1_oss_predict.py`: opt-in local inference wrapper for SAP-RPT-1-OSS.

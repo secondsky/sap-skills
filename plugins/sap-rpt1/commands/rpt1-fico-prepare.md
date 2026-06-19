@@ -26,16 +26,19 @@ Report:
 - Obvious target leakage risks by column name.
 - Possible sensitive fields that should be masked before real data use.
 - Semantic SAP field rename suggestions.
-- The exact dry-run command the user can run:
+- The exact dry-run command the user can run, using the Python 3.11 executable available in their environment:
 
 ```bash
-python3.11 plugins/sap-rpt1/skills/sap-rpt1/scripts/fico_data_prep.py --dry-run --input <csv-path> --target <target-column>
+<python-3.11> plugins/sap-rpt1/skills/sap-rpt1/scripts/fico_data_prep.py --dry-run --input "<csv-path>" --target <target-column>
 ```
+
+Use examples such as `py -3.11` or `.venv\Scripts\python.exe` on Windows, and `python3.11` or `.venv/bin/python` on macOS/Linux. Add `--encoding <encoding>` or `--delimiter ';'` when the CSV export requires it.
 
 Safety constraints:
 
 - Do not modify the input CSV.
 - Do not write a transformed dataset.
+- Do not overwrite an input file or an existing report.
 - Do not print row-level sensitive values.
 - Do not call `rpt.cloud.sap` or any hosted endpoint.
 - Do not run `huggingface-cli login`.
