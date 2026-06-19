@@ -222,13 +222,21 @@ def webcomponent_urls_text_point_to_non_javascript(text: str) -> bool:
     return bool(re.search(r'"webcomponents"\s*:\s*\[[\s\S]*?"url"\s*:\s*"[^"]+\.(?:css|html?)(?:[?#][^"]*)?"', text, flags=re.IGNORECASE))
 
 
-def has_unapproved_remote_css_asset(text: str, text_lower: str) -> bool:
-    if "approved" in text_lower or "trusted" in text_lower:
-        return False
+def has_unapproved_remote_css_asset(text: str) -> bool:
     return bool(
         re.search(r"@import\s+(?:url\s*\()?\s*\\?[\"']?https?://", text, flags=re.IGNORECASE)
         or re.search(r"url\s*\(\s*\\?[\"']?https?://", text, flags=re.IGNORECASE)
         or re.search(r"https?://[^\"'\s)]*(?:fonts\.googleapis\.com|fonts\.gstatic\.com|\.woff2?|\.ttf|\.otf)", text, flags=re.IGNORECASE)
+    )
+
+
+def looks_like_custom_widget_content(text_lower: str, file_path_lower: str) -> bool:
+    return (
+        file_path_lower.endswith("widget.json")
+        or file_path_lower.endswith("widget.js")
+        or "customelements.define" in text_lower
+        or "oncustomwidget" in text_lower
+        or "attachshadow(" in text_lower
     )
 
 
@@ -280,7 +288,7 @@ def detect_custom_widget_generation_warnings(text: str, text_lower: str, file_pa
     if file_path_lower.endswith(".js") or file_path_lower.endswith(".css") or "customelements.define" in text_lower:
         if has_global_style_injection(text):
             warnings.append("Generated widget styling should stay scoped to the Web Component; avoid injecting global document.head styles for SAC/story pages.")
-        if has_unapproved_remote_css_asset(text, text_lower):
+        if has_unapproved_remote_css_asset(text):
             warnings.append("Remote CSS, font imports, or CSS url(http...) assets require an explicitly approved/trusted host for SAC deployment.")
 
     return warnings
@@ -295,7 +303,7 @@ def detect_warnings(plugin_name: str, text: str, text_lower: str, file_path_lowe
     if plugin_name in {"sap-sac-scripting", "sap-sac-planning"} and "console.log(" in text_lower:
         warnings.append("Remove or gate console.log statements before production deployment.")
 
-    if plugin_name == "sap-sac-custom-widget":
+    if looks_like_custom_widget_content(text_lower, file_path_lower):
         warnings.extend(detect_custom_widget_generation_warnings(text, text_lower, file_path_lower))
 
         if file_path_lower.endswith("widget.js") or "customelements.define" in text_lower:

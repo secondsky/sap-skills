@@ -6,7 +6,7 @@ Derived attribution notes for the `sap-rpt1` skill.
 
 ## Upstream Community Skill
 
-This skill was manually reworked with reference to:
+This skill is inspired by:
 
 - `amitlals/sap-rpt1-oss-predictor`
 - Path reviewed: `.github/skills/sap-rpt1-oss-predictor`

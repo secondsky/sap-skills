@@ -261,13 +261,18 @@ function webcomponentUrlsTextPointToNonJavascript(text) {
   return /"webcomponents"\s*:\s*\[[\s\S]*?"url"\s*:\s*"[^"]+\.(?:css|html?)(?:[?#][^"]*)?"/i.test(text);
 }
 
-function hasUnapprovedRemoteCssAsset(text, textLower) {
-  if (textLower.includes("approved") || textLower.includes("trusted")) {
-    return false;
-  }
+function hasUnapprovedRemoteCssAsset(text) {
   return /@import\s+(?:url\s*\()?\s*\\?["']?https?:\/\//i.test(text)
     || /url\s*\(\s*\\?["']?https?:\/\//i.test(text)
     || /https?:\/\/[^"'\s)]*(?:fonts\.googleapis\.com|fonts\.gstatic\.com|\.woff2?|\.ttf|\.otf)/i.test(text);
+}
+
+function looksLikeCustomWidgetContent(textLower, filePathLower) {
+  return filePathLower.endsWith("widget.json")
+    || filePathLower.endsWith("widget.js")
+    || textLower.includes("customelements.define")
+    || textLower.includes("oncustomwidget")
+    || textLower.includes("attachshadow(");
 }
 
 function hasGlobalStyleInjection(text) {
@@ -330,7 +335,7 @@ function detectCustomWidgetGenerationWarnings(text, textLower, filePathLower) {
     if (hasGlobalStyleInjection(text)) {
       warnings.push("Generated widget styling should stay scoped to the Web Component; avoid injecting global document.head styles for SAC/story pages.");
     }
-    if (hasUnapprovedRemoteCssAsset(text, textLower)) {
+    if (hasUnapprovedRemoteCssAsset(text)) {
       warnings.push("Remote CSS, font imports, or CSS url(http...) assets require an explicitly approved/trusted host for SAC deployment.");
     }
   }
@@ -349,7 +354,7 @@ function detectWarnings(pluginName, text, textLower, filePathLower) {
     warnings.push("Remove or gate console.log statements before production deployment.");
   }
 
-  if (pluginName === "sap-sac-custom-widget") {
+  if (looksLikeCustomWidgetContent(textLower, filePathLower)) {
     warnings.push(...detectCustomWidgetGenerationWarnings(text, textLower, filePathLower));
 
     if (filePathLower.endsWith("widget.js") || textLower.includes("customelements.define")) {

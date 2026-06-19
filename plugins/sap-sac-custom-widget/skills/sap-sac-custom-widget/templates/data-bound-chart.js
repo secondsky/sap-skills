@@ -96,7 +96,7 @@
     }
 
     onCustomWidgetBeforeUpdate(changedProperties) {
-      this._props = { ...this._props, ...changedProperties };
+      this._mergeProperties(changedProperties);
     }
 
     onCustomWidgetAfterUpdate(changedProperties) {
@@ -123,6 +123,15 @@
     }
 
     // ========== Properties ==========
+
+    _mergeProperties(changedProperties) {
+      changedProperties = changedProperties || {};
+      for (const key in changedProperties) {
+        if (Object.prototype.hasOwnProperty.call(changedProperties, key)) {
+          this._props[key] = changedProperties[key];
+        }
+      }
+    }
 
     get title() {
       return this._props.title;

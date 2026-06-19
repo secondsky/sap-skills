@@ -55,7 +55,7 @@ Reviewed from `https://github.com/SAP-samples/sap-rpt-1-oss/issues` on 2026-06-1
 
 | Issue | Title | Status as reviewed | Skill handling |
 |-------|-------|--------------------|----------------|
-| #29 | `predict() returns all-NaN when X is a DataFrame and y is a numpy array` | Open | Prefer consistent pandas inputs in examples and do not claim the issue is fixed. |
+| #29 | `predict() returns all-NaN when X is a DataFrame and y is a numpy array` | Open | Prefer consistent pandas inputs in examples without representing this workaround as a complete upstream resolution. |
 | #27 | `Single-sample prediction fails with ValueError: zero-dimensional arrays cannot be concatenated` | Open | The bundled wrapper blocks single-row scoring by default unless `--allow-single-row` is explicit. |
 | #26 | `Training code availability?` | Open | Describe this skill as inference workflow guidance, not model training guidance. |
 | #25 | `SAP_RPT_OSS_Classifier fails to recognize Pandas Int64Dtype` | Open | Normalize nullable integer columns before local inference when needed. |
