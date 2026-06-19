@@ -1,0 +1,8 @@
+{
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Write",
+  "tool_input": {
+    "file_path": "webcomponent/widget.json",
+    "content": "{\"id\":\"com_company.BadWidget\",\"version\":\"1.0.0\",\"name\":\"Bad Widget\",\"vendor\":\"Company\",\"newInstancePrefix\":\"bad_widget\",\"webcomponents\":[{\"kind\":\"main\",\"tag\":\"Bad_Widget\",\"url\":\"widget.js\"}],\"properties\":{},\"methods\":[],\"events\":[]}"
+  }
+}

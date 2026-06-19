@@ -1,0 +1,153 @@
+{
+  "schema": "sap-sac-widget-design-runtime/v1",
+  "runtimeName": "SAC Custom Widget Design Runtime",
+  "widgets": [
+    {
+      "id": "main",
+      "title": "Generated Widget",
+      "manifestPath": "../widget.json",
+      "scripts": ["../widget.js"],
+      "manifest": {
+        "id": "com.company.widgetname",
+        "version": "1.0.0",
+        "name": "Generated Widget",
+        "vendor": "Company Name",
+        "webcomponents": [
+          {
+            "kind": "main",
+            "tag": "com-company-widgetname",
+            "url": "widget.js",
+            "ignoreIntegrity": true
+          }
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "default": "Generated Widget"
+          },
+          "primaryColor": {
+            "type": "Color",
+            "default": "#0a6ed1"
+          }
+        },
+        "dataBindings": {
+          "myDataBinding": {
+            "feeds": [
+              {
+                "id": "dimensions",
+                "description": "Dimension",
+                "type": "dimension"
+              },
+              {
+                "id": "measures",
+                "description": "Measure",
+                "type": "mainStructureMember"
+              }
+            ]
+          }
+        }
+      },
+      "scenarioIds": ["baseline"]
+    }
+  ],
+  "designTokens": {
+    "primaryColor": "#0a6ed1",
+    "accentColor": "#2da44e",
+    "backgroundColor": "#ffffff",
+    "surfaceColor": "#f7f9fb",
+    "textColor": "#1d2d3e",
+    "fontFamily": "Arial, sans-serif",
+    "spacing": 16,
+    "radius": 8,
+    "shadow": "0 14px 34px rgba(29, 45, 62, 0.16)",
+    "logoUrl": "",
+    "iconUrl": ""
+  },
+  "scenarios": [
+    {
+      "id": "baseline",
+      "title": "Baseline",
+      "theme": "light",
+      "viewport": {
+        "width": 720,
+        "height": 420
+      },
+      "properties": {
+        "title": "Generated Widget",
+        "primaryColor": "#0a6ed1"
+      },
+      "designTokens": {
+        "primaryColor": "#0a6ed1",
+        "accentColor": "#2da44e",
+        "backgroundColor": "#ffffff",
+        "surfaceColor": "#f7f9fb",
+        "textColor": "#1d2d3e",
+        "fontFamily": "Arial, sans-serif",
+        "spacing": 16,
+        "radius": 8,
+        "shadow": "0 14px 34px rgba(29, 45, 62, 0.16)",
+        "logoUrl": "",
+        "iconUrl": ""
+      },
+      "dataBindings": {
+        "myDataBinding": {
+          "data": [
+            {
+              "dimensions_0": {
+                "id": "north",
+                "label": "North"
+              },
+              "measures_0": {
+                "raw": 128000,
+                "formatted": "128,000"
+              }
+            },
+            {
+              "dimensions_0": {
+                "id": "south",
+                "label": "South"
+              },
+              "measures_0": {
+                "raw": 96000,
+                "formatted": "96,000"
+              }
+            },
+            {
+              "dimensions_0": {
+                "id": "west",
+                "label": "West"
+              },
+              "measures_0": {
+                "raw": 143000,
+                "formatted": "143,000"
+              }
+            }
+          ],
+          "metadata": {
+            "feeds": [
+              {
+                "id": "dimensions",
+                "type": "dimension"
+              },
+              {
+                "id": "measures",
+                "type": "mainStructureMember"
+              }
+            ]
+          }
+        }
+      },
+      "widgets": {
+        "main": {
+          "properties": {},
+          "designTokens": {},
+          "dataBindings": {}
+        }
+      }
+    }
+  ],
+  "export": {
+    "includeMarkdownSummary": true,
+    "suggestedFilename": "agent-iteration"
+  }
+}

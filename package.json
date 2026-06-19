@@ -8,7 +8,7 @@
     "oracle:review": "oracle --engine browser --browser-archive never --files-report",
     "oracle:status": "oracle status --hours 72",
     "oracle:mcp": "oracle-mcp",
-    "validate": "./scripts/validate-json-schemas.sh && ./scripts/validate-frontmatter.sh --quiet && ./scripts/validate-reserved-words.sh && ./scripts/validate-bundled-resources.mjs && ./scripts/validate-command-agent-frontmatter.mjs && ./scripts/validate-inventory.sh && ./scripts/validate-manifest-drift.mjs && ./scripts/validate-mcp-security.mjs && ./scripts/validate-mcp-env-contracts.mjs && ./scripts/validate-verification-ledger.mjs && ./scripts/validate-packaging-hygiene.mjs && ./scripts/validate-harness-portability.mjs && ./scripts/validate-public-claims.mjs && ./scripts/validate-oracle-browser-safety.mjs && ./scripts/validate-reference-provenance.mjs && ./scripts/validate-templates.mjs && ./scripts/validate-command-contracts.mjs && ./scripts/validate-agent-contracts.mjs && ./scripts/validate-skill-quality.mjs && ./scripts/audit-effectiveness.mjs --validate && ./scripts/test-hooks.sh && ./scripts/test-hook-contracts.mjs",
+    "validate": "./scripts/validate-json-schemas.sh && ./scripts/validate-frontmatter.sh --quiet && ./scripts/validate-reserved-words.sh && ./scripts/validate-bundled-resources.mjs && ./scripts/validate-command-agent-frontmatter.mjs && ./scripts/validate-inventory.sh && ./scripts/validate-manifest-drift.mjs && ./scripts/validate-mcp-security.mjs && ./scripts/validate-mcp-env-contracts.mjs && ./scripts/validate-verification-ledger.mjs && ./scripts/validate-packaging-hygiene.mjs && ./scripts/validate-harness-portability.mjs && ./scripts/validate-public-claims.mjs && ./scripts/validate-oracle-browser-safety.mjs && ./scripts/validate-reference-provenance.mjs && ./scripts/validate-templates.mjs && ./scripts/validate-command-contracts.mjs && ./scripts/validate-agent-contracts.mjs && ./scripts/validate-skill-quality.mjs && ./scripts/audit-effectiveness.mjs --validate && npm run test:lsp-launcher && ./scripts/test-hooks.sh && ./scripts/test-hook-contracts.mjs",
     "validate:marketplace": "ajv validate -s schemas/marketplace.schema.json -d .claude-plugin/marketplace.json --strict=false -c ajv-formats --all-errors",
     "validate:plugins": "./scripts/validate-json-schemas.sh",
     "validate:skill-frontmatter": "./scripts/validate-frontmatter.sh --quiet",
@@ -33,6 +33,7 @@
     "audit:mcp-freshness": "./scripts/audit-mcp-freshness.mjs",
     "validate:effectiveness": "./scripts/audit-effectiveness.mjs --validate",
     "test:hooks": "./scripts/test-hooks.sh",
+    "test:lsp-launcher": "node ./scripts/test-lsp-launcher.mjs",
     "test:hook-contracts": "./scripts/test-hook-contracts.mjs",
     "validate:manifest-drift": "./scripts/validate-manifest-drift.mjs",
     "smoke:local-fixtures": "./scripts/smoke-local-fixtures.mjs"

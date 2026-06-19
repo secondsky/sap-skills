@@ -6,17 +6,18 @@
  * access, ResultSet processing, and chart lifecycle management.
  *
  * Prerequisites:
- * - Include ECharts CDN in your hosting or widget.json resources
- * - Configure dataBindings in widget.json (see widget.json-complete)
+ * - Include ECharts as a local asset at vendor/echarts.min.js, or load it
+ *   through a trusted host that has been explicitly approved for production.
+ * - Configure dataBindings in widget.json (see widget.json-complete).
  *
  * @version 1.0.0
  * @sac-version 2025.21
  * @requires echarts 5.x
  */
 (function() {
-  // Load ECharts if not already loaded
-  // In production, you would load this via script tag or bundler
-  const ECHARTS_CDN = "https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js";
+  // Load ECharts if not already loaded.
+  // Generated/offline-first packages should copy ECharts to this local path.
+  const ECHARTS_LOCAL_PATH = "vendor/echarts.min.js";
 
   const template = document.createElement("template");
   template.innerHTML = `
@@ -182,10 +183,11 @@
         values: []
       };
 
-      data.forEach((row, index) => {
+      for (let index = 0; index < data.length; index++) {
+        const row = data[index];
         // Access dimension (category) - uses dimensions_0 for first dimension feed
         const dimension = row.dimensions_0;
-        const category = dimension ? dimension.label : `Item ${index + 1}`;
+        const category = dimension ? dimension.label : "Item " + (index + 1);
 
         // Access measure (value) - uses measures_0 for first measure feed
         const measure = row.measures_0;
@@ -193,7 +195,7 @@
 
         chartData.categories.push(category);
         chartData.values.push(value);
-      });
+      }
 
       return chartData;
     }
@@ -208,10 +210,11 @@
         return;
       }
 
-      // Load ECharts dynamically
+      // Load local ECharts dynamically. Do not replace this with a public CDN
+      // URL unless the deployment owner explicitly approves that host.
       return new Promise((resolve, reject) => {
         const script = document.createElement("script");
-        script.src = ECHARTS_CDN;
+        script.src = ECHARTS_LOCAL_PATH;
         script.onload = resolve;
         script.onerror = reject;
         document.head.appendChild(script);

@@ -205,6 +205,27 @@ for (const dir of hookDirs()) {
     const negative = assertJsonObject(`${plugin} negative fixture`, runHook(dir, fs.readFileSync(path.join(pluginFixtureDir, "negative.json"), "utf8")));
     assertEmptyObject(`${plugin} negative fixture`, negative);
     assertJsonObject(`${plugin} malformed fixture`, runHook(dir, fs.readFileSync(path.join(pluginFixtureDir, "malformed.json"), "utf8")));
+
+    for (const fixtureName of fs.readdirSync(pluginFixtureDir).filter((name) => /^positive-.+\.json$/.test(name)).sort()) {
+      const fixturePath = path.join(pluginFixtureDir, fixtureName);
+      const payloadText = fs.readFileSync(fixturePath, "utf8");
+      const parsed = assertJsonObject(`${plugin} ${fixtureName}`, runHook(dir, payloadText));
+      assertNonEmptyObject(`${plugin} ${fixtureName}`, parsed);
+      assertDenyForBlockingPreToolUse(`${plugin} ${fixtureName}`, payloadText, parsed);
+      try {
+        if (JSON.parse(payloadText).hook_event_name === "PostToolUse") {
+          assertNoDenyForPostToolUse(`${plugin} ${fixtureName}`, parsed);
+        }
+      } catch {
+        // Malformed fixtures are covered separately.
+      }
+    }
+
+    for (const fixtureName of fs.readdirSync(pluginFixtureDir).filter((name) => /^negative-.+\.json$/.test(name)).sort()) {
+      const fixturePath = path.join(pluginFixtureDir, fixtureName);
+      const parsed = assertJsonObject(`${plugin} ${fixtureName}`, runHook(dir, fs.readFileSync(fixturePath, "utf8")));
+      assertEmptyObject(`${plugin} ${fixtureName}`, parsed);
+    }
   }
 }
 

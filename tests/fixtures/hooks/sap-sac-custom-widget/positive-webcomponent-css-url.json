@@ -1,0 +1,8 @@
+{
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Write",
+  "tool_input": {
+    "file_path": "webcomponent/widget.json",
+    "content": "{\"id\":\"com.company.badcssurl\",\"version\":\"1.0.0\",\"name\":\"Bad CSS URL\",\"vendor\":\"Company\",\"newInstancePrefix\":\"BadCssUrl\",\"webcomponents\":[{\"kind\":\"main\",\"tag\":\"com-company-badcssurl\",\"url\":\"widget.css\"}],\"properties\":{},\"methods\":{},\"events\":{}}"
+  }
+}

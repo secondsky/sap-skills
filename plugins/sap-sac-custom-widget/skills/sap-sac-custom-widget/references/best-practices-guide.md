@@ -176,6 +176,8 @@ onCustomWidgetDestroy() {
 
 ### Third-Party Library Loading
 
+For `/widget-generate` enterprise/offline packages and browser design runtime previews, prefer local `vendor/` assets. Hosted URLs are acceptable only when the deployment owner explicitly approves the origin and SAC trusted-origin/security requirements are satisfied.
+
 **Lazy Load Libraries**:
 ```javascript
 async _loadEcharts() {
@@ -273,10 +275,16 @@ constructor() {
 
 **Generate SHA256 Hash**:
 ```bash
-# Generate integrity hash for JavaScript file
-openssl dgst -sha256 -binary widget.js | openssl base64 -A
+# Cross-platform Node.js command for Windows/macOS/Linux
+node -e "const fs=require('node:fs');const crypto=require('node:crypto');const file=process.argv[1]||'widget.js';console.log('sha256-'+crypto.createHash('sha256').update(fs.readFileSync(file)).digest('base64'));" widget.js
 
-# Example output: K7gNU3sdo+OL0wNhqoVWhr3g6s1xYv72ol/pe/Unols=
+# Example output: sha256-K7gNU3sdo+OL0wNhqoVWhr3g6s1xYv72ol/pe/Unols=
+```
+
+On macOS/Linux or Git Bash, OpenSSL is also acceptable; prefix the output with `sha256-` before adding it to the manifest:
+
+```bash
+openssl dgst -sha256 -binary widget.js | openssl base64 -A
 ```
 
 **Configure in JSON**:

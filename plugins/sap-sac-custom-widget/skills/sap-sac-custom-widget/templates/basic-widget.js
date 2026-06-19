@@ -102,7 +102,7 @@
      */
     onCustomWidgetBeforeUpdate(changedProperties) {
       // Merge new properties with existing
-      this._props = { ...this._props, ...changedProperties };
+      this._mergeProperties(changedProperties);
     }
 
     /**
@@ -154,6 +154,20 @@
     // ========== Private Methods ==========
 
     /**
+     * Merge changed properties without relying on newer syntax in generated output.
+     *
+     * @param {Object} changedProperties - Properties being changed
+     */
+    _mergeProperties(changedProperties) {
+      changedProperties = changedProperties || {};
+      for (const key in changedProperties) {
+        if (Object.prototype.hasOwnProperty.call(changedProperties, key)) {
+          this._props[key] = changedProperties[key];
+        }
+      }
+    }
+
+    /**
      * Dispatch propertiesChanged event for SAC framework integration.
      * Always call this when a property changes to enable two-way binding.
      *
@@ -185,5 +199,5 @@
 
   // Register the custom element
   // IMPORTANT: Update this tag to match your widget.json
-  customElements.define("basic-widget", BasicWidget);
+  customElements.define("com-company-mywidget", BasicWidget);
 })();

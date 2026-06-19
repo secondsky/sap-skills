@@ -51,6 +51,7 @@ Validate SAP Analytics Cloud custom widget files (widget.json and widget.js) for
 - `description` - Widget description
 - `license` - License type
 - `icon` - Widget icon path
+- `newInstancePrefix` - PascalCase default script variable prefix; required for generated packages
 - `integrity` - SHA256 hash for production
 - `properties` - Property definitions
 - `methods` - Script-callable methods
@@ -82,8 +83,21 @@ If `dataBindings` is defined:
 - Each binding must have `feeds` array
 - Feeds must have `id`, `description`, `type`
 - Valid feed types: `dimension`, `mainStructureMember`, `measure`
+- JavaScript must access result rows with sequential indices matching feed order (`dimensions_0`, `dimensions_1`, `measures_0`, `measures_1`, ...)
+- Skipped indices such as `measures_6` without preceding measure indices are invalid for generated packages
 
-### 4. Security Validation
+### 4. Generated Package Validation
+
+For AI-generated packages:
+- Manifest ID should use lowercase dot notation such as `com.company.widgetname`
+- Custom element tag should use lowercase hyphen notation such as `com-company-widgetname`
+- `newInstancePrefix` should use PascalCase letters only
+- `methods` and `events` must be objects, not arrays
+- `brandLogoUrl` property should be present when the main JS uses a brand logo
+- Brand logo markup should use a standard `img` element such as `<img id="brandLogo" class="brand-logo" alt="">`
+- Generated JavaScript should avoid optional chaining, nullish coalescing, arrow callbacks in `forEach`, and render-time template literals
+
+### 5. Security Validation
 
 **Production Readiness**:
 - `ignoreIntegrity` should be `false` for production
@@ -94,6 +108,16 @@ If `dataBindings` is defined:
 - `ignoreIntegrity: true` (development only)
 - HTTP URLs (not recommended)
 - Missing CORS considerations in comments
+
+### 6. CSS and Styling Compliance
+
+SAP Help distinguishes internal custom-widget resources from SAC story/theme CSS support. Validate generated packages with these rules:
+
+- Internal Web Component CSS, including Shadow DOM `<style>` and `:host`, is allowed.
+- Generated widgets should not depend on SAC optimized story theme CSS, global story CSS classes, or undocumented SAP shell selectors to style widget internals.
+- `webcomponents[].url` should point to JavaScript component files for `main`, `styling`, or `builder`, not `.css` or `.html`.
+- For SAC ZIP resource upload packages, separate CSS and HTML resource files are not supported; embed CSS in component JavaScript templates.
+- Remote CSS imports, font URLs, and CSS `url(http...)` assets require explicit approved hosting and should be warnings for generated packages.
 
 ## Validation Process
 
@@ -155,12 +179,33 @@ If `dataBindings` is defined:
 
 ### Tag Naming Convention
 ```json
-// GOOD: lowercase with hyphens
-"tag": "my-custom-widget"
+// GOOD: lowercase with hyphens; generated packages should include the company prefix
+"tag": "com-company-widgetname"
 
 // BAD: uppercase or underscores
 "tag": "MyCustomWidget"
 "tag": "my_custom_widget"
+```
+
+### Manifest Object Shape
+```json
+// GOOD
+"methods": {},
+"events": {}
+
+// BAD
+"methods": [],
+"events": []
+```
+
+### Sequential Data Indices
+```javascript
+// GOOD
+var label = row.dimensions_0 && row.dimensions_0.label ? row.dimensions_0.label : "";
+var value = row.measures_0 && typeof row.measures_0.raw === "number" ? row.measures_0.raw : 0;
+
+// BAD
+var value = row.measures_6.raw;
 ```
 
 ### Property Type Validation
@@ -194,6 +239,15 @@ onCustomWidgetDestroy() { }
 
 // Must match in widget.js
 customElements.define("my-widget", MyWidget);
+```
+
+### CSS and Theme Boundary
+```javascript
+// GOOD: Scoped Shadow DOM style
+template.innerHTML = "<style>:host{display:block;width:100%;height:100%;}</style><div></div>";
+
+// BAD: Attempts to style SAC/story page outside the widget
+document.head.appendChild(globalStyleForSacShell);
 ```
 
 ## Implementation Instructions

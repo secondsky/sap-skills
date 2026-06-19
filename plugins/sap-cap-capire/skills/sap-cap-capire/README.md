@@ -1,6 +1,6 @@
 # SAP CAP-Capire Skill
 
-A comprehensive Claude Code skill for SAP Cloud Application Programming Model (CAP) development.
+A comprehensive AI coding assistant skill for SAP Cloud Application Programming Model (CAP) development.
 
 ## Capability Index
 
@@ -13,6 +13,14 @@ A comprehensive Claude Code skill for SAP Cloud Application Programming Model (C
 | LSP | Yes: `.lsp.json` |
 | Source Freshness | `last_verified`: 2026-02-22; CAP MCP/LSP package freshness noted separately in audit report. |
 | Verification | `npm run validate`; live CAP tenant/deployment checks pending unless project evidence exists. |
+
+## LSP Usage By Harness
+
+CAP LSP support requires a Node runtime and `@sap/cds-lsp` installed through an approved project-local devDependency, user-local npm prefix, or enterprise-managed toolchain, with `cds-lsp` available on PATH. The bundled launcher fixes Windows npm `.cmd` shim resolution without bundling or installing the SAP package.
+
+- Claude Code: the installed plugin uses `.lsp.json` as its optional LSP activation file.
+- Codex, OpenCode, editors, and other LSP-capable clients: configure the LSP command manually as `node <sap-cap-capire-plugin-root>/lsp/cds-lsp-launcher.mjs --stdio`.
+- No LSP integration: use this Markdown skill, bundled references, `rg`, and CAP CLI checks directly.
 
 ## Overview
 

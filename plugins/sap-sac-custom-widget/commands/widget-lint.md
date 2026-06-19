@@ -108,6 +108,19 @@ Analyze SAP Analytics Cloud custom widget code for performance optimization oppo
 - Events defined but never dispatched
 - Methods defined but with wrong signature
 
+### 5. CSS and Styling Compliance
+
+**CSS/Theme Warnings**:
+- Generated widget depends on SAC story theme CSS for internal widget styling
+- CSS targets SAP shell, story canvas, or undocumented SAC internal class names
+- Component code injects global styles into `document.head` to affect SAC outside the widget
+- `webcomponents[].url` points to `.css` or `.html` instead of a JavaScript component file
+- Remote `@import`, web font, or CSS `url(http...)` asset is used without explicit approved hosting
+
+**Packaging Warnings**:
+- SAC ZIP resource upload package includes separate `.css` or `.html` files
+- CSS is split into separate resources before the hosting mode is confirmed
+
 ## Lint Process
 
 1. **Parse widget files** (JSON and JavaScript)
@@ -244,6 +257,15 @@ element.textContent = userProvidedValue;
 "url": "https://example.com/widget.js"
 ```
 
+#### S003: Scoped Styling
+```javascript
+// BAD: Global SAC/story styling from inside a widget
+document.head.appendChild(style);
+
+// GOOD: Shadow DOM-scoped style
+template.innerHTML = "<style>:host{display:block;width:100%;height:100%;}</style><div></div>";
+```
+
 ### Best Practice Rules
 
 #### B001: SAP Theme Variables
@@ -262,10 +284,11 @@ font-family: var(--sapFontFamily, Arial);
 // BAD: Direct access
 const data = this.myDataBinding.data;
 
-// GOOD: Null check
-const binding = this.dataBindings?.getDataBinding("myDataBinding");
-if (!binding || !binding.data) return;
-const data = binding.data;
+// GOOD: Generated-code compatible null check
+var data = [];
+if (this.myDataBinding && this.myDataBinding.data) {
+  data = this.myDataBinding.data;
+}
 ```
 
 ## Implementation Instructions

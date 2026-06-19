@@ -1,0 +1,8 @@
+{
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Write",
+  "tool_input": {
+    "file_path": "webcomponent/widget.js",
+    "content": "(function(){ class BadWidget extends HTMLElement { constructor(){ super(); this.attachShadow({mode:'open'}); } onCustomWidgetAfterUpdate(){ var row = this.myDataBinding.data[0]; var value = row.measures_6.raw; this.textContent = String(value); } onCustomWidgetResize(){} onCustomWidgetDestroy(){} } customElements.define('com-company-badwidget', BadWidget); })();"
+  }
+}

@@ -57,8 +57,12 @@ Use this skill when creating CAP projects, modeling CDS entities/services, imple
 
 ### Project Initialization
 ```sh
-# Install CAP development kit
-npm i -g @sap/cds-dk @sap/cds-lsp
+# Use an approved CAP toolchain:
+# - project-local devDependencies
+# - user-local npm prefix
+# - enterprise-managed Node/CAP installation
+# Ensure cds and optional cds-lsp commands are on PATH.
+cds --version
 
 # Create new project
 cds init <project-name>
@@ -134,7 +138,9 @@ Use MCP first for local model and docs questions, then fall back to direct file 
 
 - Use `references/mcp-integration.md` for MCP configuration and package pin checks.
 - Use `references/mcp-use-cases.md` only for workflow selection and illustrative impact examples.
-- Use `.lsp.json` as a sidecar for editor integration; it is intentionally not exposed as a manifest field.
+- Use `.lsp.json` as a Claude-compatible sidecar for CAP editor integration; other harnesses should not assume it is auto-loaded.
+- For Codex, OpenCode, editors, or other LSP-capable clients, configure the command manually as `node <sap-cap-capire-plugin-root>/lsp/cds-lsp-launcher.mjs --stdio`. This still requires `@sap/cds-lsp` to be installed through an approved project-local devDependency, user-local npm prefix, or enterprise-managed toolchain, with `cds-lsp` available on PATH.
+- Without LSP integration, use the Markdown guidance, bundled references, `rg`, and CAP CLI checks directly.
 - Mark live deployment, HANA, XSUAA, and multitenancy verification pending unless the target project or tenant evidence is available.
 
 ## Project Structure

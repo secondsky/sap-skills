@@ -50,6 +50,7 @@ You are a SAP Analytics Cloud Custom Widget JavaScript development specialist. Y
    - Processing ResultSet data
    - Dimension and measure extraction
    - Data transformation for charts
+   - Preserving feed order and sequential `dimensions_N`/`measures_N` access
 
 3. **Property/Event/Method Implementation**
    - Property getters and setters
@@ -114,21 +115,39 @@ You are a SAP Analytics Cloud Custom Widget JavaScript development specialist. Y
 ### Data Binding Access
 ```javascript
 onCustomWidgetAfterUpdate(changedProperties) {
-  const dataBinding = this.dataBindings?.getDataBinding("myDataBinding");
-  if (!dataBinding) return;
+  var dataBinding = this.dataBindings ? this.dataBindings.getDataBinding("myDataBinding") : undefined;
+  if (!dataBinding) {
+    return;
+  }
 
-  const data = dataBinding.data;
-  const metadata = dataBinding.metadata;
+  var data = dataBinding.data || [];
+  var metadata = dataBinding.metadata;
 
   // Process data
-  const chartData = data.map(row => ({
-    label: row.dimensions_0?.label || "",
-    value: row.measures_0?.raw || 0
-  }));
+  var chartData = [];
+  for (var i = 0; i < data.length; i++) {
+    var row = data[i];
+    chartData.push({
+      label: row.dimensions_0 && row.dimensions_0.label ? row.dimensions_0.label : "",
+      value: row.measures_0 && typeof row.measures_0.raw === "number" ? row.measures_0.raw : 0
+    });
+  }
 
   this._renderChart(chartData);
 }
 ```
+
+### AI-Generated Package Compatibility
+
+For AI-generated widgets that may pass through a parser or repair loop:
+
+- Use Web Components with Shadow DOM and an IIFE wrapper.
+- Use naming conventions: manifest ID `com.company.widgetname`, tag `com-company-widgetname`, class `PascalCase`.
+- Access bound data through the manifest-defined binding, commonly `this.myDataBinding.data`.
+- Use sequential result indices; never reference `measures_2` if `measures_1` is absent.
+- Avoid optional chaining, nullish coalescing, arrow callbacks in `forEach`, and render-time template literals.
+- Use string concatenation for generated render markup when the output will be parsed downstream.
+- Include main JS, styling JS when needed, manifest, dataBindings, webcomponents, and sample data in complete code packages.
 
 ### Property with propertiesChanged
 ```javascript
@@ -204,6 +223,8 @@ Provide code assistance in this structure:
    - Use proper event detail structure
    - Follow SAC naming conventions
    - Handle both edit and view modes
+   - Preserve data binding feed order exactly from `widget.json`
+   - Treat forecast boundaries as data-derived unless exposed as explicit properties
 
 **Third-Party Library Patterns:**
 
@@ -222,11 +243,16 @@ _renderChart(data) {
 }
 
 onCustomWidgetResize() {
-  this._chart?.resize();
+  if (this._chart) {
+    this._chart.resize();
+  }
 }
 
 onCustomWidgetDestroy() {
-  this._chart?.dispose();
+  if (this._chart) {
+    this._chart.dispose();
+    this._chart = null;
+  }
 }
 ```
 
@@ -249,6 +275,7 @@ _renderChart(data) {
 - Handle rapid property updates (debounce)
 - Support both light and dark themes
 - Consider RTL language support
+- For numeric-looking dates, keep display fields dimension-friendly and avoid treating date labels as measures
 
 ## Delegation and Safety
 
@@ -256,7 +283,7 @@ _renderChart(data) {
 
 **When Not to Delegate:** Keep work in the main thread for high-level widget product decisions, hosting/tenant administration, or unrelated web component questions.
 
-**First Checks:** Inspect `widget.json`, `widget.js`, bundle structure, lifecycle functions, and hosting path assumptions. Verify whether the request targets a full widget or Widget Add-On.
+**First Checks:** Inspect `widget.json`, `widget.js`, bundle structure, lifecycle functions, data binding names/feed order, sample data/schema, and hosting path assumptions. Verify whether the request targets a full widget, Widget Add-On, or composite-ready generated package.
 
 **MCP Fallback:** If no live SAC context is available, use bundled widget references and ask for console/network errors or exported widget files. Mark browser/SAC runtime behavior as pending.
 

@@ -35,7 +35,7 @@ function validatePortabilityGuide() {
     return;
   }
 
-  for (const required of ["Claude", "Codex", "OpenCode", "agents", "hooks", "MCP", "allowed-tools"]) {
+  for (const required of ["Claude", "Codex", "OpenCode", "agents", "hooks", "MCP", "LSP", "allowed-tools"]) {
     if (!text.includes(required)) {
       fail(`docs/contributor-guide/multi-harness-portability.md: must explain ${required} portability`);
     }
@@ -126,9 +126,9 @@ function validateClaudeRootScope() {
     const text = readText(file);
     if (!text.includes("${CLAUDE_PLUGIN_ROOT}")) continue;
 
-    const allowed = /\/hooks\/hooks\.json$/.test(rel) || /\/\.mcp\.json$/.test(rel);
+    const allowed = /\/hooks\/hooks\.json$/.test(rel) || /\/\.mcp\.json$/.test(rel) || /\/\.lsp\.json$/.test(rel);
     if (!allowed) {
-      fail(`${rel}: \${CLAUDE_PLUGIN_ROOT} is only allowed in Claude hook/MCP activation files`);
+      fail(`${rel}: \${CLAUDE_PLUGIN_ROOT} is only allowed in Claude hook/MCP/LSP activation files`);
     }
   }
 }

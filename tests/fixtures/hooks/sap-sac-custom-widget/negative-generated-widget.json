@@ -1,0 +1,8 @@
+{
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Write",
+  "tool_input": {
+    "file_path": "webcomponent/widget.json",
+    "content": "{\"id\":\"com.company.goodwidget\",\"version\":\"1.0.0\",\"name\":\"Good Widget\",\"vendor\":\"Company\",\"newInstancePrefix\":\"GoodWidget\",\"icon\":\"https://assets.example.com/icon.svg\",\"webcomponents\":[{\"kind\":\"main\",\"tag\":\"com-company-goodwidget\",\"url\":\"widget.js\"}],\"properties\":{\"brandLogoUrl\":{\"type\":\"string\",\"default\":\"https://assets.example.com/logo.svg\"}},\"methods\":{},\"events\":{},\"dataBindings\":{\"myDataBinding\":{\"feeds\":[{\"id\":\"dimensions\",\"description\":\"Dimension\",\"type\":\"dimension\"},{\"id\":\"measures\",\"description\":\"Measure\",\"type\":\"mainStructureMember\"}]}}}"
+  }
+}
