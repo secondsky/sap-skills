@@ -209,7 +209,136 @@ function detectHighRisk(pluginName, textLower, commandLower) {
   return risks;
 }
 
-function detectWarnings(pluginName, textLower, filePathLower) {
+function indicesAreSequential(indices) {
+  if (indices.length === 0) {
+    return true;
+  }
+  const unique = [...new Set(indices)].sort((a, b) => a - b);
+  for (let index = 0; index < unique.length; index += 1) {
+    if (unique[index] !== index) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function indexedMembers(text, prefix) {
+  const out = [];
+  const pattern = new RegExp(`${prefix}_(\\d+)`, "g");
+  for (const match of text.matchAll(pattern)) {
+    out.push(Number.parseInt(match[1], 10));
+  }
+  return out;
+}
+
+function quotedValue(text, key) {
+  const match = text.match(new RegExp(`"${key}"\\s*:\\s*"([^"]*)"`, "i"));
+  return match ? match[1] : "";
+}
+
+function parseJsonObject(text) {
+  try {
+    const parsed = JSON.parse(text);
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+function webcomponentUrlsPointToNonJavascript(manifest) {
+  if (!manifest || !Array.isArray(manifest.webcomponents)) {
+    return false;
+  }
+  return manifest.webcomponents.some((component) => {
+    if (!component || typeof component.url !== "string") {
+      return false;
+    }
+    return /\.(?:css|html?)(?:[?#].*)?$/i.test(component.url.trim());
+  });
+}
+
+function webcomponentUrlsTextPointToNonJavascript(text) {
+  return /"webcomponents"\s*:\s*\[[\s\S]*?"url"\s*:\s*"[^"]+\.(?:css|html?)(?:[?#][^"]*)?"/i.test(text);
+}
+
+function hasUnapprovedRemoteCssAsset(text, textLower) {
+  if (textLower.includes("approved") || textLower.includes("trusted")) {
+    return false;
+  }
+  return /@import\s+(?:url\s*\()?\s*\\?["']?https?:\/\//i.test(text)
+    || /url\s*\(\s*\\?["']?https?:\/\//i.test(text)
+    || /https?:\/\/[^"'\s)]*(?:fonts\.googleapis\.com|fonts\.gstatic\.com|\.woff2?|\.ttf|\.otf)/i.test(text);
+}
+
+function hasGlobalStyleInjection(text) {
+  return /document\.head\.appendChild\s*\(\s*(?:style|[A-Za-z_$][\w$]*(?:Style|Css|CSS)[A-Za-z_$\w]*)\s*\)/.test(text)
+    || /document\.head\.insertAdjacentHTML\s*\([^)]*<style/i.test(text);
+}
+
+function detectCustomWidgetGenerationWarnings(text, textLower, filePathLower) {
+  const warnings = [];
+
+  if (filePathLower.endsWith("widget.json")) {
+    if (webcomponentUrlsPointToNonJavascript(parseJsonObject(text)) || webcomponentUrlsTextPointToNonJavascript(text)) {
+      warnings.push("SAC widget manifest webcomponents[].url should point to JavaScript component files, not CSS or HTML resources.");
+    }
+
+    if (/"methods"\s*:\s*\[/i.test(text)) {
+      warnings.push("SAC widget manifest methods must be an object, not an array.");
+    }
+    if (/"events"\s*:\s*\[/i.test(text)) {
+      warnings.push("SAC widget manifest events must be an object, not an array.");
+    }
+
+    const manifestId = quotedValue(text, "id");
+    if (manifestId && !/^[a-z][a-z0-9]*(?:\.[a-z][a-z0-9]*)+$/.test(manifestId)) {
+      warnings.push("Generated widget manifest id should use lowercase dot notation, for example com.company.widgetname.");
+    }
+
+    const newInstancePrefix = quotedValue(text, "newInstancePrefix");
+    if (newInstancePrefix && !/^[A-Z][A-Za-z]*$/.test(newInstancePrefix)) {
+      warnings.push("Generated widget newInstancePrefix should use PascalCase letters only.");
+    }
+
+    for (const match of text.matchAll(/"tag"\s*:\s*"([^"]+)"/gi)) {
+      if (!/^[a-z][a-z0-9]*(?:-[a-z0-9]+)+$/.test(match[1])) {
+        warnings.push("Custom widget tags should use lowercase hyphen notation without underscores or uppercase letters.");
+        break;
+      }
+    }
+
+    if (textLower.includes("brandlogourl") && !/"brandLogoUrl"\s*:\s*\{/.test(text)) {
+      warnings.push("Brand logo integration should define a brandLogoUrl property in the manifest.");
+    }
+  }
+
+  if (filePathLower.endsWith("widget.js") || textLower.includes("customelements.define")) {
+    if (!indicesAreSequential(indexedMembers(textLower, "dimensions"))) {
+      warnings.push("Generated widget code should use sequential dimensions_N indices starting at dimensions_0.");
+    }
+    if (!indicesAreSequential(indexedMembers(textLower, "measures"))) {
+      warnings.push("Generated widget code should use sequential measures_N indices starting at measures_0.");
+    }
+
+    const usesBrandLogo = textLower.includes("brandlogourl") || textLower.includes("brandlogo");
+    if (usesBrandLogo && (!textLower.includes('id="brandlogo"') || !textLower.includes("brand-logo"))) {
+      warnings.push("Brand logo integration should include a standard img element with id=\"brandLogo\" and class=\"brand-logo\".");
+    }
+  }
+
+  if (filePathLower.endsWith(".js") || filePathLower.endsWith(".css") || textLower.includes("customelements.define")) {
+    if (hasGlobalStyleInjection(text)) {
+      warnings.push("Generated widget styling should stay scoped to the Web Component; avoid injecting global document.head styles for SAC/story pages.");
+    }
+    if (hasUnapprovedRemoteCssAsset(text, textLower)) {
+      warnings.push("Remote CSS, font imports, or CSS url(http...) assets require an explicitly approved/trusted host for SAC deployment.");
+    }
+  }
+
+  return warnings;
+}
+
+function detectWarnings(pluginName, text, textLower, filePathLower) {
   const warnings = [];
 
   if (["sap-cap-capire", "sap-sqlscript", "sap-datasphere"].includes(pluginName) && textLower.includes("select *")) {
@@ -221,6 +350,8 @@ function detectWarnings(pluginName, textLower, filePathLower) {
   }
 
   if (pluginName === "sap-sac-custom-widget") {
+    warnings.push(...detectCustomWidgetGenerationWarnings(text, textLower, filePathLower));
+
     if (filePathLower.endsWith("widget.js") || textLower.includes("customelements.define")) {
       if (!textLower.includes("oncustomwidgetresize")) {
         warnings.push("Consider implementing onCustomWidgetResize for responsive behavior.");
@@ -287,7 +418,8 @@ async function main() {
   const toolResponse = payload.tool_response || {};
   const filePathLower = normalizePath(toolInput.file_path || toolInput.filePath || toolInput.path || toolResponse.filePath || toolResponse.file_path || "");
   const commandLower = (typeof toolInput.command === "string" ? toolInput.command : "").toLowerCase();
-  const textLower = getContentText(toolInput).toLowerCase();
+  const text = getContentText(toolInput);
+  const textLower = text.toLowerCase();
 
   if (!isRelevant(profile, toolName, filePathLower, textLower, commandLower)) {
     return empty();
@@ -320,7 +452,7 @@ async function main() {
   }
 
   if (event === "PostToolUse") {
-    const warnings = detectWarnings(pluginName, textLower, filePathLower);
+    const warnings = detectWarnings(pluginName, text, textLower, filePathLower);
     if (warnings.length > 0) {
       return printJson({
         hookSpecificOutput: {

@@ -29,7 +29,7 @@ Portable, documentation-audited plugin content for developing custom widgets in 
 | Command | Usage | Description |
 |---------|-------|-------------|
 | `/widget-validate` | `/widget-validate [file]` | Validate widget.json schema and widget.js structure |
-| `/widget-generate` | `/widget-generate` | Interactively generate widget scaffold with JSON + JS |
+| `/widget-generate` | `/widget-generate` | Interactively generate widget scaffold with JSON, JS, and browser design runtime |
 | `/widget-lint` | `/widget-lint [file]` | Performance, security, and best practices analysis |
 
 ### Templates
@@ -41,6 +41,7 @@ Docs-audited scaffolds in `templates/` directory:
 | `basic-widget.js` | Minimal Web Component with all lifecycle functions |
 | `data-bound-chart.js` | ECharts widget with SAC data binding |
 | `styling-panel.js` | Runtime customization panel |
+| `design-runtime/` | No-build browser preview, scenario switching, design controls, and agent iteration export |
 | `widget.json-minimal` | Bare-minimum metadata |
 | `widget.json-complete` | Full-featured metadata with all options |
 
@@ -50,6 +51,7 @@ Claude activation hooks for quality checks on Write/Edit/MultiEdit operations; o
 - **widget.json**: Required fields, tag naming, property types, data binding config
 - **widget.js**: Lifecycle functions, Shadow DOM, propertiesChanged dispatch
 - **Performance**: Resize debouncing, chart disposal, XSS prevention
+- **CSS/Styling**: Shadow DOM scope, story-theme boundary, and SAC ZIP packaging caveats
 - **Context Reminders**: Template suggestions, command recommendations
 
 ---
@@ -63,6 +65,8 @@ Claude activation hooks for quality checks on Write/Edit/MultiEdit operations; o
 **Data Keywords**: SAC data binding, widget data binding, dataBindings feeds, getDataBinding, getResultSet, getResultMember, ResultSet, dimension feed, measure feed, mainStructureMember
 
 **UI Keywords**: styling panel, builder panel, design time panel, widget properties, propertiesChanged event, dispatchEvent, CustomEvent
+
+**CSS Keywords**: Shadow DOM CSS, SAP theme variables, SAC story theme CSS, CSS compliance, custom widget styling, ZIP resource upload
 
 **Integration Keywords**: ECharts SAC, D3.js SAC, Chart.js SAC, third party library SAC, Apache ECharts widget
 
@@ -78,6 +82,7 @@ Claude activation hooks for quality checks on Write/Edit/MultiEdit operations; o
 
 This skill should be used when:
 - Creating custom visualizations for SAP Analytics Cloud
+- Previewing generated custom widgets in a non-SAP browser design runtime before SAC import
 - Building interactive components for SAC stories
 - Integrating third-party charting libraries (ECharts, D3.js, Chart.js)
 - Implementing custom input controls for Analytics Designer
@@ -101,6 +106,8 @@ This skill should be used when:
 - Lifecycle function documentation and patterns
 - Data binding configuration and usage
 - Styling and builder panel implementation
+- CSS and styling compliance guidance for Shadow DOM, story-theme boundaries, and SAC ZIP resource packages
+- Browser design runtime for local preview, multi-widget comparison, design-token tuning, and agent iteration export
 - Multiple hosting options (SAC-hosted, GitHub, external)
 - Security best practices (integrity hash, CORS)
 - Common error solutions and debugging techniques
@@ -122,7 +129,7 @@ This skill should be used when:
 | Errors Prevented | 25+ |
 | Agents | 3 |
 | Commands | 3 |
-| Templates | 5 |
+| Templates | 6 |
 
 ## Official Documentation
 

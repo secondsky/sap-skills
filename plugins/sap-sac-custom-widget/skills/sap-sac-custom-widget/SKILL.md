@@ -30,6 +30,9 @@ allowed-tools:
 
 ## Table of Contents
 - [Overview](#overview)
+- [AI-Assisted Generation](#ai-assisted-generation)
+- [Browser Design Runtime](#browser-design-runtime)
+- [CSS and Styling Compliance](#css-and-styling-compliance)
 - [Plugin Components](#plugin-components)
 - [Quick Start](#quick-start)
 - [Community Sample Widgets](#community-sample-widgets)
@@ -45,6 +48,7 @@ This skill enables development of custom widgets for SAP Analytics Cloud (SAC). 
 
 **Use this skill when**:
 - Building custom visualizations not available in standard SAC
+- Generating prompt-driven widget ideas, branded widget packages, or composite-ready widget designs
 - Integrating third-party charting libraries (ECharts, D3.js, Chart.js)
 - Creating interactive input components for SAC applications
 - Implementing specialized data displays or KPI widgets
@@ -55,6 +59,24 @@ This skill enables development of custom widgets for SAP Analytics Cloud (SAC). 
 - SAC tenant with Optimized Story Experience or Analytics Designer
 - JavaScript/Web Components knowledge
 - External hosting (GitHub Pages, AWS S3, Azure) OR SAC-hosted resources (QRC Q2 2023+)
+
+---
+
+## AI-Assisted Generation
+
+For prompt-driven widget creation, first suggest 2-3 data-aware widget options, then generate the selected complete package. Keep AI-generated code SAC-compatible, preserve data-binding order, and validate/repair before import. See **`references/ai-assisted-composite-generation.md`** for output contracts, RAG context patterns, brand styling, and composite caveats.
+
+---
+
+## Browser Design Runtime
+
+Generated widget packages should include **`templates/design-runtime/`** as a no-build, file-first browser preview scaffold. Use it to mock custom-widget essentials outside SAP, adjust properties/design tokens/sample data/viewports, compare multiple widgets, and export an agent iteration payload. See **`references/browser-design-runtime.md`** for runtime boundaries and configuration/export contracts.
+
+---
+
+## CSS and Styling Compliance
+
+Style custom widgets inside their Web Component/Shadow DOM boundary. Do not rely on SAC optimized story theme CSS, SAP shell selectors, or global story CSS to style widget internals. For generated packages, confirm the hosting mode before splitting CSS/HTML into separate files, because SAC ZIP upload packages support component JavaScript and PNG/JPG icons only. See **`references/css-and-styling-compliance.md`** for SAP Help-backed allowed/restricted styling rules.
 
 ---
 
@@ -75,7 +97,7 @@ This plugin provides specialized agents, commands, and validation hooks for comp
 | Command | Usage | Description |
 |---------|-------|-------------|
 | `/widget-validate` | `/widget-validate [file]` | Validate widget.json schema and widget.js structure |
-| `/widget-generate` | `/widget-generate` | Interactively generate widget scaffold with JSON + JS |
+| `/widget-generate` | `/widget-generate` | Interactively generate widget scaffold with JSON, JS, and browser design runtime |
 | `/widget-lint` | `/widget-lint [file]` | Performance, security, and best practices analysis |
 
 ### Validation Hooks
@@ -92,6 +114,7 @@ Ready-to-use scaffolds in `templates/` directory:
 - `basic-widget.js` - Minimal Web Component with all lifecycle functions
 - `data-bound-chart.js` - ECharts widget with data binding
 - `styling-panel.js` - Runtime customization panel
+- `design-runtime/` - Browser preview and design iteration runtime
 - `widget.json-minimal` - Bare-minimum metadata
 - `widget.json-complete` - Full-featured metadata with all options
 
@@ -267,17 +290,18 @@ const data = this.myDataBinding.data;
 const metadata = this.myDataBinding.metadata;
 
 // Iterate over rows
-this.myDataBinding.data.forEach(row => {
-  const dimensionValue = row.dimensions_0.label;
-  const measureValue = row.measures_0.raw;
-});
+for (let i = 0; i < this.myDataBinding.data.length; i++) {
+  const row = this.myDataBinding.data[i];
+  const dimensionValue = row.dimensions_0 ? row.dimensions_0.label : "";
+  const measureValue = row.measures_0 ? row.measures_0.raw : 0;
+}
 ```
 
 ### Hosting Options
 
 **1. SAC-Hosted (Recommended, QRC Q2 2023+)**
 - Upload files directly to SAC > Files > Public Files
-- Use relative paths: `"/path/to/widget.js"`
+- Use SAC/browser URL paths with `/` separators, for example `"/Public/widget.js"` or `"widget.js"`; do not use local Windows backslashes in manifest URLs
 - Set `"integrity": ""` and `"ignoreIntegrity": true`
 
 **2. GitHub Pages**
@@ -291,14 +315,19 @@ this.myDataBinding.data.forEach(row => {
 
 ### Security: Integrity Hash
 
-For production, generate SHA256 hash:
+For production, generate a SHA256 integrity value with Node.js for Windows/macOS/Linux:
 ```bash
-# Generate hash
-openssl dgst -sha256 -binary widget.js | openssl base64 -A
+# Generate integrity hash for widget.js
+node -e "const fs=require('node:fs');const crypto=require('node:crypto');const file=process.argv[1]||'widget.js';console.log('sha256-'+crypto.createHash('sha256').update(fs.readFileSync(file)).digest('base64'));" widget.js
 
 # Update JSON
 "integrity": "sha256-abc123...",
 "ignoreIntegrity": false
+```
+
+On macOS/Linux or Git Bash, OpenSSL is also acceptable; prefix the output with `sha256-` before adding it to the manifest:
+```bash
+openssl dgst -sha256 -binary widget.js | openssl base64 -A
 ```
 
 ---
@@ -328,7 +357,7 @@ openssl dgst -sha256 -binary widget.js | openssl base64 -A
 onCustomWidgetAfterUpdate(changedProperties) {
   console.log("Widget updated:", changedProperties);
   console.log("Current props:", this._props);
-  console.log("Data binding:", this.myDataBinding?.data);
+  console.log("Data binding:", this.myDataBinding && this.myDataBinding.data);
   this._render();
 }
 ```
@@ -362,6 +391,7 @@ See **`references/widget-addon-guide.md`** for complete implementation.
 - **`templates/basic-widget.js`** - Minimal Web Component scaffold (~60 lines)
 - **`templates/data-bound-chart.js`** - ECharts widget with SAC data binding (~120 lines)
 - **`templates/styling-panel.js`** - Styling panel for runtime customization (~150 lines)
+- **`templates/design-runtime/`** - No-build browser preview, design-token controls, scenario switching, and agent iteration export
 - **`templates/widget.json-minimal`** - Bare-minimum metadata (~25 lines)
 - **`templates/widget.json-complete`** - Full-featured metadata (~100 lines)
 
@@ -375,6 +405,9 @@ See **`references/widget-addon-guide.md`** for complete implementation.
 6. **`references/advanced-topics.md`** - Custom types, script API types, installation
 7. **`references/integration-and-migration.md`** - Script integration, content transport
 8. **`references/script-api-reference.md`** - DataSource, Selection, MemberInfo APIs
+9. **`references/ai-assisted-composite-generation.md`** - Prompt-driven generation, RAG, brand styling, validation, and composite-ready output guidance
+10. **`references/browser-design-runtime.md`** - Non-SAP browser preview runtime, sidecar config, and agent iteration export
+11. **`references/css-and-styling-compliance.md`** - SAP Help-backed CSS, theme, Shadow DOM, and packaging guidance for generated widgets
 
 ---
 

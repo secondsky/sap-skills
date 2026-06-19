@@ -1,0 +1,8 @@
+{
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Write",
+  "tool_input": {
+    "file_path": "webcomponent/widget.js",
+    "content": "(function(){ var template = document.createElement('template'); template.innerHTML = '<style>:host{display:block;width:100%;height:100%;}</style><div></div>'; class BadStyleWidget extends HTMLElement { constructor(){ super(); this.attachShadow({mode:'open'}).appendChild(template.content.cloneNode(true)); } onCustomWidgetAfterUpdate(){ var style = document.createElement('style'); style.textContent = '.sap-story-shell{display:none;}'; document.head.appendChild(style); } onCustomWidgetResize(){} onCustomWidgetDestroy(){} } customElements.define('com-company-badstyle', BadStyleWidget); })();"
+  }
+}

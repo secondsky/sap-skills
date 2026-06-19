@@ -1,0 +1,13 @@
+vendor_id,company_code,document_id,fiscal_year,invoice_amount_bucket,currency,payment_terms_days,discount_window_days,approval_age_bucket,historical_processing_delay_bucket,vendor_segment,purchasing_group_available,discount_lost
+VEND_SYN_001,COMP_SYN_1000,DOC_SYN_AP_001,2025,small,USD,30,10,low,low,standard,yes,no
+VEND_SYN_002,COMP_SYN_1000,DOC_SYN_AP_002,2025,medium,EUR,45,14,medium,medium,strategic,yes,no
+VEND_SYN_003,COMP_SYN_2000,DOC_SYN_AP_003,2025,large,GBP,30,7,high,high,standard,no,yes
+VEND_SYN_004,COMP_SYN_1000,DOC_SYN_AP_004,2025,small,USD,60,14,low,low,one_time,no,no
+VEND_SYN_005,COMP_SYN_2000,DOC_SYN_AP_005,2025,medium,EUR,30,10,high,medium,standard,yes,yes
+VEND_SYN_006,COMP_SYN_1000,DOC_SYN_AP_006,2025,large,USD,45,7,medium,low,strategic,yes,no
+VEND_SYN_007,COMP_SYN_2000,DOC_SYN_AP_007,2025,small,CHF,30,7,high,high,one_time,no,yes
+VEND_SYN_008,COMP_SYN_1000,DOC_SYN_AP_008,2025,medium,USD,60,14,medium,medium,standard,yes,no
+VEND_SYN_009,COMP_SYN_1000,DOC_SYN_AP_009,2025,large,EUR,45,10,high,high,standard,yes,yes
+VEND_SYN_010,COMP_SYN_2000,DOC_SYN_AP_010,2025,small,GBP,30,7,low,low,strategic,yes,no
+VEND_SYN_011,COMP_SYN_1000,DOC_SYN_AP_011,2025,medium,USD,30,10,medium,medium,standard,no,[PREDICT]
+VEND_SYN_012,COMP_SYN_2000,DOC_SYN_AP_012,2025,large,EUR,45,7,high,high,one_time,no,[PREDICT]

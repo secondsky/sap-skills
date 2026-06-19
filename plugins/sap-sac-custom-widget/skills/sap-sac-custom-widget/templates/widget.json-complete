@@ -6,25 +6,26 @@
   "vendor": "Company Name",
   "license": "MIT",
   "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMTg5MGZmIiBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptLTIgMTVsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXoiLz48L3N2Zz4=",
+  "newInstancePrefix": "AdvancedWidget",
 
   "webcomponents": [
     {
       "kind": "main",
-      "tag": "advanced-custom-widget",
+      "tag": "com-company-advancedwidget",
       "url": "widget.js",
       "integrity": "",
       "ignoreIntegrity": true
     },
     {
       "kind": "styling",
-      "tag": "advanced-widget-styling",
+      "tag": "com-company-advancedwidget-styling",
       "url": "styling-panel.js",
       "integrity": "",
       "ignoreIntegrity": true
     },
     {
       "kind": "builder",
-      "tag": "advanced-widget-builder",
+      "tag": "com-company-advancedwidget-builder",
       "url": "builder-panel.js",
       "integrity": "",
       "ignoreIntegrity": true

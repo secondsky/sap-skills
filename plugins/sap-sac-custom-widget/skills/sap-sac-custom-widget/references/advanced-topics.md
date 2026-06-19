@@ -393,6 +393,8 @@ Upload resource files directly to SAC:
 
 Common libraries used with SAC widgets:
 
+For generated enterprise/offline packages, prefer local `vendor/` copies of these libraries. Treat the CDN URLs below as general reference examples, not defaults for `/widget-generate` output.
+
 | Library | Use Case | CDN |
 |---------|----------|-----|
 | ECharts | Charts | `https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js` |

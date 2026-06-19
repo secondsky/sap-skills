@@ -1,0 +1,13 @@
+journal_id,company_code,ledger,fiscal_period,document_type,posting_origin,account_group,amount_bucket,posting_day_type,posting_hour_bucket,manual_entry_flag,round_amount_flag,outlier_flag
+JRN_SYN_001,COMP_SYN_1000,0L,2025-01,SA,interface,revenue,medium,weekday,business_hours,no,no,normal
+JRN_SYN_002,COMP_SYN_1000,0L,2025-01,KR,interface,payables,small,weekday,business_hours,no,no,normal
+JRN_SYN_003,COMP_SYN_2000,0L,2025-01,SA,manual,expense,large,weekend,after_hours,yes,yes,review
+JRN_SYN_004,COMP_SYN_1000,0L,2025-02,AB,manual,clearing,small,weekday,business_hours,yes,no,normal
+JRN_SYN_005,COMP_SYN_2000,0L,2025-02,SA,manual,revenue,large,weekday,after_hours,yes,yes,review
+JRN_SYN_006,COMP_SYN_1000,0L,2025-03,DR,interface,receivables,medium,weekday,business_hours,no,no,normal
+JRN_SYN_007,COMP_SYN_2000,0L,2025-03,SA,manual,expense,large,month_end,after_hours,yes,yes,review
+JRN_SYN_008,COMP_SYN_1000,0L,2025-04,KR,interface,payables,small,weekday,business_hours,no,no,normal
+JRN_SYN_009,COMP_SYN_1000,0L,2025-04,SA,manual,clearing,medium,weekend,after_hours,yes,no,review
+JRN_SYN_010,COMP_SYN_2000,0L,2025-05,DR,interface,receivables,small,weekday,business_hours,no,no,normal
+JRN_SYN_011,COMP_SYN_1000,0L,2025-05,SA,manual,expense,large,month_end,after_hours,yes,yes,[PREDICT]
+JRN_SYN_012,COMP_SYN_2000,0L,2025-06,AB,manual,clearing,small,weekday,business_hours,yes,no,[PREDICT]

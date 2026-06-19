@@ -1,9 +1,9 @@
 # SAP Skills for AI Coding Assistants
 
-36 SAP development plugins with evidence-tracked verification
+37 SAP development plugins with evidence-tracked verification
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENSE)
-[![Plugins](https://img.shields.io/badge/Plugins-36-brightgreen.svg)](.claude-plugin/marketplace.json)
+[![Plugins](https://img.shields.io/badge/Plugins-37-brightgreen.svg)](.claude-plugin/marketplace.json)
 [![Version](https://img.shields.io/badge/Version-2.3.0-orange.svg)](CHANGELOG.md)
 
 SAP development plugins for AI coding assistants, with public-source or package-registry verification tracked where available. Live tenant and system validation is tracked per plugin in `docs/project/source-verification-ledger.json`.
@@ -18,7 +18,7 @@ recipes unless that client supports them natively.
 
 - [Quick Start](#quick-start) — Install for supported AI coding assistants
 - [How It Works](#how-it-works) — Auto-activation examples
-- [Available Plugins](#available-plugins-36) — 36 plugins by category
+- [Available Plugins](#available-plugins-37) — 37 plugins by category
 - [Repository Structure](#repository-structure) — Architecture overview
 - [Building New Plugins](#building-new-plugins) — Contribution workflow
 - [Documentation](#documentation) — Guides and references
@@ -98,7 +98,7 @@ arguments, environment variables, and safety notes.
 
 ---
 
-## Available Plugins (36)
+## Available Plugins (37)
 
 Feature icons: ⌘ = commands · 🤖 = agents · 🛡 = hooks · 🔌 = MCP · LSP = language server
 
@@ -148,9 +148,9 @@ Feature icons: ⌘ = commands · 🤖 = agents · 🛡 = hooks · 🔌 = MCP · 
 | **sap-sac-custom-widget** | ⌘3 · 🤖3 · 🛡 | SAP Analytics Cloud custom widget development |
 | **sap-sac-planning** | ⌘3 · 🤖3 · 🛡 | SAP Analytics Cloud planning applications |
 | **sap-sac-scripting** | ⌘4 · 🤖4 · 🛡 · 🔌MCP | SAP Analytics Cloud scripting API |
-| **sap-sac-test-automation** | — | SAP Analytics Cloud capability-gated browser and Playwright test automation |
+| **sap-sac-test-automation** | ⌘1 · 🤖1 | SAP Analytics Cloud capability-gated browser and Playwright test automation |
 
-### ⚙️ Core Technologies (8)
+### ⚙️ Core Technologies (9)
 
 | Plugin | Features | Description |
 |--------|----------|-------------|
@@ -161,6 +161,7 @@ Feature icons: ⌘ = commands · 🤖 = agents · 🛡 = hooks · 🔌 = MCP · 
 | **sap-cloud-sdk-ai** | ⌘1 | SAP Cloud SDK for AI development |
 | **sap-cloud-sdk-ai-python** | ⌘1 | SAP Cloud SDK for AI for Python (generative AI hub SDK) |
 | **sap-hana-ml** | ⌘1 | SAP HANA Machine Learning (ML) library |
+| **sap-rpt1** | ⌘2 | SAP-RPT-1-OSS FI/CO local tabular prediction workflow guidance |
 | **sap-sqlscript** | ⌘4 · 🤖3 · 🛡 | SAP HANA SQLScript development |
 
 ---
@@ -172,7 +173,7 @@ sap-skills/
 ├── .claude-plugin/
 │   └── marketplace.json          # Marketplace catalog
 │
-└── plugins/                       # All plugins (36)
+└── plugins/                       # All plugins (37)
     └── [plugin-name]/
         ├── .claude-plugin/
         │   └── plugin.json       # Plugin manifest
@@ -188,7 +189,7 @@ sap-skills/
         └── hooks/                # Optional: Event hooks
 ```
 
-**Key features**: 36 plugins include commands (61 total), 13 with agents (30 total), 8 with hooks, 6 with MCP integration, and 1 with LSP support. 15 plugins cross-reference related plugins.
+**Key features**: 37 plugins include commands (64 total), 14 with agents (31 total), 8 with hooks, 6 with MCP integration, and 1 with LSP support. 15 plugins cross-reference related plugins.
 
 ---
 

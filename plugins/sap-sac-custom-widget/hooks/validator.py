@@ -3,7 +3,7 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 PROFILES: Dict[str, Dict[str, Any]] = {
     "sap-cap-capire": {
@@ -180,7 +180,113 @@ def detect_risks(plugin_name: str, text_lower: str, command_lower: str) -> List[
     return risks
 
 
-def detect_warnings(plugin_name: str, text_lower: str, file_path_lower: str) -> List[str]:
+def indices_are_sequential(indices: List[int]) -> bool:
+    if not indices:
+        return True
+    unique = sorted(set(indices))
+    for expected, value in enumerate(unique):
+        if value != expected:
+            return False
+    return True
+
+
+def indexed_members(text_lower: str, prefix: str) -> List[int]:
+    return [int(match.group(1)) for match in re.finditer(rf"{prefix}_(\d+)", text_lower)]
+
+
+def quoted_value(text: str, key: str) -> str:
+    match = re.search(rf'"{re.escape(key)}"\s*:\s*"([^"]*)"', text, flags=re.IGNORECASE)
+    return match.group(1) if match else ""
+
+
+def parse_json_object(text: str) -> Optional[Dict[str, Any]]:
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError:
+        return None
+    return parsed if isinstance(parsed, dict) else None
+
+
+def webcomponent_urls_point_to_non_javascript(manifest: Optional[Dict[str, Any]]) -> bool:
+    if not manifest or not isinstance(manifest.get("webcomponents"), list):
+        return False
+    for component in manifest["webcomponents"]:
+        if not isinstance(component, dict) or not isinstance(component.get("url"), str):
+            continue
+        if re.search(r"\.(?:css|html?)(?:[?#].*)?$", component["url"].strip(), flags=re.IGNORECASE):
+            return True
+    return False
+
+
+def webcomponent_urls_text_point_to_non_javascript(text: str) -> bool:
+    return bool(re.search(r'"webcomponents"\s*:\s*\[[\s\S]*?"url"\s*:\s*"[^"]+\.(?:css|html?)(?:[?#][^"]*)?"', text, flags=re.IGNORECASE))
+
+
+def has_unapproved_remote_css_asset(text: str, text_lower: str) -> bool:
+    if "approved" in text_lower or "trusted" in text_lower:
+        return False
+    return bool(
+        re.search(r"@import\s+(?:url\s*\()?\s*\\?[\"']?https?://", text, flags=re.IGNORECASE)
+        or re.search(r"url\s*\(\s*\\?[\"']?https?://", text, flags=re.IGNORECASE)
+        or re.search(r"https?://[^\"'\s)]*(?:fonts\.googleapis\.com|fonts\.gstatic\.com|\.woff2?|\.ttf|\.otf)", text, flags=re.IGNORECASE)
+    )
+
+
+def has_global_style_injection(text: str) -> bool:
+    return bool(
+        re.search(r"document\.head\.appendChild\s*\(\s*(?:style|[A-Za-z_$][\w$]*(?:Style|Css|CSS)[A-Za-z_$\w]*)\s*\)", text)
+        or re.search(r"document\.head\.insertAdjacentHTML\s*\([^)]*<style", text, flags=re.IGNORECASE)
+    )
+
+
+def detect_custom_widget_generation_warnings(text: str, text_lower: str, file_path_lower: str) -> List[str]:
+    warnings: List[str] = []
+
+    if file_path_lower.endswith("widget.json"):
+        if webcomponent_urls_point_to_non_javascript(parse_json_object(text)) or webcomponent_urls_text_point_to_non_javascript(text):
+            warnings.append("SAC widget manifest webcomponents[].url should point to JavaScript component files, not CSS or HTML resources.")
+
+        if re.search(r'"methods"\s*:\s*\[', text, flags=re.IGNORECASE):
+            warnings.append("SAC widget manifest methods must be an object, not an array.")
+        if re.search(r'"events"\s*:\s*\[', text, flags=re.IGNORECASE):
+            warnings.append("SAC widget manifest events must be an object, not an array.")
+
+        manifest_id = quoted_value(text, "id")
+        if manifest_id and not re.match(r"^[a-z][a-z0-9]*(?:\.[a-z][a-z0-9]*)+$", manifest_id):
+            warnings.append("Generated widget manifest id should use lowercase dot notation, for example com.company.widgetname.")
+
+        new_instance_prefix = quoted_value(text, "newInstancePrefix")
+        if new_instance_prefix and not re.match(r"^[A-Z][A-Za-z]*$", new_instance_prefix):
+            warnings.append("Generated widget newInstancePrefix should use PascalCase letters only.")
+
+        for match in re.finditer(r'"tag"\s*:\s*"([^"]+)"', text, flags=re.IGNORECASE):
+            if not re.match(r"^[a-z][a-z0-9]*(?:-[a-z0-9]+)+$", match.group(1)):
+                warnings.append("Custom widget tags should use lowercase hyphen notation without underscores or uppercase letters.")
+                break
+
+        if "brandlogourl" in text_lower and not re.search(r'"brandLogoUrl"\s*:\s*\{', text):
+            warnings.append("Brand logo integration should define a brandLogoUrl property in the manifest.")
+
+    if file_path_lower.endswith("widget.js") or "customelements.define" in text_lower:
+        if not indices_are_sequential(indexed_members(text_lower, "dimensions")):
+            warnings.append("Generated widget code should use sequential dimensions_N indices starting at dimensions_0.")
+        if not indices_are_sequential(indexed_members(text_lower, "measures")):
+            warnings.append("Generated widget code should use sequential measures_N indices starting at measures_0.")
+
+        uses_brand_logo = "brandlogourl" in text_lower or "brandlogo" in text_lower
+        if uses_brand_logo and ('id="brandlogo"' not in text_lower or "brand-logo" not in text_lower):
+            warnings.append('Brand logo integration should include a standard img element with id="brandLogo" and class="brand-logo".')
+
+    if file_path_lower.endswith(".js") or file_path_lower.endswith(".css") or "customelements.define" in text_lower:
+        if has_global_style_injection(text):
+            warnings.append("Generated widget styling should stay scoped to the Web Component; avoid injecting global document.head styles for SAC/story pages.")
+        if has_unapproved_remote_css_asset(text, text_lower):
+            warnings.append("Remote CSS, font imports, or CSS url(http...) assets require an explicitly approved/trusted host for SAC deployment.")
+
+    return warnings
+
+
+def detect_warnings(plugin_name: str, text: str, text_lower: str, file_path_lower: str) -> List[str]:
     warnings: List[str] = []
 
     if plugin_name in {"sap-cap-capire", "sap-sqlscript", "sap-datasphere"} and "select *" in text_lower:
@@ -190,6 +296,8 @@ def detect_warnings(plugin_name: str, text_lower: str, file_path_lower: str) -> 
         warnings.append("Remove or gate console.log statements before production deployment.")
 
     if plugin_name == "sap-sac-custom-widget":
+        warnings.extend(detect_custom_widget_generation_warnings(text, text_lower, file_path_lower))
+
         if file_path_lower.endswith("widget.js") or "customelements.define" in text_lower:
             if "oncustomwidgetresize" not in text_lower:
                 warnings.append("Consider implementing onCustomWidgetResize for responsive behavior.")
@@ -251,7 +359,8 @@ def main() -> None:
     )
 
     command_lower = (tool_input.get("command") if isinstance(tool_input.get("command"), str) else "").lower()
-    text_lower = content_text(tool_input).lower()
+    text = content_text(tool_input)
+    text_lower = text.lower()
 
     if not is_relevant(profile, tool_name, file_path_lower, text_lower, command_lower):
         return empty()
@@ -285,7 +394,7 @@ def main() -> None:
         )
 
     if event == "PostToolUse":
-        warnings = detect_warnings(plugin_name, text_lower, file_path_lower)
+        warnings = detect_warnings(plugin_name, text, text_lower, file_path_lower)
         if warnings:
             return print_json(
                 {

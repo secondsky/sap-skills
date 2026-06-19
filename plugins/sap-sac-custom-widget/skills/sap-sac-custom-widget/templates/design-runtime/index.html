@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAC Widget Design Runtime</title>
+  <link rel="stylesheet" href="./runtime.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>SAC Widget Design Runtime</h1>
+      <p id="runtimeMode">Loading runtime...</p>
+    </div>
+    <div class="topbar-actions">
+      <label class="file-button">
+        Load config
+        <input id="configFile" type="file" accept="application/json,.json">
+      </label>
+      <button id="reloadButton" type="button">Reload</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel">
+      <section class="panel-section">
+        <h2>Scenario</h2>
+        <label for="scenarioSelect">Scenario</label>
+        <select id="scenarioSelect"></select>
+        <div class="field-grid">
+          <label>
+            Width
+            <input id="viewportWidth" type="number" min="240" max="2400" step="10">
+          </label>
+          <label>
+            Height
+            <input id="viewportHeight" type="number" min="180" max="1600" step="10">
+          </label>
+        </div>
+        <label for="themeSelect">Theme</label>
+        <select id="themeSelect">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="high-contrast">High contrast</option>
+        </select>
+      </section>
+
+      <section class="panel-section">
+        <h2>Widget</h2>
+        <label for="widgetSelect">Selected widget</label>
+        <select id="widgetSelect"></select>
+        <div id="propertyControls" class="control-stack"></div>
+      </section>
+
+      <section class="panel-section">
+        <h2>Design Tokens</h2>
+        <label for="tokenScopeSelect">Scope</label>
+        <select id="tokenScopeSelect">
+          <option value="scenario">Scenario-wide</option>
+          <option value="widget">Selected widget</option>
+        </select>
+        <div id="tokenControls" class="control-stack"></div>
+      </section>
+    </aside>
+
+    <section class="workspace">
+      <div id="status" class="status" role="status"></div>
+      <div id="canvas" class="canvas"></div>
+    </section>
+
+    <aside class="panel">
+      <section class="panel-section">
+        <h2>Sample Data</h2>
+        <textarea id="dataEditor" spellcheck="false"></textarea>
+        <button id="applyDataButton" type="button">Apply data</button>
+      </section>
+
+      <section class="panel-section">
+        <h2>Styling Panel</h2>
+        <div id="stylingPanelHost" class="styling-panel-host"></div>
+      </section>
+
+      <section class="panel-section">
+        <h2>Iteration Notes</h2>
+        <label for="notesInput">Notes for the agent</label>
+        <textarea id="notesInput" placeholder="Describe what changed or what still feels off."></textarea>
+        <label for="issuesInput">Acceptance issues</label>
+        <textarea id="issuesInput" placeholder="List remaining issues, visual defects, or SAC checks to run."></textarea>
+        <label for="screenshotsInput">Screenshot references</label>
+        <textarea id="screenshotsInput" placeholder="Optional local filenames, exported images, or notes that identify screenshots."></textarea>
+      </section>
+
+      <section class="panel-section">
+        <h2>Export</h2>
+        <button id="copyJsonButton" type="button">Copy JSON</button>
+        <button id="downloadJsonButton" type="button">Download JSON</button>
+        <button id="downloadMarkdownButton" type="button">Download summary</button>
+      </section>
+
+      <section class="panel-section">
+        <h2>Install in SAC</h2>
+        <ol>
+          <li>Validate the package and host JS/assets.</li>
+          <li>Set <code>widget.json</code> URLs and integrity/trusted-origin settings.</li>
+          <li>Import <code>widget.json</code> from SAC Custom Widgets.</li>
+          <li>Add the widget to a Responsive or Canvas story.</li>
+          <li>Bind feeds in manifest order and test with real story data.</li>
+        </ol>
+        <p>This preview cannot verify SAC tenant trust, import permissions, or composite behavior.</p>
+      </section>
+    </aside>
+  </main>
+
+  <script id="embedded-runtime-config" type="application/json">
+  {
+    "schema": "sap-sac-widget-design-runtime/v1",
+    "runtimeName": "SAC Custom Widget Design Runtime",
+    "widgets": [
+      {
+        "id": "main",
+        "title": "Generated Widget",
+        "manifestPath": "../widget.json",
+        "scripts": ["../widget.js"],
+        "manifest": {
+          "id": "com.company.widgetname",
+          "version": "1.0.0",
+          "name": "Generated Widget",
+          "vendor": "Company Name",
+          "webcomponents": [
+            {
+              "kind": "main",
+              "tag": "com-company-widgetname",
+              "url": "widget.js",
+              "ignoreIntegrity": true
+            }
+          ],
+          "properties": {
+            "title": {
+              "type": "string",
+              "default": "Generated Widget"
+            },
+            "primaryColor": {
+              "type": "Color",
+              "default": "#0a6ed1"
+            }
+          },
+          "dataBindings": {
+            "myDataBinding": {
+              "feeds": [
+                {
+                  "id": "dimensions",
+                  "description": "Dimension",
+                  "type": "dimension"
+                },
+                {
+                  "id": "measures",
+                  "description": "Measure",
+                  "type": "mainStructureMember"
+                }
+              ]
+            }
+          }
+        },
+        "scenarioIds": ["baseline"]
+      }
+    ],
+    "designTokens": {
+      "primaryColor": "#0a6ed1",
+      "accentColor": "#2da44e",
+      "backgroundColor": "#ffffff",
+      "surfaceColor": "#f7f9fb",
+      "textColor": "#1d2d3e",
+      "fontFamily": "Arial, sans-serif",
+      "spacing": 16,
+      "radius": 8,
+      "shadow": "0 14px 34px rgba(29, 45, 62, 0.16)",
+      "logoUrl": "",
+      "iconUrl": ""
+    },
+    "scenarios": [
+      {
+        "id": "baseline",
+        "title": "Baseline",
+        "theme": "light",
+        "viewport": {
+          "width": 720,
+          "height": 420
+        },
+        "properties": {
+          "title": "Generated Widget",
+          "primaryColor": "#0a6ed1"
+        },
+        "designTokens": {
+          "primaryColor": "#0a6ed1",
+          "accentColor": "#2da44e",
+          "backgroundColor": "#ffffff",
+          "surfaceColor": "#f7f9fb",
+          "textColor": "#1d2d3e",
+          "fontFamily": "Arial, sans-serif",
+          "spacing": 16,
+          "radius": 8,
+          "shadow": "0 14px 34px rgba(29, 45, 62, 0.16)",
+          "logoUrl": "",
+          "iconUrl": ""
+        },
+        "dataBindings": {
+          "myDataBinding": {
+            "data": [
+              {
+                "dimensions_0": {
+                  "id": "north",
+                  "label": "North"
+                },
+                "measures_0": {
+                  "raw": 128000,
+                  "formatted": "128,000"
+                }
+              },
+              {
+                "dimensions_0": {
+                  "id": "south",
+                  "label": "South"
+                },
+                "measures_0": {
+                  "raw": 96000,
+                  "formatted": "96,000"
+                }
+              },
+              {
+                "dimensions_0": {
+                  "id": "west",
+                  "label": "West"
+                },
+                "measures_0": {
+                  "raw": 143000,
+                  "formatted": "143,000"
+                }
+              }
+            ],
+            "metadata": {
+              "feeds": [
+                {
+                  "id": "dimensions",
+                  "type": "dimension"
+                },
+                {
+                  "id": "measures",
+                  "type": "mainStructureMember"
+                }
+              ]
+            }
+          }
+        },
+        "widgets": {
+          "main": {
+            "properties": {},
+            "designTokens": {},
+            "dataBindings": {}
+          }
+        }
+      }
+    ],
+    "export": {
+      "includeMarkdownSummary": true,
+      "suggestedFilename": "agent-iteration"
+    }
+  }
+  </script>
+  <script src="./runtime.js"></script>
+</body>
+</html>

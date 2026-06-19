@@ -6,10 +6,11 @@
   "vendor": "Company Name",
   "license": "MIT",
   "icon": "",
+  "newInstancePrefix": "MyWidget",
   "webcomponents": [
     {
       "kind": "main",
-      "tag": "my-custom-widget",
+      "tag": "com-company-mywidget",
       "url": "widget.js",
       "integrity": "",
       "ignoreIntegrity": true

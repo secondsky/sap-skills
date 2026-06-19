@@ -194,50 +194,52 @@
      * Bind event listeners to form controls.
      */
     _bindEvents() {
+      const panel = this;
+
       // Title input
       const titleInput = this._shadowRoot.getElementById("title");
-      titleInput.addEventListener("input", (e) => {
-        this._updateProperty("title", e.target.value);
+      titleInput.addEventListener("input", function(e) {
+        panel._updateProperty("title", e.target.value);
       });
 
       // Show title checkbox
       const showTitleCheckbox = this._shadowRoot.getElementById("showTitle");
-      showTitleCheckbox.addEventListener("change", (e) => {
-        this._updateProperty("showTitle", e.target.checked);
+      showTitleCheckbox.addEventListener("change", function(e) {
+        panel._updateProperty("showTitle", e.target.checked);
       });
 
       // Primary color
       const primaryColorInput = this._shadowRoot.getElementById("primaryColor");
       const primaryColorValue = this._shadowRoot.getElementById("primaryColorValue");
-      primaryColorInput.addEventListener("input", (e) => {
+      primaryColorInput.addEventListener("input", function(e) {
         primaryColorValue.textContent = e.target.value;
-        this._updateProperty("primaryColor", e.target.value);
+        panel._updateProperty("primaryColor", e.target.value);
       });
 
       // Background color
       const bgColorInput = this._shadowRoot.getElementById("backgroundColor");
       const bgColorValue = this._shadowRoot.getElementById("backgroundColorValue");
-      bgColorInput.addEventListener("input", (e) => {
+      bgColorInput.addEventListener("input", function(e) {
         bgColorValue.textContent = e.target.value;
-        this._updateProperty("backgroundColor", e.target.value);
+        panel._updateProperty("backgroundColor", e.target.value);
       });
 
       // Font size
       const fontSizeSelect = this._shadowRoot.getElementById("fontSize");
-      fontSizeSelect.addEventListener("change", (e) => {
-        this._updateProperty("fontSize", e.target.value);
+      fontSizeSelect.addEventListener("change", function(e) {
+        panel._updateProperty("fontSize", e.target.value);
       });
 
       // Padding
       const paddingInput = this._shadowRoot.getElementById("padding");
-      paddingInput.addEventListener("input", (e) => {
-        this._updateProperty("padding", parseInt(e.target.value, 10));
+      paddingInput.addEventListener("input", function(e) {
+        panel._updateProperty("padding", parseInt(e.target.value, 10));
       });
 
       // Border radius
       const borderRadiusInput = this._shadowRoot.getElementById("borderRadius");
-      borderRadiusInput.addEventListener("input", (e) => {
-        this._updateProperty("borderRadius", parseInt(e.target.value, 10));
+      borderRadiusInput.addEventListener("input", function(e) {
+        panel._updateProperty("borderRadius", parseInt(e.target.value, 10));
       });
     }
 
@@ -249,11 +251,13 @@
      */
     _updateProperty(name, value) {
       this._props[name] = value;
+      const changedProperties = {};
+      changedProperties[name] = value;
 
       // Dispatch event to SAC framework
       this.dispatchEvent(new CustomEvent("propertiesChanged", {
         detail: {
-          properties: { [name]: value }
+          properties: changedProperties
         }
       }));
     }
@@ -261,7 +265,7 @@
     // ========== SAC Lifecycle Functions ==========
 
     onCustomWidgetBeforeUpdate(changedProperties) {
-      this._props = { ...this._props, ...changedProperties };
+      this._mergeProperties(changedProperties);
     }
 
     onCustomWidgetAfterUpdate(changedProperties) {
@@ -330,6 +334,20 @@
       }
     }
 
+    /**
+     * Merge changed properties without relying on newer syntax in generated output.
+     *
+     * @param {Object} changedProperties - Properties being changed
+     */
+    _mergeProperties(changedProperties) {
+      changedProperties = changedProperties || {};
+      for (const key in changedProperties) {
+        if (Object.prototype.hasOwnProperty.call(changedProperties, key)) {
+          this._props[key] = changedProperties[key];
+        }
+      }
+    }
+
     // ========== Property Getters/Setters ==========
 
     get title() { return this._props.title; }
@@ -354,5 +372,5 @@
     set borderRadius(v) { this._props.borderRadius = v; this._syncFormWithProperties(); }
   }
 
-  customElements.define("widget-styling-panel", WidgetStylingPanel);
+  customElements.define("com-company-widgetname-styling", WidgetStylingPanel);
 })();

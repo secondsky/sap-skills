@@ -1,0 +1,13 @@
+customer_id,company_code,document_id,fiscal_year,invoice_amount_bucket,currency,payment_terms_days,customer_age_bucket,historical_avg_delay_bucket,historical_late_count_bucket,prior_dispute_count_bucket,credit_utilization_bucket,industry_segment,paid_late
+CUST_SYN_001,COMP_SYN_1000,DOC_SYN_AR_001,2025,medium,USD,30,mature,low,none,none,medium,manufacturing,no
+CUST_SYN_002,COMP_SYN_1000,DOC_SYN_AR_002,2025,small,EUR,45,mature,medium,low,none,low,retail,no
+CUST_SYN_003,COMP_SYN_2000,DOC_SYN_AR_003,2025,large,GBP,30,new,high,medium,low,high,services,yes
+CUST_SYN_004,COMP_SYN_1000,DOC_SYN_AR_004,2025,small,USD,60,mature,low,none,none,low,technology,no
+CUST_SYN_005,COMP_SYN_2000,DOC_SYN_AR_005,2025,medium,EUR,30,growing,high,medium,medium,high,retail,yes
+CUST_SYN_006,COMP_SYN_1000,DOC_SYN_AR_006,2025,large,USD,45,mature,medium,low,none,medium,wholesale,no
+CUST_SYN_007,COMP_SYN_2000,DOC_SYN_AR_007,2025,small,CHF,30,new,high,high,medium,high,services,yes
+CUST_SYN_008,COMP_SYN_1000,DOC_SYN_AR_008,2025,medium,USD,60,mature,low,none,none,medium,manufacturing,no
+CUST_SYN_009,COMP_SYN_1000,DOC_SYN_AR_009,2025,large,EUR,45,growing,medium,medium,low,high,retail,yes
+CUST_SYN_010,COMP_SYN_2000,DOC_SYN_AR_010,2025,small,GBP,30,mature,low,none,none,low,technology,no
+CUST_SYN_011,COMP_SYN_1000,DOC_SYN_AR_011,2025,medium,USD,30,new,medium,low,low,medium,services,[PREDICT]
+CUST_SYN_012,COMP_SYN_2000,DOC_SYN_AR_012,2025,large,EUR,45,growing,high,medium,medium,high,wholesale,[PREDICT]
