@@ -14,10 +14,22 @@ function fail(message) {
 }
 
 function hookDirs() {
-  return fs.readdirSync(pluginsRoot, { withFileTypes: true })
+  const dirs = fs.readdirSync(pluginsRoot, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => path.join(pluginsRoot, entry.name, "hooks"))
-    .filter((dir) => fs.existsSync(path.join(dir, "hooks.json")) && fs.existsSync(path.join(dir, "validator.mjs")));
+    .filter((dir) => fs.existsSync(dir));
+
+  for (const dir of dirs) {
+    const rel = path.relative(repoRoot, dir).replaceAll(path.sep, "/");
+    if (!fs.existsSync(path.join(dir, "hooks.json"))) {
+      fail(`${rel}: missing hooks.json`);
+    }
+    if (!fs.existsSync(path.join(dir, "validator.mjs"))) {
+      fail(`${rel}: missing validator.mjs`);
+    }
+  }
+
+  return dirs.filter((dir) => fs.existsSync(path.join(dir, "hooks.json")) && fs.existsSync(path.join(dir, "validator.mjs")));
 }
 
 function runHook(dir, payload) {

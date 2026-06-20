@@ -84,6 +84,10 @@ function validateHookPaths() {
           continue;
         }
         for (const hook of group.hooks ?? []) {
+          if (!hook || typeof hook !== "object" || Array.isArray(hook)) {
+            fail(`${relPath(repoRoot, file)}: hooks.${eventName} hook entries must be objects`);
+            continue;
+          }
           if (hook.command !== "node") {
             fail(`${relPath(repoRoot, file)}: hook commands must use node`);
           }

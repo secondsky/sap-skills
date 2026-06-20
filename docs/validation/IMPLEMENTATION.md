@@ -113,7 +113,7 @@ npm scripts for local development:
 ```json
 {
   "scripts": {
-    "validate": "./scripts/validate-json-schemas.sh && ./scripts/validate-reserved-words.sh && ./scripts/validate-bundled-resources.mjs && ./scripts/validate-command-agent-frontmatter.mjs && ./scripts/validate-inventory.sh && ./scripts/validate-mcp-security.mjs && npm run test:hooks",
+    "validate": "./scripts/validate-json-schemas.sh && ./scripts/validate-reserved-words.sh && ./scripts/validate-bundled-resources.mjs && ./scripts/validate-command-agent-frontmatter.mjs && ./scripts/validate-inventory.sh && ./scripts/validate-mcp-security.mjs && npm run test:hooks && npm run test:hook-contracts",
     "validate:marketplace": "ajv validate -s schemas/marketplace.schema.json -d .claude-plugin/marketplace.json --all-errors",
     "validate:plugins": "./scripts/validate-json-schemas.sh",
     "validate:mcp-security": "./scripts/validate-mcp-security.mjs"
