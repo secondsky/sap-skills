@@ -31,6 +31,5 @@
     "./commands/sac-planning-checklist.md",
     "./commands/data-action-template.md",
     "./commands/seamless-planning-guide.md"
-  ],
-  "hooks": "./hooks/hooks.json"
+  ]
 }

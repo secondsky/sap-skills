@@ -43,7 +43,6 @@
     "./commands/cap-cds-reference.md",
     "./commands/cap-deployment-checklist.md"
   ],
-  "hooks": "./hooks/hooks.json",
   "mcpServers": "./.mcp.json",
   "lspServers": "./.lsp.json"
 }

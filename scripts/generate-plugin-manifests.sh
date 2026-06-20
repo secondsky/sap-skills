@@ -458,13 +458,8 @@ generate_plugin_json() {
     commands_json="$scanned_commands_json"
   fi
 
-  # Optional plugin-level sidecar configs. These paths are resolved from the
-  # plugin root by the CLI, matching commands/agents behavior.
-  local hooks_path=""
-  if [ -f "$plugin_dir/hooks/hooks.json" ]; then
-    hooks_path="./hooks/hooks.json"
-  fi
-
+  # Optional plugin-level sidecar configs. Default hooks are auto-discovered
+  # from hooks/hooks.json; do not emit a manifest hooks field.
   local mcp_servers_path=""
   if [ -f "$plugin_dir/.mcp.json" ]; then
     mcp_servers_path="./.mcp.json"
@@ -491,7 +486,6 @@ generate_plugin_json() {
     --arg category "$category" \
     --argjson agents "$agents_json" \
     --argjson commands "$commands_json" \
-    --arg hooks "$hooks_path" \
     --arg mcp_servers "$mcp_servers_path" \
     --arg lsp_servers "$lsp_servers_path" \
     '{
@@ -510,7 +504,6 @@ generate_plugin_json() {
       category: $category
     } + (if $agents != [] then {agents: $agents} else {} end)
       + (if $commands != [] then {commands: $commands} else {} end)
-      + (if $hooks != "" then {hooks: $hooks} else {} end)
       + (if $mcp_servers != "" then {mcpServers: $mcp_servers} else {} end)
       + (if $lsp_servers != "" then {lspServers: $lsp_servers} else {} end)'
   )

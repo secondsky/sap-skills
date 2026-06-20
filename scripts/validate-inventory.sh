@@ -64,7 +64,7 @@ for plugin_dir in "$REPO_ROOT/plugins"/*; do
 
   if [ -f "$plugin_dir/hooks/hooks.json" ]; then
     actual_hooks="$(jq -r '.hooks // empty' "$plugin_json")"
-    [ "$actual_hooks" = "./hooks/hooks.json" ] || fail "$plugin_name plugin.json must expose hooks: ./hooks/hooks.json"
+    [ -z "$actual_hooks" ] || fail "$plugin_name plugin.json must not declare hooks; hooks/hooks.json is auto-discovered"
   fi
 
   if [ -f "$plugin_dir/.mcp.json" ]; then
@@ -88,7 +88,7 @@ for plugin_dir in "$REPO_ROOT/plugins"/*; do
     [ "$marketplace_source" = "./plugins/$plugin_name" ] || fail "$plugin_name marketplace source must be ./plugins/$plugin_name"
 
     if [ -f "$plugin_dir/hooks/hooks.json" ]; then
-      [ "$marketplace_hooks" = "./hooks/hooks.json" ] || fail "$plugin_name marketplace entry must expose hooks: ./hooks/hooks.json"
+      [ -z "$marketplace_hooks" ] || fail "$plugin_name marketplace entry must not declare hooks; hooks/hooks.json is auto-discovered"
     fi
 
     if [ -f "$plugin_dir/.mcp.json" ]; then

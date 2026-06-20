@@ -9,7 +9,7 @@
   },
   "metadata": {
     "version": "2.3.1",
-    "last_updated": "2026-06-19",
+    "last_updated": "2026-06-20",
     "total_skills": 37,
     "categories": [
       "abap",
@@ -550,7 +550,6 @@
         "./commands/cap-cds-reference.md",
         "./commands/cap-deployment-checklist.md"
       ],
-      "hooks": "./hooks/hooks.json",
       "mcpServers": "./.mcp.json",
       "lspServers": "./.lsp.json"
     },
@@ -632,7 +631,6 @@
         "./commands/datasphere-view-template.md",
         "./commands/datasphere-mcp-tools.md"
       ],
-      "hooks": "./hooks/hooks.json",
       "mcpServers": "./.mcp.json"
     },
     {
@@ -660,8 +658,7 @@
       "license": "GPL-3.0",
       "commands": [
         "./commands/sap-dependency-upgrade-plan.md"
-      ],
-      "hooks": "./hooks/hooks.json"
+      ]
     },
     {
       "name": "sap-fiori-tools",
@@ -822,8 +819,7 @@
         "./commands/widget-validate.md",
         "./commands/widget-lint.md",
         "./commands/widget-generate.md"
-      ],
-      "hooks": "./hooks/hooks.json"
+      ]
     },
     {
       "name": "sap-sac-planning",
@@ -852,8 +848,7 @@
         "./commands/sac-planning-checklist.md",
         "./commands/data-action-template.md",
         "./commands/seamless-planning-guide.md"
-      ],
-      "hooks": "./hooks/hooks.json"
+      ]
     },
     {
       "name": "sap-sac-scripting",
@@ -885,7 +880,6 @@
         "./commands/sac-script-template.md",
         "./commands/sac-planning.md"
       ],
-      "hooks": "./hooks/hooks.json",
       "mcpServers": "./.mcp.json"
     },
     {
@@ -947,8 +941,7 @@
         "./commands/sqlscript-convert.md",
         "./commands/sqlscript-optimize.md",
         "./commands/sqlscript-setup.md"
-      ],
-      "hooks": "./hooks/hooks.json"
+      ]
     },
     {
       "name": "sapui5",
@@ -981,7 +974,6 @@
         "./commands/ui5-api.md",
         "./commands/ui5-version.md"
       ],
-      "hooks": "./hooks/hooks.json",
       "mcpServers": "./.mcp.json"
     },
     {

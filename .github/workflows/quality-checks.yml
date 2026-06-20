@@ -108,5 +108,24 @@ jobs:
       - name: Validate command and agent frontmatter
         run: ./scripts/validate-command-agent-frontmatter.mjs
 
+  hook-tests:
+    name: hook-tests (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Run hook fixture tests
-        run: ./scripts/test-hooks.sh
+        run: node ./scripts/test-hooks.mjs
+
+      - name: Run hook contract tests
+        run: node ./scripts/test-hook-contracts.mjs

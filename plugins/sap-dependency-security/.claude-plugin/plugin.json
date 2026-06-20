@@ -29,6 +29,5 @@
   "category": "tooling",
   "commands": [
     "./commands/sap-dependency-upgrade-plan.md"
-  ],
-  "hooks": "./hooks/hooks.json"
+  ]
 }

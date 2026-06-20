@@ -109,11 +109,6 @@
       ],
       "description": "Custom path(s) to agent files (supplements ./agents/ default)"
     },
-    "hooks": {
-      "type": "string",
-      "pattern": "^\\./.*\\.json$",
-      "description": "Custom path to hooks.json (default: ./hooks/hooks.json)"
-    },
     "mcpServers": {
       "type": "string",
       "pattern": "^\\./.*\\.json$",
@@ -126,6 +121,10 @@
     }
   },
   "allOf": [
+    {
+      "not": { "required": ["hooks"] },
+      "description": "Default plugin hooks are auto-discovered from hooks/hooks.json; repo-managed manifests must not declare hooks."
+    },
     {
       "if": {
         "properties": {

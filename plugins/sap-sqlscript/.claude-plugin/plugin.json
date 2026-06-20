@@ -34,6 +34,5 @@
     "./commands/sqlscript-convert.md",
     "./commands/sqlscript-optimize.md",
     "./commands/sqlscript-setup.md"
-  ],
-  "hooks": "./hooks/hooks.json"
+  ]
 }

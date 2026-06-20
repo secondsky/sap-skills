@@ -17,11 +17,11 @@ function hookDirs() {
   return fs.readdirSync(pluginsRoot, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => path.join(pluginsRoot, entry.name, "hooks"))
-    .filter((dir) => fs.existsSync(path.join(dir, "hooks.json")) && fs.existsSync(path.join(dir, "dispatch.sh")));
+    .filter((dir) => fs.existsSync(path.join(dir, "hooks.json")) && fs.existsSync(path.join(dir, "validator.mjs")));
 }
 
 function runHook(dir, payload) {
-  return spawnSync(path.join(dir, "dispatch.sh"), {
+  return spawnSync("node", [path.join(dir, "validator.mjs")], {
     input: payload,
     encoding: "utf8",
     timeout: 5000,
@@ -159,8 +159,11 @@ for (const dir of hookDirs()) {
       if (!group.matcher || typeof group.matcher !== "string") fail(`${rel}: hook matcher must be a string`);
       for (const hook of group.hooks ?? []) {
         if (hook.type !== "command") fail(`${rel}: hook type must be command`);
-        if (hook.command !== "${CLAUDE_PLUGIN_ROOT}/hooks/dispatch.sh") {
-          fail(`${rel}: hook command must use \${CLAUDE_PLUGIN_ROOT}/hooks/dispatch.sh`);
+        if (hook.command !== "node") {
+          fail(`${rel}: hook command must use node`);
+        }
+        if (!Array.isArray(hook.args) || hook.args.length !== 1 || hook.args[0] !== "${CLAUDE_PLUGIN_ROOT}/hooks/validator.mjs") {
+          fail(`${rel}: hook args must use \${CLAUDE_PLUGIN_ROOT}/hooks/validator.mjs`);
         }
         if (!Number.isInteger(hook.timeout) || hook.timeout < 1 || hook.timeout > 60) fail(`${rel}: hook timeout must be 1-60 seconds`);
       }

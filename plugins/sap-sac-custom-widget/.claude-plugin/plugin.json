@@ -33,6 +33,5 @@
     "./commands/widget-validate.md",
     "./commands/widget-lint.md",
     "./commands/widget-generate.md"
-  ],
-  "hooks": "./hooks/hooks.json"
+  ]
 }
