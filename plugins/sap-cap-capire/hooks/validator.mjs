@@ -245,6 +245,21 @@ function parseJsonObject(text) {
   }
 }
 
+function parseJsonObjectFromCollectedText(text) {
+  const direct = parseJsonObject(text);
+  if (direct) {
+    return direct;
+  }
+
+  const firstBrace = text.indexOf("{");
+  const lastBrace = text.lastIndexOf("}");
+  if (firstBrace === -1 || lastBrace <= firstBrace) {
+    return null;
+  }
+
+  return parseJsonObject(text.slice(firstBrace, lastBrace + 1));
+}
+
 function webcomponentUrlsPointToNonJavascript(manifest) {
   if (!manifest || !Array.isArray(manifest.webcomponents)) {
     return false;
@@ -259,6 +274,65 @@ function webcomponentUrlsPointToNonJavascript(manifest) {
 
 function webcomponentUrlsTextPointToNonJavascript(text) {
   return /"webcomponents"\s*:\s*\[[\s\S]*?"url"\s*:\s*"[^"]+\.(?:css|html?)(?:[?#][^"]*)?"/i.test(text);
+}
+
+function webcomponentUrlPackagingWarnings(manifest) {
+  const warnings = [];
+  if (!manifest || !Array.isArray(manifest.webcomponents)) {
+    return warnings;
+  }
+
+  let hasWindowsPath = false;
+  let hasInsecureHttp = false;
+  let hasBareLocalJs = false;
+
+  for (const component of manifest.webcomponents) {
+    if (!component || typeof component.url !== "string") {
+      continue;
+    }
+    const url = component.url.trim();
+    if (url.includes("\\")) {
+      hasWindowsPath = true;
+    }
+    if (/^http:\/\//i.test(url)) {
+      hasInsecureHttp = true;
+    }
+    if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(url) && !url.startsWith("/") && /\.js(?:[?#].*)?$/i.test(url)) {
+      hasBareLocalJs = true;
+    }
+  }
+
+  if (hasWindowsPath) {
+    warnings.push("SAC widget manifest webcomponents[].url must use URL paths with forward slashes, not Windows backslashes.");
+  }
+  if (hasInsecureHttp) {
+    warnings.push("SAC widget manifest webcomponents[].url should use HTTPS for external hosting.");
+  }
+  if (hasBareLocalJs) {
+    warnings.push("SAC-hosted Resource-ZIP manifests should use root-relative webcomponents[].url values such as /widget.js; reserve bare widget.js paths for local previews or explicitly documented public-file hosting.");
+  }
+
+  return warnings;
+}
+
+function colorPropertyPortabilityWarnings(manifest) {
+  if (!manifest || !manifest.properties || typeof manifest.properties !== "object" || Array.isArray(manifest.properties)) {
+    return [];
+  }
+
+  for (const [name, definition] of Object.entries(manifest.properties)) {
+    if (!definition || typeof definition !== "object" || Array.isArray(definition)) {
+      continue;
+    }
+    const propertyType = typeof definition.type === "string" ? definition.type : "";
+    const defaultValue = typeof definition.default === "string" ? definition.default.trim() : "";
+    const looksLikeSimpleColor = /(?:color|background|bg)$/i.test(name) || /^#[0-9a-f]{3,8}$/i.test(defaultValue);
+    if (propertyType.toLowerCase() === "color" && looksLikeSimpleColor) {
+      return ["Use string properties with hex defaults for simple configurable colors; only use the Color type after the target SAC tenant and panel flow accepts it."];
+    }
+  }
+
+  return [];
 }
 
 function hasUnapprovedRemoteCssAsset(text) {
@@ -284,9 +358,12 @@ function detectCustomWidgetGenerationWarnings(text, textLower, filePathLower) {
   const warnings = [];
 
   if (filePathLower.endsWith("widget.json")) {
-    if (webcomponentUrlsPointToNonJavascript(parseJsonObject(text)) || webcomponentUrlsTextPointToNonJavascript(text)) {
+    const manifest = parseJsonObjectFromCollectedText(text);
+    if (webcomponentUrlsPointToNonJavascript(manifest) || webcomponentUrlsTextPointToNonJavascript(text)) {
       warnings.push("SAC widget manifest webcomponents[].url should point to JavaScript component files, not CSS or HTML resources.");
     }
+    warnings.push(...webcomponentUrlPackagingWarnings(manifest));
+    warnings.push(...colorPropertyPortabilityWarnings(manifest));
 
     if (/"methods"\s*:\s*\[/i.test(text)) {
       warnings.push("SAC widget manifest methods must be an object, not an array.");

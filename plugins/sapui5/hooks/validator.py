@@ -207,6 +207,19 @@ def parse_json_object(text: str) -> Optional[Dict[str, Any]]:
     return parsed if isinstance(parsed, dict) else None
 
 
+def parse_json_object_from_collected_text(text: str) -> Optional[Dict[str, Any]]:
+    direct = parse_json_object(text)
+    if direct:
+        return direct
+
+    first_brace = text.find("{")
+    last_brace = text.rfind("}")
+    if first_brace == -1 or last_brace <= first_brace:
+        return None
+
+    return parse_json_object(text[first_brace:last_brace + 1])
+
+
 def webcomponent_urls_point_to_non_javascript(manifest: Optional[Dict[str, Any]]) -> bool:
     if not manifest or not isinstance(manifest.get("webcomponents"), list):
         return False
@@ -220,6 +233,52 @@ def webcomponent_urls_point_to_non_javascript(manifest: Optional[Dict[str, Any]]
 
 def webcomponent_urls_text_point_to_non_javascript(text: str) -> bool:
     return bool(re.search(r'"webcomponents"\s*:\s*\[[\s\S]*?"url"\s*:\s*"[^"]+\.(?:css|html?)(?:[?#][^"]*)?"', text, flags=re.IGNORECASE))
+
+
+def webcomponent_url_packaging_warnings(manifest: Optional[Dict[str, Any]]) -> List[str]:
+    warnings: List[str] = []
+    if not manifest or not isinstance(manifest.get("webcomponents"), list):
+        return warnings
+
+    has_windows_path = False
+    has_insecure_http = False
+    has_bare_local_js = False
+
+    for component in manifest["webcomponents"]:
+        if not isinstance(component, dict) or not isinstance(component.get("url"), str):
+            continue
+        url = component["url"].strip()
+        if "\\" in url:
+            has_windows_path = True
+        if re.search(r"^http://", url, flags=re.IGNORECASE):
+            has_insecure_http = True
+        if not re.search(r"^[a-z][a-z0-9+.-]*://", url, flags=re.IGNORECASE) and not url.startswith("/") and re.search(r"\.js(?:[?#].*)?$", url, flags=re.IGNORECASE):
+            has_bare_local_js = True
+
+    if has_windows_path:
+        warnings.append("SAC widget manifest webcomponents[].url must use URL paths with forward slashes, not Windows backslashes.")
+    if has_insecure_http:
+        warnings.append("SAC widget manifest webcomponents[].url should use HTTPS for external hosting.")
+    if has_bare_local_js:
+        warnings.append("SAC-hosted Resource-ZIP manifests should use root-relative webcomponents[].url values such as /widget.js; reserve bare widget.js paths for local previews or explicitly documented public-file hosting.")
+
+    return warnings
+
+
+def color_property_portability_warnings(manifest: Optional[Dict[str, Any]]) -> List[str]:
+    if not manifest or not isinstance(manifest.get("properties"), dict):
+        return []
+
+    for name, definition in manifest["properties"].items():
+        if not isinstance(definition, dict):
+            continue
+        property_type = definition.get("type") if isinstance(definition.get("type"), str) else ""
+        default_value = definition.get("default").strip() if isinstance(definition.get("default"), str) else ""
+        looks_like_simple_color = bool(re.search(r"(?:color|background|bg)$", name, flags=re.IGNORECASE) or re.match(r"^#[0-9a-f]{3,8}$", default_value, flags=re.IGNORECASE))
+        if property_type.lower() == "color" and looks_like_simple_color:
+            return ["Use string properties with hex defaults for simple configurable colors; only use the Color type after the target SAC tenant and panel flow accepts it."]
+
+    return []
 
 
 def has_unapproved_remote_css_asset(text: str) -> bool:
@@ -251,8 +310,11 @@ def detect_custom_widget_generation_warnings(text: str, text_lower: str, file_pa
     warnings: List[str] = []
 
     if file_path_lower.endswith("widget.json"):
-        if webcomponent_urls_point_to_non_javascript(parse_json_object(text)) or webcomponent_urls_text_point_to_non_javascript(text):
+        manifest = parse_json_object_from_collected_text(text)
+        if webcomponent_urls_point_to_non_javascript(manifest) or webcomponent_urls_text_point_to_non_javascript(text):
             warnings.append("SAC widget manifest webcomponents[].url should point to JavaScript component files, not CSS or HTML resources.")
+        warnings.extend(webcomponent_url_packaging_warnings(manifest))
+        warnings.extend(color_property_portability_warnings(manifest))
 
         if re.search(r'"methods"\s*:\s*\[', text, flags=re.IGNORECASE):
             warnings.append("SAC widget manifest methods must be an object, not an array.")

@@ -160,6 +160,15 @@ const dependencySafePayload = `{
   }
 }`;
 
+const sacHostedWidgetImportPayload = `{
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Write",
+  "tool_input": {
+    "file_path": "webcomponent/widget.json",
+    "content": "{\\"id\\":\\"com.company.menunavigation\\",\\"version\\":\\"1.0.0\\",\\"name\\":\\"Menu Navigation\\",\\"vendor\\":\\"Company\\",\\"webcomponents\\":[{\\"kind\\":\\"main\\",\\"tag\\":\\"com-company-menu-navigation\\",\\"url\\":\\"widget.js\\"},{\\"kind\\":\\"builder\\",\\"tag\\":\\"com-company-menu-navigation-builder\\",\\"url\\":\\"builder.js\\"},{\\"kind\\":\\"styling\\",\\"tag\\":\\"com-company-menu-navigation-styling\\",\\"url\\":\\"styling.js\\"}],\\"properties\\":{\\"defaultTileBackground\\":{\\"type\\":\\"Color\\",\\"default\\":\\"#f4f7fa\\"},\\"defaultTextColor\\":{\\"type\\":\\"Color\\",\\"default\\":\\"#1f2937\\"},\\"defaultIconColor\\":{\\"type\\":\\"Color\\",\\"default\\":\\"#2563eb\\"}},\\"methods\\":{},\\"events\\":{}}"
+  }
+}`;
+
 assertContains("SQLScript DELETE without statement WHERE", runHook("sap-sqlscript", sqlDeletePayload), "DELETE statement appears without WHERE clause");
 assertContains("Datasphere UPDATE without statement WHERE", runHook("sap-datasphere", sqlUpdatePayload), "UPDATE statement appears without WHERE clause");
 assertEmptyJson("SQLScript DELETE with statement WHERE", runHook("sap-sqlscript", safeSqlPayload));
@@ -170,6 +179,8 @@ assertContains("Dependency @latest blocked", runHook("sap-dependency-security", 
 assertContains("Dependency bare MCP package blocked", runHook("sap-dependency-security", dependencyBarePayload), "MCP executable is not exact-pinned");
 assertContains("Dependency credential literal blocked", runHook("sap-dependency-security", dependencySecretPayload), "Credential-like literal detected");
 assertEmptyJson("Dependency exact pin and env placeholder allowed", runHook("sap-dependency-security", dependencySafePayload));
+assertContains("SAC-hosted widget import packaging guidance", runHook("sap-sac-custom-widget", sacHostedWidgetImportPayload), "SAC-hosted Resource-ZIP manifests should use root-relative webcomponents[].url values");
+assertContains("SAC color property portability guidance", runHook("sap-sac-custom-widget", sacHostedWidgetImportPayload), "Use string properties with hex defaults for simple configurable colors");
 
 function findHookFiles(fileName) {
   return fs.readdirSync(path.join(repoRoot, "plugins"), { withFileTypes: true })

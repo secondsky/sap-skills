@@ -1,0 +1,8 @@
+{
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Write",
+  "tool_input": {
+    "file_path": "webcomponent/widget.json",
+    "content": "{\"id\":\"com.company.menunavigation\",\"version\":\"1.0.0\",\"name\":\"Menu Navigation\",\"vendor\":\"Company\",\"webcomponents\":[{\"kind\":\"main\",\"tag\":\"com-company-menu-navigation\",\"url\":\"widget.js\"},{\"kind\":\"builder\",\"tag\":\"com-company-menu-navigation-builder\",\"url\":\"builder.js\"},{\"kind\":\"styling\",\"tag\":\"com-company-menu-navigation-styling\",\"url\":\"styling.js\"}],\"properties\":{\"defaultTileBackground\":{\"type\":\"Color\",\"default\":\"#f4f7fa\"},\"defaultTextColor\":{\"type\":\"Color\",\"default\":\"#1f2937\"},\"defaultIconColor\":{\"type\":\"Color\",\"default\":\"#2563eb\"}},\"methods\":{},\"events\":{}}"
+  }
+}

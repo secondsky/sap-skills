@@ -10,12 +10,12 @@ metadata:
   version: "2.3.2"
   last_verified: 2026-06-12
   sac_version: "2026.8"
-  errors_prevented: 25+
+  errors_prevented: 40+
   official_docs:
     - "https://help.sap.com/docs/SAP_ANALYTICS_CLOUD/0ac8c6754ff84605a4372468d002f2bf/75311f67527c41638ceb89af9cd8af3e.html"
     - "https://help.sap.com/doc/c813a28922b54e50bd2a307b099787dc/release/en-US/CustomWidgetDevGuide_en.pdf"
   samples_repo: "https://github.com/SAP-samples/analytics-cloud-datasphere-community-content/tree/main/SAC_Custom_Widgets"
-  keywords: [sap analytics cloud, sac custom widget, web component sac, json metadata widget, widget lifecycle functions, onCustomWidgetBeforeUpdate, onCustomWidgetAfterUpdate, onCustomWidgetResize, onCustomWidgetDestroy, sac data binding, dataBindings feeds, styling panel widget, builder panel widget, sac echarts integration, sac d3js integration, third party library sac, widget hosting sac, integrity hash widget, sha256 integrity, widget security cors, sac widget debugging, sac analytics designer widget, optimized story experience widget, sac widget api, widget add-on, sac script api widget, shadow dom web component, sac tooltip customization, plot area addon]
+  keywords: [sap analytics cloud, sac custom widget, web component sac, json metadata widget, widget lifecycle functions, onCustomWidgetBeforeUpdate, onCustomWidgetAfterUpdate, onCustomWidgetResize, onCustomWidgetDestroy, sac data binding, dataBindings feeds, styling panel widget, builder panel widget, sac echarts integration, sac d3js integration, third party library sac, widget hosting sac, integrity hash widget, sha256 integrity, widget security cors, sac widget debugging, sac analytics designer widget, optimized story experience widget, sac widget api, widget add-on, sac script api widget, shadow dom web component, sac tooltip customization, plot area addon, sac resource zip upload, root relative widget url, resource file upload, builder focus collapse state, self contained component js, resource zip artifact naming, chat download artifacts]
 allowed-tools:
   - Read
   - Bash
@@ -36,6 +36,7 @@ allowed-tools:
 - [AI-Assisted Generation](#ai-assisted-generation)
 - [Browser Design Runtime](#browser-design-runtime)
 - [CSS and Styling Compliance](#css-and-styling-compliance)
+- [SAC Import and Packaging](#sac-import-and-packaging)
 - [Plugin Components](#plugin-components)
 - [Quick Start](#quick-start)
 - [Community Sample Widgets](#community-sample-widgets)
@@ -80,6 +81,14 @@ Generated widget packages should include **`templates/design-runtime/`** as a no
 ## CSS and Styling Compliance
 
 Style custom widgets inside their Web Component/Shadow DOM boundary. Do not rely on SAC optimized story theme CSS, SAP shell selectors, or global story CSS to style widget internals. For generated packages, confirm the hosting mode before splitting CSS/HTML into separate files, because SAC ZIP upload packages support component JavaScript and PNG/JPG icons only. See **`references/css-and-styling-compliance.md`** for SAP Help-backed allowed/restricted styling rules.
+
+---
+
+## SAC Import and Packaging
+
+Decide the delivery mode before generating `widget.json`: SAC Resource-ZIP upload and external HTTPS hosting use different URL rules. For SAC Resource-ZIP upload, deliver `widget.json` separately, upload it first, and only then upload a Resource-ZIP containing root-level component JavaScript files such as `widget.js`, `builder.js`, and `styling.js`. Do not include `widget.json`, subfolders, tests, README files, CSS, or HTML in that Resource-ZIP.
+
+For Resource-ZIP manifests, use root-relative component URLs such as `"/widget.js"`; for external hosting, use complete HTTPS URLs. Keep local-preview paths like `"widget.js"` in preview-only configs unless the target SAC flow explicitly documents that resolution mode. Model simple configurable colors as `string` properties with hex defaults such as `"#f4f7fa"`; use the `Color` type only after the exact SAC tenant and target panel flow accepts it. Browser preview and Node tests are useful, but they are not proof of SAC importability. For widgets with builder/styling panels, preserve focus and collapse state during text edits, keep component JS self-contained, and validate final `outputs/` artifacts rather than source-only previews. When the widget is done, the final chat response must offer both completed upload artifacts for download: the `widget.json` manifest and the Resource-ZIP. See **`references/sac-import-packaging-lessons.md`** for upload sequence, ZIP content checks, final-artifact tests, builder/tree rules, final download handoff, and SAC error triage.
 
 ---
 
@@ -304,7 +313,8 @@ for (let i = 0; i < this.myDataBinding.data.length; i++) {
 
 **1. SAC-Hosted (Recommended, QRC Q2 2023+)**
 - Upload files directly to SAC > Files > Public Files
-- Use SAC/browser URL paths with `/` separators, for example `"/Public/widget.js"` or `"widget.js"`; do not use local Windows backslashes in manifest URLs
+- For Resource-ZIP upload flows, upload `widget.json` first, then upload a separate Resource-ZIP when SAC enables the Resource File button
+- For Resource-ZIP upload flows, use root-relative URLs such as `"/widget.js"`; do not use local Windows backslashes or bare local preview paths in the production manifest
 - Set `"integrity": ""` and `"ignoreIntegrity": true`
 
 **2. GitHub Pages**
@@ -344,6 +354,13 @@ openssl dgst -sha256 -binary widget.js | openssl base64 -A
 | Widget not appearing | Missing connectedCallback render | Call render in onCustomWidgetAfterUpdate |
 | Properties not updating | Missing propertiesChanged dispatch | Use dispatchEvent with propertiesChanged |
 | Data not displaying | Data binding misconfigured | Verify feeds in JSON match usage |
+| `"Color" is not a valid type` or default expected as Color | Tenant/import flow rejected simple color properties | Use `string` plus hex defaults for simple configurable colors |
+| Main component could not be loaded | Resource URL, ZIP content, or JS syntax problem | Check root-relative `webcomponents[].url`, Resource-ZIP root contents, then `node --check` |
+| Resource File upload is disabled | `widget.json` has not validated yet | Upload and validate `widget.json` first, then upload the Resource-ZIP |
+| Resource-ZIP imports/later load fails | ZIP contains manifest, folders, CSS/HTML, or unrelated files | Keep only root-level JS component files and optional PNG/JPG icons |
+| Builder input loses focus or collapse state | Text edits trigger full render | Update field/row/JSON text directly; reserve full render for structural changes |
+| Preview works but SAC component fails standalone | Preview depends on a shared source helper not present in bundled JS | Test final `widget.js`, `builder.js`, and `styling.js` without preview-only helper scripts |
+| Duplicate menu items collide | Subtree duplicate rewrote only root ID | Rewrite descendant IDs and test uniqueness across the whole tree |
 
 ---
 
@@ -411,6 +428,7 @@ See **`references/widget-addon-guide.md`** for complete implementation.
 9. **`references/ai-assisted-composite-generation.md`** - Prompt-driven generation, RAG, brand styling, validation, and composite-ready output guidance
 10. **`references/browser-design-runtime.md`** - Non-SAP browser preview runtime, sidecar config, and agent iteration export
 11. **`references/css-and-styling-compliance.md`** - SAP Help-backed CSS, theme, Shadow DOM, and packaging guidance for generated widgets
+12. **`references/sac-import-packaging-lessons.md`** - SAC-hosted Resource-ZIP upload sequence, URL rules, ZIP hygiene, builder/tree state rules, self-contained component checks, final-artifact tests, and SAC error triage
 
 ---
 
@@ -428,6 +446,13 @@ See **`references/widget-addon-guide.md`** for complete implementation.
 ---
 
 ## Version History
+
+**v2.3.2** (2026-07-06)
+- Added SAC Resource-ZIP import lessons from the Configurable Menu Navigation project
+- Clarified separate `widget.json` and Resource-ZIP upload flow, root-relative SAC-hosted URLs, Resource-ZIP content hygiene, and simple color property portability
+- Added hook warnings for bare Resource-ZIP component URLs and risky `Color` property usage
+- Expanded Configurable Menu Navigation lessons for builder focus/collapse state, tree duplicate ID rewrites, self-contained component JS, preview parity, stale panel cleanup, layout/styling property sync, safe output cleanup, and artifact naming
+- Required final chat handoff to offer both the `widget.json` manifest and Resource-ZIP as separate downloadable artifacts
 
 **v2.1.0** (2026-06-12)
 - Refreshed to SAC Q2 2026 (version 2026.8)
