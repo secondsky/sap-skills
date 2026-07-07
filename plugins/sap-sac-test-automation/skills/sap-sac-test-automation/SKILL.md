@@ -90,7 +90,7 @@ Load these references only as needed:
 - `references/architecture.md`: hybrid architecture, feasibility boundaries, reliable SAC test categories, and reusable project shape.
 - `references/tool-availability-and-deployment.md`: backend decision matrix, Windows/restricted-environment checks, Firecrawl public-research policy, and no-tool fallbacks.
 - `references/chrome-devtools-mcp.md`: Chrome DevTools MCP modes, SAC-safe configuration, tool categories, CLI usage, Windows/restricted deployment, and enterprise safety boundaries.
-- `references/edge-cdp-enterprise.md`: installed Microsoft Edge/CDP discovery, Chrome DevTools MCP Edge patterns, profile safety, loopback-only CDP, and Windows/macOS launch checks.
+- `references/edge-cdp-enterprise.md`: installed Microsoft Edge/CDP discovery, Chrome DevTools MCP Edge patterns, profile safety, loopback-only CDP, Windows/macOS launch checks, and `DevToolsActivePort` fallback when Edge reports a running server but `/json/version` or `/json/list` returns `404`.
 - `references/dashboard-profiles-and-scenarios.md`: dashboard profile contract, scenario contract, adapter responsibilities, and onboarding flow.
 - `references/agent-browser-discovery.md`: optional agent-browser read-only discovery workflow, command patterns, output artifacts, and human review checklist.
 - `references/playwright-execution.md`: Playwright test runner guidance, auth, readiness, CI stages, and test category policy.
@@ -114,6 +114,7 @@ When implementing against a live project, also inspect the project's existing Pl
 - Do not use Chrome DevTools MCP as the audited CI release gate. Use it for discovery/debugging; convert approved findings into profile-driven Playwright tests.
 - Do not run Chrome DevTools MCP against private SAC without disabling usage statistics, update checks, and CrUX field-data lookups, and without applying profile, URL, screenshot, and network-output controls.
 - Do not expose CDP beyond loopback, publish `webSocketDebuggerUrl`, attach to a daily user browser profile, or bypass Edge `RemoteDebuggingAllowed` policy.
+- Do not treat `/json/version` or `/json/list` returning `404` as proof that Edge CDP is unusable; read `DevToolsActivePort` and use the direct browser WebSocket only when the harness supports it.
 - Do not send authenticated SAC tenant pages, screenshots, HARs, cookies, storage state, internal URLs, customer data, or private company docs to Firecrawl unless the exact deployment and retention mode are approved.
 - Do not assume SAC optimized story features, tenant configuration, live data, localization, or prompt persistence behave identically across customers.
 

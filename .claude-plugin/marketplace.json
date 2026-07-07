@@ -604,7 +604,7 @@
     {
       "name": "sap-datasphere",
       "source": "./plugins/sap-datasphere",
-      "description": "SAP Datasphere development skill with 3 specialized agents, 5 slash commands, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections, managing spaces and users, implementing data access controls, or using the datasphere CLI. Covers Data Builder, Business Builder, analytic models, 40+ connection types, real-time replication, task chains, content transport, and data marketplace.",
+      "description": "SAP Datasphere development skill with 3 specialized agents, 5 slash commands, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections, managing spaces and users, implementing data access controls, using the datasphere CLI, or inspecting authenticated Datasphere browser UI state with Microsoft Edge CDP. Covers Data Builder, Business Builder, analytic models, 40+ connection types, real-time replication, task chains, content transport, and data marketplace.",
       "version": "2.3.2",
       "category": "data-analytics",
       "keywords": [
@@ -824,7 +824,7 @@
     {
       "name": "sap-sac-planning",
       "source": "./plugins/sap-sac-planning",
-      "description": "SAP Analytics Cloud (SAC) planning guidance for planning models, planning-enabled stories, data actions, multi actions, version management, data locking, calendar/input workflows, allocations, value driver trees, BPC live planning, and Seamless Planning with SAP Datasphere. Use this for planning design, planning APIs, data action debugging, and planning performance reviews; use sap-sac-scripting for non-planning SAC scripts and sap-datasphere for Datasphere modeling.",
+      "description": "SAP Analytics Cloud (SAC) planning guidance for planning models, planning-enabled stories, data actions, multi actions, version management, data locking, calendar/input workflows, allocations, value driver trees, BPC live planning, and Seamless Planning with SAP Datasphere. Use this for planning design, planning APIs, data action debugging, planning performance reviews, and authenticated SAC planning story triage in Microsoft Edge via CDP; use sap-sac-scripting for non-planning SAC scripts and sap-datasphere for Datasphere modeling.",
       "version": "2.3.2",
       "category": "data-analytics",
       "keywords": [
@@ -853,7 +853,7 @@
     {
       "name": "sap-sac-scripting",
       "source": "./plugins/sap-sac-scripting",
-      "description": "Comprehensive SAC scripting skill for SAP Analytics Cloud Analytics Designer and Optimized Story Experience. This skill should be used when the user asks to \"create SAC script\", \"debug Analytics Designer\", \"optimize SAC performance\", \"planning operations in SAC\", \"filter data in SAC\", \"use DataSource API\", \"chart scripting\", \"table manipulation\", \"SAC event handlers\", \"version management\", \"data locking\", \"Optimized Story Experience API\", \"OSE scripting\", \"OSE widget API\", \"OSE DataSource\", \"story scripting API\", \"OSE planning API\", \"OSE method\", \"optimized story\", \"SAC story scripting\", \"story script\", \"SAC scripting\", or works with SAC widgets, planning models, or analytics applications.",
+      "description": "Comprehensive SAC scripting skill for SAP Analytics Cloud Analytics Designer and Optimized Story Experience. This skill should be used when the user asks to \"create SAC script\", \"debug Analytics Designer\", \"optimize SAC performance\", \"planning operations in SAC\", \"filter data in SAC\", \"use DataSource API\", \"chart scripting\", \"table manipulation\", \"SAC event handlers\", \"version management\", \"data locking\", \"Optimized Story Experience API\", \"OSE scripting\", \"OSE widget API\", \"OSE DataSource\", \"story scripting API\", \"OSE planning API\", \"OSE method\", \"optimized story\", \"SAC story scripting\", \"story script\", \"SAC scripting\", \"debug SAC runtime in Microsoft Edge via CDP\", or works with SAC widgets, planning models, or analytics applications.",
       "version": "2.3.2",
       "category": "data-analytics",
       "keywords": [
@@ -914,7 +914,7 @@
     {
       "name": "sap-sqlscript",
       "source": "./plugins/sap-sqlscript",
-      "description": "This skill should be used when the user asks to \"write a SQLScript procedure\", \"create HANA stored procedure\", \"implement AMDP method\", \"optimize SQLScript performance\", \"handle SQLScript exceptions\", \"debug HANA procedure\", \"create table function\", or mentions SQLScript, SAP HANA procedures, AMDP, EXIT HANDLER, or code-to-data paradigm. Comprehensive SQLScript development guidance for SAP HANA database programming including syntax patterns, built-in functions, exception handling, performance optimization, cursor management, and ABAP Managed Database Procedure (AMDP) integration.",
+      "description": "This skill should be used when the user asks to \"write a SQLScript procedure\", \"create HANA stored procedure\", \"implement AMDP method\", \"optimize SQLScript performance\", \"handle SQLScript exceptions\", \"debug HANA procedure\", \"create table function\", \"inspect a browser-based Datasphere SQL editor with Microsoft Edge CDP\", or mentions SQLScript, SAP HANA procedures, AMDP, EXIT HANDLER, or code-to-data paradigm. Comprehensive SQLScript development guidance for SAP HANA database programming including syntax patterns, built-in functions, exception handling, performance optimization, cursor management, and ABAP Managed Database Procedure (AMDP) integration.",
       "version": "2.3.2",
       "category": "data-analytics",
       "keywords": [

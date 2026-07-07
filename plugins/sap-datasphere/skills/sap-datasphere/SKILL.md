@@ -1,6 +1,6 @@
 ---
 name: sap-datasphere
-description: "SAP Datasphere development skill with 3 specialized agents, 5 slash commands, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections, managing spaces and users, implementing data access controls, or using the datasphere CLI. Covers Data Builder, Business Builder, analytic models, 40+ connection types, real-time replication, task chains, content transport, and data marketplace."
+description: "SAP Datasphere development skill with 3 specialized agents, 5 slash commands, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections, managing spaces and users, implementing data access controls, using the datasphere CLI, or inspecting authenticated Datasphere browser UI state with Microsoft Edge CDP. Covers Data Builder, Business Builder, analytic models, 40+ connection types, real-time replication, task chains, content transport, and data marketplace."
 license: GPL-3.0
 metadata:
   maintainer: "Eduard Jiglau"
@@ -59,6 +59,9 @@ This skill provides comprehensive guidance for data acquisition, preparation, mo
 - Managing spaces, users, and access controls
 - Implementing real-time data replication
 - Monitoring data integration tasks
+- Inspecting authenticated Datasphere browser UI state in Microsoft Edge when MCP, CLI, logs, or exported artifacts cannot observe the needed state
+
+For Datasphere browser triage in Microsoft Edge, load `references/edge-cdp-control.md`. Use CDP for local read-only inspection of Data Builder, Business Builder, monitoring, connection, catalog, and admin UI state; ask before saving, deploying, deleting, importing, exporting, running task chains, or changing users/roles.
 
 ---
 
@@ -608,6 +611,7 @@ For transport procedures, see `references/content-transport.md`.
 **MCP Integration:**
 16. **`references/mcp-tools-reference.md`** - Complete MCP tool reference, 45 tools across 8 categories, API documentation, authentication patterns
 17. **`references/mcp-use-cases.md`** - 8 illustrative source-material use cases with personas and planning assumptions
+18. **`references/edge-cdp-control.md`** - Microsoft Edge CDP setup, `DevToolsActivePort` fallback, Datasphere browser UI triage, and safety rules
 
 ### MCP Reference Routing
 
@@ -719,6 +723,7 @@ plugins/sap-datasphere/
             ├── whats-new-2026.md
             ├── business-data-cloud.md
             ├── mcp-tools-reference.md    # MCP technical reference
+            ├── edge-cdp-control.md       # Edge CDP browser triage
 ```
 
 ## Documentation Links

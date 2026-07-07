@@ -1,7 +1,7 @@
 ---
 name: sap-sac-planning
 description: |
-  SAP Analytics Cloud (SAC) planning guidance for planning models, planning-enabled stories, data actions, multi actions, version management, data locking, calendar/input workflows, allocations, value driver trees, BPC live planning, and Seamless Planning with SAP Datasphere. Use this for planning design, planning APIs, data action debugging, and planning performance reviews; use sap-sac-scripting for non-planning SAC scripts and sap-datasphere for Datasphere modeling.
+  SAP Analytics Cloud (SAC) planning guidance for planning models, planning-enabled stories, data actions, multi actions, version management, data locking, calendar/input workflows, allocations, value driver trees, BPC live planning, and Seamless Planning with SAP Datasphere. Use this for planning design, planning APIs, data action debugging, planning performance reviews, and authenticated SAC planning story triage in Microsoft Edge via CDP; use sap-sac-scripting for non-planning SAC scripts and sap-datasphere for Datasphere modeling.
 license: GPL-3.0
 metadata:
   maintainer: "Eduard Jiglau"
@@ -12,7 +12,7 @@ metadata:
   sac_version: "2026.8"
   documentation_source: "https://help.sap.com/docs/SAP_ANALYTICS_CLOUD/00f68c2e08b941f081002fd3691d86a7"
   api_reference: "https://help.sap.com/doc/958d4c11261f42e992e8d01a4c0dde25/2026.8/en-US/index.html"
-  reference_files: 25
+  reference_files: 26
   status: docs_audited_runtime_pending
 ---
 
@@ -35,11 +35,14 @@ Comprehensive skill for building enterprise planning applications with SAP Analy
 - Modeling & governance: `references/modeling-basics.md`, `references/version-management.md`, `references/version-edit-modes.md`, `references/version-publishing-notes.md`
 - Calculations & intelligence: `references/advanced-formulas.md`, `references/predictive-conversion.md`, `references/ai-planning-analytics.md`, `references/api-snippets.md`
 - Workflow aids: `references/input-tasks.md`, `references/job-monitoring.md`
+- Browser triage: `references/edge-cdp-control.md` for Microsoft Edge CDP setup, `DevToolsActivePort` fallback, planning writeback safety, and target selection
 - **Added in 2025**: `references/seamless-planning-datasphere.md`, `references/bpc-live-connection.md`, `references/value-driver-trees.md`, `references/data-action-tracing.md`
 - **New in 2026**: `references/whats-new-2026-planning.md`
 - Ready-to-use templates: `templates/data-action-checklist.md`, `templates/multi-action-checklist.md`, `templates/parameter-table.md`
 
 Use these to keep instructions concise in this file while deep-dives remain one click away.
+
+For authenticated SAC planning browser inspection in Microsoft Edge, load `references/edge-cdp-control.md`. Use CDP for local read-only triage of planning tables, console errors, data action status, and approved screenshots; require explicit approval before any writeback, publish, data action, multi action, or lock-changing interaction.
 
 ---
 
@@ -923,7 +926,7 @@ console.log("Lock state: " + lockState);
 
 ## Bundled Reference Files
 
-This skill includes comprehensive reference documentation (25 files):
+This skill includes comprehensive reference documentation (26 files):
 
 **API & Scripting**:
 1. **references/api-reference.md**: Complete Analytics Designer API for planning
@@ -956,15 +959,16 @@ This skill includes comprehensive reference documentation (25 files):
 18. **references/javascript-patterns.md**: Code snippets, patterns, best practices
 19. **references/modeling-basics.md**: Planning model fundamentals
 20. **references/data-locking.md**: Configure and manage data locks
+21. **references/edge-cdp-control.md**: Microsoft Edge CDP setup, `DevToolsActivePort` fallback, and SAC planning browser triage safety
 
 **New in 2025**:
-21. **references/seamless-planning-datasphere.md**: Seamless Planning architecture, prerequisites, configuration with SAP Datasphere
-22. **references/bpc-live-connection.md**: BPC Embedded live connection, planning sequences, master data planning
-23. **references/value-driver-trees.md**: Value driver tree setup, node configuration, JavaScript API
-24. **references/data-action-tracing.md**: Data action tracing, tracepoints, debugging techniques
+22. **references/seamless-planning-datasphere.md**: Seamless Planning architecture, prerequisites, configuration with SAP Datasphere
+23. **references/bpc-live-connection.md**: BPC Embedded live connection, planning sequences, master data planning
+24. **references/value-driver-trees.md**: Value driver tree setup, node configuration, JavaScript API
+25. **references/data-action-tracing.md**: Data action tracing, tracepoints, debugging techniques
 
 **New in 2026**:
-25. **references/whats-new-2026-planning.md**: QRC1 and QRC2 2026 planning features, asymmetric reporting, composite versioning, AI-assisted data actions, API enhancements
+26. **references/whats-new-2026-planning.md**: QRC1 and QRC2 2026 planning features, asymmetric reporting, composite versioning, AI-assisted data actions, API enhancements
 
 ---
 
@@ -1025,6 +1029,7 @@ For troubleshooting:
 - `references/version-management.md` - Version management best practices
 - `references/api-reference.md` - Planning API reference
 - `references/javascript-patterns.md` - JavaScript scripting patterns
+- `references/edge-cdp-control.md` - Microsoft Edge CDP browser triage and safety rules
 
 ### Templates
 - `templates/data-action-checklist.md` - Data action implementation checklist

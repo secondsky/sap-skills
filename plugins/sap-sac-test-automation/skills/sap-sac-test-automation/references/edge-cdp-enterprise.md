@@ -4,6 +4,8 @@ Source: Microsoft Edge DevTools Protocol documentation, Microsoft Edge DevTools 
 
 Use installed Microsoft Edge/CDP as a local discovery and triage mode when enterprise SSO, client certificates, mandatory extensions, or corporate browser policy make generic browser automation unrealistic. Do not make raw CDP attach the default CI regression runner.
 
+Important Edge finding: Edge can report `Server running at: 127.0.0.1:9222` while `http://127.0.0.1:9222/json/version` and `/json/list` still return `404`. When that happens, do not assume CDP is unusable. On Windows, read `DevToolsActivePort` and connect through the direct browser WebSocket endpoint.
+
 ## Upstream Tool Boundary
 
 - Microsoft Edge DevTools Protocol matches Chrome DevTools Protocol APIs and exposes `/json/version`, `/json/protocol`, `/json/list`, and target `webSocketDebuggerUrl` endpoints.
@@ -52,6 +54,27 @@ Get-NetTCPConnection -LocalPort 9222 -ErrorAction SilentlyContinue |
 Proceed only when the listener is local to the workstation and policy allows the session. Stop if the port is exposed beyond local addresses.
 
 If the organization requires a signed-in profile for SSO, create a named automation profile and document the approval. Do not reuse the daily profile by default.
+
+### Windows `DevToolsActivePort` Fallback
+
+If Edge shows a running CDP server but `/json/version` or `/json/list` returns `404`, read the active port file from the same Edge profile:
+
+```powershell
+$activePortFile = "$env:LOCALAPPDATA\Microsoft\Edge\User Data\DevToolsActivePort"
+$lines = Get-Content $activePortFile
+$port = $lines[0]
+$wsPath = $lines[1]
+$wsEndpoint = "ws://127.0.0.1:$port$wsPath"
+$wsEndpoint
+```
+
+Interpretation:
+
+- Line 1 is the CDP port.
+- Line 2 is the browser WebSocket path.
+- The constructed endpoint has the shape `ws://127.0.0.1:<port>/devtools/browser/<id>`.
+
+Use this direct WebSocket only with harnesses that accept `wsEndpoint`, `browserWSEndpoint`, `webSocketDebuggerUrl`, or an equivalent CDP endpoint option. Do not store or publish the endpoint.
 
 ## macOS Launch and Verification
 
@@ -179,3 +202,5 @@ Prefer normal Playwright launch for tests:
 ```
 
 Use `chromium.connectOverCDP('http://127.0.0.1:9222')` only for local discovery or SSO-dependent triage. Do not build the main regression architecture around CDP attach because it is less hermetic than a normal Playwright project and depends on local browser/profile state.
+
+When HTTP discovery returns `404`, connect through the `DevToolsActivePort` browser WebSocket instead if the chosen harness supports a direct WebSocket endpoint.
