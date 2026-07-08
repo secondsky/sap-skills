@@ -12,7 +12,7 @@
     "styling": "styling.js"
   },
   "resourceZipExcludedExtensions": [".html", ".css", ".md", ".json"],
-  "resourceZipExcludedPaths": ["design-runtime/"],
+  "resourceZipExcludedPaths": ["design-runtime/", "local-builder/"],
   "defaults": {
     "name": "Local Builder Widget",
     "id": "com.company.localbuilderwidget",

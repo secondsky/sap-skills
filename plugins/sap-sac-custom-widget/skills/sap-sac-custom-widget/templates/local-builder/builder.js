@@ -1,10 +1,12 @@
 (function() {
   "use strict";
 
-  var RESOURCE_EXCLUDED_EXTENSIONS = [".html", ".css", ".md", ".json"];
-  var RESOURCE_EXCLUDED_PATHS = ["design-runtime/"];
+  var DEFAULT_RESOURCE_EXCLUDED_EXTENSIONS = [".html", ".css", ".md", ".json"];
+  var DEFAULT_RESOURCE_EXCLUDED_PATHS = ["design-runtime/", "local-builder/"];
   var encoder = new TextEncoder();
   var config = readEmbeddedConfig();
+  var RESOURCE_EXCLUDED_EXTENSIONS = configStringList(config.resourceZipExcludedExtensions, DEFAULT_RESOURCE_EXCLUDED_EXTENSIONS);
+  var RESOURCE_EXCLUDED_PATHS = configStringList(config.resourceZipExcludedPaths, DEFAULT_RESOURCE_EXCLUDED_PATHS);
   var patternHints = config.patternHints || [];
   var defaults = config.defaults || {};
   var state = {
@@ -38,6 +40,17 @@
 
   function clone(value) {
     return JSON.parse(JSON.stringify(value || []));
+  }
+
+  function configStringList(value, fallback) {
+    if (!Array.isArray(value)) {
+      return fallback.slice();
+    }
+    return value.filter(function(item) {
+      return typeof item === "string" && item;
+    }).map(function(item) {
+      return item.toLowerCase();
+    });
   }
 
   function readEmbeddedConfig() {
@@ -399,7 +412,7 @@
           property.control = value;
           renderGeneratedPreview();
         }),
-        inputField("Default", String(property.default), function(value) {
+        inputField("Default", property.default, function(value) {
           property.default = parseDefault(value, property.type);
           renderGeneratedPreview();
         }),

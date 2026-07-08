@@ -27,7 +27,7 @@
     "  <div class=\"section\">",
     "    <div class=\"title\">General</div>",
     "    <label><span>Title</span><input id=\"titleInput\" type=\"text\"></label>",
-    "    <label><span>Primary color</span><input id=\"primaryColorInput\" type=\"text\" placeholder=\"#0a6ed1\"></label>",
+    "    <label><span>Primary color</span><input id=\"primaryColorInput\" type=\"color\" value=\"#0a6ed1\"></label>",
     "    <label class=\"check\"><input id=\"showValuesInput\" type=\"checkbox\"><span>Show values</span></label>",
     "  </div>",
     "  <div class=\"section\">",
@@ -67,6 +67,18 @@
     }
   }
 
+  function normalizeHexColor(value, fallback) {
+    var color = String(value || "").trim();
+    if (/^#[0-9a-fA-F]{6}$/.test(color)) {
+      return color.toLowerCase();
+    }
+    color = String(fallback || "").trim();
+    if (/^#[0-9a-fA-F]{6}$/.test(color)) {
+      return color.toLowerCase();
+    }
+    return "#0a6ed1";
+  }
+
   class SacWidgetBuilderPanel extends HTMLElement {
     constructor() {
       super();
@@ -90,8 +102,9 @@
         fire(self, { title: event.target.value });
       });
       root.getElementById("primaryColorInput").addEventListener("input", function(event) {
-        self._props.primaryColor = event.target.value;
-        fire(self, { primaryColor: event.target.value });
+        var value = normalizeHexColor(event.target.value, self._props.primaryColor);
+        self._props.primaryColor = value;
+        fire(self, { primaryColor: value });
       });
       root.getElementById("showValuesInput").addEventListener("change", function(event) {
         self._props.showValues = event.target.checked;
@@ -109,12 +122,13 @@
 
     onCustomWidgetBeforeUpdate(changedProperties) {
       assign(this._props, changedProperties);
+      this._props.primaryColor = normalizeHexColor(this._props.primaryColor, "#0a6ed1");
     }
 
     onCustomWidgetAfterUpdate() {
       var root = this._shadowRoot;
       setValue(root, "titleInput", this._props.title);
-      setValue(root, "primaryColorInput", this._props.primaryColor);
+      setValue(root, "primaryColorInput", normalizeHexColor(this._props.primaryColor, "#0a6ed1"));
       setChecked(root, "showValuesInput", this._props.showValues);
       setValue(root, "displayModeInput", this._props.displayMode);
       setValue(root, "notesInput", this._props.notes);
@@ -123,7 +137,7 @@
     get title() { return this._props.title; }
     set title(value) { this._props.title = value; }
     get primaryColor() { return this._props.primaryColor; }
-    set primaryColor(value) { this._props.primaryColor = value; }
+    set primaryColor(value) { this._props.primaryColor = normalizeHexColor(value, this._props.primaryColor); }
     get showValues() { return this._props.showValues; }
     set showValues(value) { this._props.showValues = value; }
     get displayMode() { return this._props.displayMode; }

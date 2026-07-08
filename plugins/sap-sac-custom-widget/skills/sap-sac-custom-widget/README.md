@@ -117,7 +117,7 @@ This skill should be used when:
 - Multiple hosting options (SAC-hosted, GitHub, external)
 - Security best practices (integrity hash, CORS)
 - Common error solutions and debugging techniques
-- 6 ready-to-use widget templates
+- 8 ready-to-use widget templates
 - ECharts integration guide
 - Widget Add-On feature (QRC Q4 2023+)
 - Performance optimization guidelines
@@ -135,7 +135,7 @@ This skill should be used when:
 | Errors Prevented | 25+ |
 | Agents | 3 |
 | Commands | 3 |
-| Templates | 8 plus local builder scaffold |
+| Templates | 8 |
 
 ## Official Documentation
 

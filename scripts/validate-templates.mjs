@@ -154,6 +154,24 @@ function readJsonTemplate(file, label) {
   }
 }
 
+function canonicalizeJson(value) {
+  if (Array.isArray(value)) {
+    return value.map((item) => canonicalizeJson(item));
+  }
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.keys(value)
+        .sort()
+        .map((key) => [key, canonicalizeJson(value[key])]),
+    );
+  }
+  return value;
+}
+
+function semanticJsonEqual(left, right) {
+  return JSON.stringify(canonicalizeJson(left)) === JSON.stringify(canonicalizeJson(right));
+}
+
 function extractEmbeddedRuntimeConfig(indexFile) {
   const text = fs.readFileSync(indexFile, "utf8");
   const match = text.match(/<script id="embedded-runtime-config" type="application\/json">([\s\S]*?)<\/script>/);
@@ -252,6 +270,12 @@ function validateLocalBuilderConfig(config, label) {
   for (const extension of [".html", ".css", ".md", ".json"]) {
     if (!excluded.includes(extension)) {
       errors.push(`${label}: resourceZipExcludedExtensions must include ${extension}`);
+    }
+  }
+  const excludedPaths = config.resourceZipExcludedPaths || [];
+  for (const excludedPath of ["design-runtime/", "local-builder/"]) {
+    if (!excludedPaths.includes(excludedPath)) {
+      errors.push(`${label}: resourceZipExcludedPaths must include ${excludedPath}`);
     }
   }
 
@@ -415,14 +439,14 @@ function validateSacLocalBuilderTemplate() {
       return null;
     }
     try {
-      return JSON.parse(match[1]);
+      return JSON.parse(stripPlaceholders(match[1]));
     } catch (error) {
       errors.push(`sap-sac-custom-widget local builder embedded config is invalid JSON: ${error.message}`);
       return null;
     }
   })();
   validateLocalBuilderConfig(embeddedConfig, "sap-sac-custom-widget local builder embedded config");
-  if (config && embeddedConfig && JSON.stringify(config) !== JSON.stringify(embeddedConfig)) {
+  if (config && embeddedConfig && !semanticJsonEqual(config, embeddedConfig)) {
     errors.push("sap-sac-custom-widget local builder embedded config must match builder-config.json");
   }
 
@@ -443,7 +467,7 @@ function validateSacLocalBuilderTemplate() {
   if (!builderJs.includes("widget.json") || !builderJs.includes("-resources.zip")) {
     errors.push("sap-sac-custom-widget local builder builder.js must default to widget.json plus <slug>-resources.zip downloads");
   }
-  for (const forbidden of [".html", ".css", ".md", "design-runtime/"]) {
+  for (const forbidden of [".html", ".css", ".md", "design-runtime/", "local-builder/"]) {
     if (!builderJs.includes(forbidden)) {
       errors.push(`sap-sac-custom-widget local builder builder.js must explicitly exclude ${forbidden} from Resource-ZIP output`);
     }

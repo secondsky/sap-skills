@@ -25,7 +25,17 @@ function isInside(base, file) {
 function serveFile(req, res) {
   const url = new URL(req.url, protocol + "://" + host);
   const pathname = url.pathname === "/" ? "/index.html" : url.pathname;
-  const candidate = path.normalize(path.join(root, decodeURIComponent(pathname)));
+  let decodedPathname;
+
+  try {
+    decodedPathname = decodeURIComponent(pathname);
+  } catch {
+    res.writeHead(400, { "content-type": "text/plain; charset=utf-8" });
+    res.end("bad request");
+    return;
+  }
+
+  const candidate = path.normalize(path.join(root, decodedPathname));
 
   if (!isInside(root, candidate) || !fs.existsSync(candidate) || fs.statSync(candidate).isDirectory()) {
     res.writeHead(404, { "content-type": "text/plain; charset=utf-8" });
