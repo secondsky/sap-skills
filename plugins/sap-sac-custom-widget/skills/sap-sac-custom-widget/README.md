@@ -29,7 +29,7 @@ Portable, documentation-audited plugin content for developing custom widgets in 
 | Command | Usage | Description |
 |---------|-------|-------------|
 | `/widget-validate` | `/widget-validate [file]` | Validate widget.json schema and widget.js structure |
-| `/widget-generate` | `/widget-generate` | Interactively generate widget scaffold with JSON, JS, and browser design runtime |
+| `/widget-generate` | `/widget-generate` | Interactively generate widget scaffold with JSON, JS, local builder, sample-informed hints, and browser design runtime |
 | `/widget-lint` | `/widget-lint [file]` | Performance, security, and best practices analysis |
 
 ### Templates
@@ -41,6 +41,8 @@ Docs-audited scaffolds in `templates/` directory:
 | `basic-widget.js` | Minimal Web Component with all lifecycle functions |
 | `data-bound-chart.js` | ECharts widget with SAC data binding |
 | `styling-panel.js` | Runtime customization panel |
+| `builder-panel.js` | Design-time configuration panel |
+| `local-builder/` | No-install local scaffold builder and SAC two-file artifact exporter |
 | `design-runtime/` | No-build browser preview, scenario switching, design controls, and agent iteration export |
 | `widget.json-minimal` | Bare-minimum metadata |
 | `widget.json-complete` | Full-featured metadata with all options |
@@ -83,6 +85,8 @@ Claude activation hooks for quality checks on Write/Edit/MultiEdit operations; o
 This skill should be used when:
 - Creating custom visualizations for SAP Analytics Cloud
 - Previewing generated custom widgets in a non-SAP browser design runtime before SAC import
+- Generating widget scaffolds locally with no public CDN, no npm install, and no remote builder service
+- Choosing sample-informed starting points for data-bound charts, KPI/gauge widgets, hierarchy/flow charts, input utilities, add-ons, or build-based apps
 - Building interactive components for SAC stories
 - Integrating third-party charting libraries (ECharts, D3.js, Chart.js)
 - Implementing custom input controls for Analytics Designer
@@ -107,6 +111,8 @@ This skill should be used when:
 - Data binding configuration and usage
 - Styling and builder panel implementation
 - CSS and styling compliance guidance for Shadow DOM, story-theme boundaries, and SAC ZIP resource packages
+- Local custom widget builder for metadata, properties, feeds, methods, events, and SAC two-file export
+- SAP sample-widget lessons for generation defaults, Data Binding/OVM caveats, Resource-ZIP path rules, panel separation, add-on routing, and build-based app boundaries
 - Browser design runtime for local preview, multi-widget comparison, design-token tuning, and agent iteration export
 - Multiple hosting options (SAC-hosted, GitHub, external)
 - Security best practices (integrity hash, CORS)
@@ -129,7 +135,7 @@ This skill should be used when:
 | Errors Prevented | 25+ |
 | Agents | 3 |
 | Commands | 3 |
-| Templates | 6 |
+| Templates | 8 plus local builder scaffold |
 
 ## Official Documentation
 
@@ -142,6 +148,8 @@ This skill should be used when:
 
 - [SAP Samples - Custom Widgets](https://github.com/SAP-samples/analytics-cloud-datasphere-community-content/tree/main/SAC_Custom_Widgets)
 - [SAP Custom Widget GitHub](https://github.com/SAP-Custom-Widget)
+
+Use `references/sap-sample-widget-lessons.md` before generation when the requested widget resembles these samples. The reference covers all 17 sample folders and keeps the samples as lessons, not copied template code.
 
 ## Community Resources
 

@@ -1,0 +1,205 @@
+{
+  "schema": "sap-sac-widget-local-builder/v1",
+  "runtimeName": "SAC Custom Widget Local Builder",
+  "defaultArtifactMode": "sac-two-file",
+  "outputNames": {
+    "manifest": "widget.json",
+    "resourceZipSuffix": "-resources.zip"
+  },
+  "componentFileNames": {
+    "main": "widget.js",
+    "builder": "builder.js",
+    "styling": "styling.js"
+  },
+  "resourceZipExcludedExtensions": [".html", ".css", ".md", ".json"],
+  "resourceZipExcludedPaths": ["design-runtime/"],
+  "defaults": {
+    "name": "Local Builder Widget",
+    "id": "com.company.localbuilderwidget",
+    "version": "1.0.0",
+    "vendor": "Company Name",
+    "description": "Generated with the local SAC custom widget builder",
+    "license": "MIT",
+    "tag": "com-company-localbuilderwidget",
+    "newInstancePrefix": "LocalBuilderWidget",
+    "icon": "",
+    "includeBuilder": true,
+    "includeStyling": true,
+    "supportsMobile": true,
+    "supportsExport": false,
+    "supportsBookmark": true
+  },
+  "controlPalette": [
+    { "type": "string", "label": "Text input", "propertyType": "string", "default": "Sample text" },
+    { "type": "number", "label": "Number", "propertyType": "number", "default": 12 },
+    { "type": "integer", "label": "Integer", "propertyType": "integer", "default": 1 },
+    { "type": "hexColor", "label": "Hex color string", "propertyType": "string", "default": "#0a6ed1" },
+    { "type": "boolean", "label": "Toggle", "propertyType": "boolean", "default": true },
+    { "type": "select", "label": "Dropdown", "propertyType": "string", "default": "standard", "options": ["standard", "compact", "expanded"] },
+    { "type": "textarea", "label": "Textarea", "propertyType": "string", "default": "Description" },
+    { "type": "slider", "label": "Slider", "propertyType": "integer", "default": 50 },
+    { "type": "group", "label": "Group label", "propertyType": "string", "default": "General" },
+    { "type": "divider", "label": "Divider", "propertyType": "boolean", "default": true }
+  ],
+  "defaultProperties": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "string",
+      "control": "string",
+      "default": "Local Builder Widget",
+      "description": "Widget title"
+    },
+    {
+      "name": "primaryColor",
+      "label": "Primary Color",
+      "type": "string",
+      "control": "hexColor",
+      "default": "#0a6ed1",
+      "description": "Primary color as a portable hex string"
+    },
+    {
+      "name": "showValues",
+      "label": "Show Values",
+      "type": "boolean",
+      "control": "boolean",
+      "default": true,
+      "description": "Show measure values"
+    }
+  ],
+  "defaultFeeds": [
+    { "id": "dimensions", "description": "Dimensions", "type": "dimension" },
+    { "id": "measures", "description": "Measures", "type": "mainStructureMember" }
+  ],
+  "sampleRows": [
+    {
+      "dimensions_0": { "id": "north", "label": "North" },
+      "measures_0": { "raw": 128000, "formatted": "128,000" }
+    },
+    {
+      "dimensions_0": { "id": "south", "label": "South" },
+      "measures_0": { "raw": 96000, "formatted": "96,000" }
+    },
+    {
+      "dimensions_0": { "id": "west", "label": "West" },
+      "measures_0": { "raw": 143000, "formatted": "143,000" }
+    }
+  ],
+  "patternHints": [
+    {
+      "id": "data-bound-chart",
+      "label": "Data-bound chart",
+      "description": "Generic line, funnel, pie, Pareto, or bar-style scaffold with one dimension feed and one measure feed.",
+      "lesson": "Most SAP chart samples start with Data Binding plus root-relative component URLs for SAC Resource-ZIP mode.",
+      "mode": "prefill",
+      "prefill": {
+        "bindingId": "dataBinding",
+        "components": { "includeBuilder": false, "includeStyling": false },
+        "supportFlags": { "supportsMobile": true, "supportsExport": false, "supportsBookmark": true },
+        "properties": [
+          { "name": "title", "label": "Title", "type": "string", "control": "string", "default": "Data-bound Chart", "description": "Widget title" },
+          { "name": "primaryColor", "label": "Primary Color", "type": "string", "control": "hexColor", "default": "#0a6ed1", "description": "Primary chart color as a hex string" },
+          { "name": "showValues", "label": "Show Values", "type": "boolean", "control": "boolean", "default": true, "description": "Show measure labels" }
+        ],
+        "feeds": [
+          { "id": "dimensions", "description": "Dimensions", "type": "dimension" },
+          { "id": "measures", "description": "Measures", "type": "mainStructureMember" }
+        ],
+        "methods": [],
+        "events": [
+          { "name": "onDataPointSelect", "description": "Raised when a data point is selected" }
+        ]
+      }
+    },
+    {
+      "id": "kpi-gauge",
+      "label": "KPI / gauge",
+      "description": "Compact KPI, ring, gauge, or half-donut scaffold with threshold-oriented properties.",
+      "lesson": "KPI samples still benefit from Data Binding and simple property-backed thresholds before adding richer panel logic.",
+      "mode": "prefill",
+      "prefill": {
+        "bindingId": "dataBinding",
+        "components": { "includeBuilder": false, "includeStyling": true },
+        "supportFlags": { "supportsMobile": true, "supportsExport": false, "supportsBookmark": true },
+        "properties": [
+          { "name": "title", "label": "Title", "type": "string", "control": "string", "default": "KPI Gauge", "description": "Widget title" },
+          { "name": "primaryColor", "label": "Primary Color", "type": "string", "control": "hexColor", "default": "#247a3d", "description": "Positive or primary KPI color" },
+          { "name": "warningThreshold", "label": "Warning Threshold", "type": "integer", "control": "slider", "default": 70, "description": "Warning threshold percentage" },
+          { "name": "reverseScale", "label": "Reverse Scale", "type": "boolean", "control": "boolean", "default": false, "description": "Reverse threshold interpretation" }
+        ],
+        "feeds": [
+          { "id": "dimensions", "description": "Optional labels", "type": "dimension" },
+          { "id": "measures", "description": "KPI measure", "type": "mainStructureMember" }
+        ],
+        "methods": [],
+        "events": []
+      }
+    },
+    {
+      "id": "flow-hierarchy-chart",
+      "label": "Flow / hierarchy",
+      "description": "Generic Sankey, Sunburst, Tree, or hierarchy scaffold with styling-panel-ready controls.",
+      "lesson": "Flow and hierarchy samples use explicit layout properties, styling components, and deliberate support flags.",
+      "mode": "prefill",
+      "prefill": {
+        "bindingId": "dataBinding",
+        "components": { "includeBuilder": false, "includeStyling": true },
+        "supportFlags": { "supportsMobile": true, "supportsExport": true, "supportsBookmark": true },
+        "properties": [
+          { "name": "title", "label": "Title", "type": "string", "control": "string", "default": "Flow Hierarchy", "description": "Widget title" },
+          { "name": "primaryColor", "label": "Node Color", "type": "string", "control": "hexColor", "default": "#0a6ed1", "description": "Default node color" },
+          { "name": "layoutMode", "label": "Layout Mode", "type": "string", "control": "select", "default": "standard", "description": "Generic layout mode" },
+          { "name": "nodeSize", "label": "Node Size", "type": "integer", "control": "slider", "default": 50, "description": "Relative node size" }
+        ],
+        "feeds": [
+          { "id": "dimensions", "description": "Hierarchy dimensions", "type": "dimension" },
+          { "id": "measures", "description": "Flow or node measure", "type": "mainStructureMember" }
+        ],
+        "methods": [
+          { "name": "getSelectedDataPoint", "description": "Return the last selected data point" }
+        ],
+        "events": [
+          { "name": "onClick", "description": "Raised when a node or data point is clicked" }
+        ]
+      }
+    },
+    {
+      "id": "builder-input-utility",
+      "label": "Builder input utility",
+      "description": "Property-driven input utility scaffold for authored text or parameter-style widgets.",
+      "lesson": "Input-focused samples can skip model feeds and use builder panels, properties, methods, and events instead.",
+      "mode": "prefill",
+      "prefill": {
+        "bindingId": "myDataBinding",
+        "components": { "includeBuilder": true, "includeStyling": false },
+        "supportFlags": { "supportsMobile": true, "supportsExport": false, "supportsBookmark": true },
+        "properties": [
+          { "name": "title", "label": "Title", "type": "string", "control": "string", "default": "Input Utility", "description": "Widget title" },
+          { "name": "text", "label": "Text", "type": "string", "control": "textarea", "default": "Sample input text", "description": "Authored input text" },
+          { "name": "primaryColor", "label": "Primary Color", "type": "string", "control": "hexColor", "default": "#0a6ed1", "description": "Primary color as a hex string" }
+        ],
+        "feeds": [],
+        "methods": [
+          { "name": "setText", "description": "Set the input text from SAC scripting" }
+        ],
+        "events": [
+          { "name": "onTextChange", "description": "Raised when text changes" }
+        ]
+      }
+    },
+    {
+      "id": "widget-addon-reference",
+      "label": "Widget Add-on reference",
+      "description": "Reference-only reminder for tooltip, plot area, and numeric point add-ons.",
+      "lesson": "Widget Add-ons use extensions[] manifests and extension points; use the add-on guide instead of this scaffold exporter.",
+      "mode": "reference-only"
+    },
+    {
+      "id": "build-based-app-reference",
+      "label": "Build-based app reference",
+      "description": "Reference-only reminder for file upload, UI5, React, API, or service-backed widgets.",
+      "lesson": "Build-based widgets require dependency, API, security, tenant, and Resource-ZIP planning outside the no-install local builder.",
+      "mode": "reference-only"
+    }
+  ]
+}

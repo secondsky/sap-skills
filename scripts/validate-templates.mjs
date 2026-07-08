@@ -222,6 +222,271 @@ function validateRuntimeConfig(config, label) {
   }
 }
 
+function assertNoHostedAssetText(text, label) {
+  if (/https?:\/\//i.test(text)) {
+    errors.push(`${label}: local builder template must not contain hosted URLs or remote assets`);
+  }
+}
+
+function validateLocalBuilderConfig(config, label) {
+  if (!config) return;
+  if (config.schema !== "sap-sac-widget-local-builder/v1") {
+    errors.push(`${label}: schema must be sap-sac-widget-local-builder/v1`);
+  }
+  if (config.defaultArtifactMode !== "sac-two-file") {
+    errors.push(`${label}: defaultArtifactMode must be sac-two-file`);
+  }
+  if (!config.outputNames || config.outputNames.manifest !== "widget.json") {
+    errors.push(`${label}: outputNames.manifest must be widget.json`);
+  }
+  if (!config.outputNames || config.outputNames.resourceZipSuffix !== "-resources.zip") {
+    errors.push(`${label}: outputNames.resourceZipSuffix must be -resources.zip`);
+  }
+  const componentFiles = config.componentFileNames || {};
+  for (const [key, expected] of Object.entries({ main: "widget.js", builder: "builder.js", styling: "styling.js" })) {
+    if (componentFiles[key] !== expected) {
+      errors.push(`${label}: componentFileNames.${key} must be ${expected}`);
+    }
+  }
+  const excluded = config.resourceZipExcludedExtensions || [];
+  for (const extension of [".html", ".css", ".md", ".json"]) {
+    if (!excluded.includes(extension)) {
+      errors.push(`${label}: resourceZipExcludedExtensions must include ${extension}`);
+    }
+  }
+
+  const patternHints = config.patternHints;
+  const requiredHints = [
+    "data-bound-chart",
+    "kpi-gauge",
+    "flow-hierarchy-chart",
+    "builder-input-utility",
+    "widget-addon-reference",
+    "build-based-app-reference",
+  ];
+  if (!Array.isArray(patternHints)) {
+    errors.push(`${label}: patternHints must be an array`);
+    return;
+  }
+
+  const seen = new Set();
+  for (const hint of patternHints) {
+    if (!hint || typeof hint !== "object" || Array.isArray(hint)) {
+      errors.push(`${label}: every patternHint must be an object`);
+      continue;
+    }
+    if (!hint.id || typeof hint.id !== "string") {
+      errors.push(`${label}: every patternHint must include a string id`);
+      continue;
+    }
+    if (seen.has(hint.id)) {
+      errors.push(`${label}: duplicate patternHint id ${hint.id}`);
+    }
+    seen.add(hint.id);
+    for (const field of ["label", "description", "lesson", "mode"]) {
+      if (!hint[field] || typeof hint[field] !== "string") {
+        errors.push(`${label}: patternHint ${hint.id} must include string ${field}`);
+      }
+    }
+    if (!["prefill", "reference-only"].includes(hint.mode)) {
+      errors.push(`${label}: patternHint ${hint.id} mode must be prefill or reference-only`);
+    }
+    if (hint.mode === "reference-only" && hint.prefill) {
+      errors.push(`${label}: reference-only patternHint ${hint.id} must not include prefill`);
+    }
+    if (hint.mode === "prefill") {
+      if (!hint.prefill || typeof hint.prefill !== "object" || Array.isArray(hint.prefill)) {
+        errors.push(`${label}: prefill patternHint ${hint.id} must include a prefill object`);
+      } else {
+        if (!Array.isArray(hint.prefill.properties)) {
+          errors.push(`${label}: prefill patternHint ${hint.id} must include properties array`);
+        }
+        if (!Array.isArray(hint.prefill.feeds)) {
+          errors.push(`${label}: prefill patternHint ${hint.id} must include feeds array`);
+        }
+        if (!hint.prefill.components || typeof hint.prefill.components !== "object" || Array.isArray(hint.prefill.components)) {
+          errors.push(`${label}: prefill patternHint ${hint.id} must include components object`);
+        }
+      }
+    }
+  }
+
+  for (const id of requiredHints) {
+    if (!seen.has(id)) {
+      errors.push(`${label}: patternHints missing ${id}`);
+    }
+  }
+}
+
+function validateSapSampleWidgetLessons() {
+  const lessonsFile = path.join(
+    pluginsRoot,
+    "sap-sac-custom-widget",
+    "skills",
+    "sap-sac-custom-widget",
+    "references",
+    "sap-sample-widget-lessons.md",
+  );
+
+  if (!fs.existsSync(lessonsFile)) {
+    errors.push("sap-sac-custom-widget missing references/sap-sample-widget-lessons.md");
+    return;
+  }
+
+  const text = fs.readFileSync(lessonsFile, "utf8");
+  const requiredSamples = [
+    "Custom Pie Chart",
+    "Funnel Chart",
+    "Gauge Grade Chart",
+    "Half Donut Chart",
+    "Integrity Node Files",
+    "Kpi Ring Chart",
+    "Line Chart",
+    "Nested Pie Chart",
+    "Pareto Chart",
+    "Sankey Chart with Styling Panel",
+    "Sunbrust Chart with Styling Panel",
+    "Tree Chart with Styling Panel",
+    "UI5 Gantt Chart",
+    "Widget Add-on Sample",
+    "World Cloud by Input",
+    "bar-gradient-binding",
+    "file-upload-widget-master",
+  ];
+  for (const sample of requiredSamples) {
+    if (!text.includes(sample)) {
+      errors.push(`sap-sac-custom-widget sample lessons missing ${sample}`);
+    }
+  }
+
+  const requiredCaveats = [
+    "Optimized View Mode",
+    "Data Binding",
+    "third-party",
+    "license",
+    "hosting",
+    "path",
+    "extensions[]",
+    "build-based",
+  ];
+  for (const caveat of requiredCaveats) {
+    if (!text.toLowerCase().includes(caveat.toLowerCase())) {
+      errors.push(`sap-sac-custom-widget sample lessons missing caveat '${caveat}'`);
+    }
+  }
+}
+
+function validateSacLocalBuilderTemplate() {
+  const builderRoot = path.join(
+    pluginsRoot,
+    "sap-sac-custom-widget",
+    "skills",
+    "sap-sac-custom-widget",
+    "templates",
+    "local-builder",
+  );
+
+  const requiredFiles = ["index.html", "builder.css", "builder.js", "builder-config.json", "server.mjs"];
+  for (const relativeFile of requiredFiles) {
+    if (!fs.existsSync(path.join(builderRoot, relativeFile))) {
+      errors.push(`sap-sac-custom-widget local builder missing ${relativeFile}`);
+    }
+  }
+  if (requiredFiles.some((relativeFile) => !fs.existsSync(path.join(builderRoot, relativeFile)))) {
+    return;
+  }
+
+  for (const relativeFile of requiredFiles) {
+    const file = path.join(builderRoot, relativeFile);
+    assertNoHostedAssetText(fs.readFileSync(file, "utf8"), `sap-sac-custom-widget local builder ${relativeFile}`);
+  }
+
+  const config = readJsonTemplate(
+    path.join(builderRoot, "builder-config.json"),
+    "sap-sac-custom-widget local builder builder-config.json",
+  );
+  validateLocalBuilderConfig(config, "sap-sac-custom-widget local builder builder-config.json");
+
+  const indexText = fs.readFileSync(path.join(builderRoot, "index.html"), "utf8");
+  const embeddedConfig = (() => {
+    const match = indexText.match(/<script id="local-builder-config" type="application\/json">([\s\S]*?)<\/script>/);
+    if (!match) {
+      errors.push("sap-sac-custom-widget local builder index.html missing local-builder-config JSON script");
+      return null;
+    }
+    try {
+      return JSON.parse(match[1]);
+    } catch (error) {
+      errors.push(`sap-sac-custom-widget local builder embedded config is invalid JSON: ${error.message}`);
+      return null;
+    }
+  })();
+  validateLocalBuilderConfig(embeddedConfig, "sap-sac-custom-widget local builder embedded config");
+  if (config && embeddedConfig && JSON.stringify(config) !== JSON.stringify(embeddedConfig)) {
+    errors.push("sap-sac-custom-widget local builder embedded config must match builder-config.json");
+  }
+
+  if (!indexText.includes('href="./builder.css"')) {
+    errors.push("sap-sac-custom-widget local builder index.html must load ./builder.css");
+  }
+  if (!indexText.includes('src="./builder.js"')) {
+    errors.push("sap-sac-custom-widget local builder index.html must load ./builder.js");
+  }
+  if (!indexText.includes("local-builder-config")) {
+    errors.push("sap-sac-custom-widget local builder index.html must embed local-builder-config JSON");
+  }
+  if (!indexText.includes("patternHintButtons")) {
+    errors.push("sap-sac-custom-widget local builder index.html must expose patternHintButtons UI");
+  }
+
+  const builderJs = fs.readFileSync(path.join(builderRoot, "builder.js"), "utf8");
+  if (!builderJs.includes("widget.json") || !builderJs.includes("-resources.zip")) {
+    errors.push("sap-sac-custom-widget local builder builder.js must default to widget.json plus <slug>-resources.zip downloads");
+  }
+  for (const forbidden of [".html", ".css", ".md", "design-runtime/"]) {
+    if (!builderJs.includes(forbidden)) {
+      errors.push(`sap-sac-custom-widget local builder builder.js must explicitly exclude ${forbidden} from Resource-ZIP output`);
+    }
+  }
+  for (const required of ["renderPatternHints", "applyPatternHint", "patternHints"]) {
+    if (!builderJs.includes(required)) {
+      errors.push(`sap-sac-custom-widget local builder builder.js must include ${required}`);
+    }
+  }
+
+  for (const relativeFile of ["builder.js", "server.mjs"]) {
+    const jsCheck = spawnSync(process.execPath, ["--check", path.join(builderRoot, relativeFile)], { encoding: "utf8" });
+    if (jsCheck.status !== 0) {
+      errors.push(`sap-sac-custom-widget local builder ${relativeFile} failed syntax check: ${(jsCheck.stderr || jsCheck.stdout).trim()}`);
+    }
+  }
+}
+
+function validateSacBuilderPanelTemplate() {
+  const builderPanelFile = path.join(
+    pluginsRoot,
+    "sap-sac-custom-widget",
+    "skills",
+    "sap-sac-custom-widget",
+    "templates",
+    "builder-panel.js",
+  );
+  if (!fs.existsSync(builderPanelFile)) {
+    errors.push("sap-sac-custom-widget missing templates/builder-panel.js");
+    return;
+  }
+  const text = fs.readFileSync(builderPanelFile, "utf8");
+  for (const required of ["customElements.define", "propertiesChanged", "onCustomWidgetBeforeUpdate", "onCustomWidgetAfterUpdate"]) {
+    if (!text.includes(required)) {
+      errors.push(`sap-sac-custom-widget templates/builder-panel.js missing ${required}`);
+    }
+  }
+  const jsCheck = spawnSync(process.execPath, ["--check", builderPanelFile], { encoding: "utf8" });
+  if (jsCheck.status !== 0) {
+    errors.push(`sap-sac-custom-widget templates/builder-panel.js failed syntax check: ${(jsCheck.stderr || jsCheck.stdout).trim()}`);
+  }
+}
+
 async function smokeServeRuntimeFixture(runtimeRoot) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "sap-sac-widget-runtime-"));
   try {
@@ -392,6 +657,9 @@ for (const file of walk(pluginsRoot).filter((item) => repoRelativePath(item).inc
 
 validateHttpsToSftpIflowTemplate();
 await validateSacDesignRuntimeTemplate();
+validateSapSampleWidgetLessons();
+validateSacLocalBuilderTemplate();
+validateSacBuilderPanelTemplate();
 
 if (errors.length > 0) {
   console.error("Template validation failed:");

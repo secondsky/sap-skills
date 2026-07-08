@@ -5,6 +5,8 @@ Synthetic example:
 
 Use the `templates/design-runtime/` scaffold when a generated widget package should be previewed, tuned, and reviewed outside SAP before SAC import.
 
+Use `templates/local-builder/` instead when the user needs a browser UI to generate or export the initial scaffold. The design runtime starts after code exists; it previews and iterates on generated widgets.
+
 ## Table of Contents
 
 1. [Purpose](#purpose)
@@ -29,6 +31,8 @@ The design runtime gives agents and users a fast browser loop for:
 - Exporting structured feedback for the next agent iteration.
 
 Use it to improve visual quality and catch obvious binding, sizing, empty-state, and styling issues before SAC import.
+
+Do not use the design runtime as the scaffold builder or SAC artifact packager. Use `references/local-builder-workflow.md` for local builder generation and two-file SAC export rules.
 
 ## Runtime Boundary
 

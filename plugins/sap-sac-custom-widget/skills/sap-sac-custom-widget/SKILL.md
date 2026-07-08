@@ -34,6 +34,8 @@ allowed-tools:
 ## Table of Contents
 - [Overview](#overview)
 - [AI-Assisted Generation](#ai-assisted-generation)
+- [Local Custom Widget Builder](#local-custom-widget-builder)
+- [SAP Sample Widget Lessons](#sap-sample-widget-lessons)
 - [Browser Design Runtime](#browser-design-runtime)
 - [CSS and Styling Compliance](#css-and-styling-compliance)
 - [SAC Import and Packaging](#sac-import-and-packaging)
@@ -72,9 +74,21 @@ For prompt-driven widget creation, first suggest 2-3 data-aware widget options, 
 
 ---
 
+## Local Custom Widget Builder
+
+For enterprise or locked-down local environments, offer **`templates/local-builder/`** as the standard no-install scaffold builder. It runs as static HTML/CSS/vanilla JavaScript, avoids public CDNs and external packages, and exports SAC upload artifacts as two separate downloads: `widget.json` and a Resource-ZIP containing only root-level component JavaScript files. Use Node's `server.mjs` fallback when direct `file://` use is blocked. See **`references/local-builder-workflow.md`** for builder boundaries, export rules, and validation checks.
+
+---
+
+## SAP Sample Widget Lessons
+
+Before generating a chart, KPI, hierarchy, input utility, Widget Add-On, or build-based widget, consult **`references/sap-sample-widget-lessons.md`**. It audits every SAP sample folder and distills reusable lessons for Data Binding-first scaffolds, root-relative Resource-ZIP URLs, styling/builder panel separation, support flags, custom `types`, script methods/events, add-on `extensions[]`, and build-based app caveats. Use the lessons for structure and risk checks only; do not copy SAP sample code or assets into generated packages.
+
+---
+
 ## Browser Design Runtime
 
-Generated widget packages should include **`templates/design-runtime/`** as a no-build, file-first browser preview scaffold. Use it to mock custom-widget essentials outside SAP, adjust properties/design tokens/sample data/viewports, compare multiple widgets, and export an agent iteration payload. See **`references/browser-design-runtime.md`** for runtime boundaries and configuration/export contracts.
+Generated widget packages should include **`templates/design-runtime/`** as a no-build, file-first browser preview scaffold. Use it after generation to mock custom-widget essentials outside SAP, adjust properties/design tokens/sample data/viewports, compare multiple widgets, and export an agent iteration payload. See **`references/browser-design-runtime.md`** for runtime boundaries and configuration/export contracts. Use `templates/local-builder/` for scaffold generation/export; use `templates/design-runtime/` for preview and iteration.
 
 ---
 
@@ -109,7 +123,7 @@ This plugin provides specialized agents, commands, and validation hooks for comp
 | Command | Usage | Description |
 |---------|-------|-------------|
 | `/widget-validate` | `/widget-validate [file]` | Validate widget.json schema and widget.js structure |
-| `/widget-generate` | `/widget-generate` | Interactively generate widget scaffold with JSON, JS, and browser design runtime |
+| `/widget-generate` | `/widget-generate` | Interactively generate widget scaffold with JSON, JS, local builder, and browser design runtime |
 | `/widget-lint` | `/widget-lint [file]` | Performance, security, and best practices analysis |
 
 ### Validation Hooks
@@ -126,6 +140,8 @@ Ready-to-use scaffolds in `templates/` directory:
 - `basic-widget.js` - Minimal Web Component with all lifecycle functions
 - `data-bound-chart.js` - ECharts widget with data binding
 - `styling-panel.js` - Runtime customization panel
+- `builder-panel.js` - Design-time configuration panel
+- `local-builder/` - Static local scaffold builder and SAC artifact exporter
 - `design-runtime/` - Browser preview and design iteration runtime
 - `widget.json-minimal` - Bare-minimum metadata
 - `widget.json-complete` - Full-featured metadata with all options
@@ -244,7 +260,7 @@ A custom widget requires two files:
 
 ## Community Sample Widgets
 
-SAP provides 15+ ready-to-use custom widget samples:
+SAP provides a community sample repository with 17 custom widget sample folders:
 
 **Repository**: [SAP-samples/SAC_Custom_Widgets](https://github.com/SAP-samples/analytics-cloud-datasphere-community-content/tree/main/SAC_Custom_Widgets)
 
@@ -254,9 +270,9 @@ SAP provides 15+ ready-to-use custom widget samples:
 | **KPI/Gauge** | KPI Ring, Gauge Grade, Half Donut, Nested Pie, Custom Pie |
 | **Utilities** | File Upload, Word Cloud, Bar Gradient, Widget Add-on Sample |
 
-**Requirements**: Optimized View Mode (OVM) enabled, data binding support
+**Requirements**: Most samples assume Data Binding and Optimized View Mode (OVM) or Optimized and Unified Story Experience.
 
-**Note**: Check third-party library licenses before production use.
+**Note**: Check third-party library licenses before production use, adjust hosted component paths when moving samples, and treat live SAC import/runtime validation as tenant-specific. See **`references/sap-sample-widget-lessons.md`** for the per-sample audit and creation lessons.
 
 ---
 
@@ -411,6 +427,8 @@ See **`references/widget-addon-guide.md`** for complete implementation.
 - **`templates/basic-widget.js`** - Minimal Web Component scaffold (~60 lines)
 - **`templates/data-bound-chart.js`** - ECharts widget with SAC data binding (~120 lines)
 - **`templates/styling-panel.js`** - Styling panel for runtime customization (~150 lines)
+- **`templates/builder-panel.js`** - Builder panel for design-time configuration
+- **`templates/local-builder/`** - No-install local builder for metadata, feeds, properties, methods, events, and SAC two-file export
 - **`templates/design-runtime/`** - No-build browser preview, design-token controls, scenario switching, and agent iteration export
 - **`templates/widget.json-minimal`** - Bare-minimum metadata (~25 lines)
 - **`templates/widget.json-complete`** - Full-featured metadata (~100 lines)
@@ -426,9 +444,11 @@ See **`references/widget-addon-guide.md`** for complete implementation.
 7. **`references/integration-and-migration.md`** - Script integration, content transport
 8. **`references/script-api-reference.md`** - DataSource, Selection, MemberInfo APIs
 9. **`references/ai-assisted-composite-generation.md`** - Prompt-driven generation, RAG, brand styling, validation, and composite-ready output guidance
-10. **`references/browser-design-runtime.md`** - Non-SAP browser preview runtime, sidecar config, and agent iteration export
-11. **`references/css-and-styling-compliance.md`** - SAP Help-backed CSS, theme, Shadow DOM, and packaging guidance for generated widgets
-12. **`references/sac-import-packaging-lessons.md`** - SAC-hosted Resource-ZIP upload sequence, URL rules, ZIP hygiene, builder/tree state rules, self-contained component checks, final-artifact tests, and SAC error triage
+10. **`references/local-builder-workflow.md`** - Enterprise-safe local builder workflow, export contract, and validation checklist
+11. **`references/sap-sample-widget-lessons.md`** - SAP sample widget audit matrix, reusable generation lessons, and add-on/build-based routing caveats
+12. **`references/browser-design-runtime.md`** - Non-SAP browser preview runtime, sidecar config, and agent iteration export
+13. **`references/css-and-styling-compliance.md`** - SAP Help-backed CSS, theme, Shadow DOM, and packaging guidance for generated widgets
+14. **`references/sac-import-packaging-lessons.md`** - SAC-hosted Resource-ZIP upload sequence, URL rules, ZIP hygiene, builder/tree state rules, self-contained component checks, final-artifact tests, and SAC error triage
 
 ---
 
@@ -446,6 +466,12 @@ See **`references/widget-addon-guide.md`** for complete implementation.
 ---
 
 ## Version History
+
+**Unreleased**
+- Added an enterprise-safe `templates/local-builder/` scaffold for local widget metadata, property/feed configuration, and SAC two-file artifact export
+- Added `templates/builder-panel.js` so builder panel generation has a bundled self-contained template
+- Added local builder validation coverage without advancing `last_verified`; live SAC upload/runtime validation remains pending
+- Added SAP sample-widget lessons and local-builder pattern hints for data-bound charts, KPI/gauge widgets, flow/hierarchy widgets, input utilities, Widget Add-ons, and build-based apps without copying upstream sample code
 
 **v2.3.2** (2026-07-06)
 - Added SAC Resource-ZIP import lessons from the Configurable Menu Navigation project
