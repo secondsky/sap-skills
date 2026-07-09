@@ -15,12 +15,12 @@ argument-hint: [widget-name]
 
 ## Output Contract
 
-Return data-aware suggestions, the planned widget structure, file snippets or files to create/change, security/accessibility notes, and confirmation points before writes. Default to snippets/plans; generate files only when the user explicitly requests generation and confirms a target directory.
+Return data-aware suggestions, the planned widget structure, SAP sample lesson fit, file snippets or files to create/change, local-builder/design-runtime inclusion notes, security/accessibility notes, and confirmation points before writes. Default to snippets/plans; generate files only when the user explicitly requests generation and confirms a target directory.
 
 
 # SAC Custom Widget Generator Command
 
-Interactively create a complete SAP Analytics Cloud custom widget scaffold including widget.json metadata, widget.js Web Component implementation, and a browser design runtime. For prompt-driven requests, use a two-stage flow: suggest 2-3 creative options first, then generate the selected package.
+Interactively create a complete SAP Analytics Cloud custom widget scaffold including widget.json metadata, widget.js Web Component implementation, optional builder/styling panels, the local builder scaffold, and the browser design runtime. For prompt-driven requests, use a two-stage flow: suggest 2-3 creative options first, then generate the selected package.
 
 ## Usage
 
@@ -47,6 +47,7 @@ When invoked without `--quick`, ask the user these questions:
 3. **Business Goal and Chart Intent**
    - Decision or insight the widget should support
    - Ask whether to recommend chart types or use a fixed chart type
+   - Consult `references/sap-sample-widget-lessons.md` when the request resembles a chart, KPI/gauge, flow/hierarchy, input utility, Widget Add-On, or build-based app
 
 4. **Sample Data or Schema**
    - Columns, dimensions, measures, dates, versions, and filters
@@ -61,24 +62,30 @@ When invoked without `--quick`, ask the user these questions:
    - "Which components do you need?"
    - Options: Main only, Main + Styling Panel, Main + Builder Panel, All three
 
+7. **Local Builder**
+   - "Include the local SAC widget builder scaffold?"
+   - Default: Yes for local or enterprise environments
+   - Copy `templates/local-builder/` into generated packages when the user wants a no-install browser builder for metadata, properties, feeds, methods, events, and SAC artifact export
+   - Mention that the local builder includes generic sample-informed pattern hints but does not copy SAP sample code or assets
+
 ### Optional Questions
 
-7. **Third-Party Library**
+8. **Third-Party Library**
    - "Will you integrate a charting library?"
    - Options: ECharts, D3.js, Chart.js, None
 
-8. **Brand and Visual Direction**
+9. **Brand and Visual Direction**
    - Brand logo/icon URLs, colors, and style preference
    - Use brand assets only when they are trusted and accessible to SAC
    - If provided, map icon URL to manifest `icon` and logo URL to a `brandLogoUrl` property
 
-9. **Deployment and Reuse Target**
+10. **Deployment and Reuse Target**
    - SAC-hosted files, external HTTPS host, or widget server
    - SAC ZIP resource upload, if the tenant flow requires uploading a ZIP after `widget.json`
    - Confirm this before deciding whether CSS/HTML can be separate resource files or must be embedded in JavaScript templates
    - Ask whether the widget should be reusable inside an SAC composite
 
-10. **Initial Properties**
+11. **Initial Properties**
    - "What properties should be configurable?"
    - Default: title (string), color (Color)
 
@@ -150,6 +157,7 @@ If the consuming flow requires text sections, use these exact markers:
 ## AI Generation Compatibility Rules
 
 - Use Web Components with Shadow DOM and IIFE-wrapped JavaScript.
+- Use `references/sap-sample-widget-lessons.md` as a structure and caveat reference before choosing a sample-like scaffold. Keep generated code original.
 - Use naming conventions: widget folder/name `hyphen-case`, manifest ID `com.company.widgetname`, tag `com-company-widgetname`, class `PascalCase`, `newInstancePrefix` `PascalCase` letters only.
 - Define the HTML/CSS shell with `document.createElement("template")`; static `template.innerHTML` is allowed for the component template.
 - Keep generated styling scoped to the Web Component or Shadow DOM boundary. Do not rely on SAC story theme CSS, SAP shell class names, or global story CSS to style widget internals.
@@ -220,6 +228,30 @@ No-build browser preview scaffold with:
 - `runtime.js` - SAC custom-widget mock runtime, controls, and export logic
 - `design-runtime.json` - Sidecar config for widgets, scenarios, data, viewport, theme, and design tokens
 
+### 5. local-builder/ (Recommended for Local Enterprise Generation)
+
+Static no-install builder scaffold with:
+- `index.html` - Local builder UI for metadata, component selection, properties, feeds, methods, events, and export actions
+- `builder.css` - Local-only builder styling
+- `builder.js` - Vanilla JavaScript generator and in-browser Resource-ZIP writer
+- `builder-config.json` - Defaults, control palette, and SAC export contract
+- `server.mjs` - Node loopback fallback when direct file access is blocked
+
+The local builder is for scaffold generation and SAC artifact export. It is not a live SAC runtime and does not replace `design-runtime/` preview checks.
+
+### 6. sample-informed pattern hints
+
+When the request maps to a SAP sample family, document the chosen hint and caveat:
+
+- `data-bound-chart` for line, funnel, pie, nested pie, Pareto, and bar-gradient-like widgets
+- `kpi-gauge` for KPI ring, gauge grade, half donut, and compact score displays
+- `flow-hierarchy-chart` for Sankey, Sunburst, Tree, and hierarchy/flow widgets
+- `builder-input-utility` for word-cloud/input widgets and authored text utilities
+- Widget Add-ons use `references/widget-addon-guide.md` and the `extensions[]` manifest model
+- Build-based file upload, UI5, React, or API/service widgets require explicit dependency, security, tenant, and packaging planning
+
+Do not copy SAP sample runtime code, assets, dependency bundles, tenant URLs, or third-party libraries into generated packages.
+
 ## Output Structure
 
 ```
@@ -228,12 +260,30 @@ widget-name/
 ├── widget.js
 ├── styling-panel.js    (if selected)
 ├── builder-panel.js    (if selected)
+├── local-builder/      (recommended for local/enterprise generation)
+│   ├── index.html
+│   ├── builder.css
+│   ├── builder.js
+│   ├── builder-config.json
+│   └── server.mjs
 └── design-runtime/
     ├── index.html
     ├── runtime.css
     ├── runtime.js
     └── design-runtime.json
 ```
+
+## Local Custom Widget Builder
+
+Offer `templates/local-builder/` as the default local enterprise option when a user wants a browser builder similar in spirit to hosted SAC widget builder tools but must stay local. It must remain dependency-free and local-only:
+
+- Do not use public CDNs, remote scripts, external npm packages, tenant URLs, or credentials.
+- Keep primary export as two SAC upload artifacts: `widget.json` and `<slug>-resources.zip`.
+- Keep Resource-ZIP entries root-level and limited to component JavaScript plus optional image assets.
+- Exclude `widget.json`, `local-builder/`, `design-runtime/`, `.html`, `.css`, `.md`, `.json`, tests, and docs from Resource-ZIP output.
+- Use `node server.mjs` from `local-builder/` only as a loopback fallback if direct `file://` use is blocked.
+- Treat local builder output as generated scaffolding; still validate with `/widget-validate`, JavaScript syntax checks, Resource-ZIP inspection, and SAC tenant import when available.
+- Use the built-in sample-informed pattern hints only as generic prefill. Reference-only hints for Widget Add-ons and build-based apps should redirect to planning guidance rather than generating unsupported scaffolds.
 
 ## Browser Design Runtime
 
@@ -453,6 +503,8 @@ After files are generated, provide:
    - How to add to SAC
    - How to set up hosting
    - How to generate integrity hash
+   - How to open `local-builder/index.html` directly for local scaffold edits and SAC two-file export
+   - Optional local builder server fallback from `local-builder/`: `node server.mjs`
    - How to open `design-runtime/index.html` directly
    - Optional static server fallback from the widget package root:
      - macOS/Linux: `python3 -m http.server 8000`
@@ -469,6 +521,7 @@ After files are generated, provide:
    - Where to add visualization logic
    - How to add more properties
    - How to implement events
+   - How to use the local builder control palette to add text, number, hex color string, toggle, dropdown, textarea, slider, group, and divider controls
    - How to use exported `agent-iteration.json` and Markdown notes for the next agent iteration
 
 4. **Ready for SAC Install**
@@ -497,8 +550,10 @@ When this command is invoked:
 4. Generate widget.json with all selections
 5. Generate widget.js with matching implementation
 6. Generate additional component files if selected
-7. Copy `templates/design-runtime/` into the generated package and populate its sidecar config for the generated widget
-8. Verify naming, data binding order, sequential result indices, generated-code compatibility rules, and runtime sidecar paths that use browser URL `/` separators
-9. If and only if the user confirmed a target directory, write files there; otherwise return snippets and the proposed file tree, including `design-runtime/`
-10. Provide post-generation instructions, including the Ready for SAC Install and Composite Readiness blocks
-11. Suggest running `/widget-validate` and opening `design-runtime/index.html` to verify
+7. Use `references/sap-sample-widget-lessons.md` to identify the nearest sample family, required caveats, and whether the request should stay on the normal custom-widget path, route to Widget Add-on guidance, or require build-based app planning
+8. Copy `templates/local-builder/` into the generated package by default for local/enterprise generation, unless the user explicitly declines it
+9. Copy `templates/design-runtime/` into the generated package and populate its sidecar config for the generated widget
+10. Verify naming, data binding order, sequential result indices, generated-code compatibility rules, local builder export naming, Resource-ZIP exclusions, sample-informed caveats, and runtime sidecar paths that use browser URL `/` separators
+11. If and only if the user confirmed a target directory, write files there; otherwise return snippets and the proposed file tree, including `local-builder/` and `design-runtime/`
+12. Provide post-generation instructions, including the local builder, sample lesson caveats, Ready for SAC Install, and Composite Readiness blocks
+13. Suggest running `/widget-validate`, opening `local-builder/index.html` for scaffold/export edits, and opening `design-runtime/index.html` for preview verification
