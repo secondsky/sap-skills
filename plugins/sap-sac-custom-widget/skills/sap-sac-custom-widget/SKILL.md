@@ -34,6 +34,7 @@ allowed-tools:
 ## Table of Contents
 - [Overview](#overview)
 - [AI-Assisted Generation](#ai-assisted-generation)
+- [Widget Discovery and Evidence Intake](#widget-discovery-and-evidence-intake)
 - [Local Custom Widget Builder](#local-custom-widget-builder)
 - [SAP Sample Widget Lessons](#sap-sample-widget-lessons)
 - [Browser Design Runtime](#browser-design-runtime)
@@ -70,13 +71,19 @@ This skill enables development of custom widgets for SAP Analytics Cloud (SAC). 
 
 ## AI-Assisted Generation
 
-For prompt-driven widget creation, first suggest 2-3 data-aware widget options, then generate the selected complete package. Keep AI-generated code SAC-compatible, preserve data-binding order, and validate/repair before import. See **`references/ai-assisted-composite-generation.md`** for output contracts, RAG context patterns, brand styling, and composite caveats.
+For prompt-driven widget creation, first classify the widget role and data-source mode, then suggest 2-3 role-aware options before generating the selected complete package. Keep AI-generated code SAC-compatible, preserve data-binding order when used, and validate/repair before import. See **`references/ai-assisted-composite-generation.md`** for output contracts, RAG context patterns, brand styling, and composite caveats.
+
+---
+
+## Widget Discovery and Evidence Intake
+
+Before generating a table, chart, KPI, menu, sidebar, filter, or hybrid control, select both its widget role and data-source mode. Request dimensions, measures/key figures, dates, versions, filters, and feed order only for SAC-bound widgets. For pure UI controls, collect interaction, navigation, state, method/event, accessibility, and responsive-layout requirements instead. Accept user-provided screenshots, PDFs, images, brand guides, and sanitized data as evidence, but confirm technical IDs, feed mappings, asset rights, and licenses before code generation. See **`references/widget-discovery-intake.md`** for the Widget Brief, evidence boundaries, and hosted-tool safeguards.
 
 ---
 
 ## Local Custom Widget Builder
 
-For enterprise or locked-down local environments, offer **`templates/local-builder/`** as the standard no-install scaffold builder. It runs as static HTML/CSS/vanilla JavaScript, avoids public CDNs and external packages, and exports SAC upload artifacts as two separate downloads: `widget.json` and a Resource-ZIP containing only root-level component JavaScript files. Use Node's `server.mjs` fallback when direct `file://` use is blocked. See **`references/local-builder-workflow.md`** for builder boundaries, export rules, and validation checks.
+For enterprise or locked-down local environments, offer **`templates/local-builder/`** as the standard no-install scaffold builder. It runs as static HTML/CSS/vanilla JavaScript, avoids public CDNs and external packages, and exports SAC upload artifacts as two separate downloads: `widget.json` and a Resource-ZIP containing only root-level component JavaScript files. Use Node's `server.mjs` fallback when direct `file://` use is blocked. When a user explicitly permits public-web use for a non-sensitive desktop prototype, optionally suggest the [Custom Widget Builder](https://www.custom-widgets.de/custom-widget-builder) or [live demo](https://www.custom-widgets.de/demo); never send tenant material or trust its exports without local validation. See **`references/local-builder-workflow.md`** for builder boundaries, export rules, hosted-tool safeguards, and validation checks.
 
 ---
 
@@ -449,6 +456,7 @@ See **`references/widget-addon-guide.md`** for complete implementation.
 12. **`references/browser-design-runtime.md`** - Non-SAP browser preview runtime, sidecar config, and agent iteration export
 13. **`references/css-and-styling-compliance.md`** - SAP Help-backed CSS, theme, Shadow DOM, and packaging guidance for generated widgets
 14. **`references/sac-import-packaging-lessons.md`** - SAC-hosted Resource-ZIP upload sequence, URL rules, ZIP hygiene, builder/tree state rules, self-contained component checks, final-artifact tests, and SAC error triage
+15. **`references/widget-discovery-intake.md`** - Widget role/data-source selection, attachment intake, Widget Brief, and hosted-tool safeguards
 
 ---
 

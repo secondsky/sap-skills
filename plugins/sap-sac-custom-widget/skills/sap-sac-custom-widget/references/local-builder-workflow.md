@@ -6,12 +6,13 @@ Use this reference when a user wants a local SAC custom widget builder for enter
 
 1. [Purpose](#purpose)
 2. [Boundary](#boundary)
-3. [Generated Package Shape](#generated-package-shape)
-4. [Builder Controls](#builder-controls)
-5. [Export Contract](#export-contract)
-6. [Usage Workflow](#usage-workflow)
-7. [Validation Checklist](#validation-checklist)
-8. [Source](#source)
+3. [Optional Hosted Exploration](#optional-hosted-exploration)
+4. [Generated Package Shape](#generated-package-shape)
+5. [Builder Controls](#builder-controls)
+6. [Export Contract](#export-contract)
+7. [Usage Workflow](#usage-workflow)
+8. [Validation Checklist](#validation-checklist)
+9. [Source](#source)
 
 ---
 
@@ -30,6 +31,12 @@ Use:
 - `local-builder/` for scaffold generation and `widget.json` plus Resource-ZIP export.
 - `design-runtime/` for local preview, scenario switching, design-token tuning, sample data, and agent iteration export.
 - Real SAC tenant import for final truth.
+
+## Optional Hosted Exploration
+
+`templates/local-builder/` remains the enterprise-safe default for scaffold generation and SAC artifact export. Suggest the hosted [Custom Widget Builder](https://www.custom-widgets.de/custom-widget-builder) or [live demo](https://www.custom-widgets.de/demo) only when the user explicitly permits public-web use for a desktop, non-sensitive visual prototype.
+
+Do not send confidential screenshots, PDFs, tenant details, code, data, credentials, or internal assets to the hosted sites. They are feature-shape references, not live SAC runtime evidence. Treat downloads from them as untrusted external artifacts: validate the manifest and JavaScript locally, inspect the Resource-ZIP, and test import/runtime behavior in a real SAC tenant.
 
 ## Generated Package Shape
 
@@ -137,5 +144,5 @@ Before delivering a package generated through the local builder:
 
 ## Source
 
-- External feature-shape reference: `custom-widgets.de/custom-widget-builder`
+- External feature-shape references: https://www.custom-widgets.de/custom-widget-builder and https://www.custom-widgets.de/demo
 - SAP sample lesson reference: `references/sap-sample-widget-lessons.md`
