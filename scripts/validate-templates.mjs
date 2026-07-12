@@ -400,6 +400,91 @@ function validateSapSampleWidgetLessons() {
   }
 }
 
+function validateSacWidgetDiscoveryGuidance() {
+  const skillRoot = path.join(
+    pluginsRoot,
+    "sap-sac-custom-widget",
+    "skills",
+    "sap-sac-custom-widget",
+  );
+  const referenceFile = path.join(skillRoot, "references", "widget-discovery-intake.md");
+  const skillFile = path.join(skillRoot, "SKILL.md");
+  const commandFile = path.join(pluginsRoot, "sap-sac-custom-widget", "commands", "widget-generate.md");
+  const localBuilderWorkflowFile = path.join(skillRoot, "references", "local-builder-workflow.md");
+
+  if (!fs.existsSync(referenceFile)) {
+    errors.push("sap-sac-custom-widget missing references/widget-discovery-intake.md");
+    return;
+  }
+
+  const referenceText = fs.readFileSync(referenceFile, "utf8");
+  const requiredReferenceTerms = [
+    "Table, Chart, and KPI Widgets",
+    "UI Controls and Navigation",
+    "Hybrid Widgets",
+    "Widget Add-Ons",
+    "Build-Based Integrations",
+    "SAC-bound",
+    "Property/config-supplied",
+    "No data",
+    "Widget Brief",
+    "screenshots",
+    "PDFs",
+    "dimensions",
+    "key figures",
+    "feed order",
+    "technical IDs",
+    "licenses",
+    "sensitive",
+  ];
+  for (const term of requiredReferenceTerms) {
+    if (!referenceText.includes(term)) {
+      errors.push(`sap-sac-custom-widget discovery intake missing '${term}'`);
+    }
+  }
+
+  if (!fs.existsSync(skillFile)) {
+    errors.push("sap-sac-custom-widget missing SKILL.md for discovery guidance");
+  } else {
+    const skillText = fs.readFileSync(skillFile, "utf8");
+    for (const term of ["Widget Discovery and Evidence Intake", "references/widget-discovery-intake.md"]) {
+      if (!skillText.includes(term)) {
+        errors.push(`sap-sac-custom-widget SKILL.md discovery guidance missing '${term}'`);
+      }
+    }
+  }
+
+  if (!fs.existsSync(commandFile)) {
+    errors.push("sap-sac-custom-widget missing commands/widget-generate.md for discovery guidance");
+  } else {
+    const commandText = fs.readFileSync(commandFile, "utf8");
+    for (const term of ["Widget Role", "Data-Source Mode", "No data", "screenshots", "PDFs", "menu", "sidebar"]) {
+      if (!commandText.includes(term)) {
+        errors.push(`sap-sac-custom-widget widget-generate discovery guidance missing '${term}'`);
+      }
+    }
+  }
+
+  if (!fs.existsSync(localBuilderWorkflowFile)) {
+    errors.push("sap-sac-custom-widget missing references/local-builder-workflow.md for hosted-builder guidance");
+  } else {
+    const workflowText = fs.readFileSync(localBuilderWorkflowFile, "utf8");
+    const requiredHostedTerms = [
+      "https://www.custom-widgets.de/custom-widget-builder",
+      "https://www.custom-widgets.de/demo",
+      "public-web",
+      "non-sensitive",
+      "enterprise-safe default",
+      "untrusted external artifacts",
+    ];
+    for (const term of requiredHostedTerms) {
+      if (!workflowText.includes(term)) {
+        errors.push(`sap-sac-custom-widget local builder workflow hosted-builder guidance missing '${term}'`);
+      }
+    }
+  }
+}
+
 function validateSacLocalBuilderTemplate() {
   const builderRoot = path.join(
     pluginsRoot,
@@ -682,6 +767,7 @@ for (const file of walk(pluginsRoot).filter((item) => repoRelativePath(item).inc
 validateHttpsToSftpIflowTemplate();
 await validateSacDesignRuntimeTemplate();
 validateSapSampleWidgetLessons();
+validateSacWidgetDiscoveryGuidance();
 validateSacLocalBuilderTemplate();
 validateSacBuilderPanelTemplate();
 
