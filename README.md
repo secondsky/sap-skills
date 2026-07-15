@@ -1,9 +1,9 @@
 # SAP Skills for AI Coding Assistants
 
-38 SAP development plugins with evidence-tracked verification
+40 SAP development plugins with evidence-tracked verification
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENSE)
-[![Plugins](https://img.shields.io/badge/Plugins-38-brightgreen.svg)](.claude-plugin/marketplace.json)
+[![Plugins](https://img.shields.io/badge/Plugins-40-brightgreen.svg)](.claude-plugin/marketplace.json)
 [![Version](https://img.shields.io/badge/Version-2.3.2-orange.svg)](CHANGELOG.md)
 
 SAP development plugins for AI coding assistants, with public-source or package-registry verification tracked where available. Live tenant and system validation is tracked per plugin in `docs/project/source-verification-ledger.json`.
@@ -18,7 +18,7 @@ recipes unless that client supports them natively.
 
 - [Quick Start](#quick-start) — Install for supported AI coding assistants
 - [How It Works](#how-it-works) — Auto-activation examples
-- [Available Plugins](#available-plugins-38) — 38 plugins by category
+- [Available Plugins](#available-plugins-40) — 40 plugins by category
 - [Repository Structure](#repository-structure) — Architecture overview
 - [Building New Plugins](#building-new-plugins) — Contribution workflow
 - [Documentation](#documentation) — Guides and references
@@ -98,15 +98,17 @@ arguments, environment variables, and safety notes.
 
 ---
 
-## Available Plugins (38)
+## Available Plugins (40)
 
 Feature icons: ⌘ = commands · 🤖 = agents · 🛡 = hooks · 🔌 = MCP · LSP = language server
 
-### 🔧 Tooling & Development (3)
+### 🔧 Tooling & Development (5)
 
 | Plugin | Features | Description |
 |--------|----------|-------------|
+| **sap-api-policy** | — | Evidence-based assessment of SAP API/interface usage against the SAP API Policy (v.4.2026a) |
 | **sap-api-style** | ⌘1 · 🤖1 | API documentation standards following SAP guidelines |
+| **sap-browser-automation** | — | Shared authenticated SAP browser automation, Edge/CDP, profile reuse, and recovery |
 | **sap-dependency-security** | ⌘1 · 🛡 | SAP dependency security, MCP executable trust, cooldown policies, lockfile hardening, supply-chain safeguards |
 | **sap-hana-cli** | ⌘2 · 🤖1 · 🔌MCP | SAP HANA Developer CLI for database operations |
 
@@ -174,7 +176,7 @@ sap-skills/
 ├── .claude-plugin/
 │   └── marketplace.json          # Marketplace catalog
 │
-└── plugins/                       # All plugins (38)
+└── plugins/                       # All plugins (40)
     └── [plugin-name]/
         ├── .claude-plugin/
         │   └── plugin.json       # Plugin manifest
@@ -190,7 +192,7 @@ sap-skills/
         └── hooks/                # Optional: Event hooks
 ```
 
-**Key features**: 38 plugins include commands (67 total), 14 with agents (31 total), 8 with hooks, 7 with MCP integration, and 1 with LSP support. 16 plugins cross-reference related plugins.
+**Key features**: 40 plugins include commands (67 total), 14 with agents (31 total), 8 with hooks, 7 with MCP integration, and 1 with LSP support. 17 plugins cross-reference related plugins.
 
 ---
 
@@ -252,4 +254,4 @@ Open source under **GPL-3.0**. Contributions welcome:
 
 ---
 
-**Maintained by**: Eduard Jiglau · **Email**: [hello@sap-ai-skills.com](mailto:hello@sap-ai-skills.com) · **Website**: [sap-ai-skills.com](https://sap-ai-skills.com) · **Repository**: [github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills) · **Last Updated**: 2026-06-20 (v2.3.2)
+**Maintained by**: Eduard Jiglau · **Email**: [hello@sap-ai-skills.com](mailto:hello@sap-ai-skills.com) · **Website**: [sap-ai-skills.com](https://sap-ai-skills.com) · **Repository**: [github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills) · **Last Updated**: 2026-07-14 (v2.3.2)
