@@ -29,6 +29,19 @@ Assess whether an SAP API usage scenario appears aligned with the **SAP API Poli
 (and its FAQ v1.2, May 2026) by gathering evidence from official SAP sources and the user's own
 facts, then producing a conservative, sourced technical assessment.
 
+## When to Use
+
+Use this skill for a single SAP interface assessment, an architecture decision involving SAP APIs,
+or a batch inventory that needs evidence-based policy triage. Route purely legal, contractual,
+commercial, or roadmap questions to the appropriate SAP or customer owner.
+
+## Quick Start
+
+1. Capture the product, deployment, interface, consumer, data direction, volume, and intended use.
+2. Gather current official evidence for publication status, documented use, and applicable controls.
+3. Apply the workflow below and record evidence separately from inference.
+4. Return one assessment category, one confidence level, residual risks, and concrete SAP questions.
+
 ## The one rule that defines this skill
 
 **Never present the result as legal advice, contractual advice, or a final/definitive SAP
@@ -164,3 +177,19 @@ Every assessment report must include these exact elements:
   compliance decision.
 - A source/tool gap statement when SAP API Hub, SAP Notes, Roadmap, or ARC-1 was unavailable for a
   material question.
+
+## Troubleshooting
+
+| Problem | Response |
+| --- | --- |
+| Interface name is ambiguous | Request the exact technical name or proceed with low confidence and state the ambiguity. |
+| Official sources conflict | Preserve both findings, use `Needs SAP confirmation`, and identify the deciding evidence. |
+| Authenticated evidence is unavailable | State the tool gap and do not replace it with community content as proof. |
+| The request mixes technical and legal questions | Assess the technical portion and route the legal portion to the responsible owner. |
+
+## Related Skills
+
+- `sap-api-style` for API design and documentation conventions.
+- `sap-browser-automation` for approved interaction with authenticated SAP web interfaces.
+- `sap-abap` and `sap-abap-cds` for released ABAP objects, wrappers, and Clean Core implementation details.
+- `sap-dependency-security` for MCP and software supply-chain controls.
