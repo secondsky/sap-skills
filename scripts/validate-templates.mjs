@@ -134,7 +134,18 @@ function validateHttpsToSftpIflowTemplate() {
 
   const xmlFiles = [projectFile, iflowFile].filter((file) => fs.existsSync(file));
   for (const xmlFile of xmlFiles) {
-    const result = spawnSync("xmllint", ["--noout", xmlFile], { encoding: "utf8" });
+    let result = spawnSync("xmllint", ["--noout", xmlFile], { encoding: "utf8" });
+    if (result.error?.code === "ENOENT" && process.platform === "win32") {
+      result = spawnSync("powershell.exe", [
+        "-NoProfile",
+        "-NonInteractive",
+        "-Command",
+        "$ErrorActionPreference='Stop'; [xml]$document=Get-Content -Raw -LiteralPath $env:SAP_XML_VALIDATION_FILE; if ($null -eq $document.DocumentElement) { throw 'Missing XML document element' }",
+      ], {
+        encoding: "utf8",
+        env: { ...process.env, SAP_XML_VALIDATION_FILE: xmlFile },
+      });
+    }
     if (result.error?.code === "ENOENT") {
       errors.push("xmllint is required to validate iFlow XML templates");
       break;

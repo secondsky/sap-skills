@@ -116,13 +116,13 @@ npm outdated  # Check for SAP package updates
 
 ### Overview
 
-The SAP skills repository uses a **marketplace system** to manage 37 production plugins with:
+The SAP skills repository uses a **marketplace system** to manage 38 production plugins with:
 - Coordinated versioning (all at v2.3.2)
 - Cross-references between related skills
 - Central registry (.claude-plugin/marketplace.json)
 - Single root manifest architecture
 
-**Scale**: 37 plugins across 8 manifest categories and 5 user-facing groups.
+**Scale**: 38 plugins across 8 manifest categories and 5 user-facing groups.
 
 ### Multi-Skill Portfolio Management
 
@@ -211,7 +211,7 @@ plugins/sap-cap-capire/
 #### marketplace.json Structure
 
 **Location**: `.claude-plugin/marketplace.json`
-**Size**: ~40KB (37 plugins)
+**Size**: ~40KB (38 plugins)
 **Auto-Generated**: By `generate-marketplace.sh`
 
 **Structure**:
@@ -222,7 +222,7 @@ plugins/sap-cap-capire/
   "metadata": {
     "version": "2.3.2",
     "last_updated": "2026-06-20",
-    "total_skills": 37,
+    "total_skills": 38,
     "categories": [
       "abap", "ai", "btp", "cap",
       "data-analytics", "hana",
@@ -752,6 +752,7 @@ sap-cap-*         → "cap"
 sap-fiori-*       → "ui-development"
 sap-hana-*        → "hana"
 sap-datasphere*   → "data-analytics"
+sap-bw-*          → "data-analytics"
 sap-ai-*          → "ai"
 *                 → "tooling" (default)
 ```
@@ -809,7 +810,7 @@ NOT:
   "metadata": {
     "version": "2.3.2",
     "last_updated": "2025-12-28T12:00:00Z",
-    "total_skills": 37,
+    "total_skills": 38,
     "categories": ["abap", "ai", "btp", "cap", "data-analytics", "hana", "tooling", "ui-development"]
   },
   "plugins": [ ... 33 entries ... ]
@@ -825,8 +826,8 @@ NOT:
 ./scripts/generate-marketplace.sh --dry-run
 
 # Validate output
-jq '.plugins | length' .claude-plugin/marketplace.json  # Should be 37
-jq '.metadata.total_skills' .claude-plugin/marketplace.json  # Should be 37
+jq '.plugins | length' .claude-plugin/marketplace.json  # Should be 38
+jq '.metadata.total_skills' .claude-plugin/marketplace.json  # Should be 38
 ```
 
 ---

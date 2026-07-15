@@ -1,0 +1,5 @@
+{
+  "name": "sap-bw-query",
+  "version": "2.3.2",
+  "description": "Password-safe SAP BW query inspection and local draft automation through a portable Eclipse/BW Modeling Tools workspace."
+}

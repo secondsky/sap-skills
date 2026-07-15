@@ -29,8 +29,8 @@
     "./agents/hana-database-advisor.md"
   ],
   "commands": [
-    "./commands/hana-inspect-object.md",
-    "./commands/hana-connect-check.md"
+    "./commands/hana-connect-check.md",
+    "./commands/hana-inspect-object.md"
   ],
   "mcpServers": "./.mcp.json"
 }

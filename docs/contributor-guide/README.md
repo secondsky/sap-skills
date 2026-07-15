@@ -208,13 +208,13 @@ npm outdated  # Check for SAP package updates
 
 ### Overview
 
-The SAP skills repository manages **37 production plugins** using a marketplace system with:
+The SAP skills repository manages **38 production plugins** using a marketplace system with:
 - Coordinated versioning (all at v2.3.2)
 - Cross-references between related skills
 - Central registry (.claude-plugin/marketplace.json)
 - Single root manifest architecture
 
-**Scale**: 37 plugins across 5 user-facing groups:
+**Scale**: 38 plugins across 5 user-facing groups:
 - Tooling & Development (3 plugins)
 - SAP BTP Platform (15 plugins)
 - UI Development (4 plugins)
@@ -626,6 +626,7 @@ sap-cap-*         → "cap"
 sap-fiori-*       → "ui-development"
 sap-hana-*        → "hana"
 sap-datasphere*   → "data-analytics"
+sap-bw-*          → "data-analytics"
 sap-ai-*          → "ai"
 *                 → "tooling" (default)
 ```
@@ -678,8 +679,8 @@ NOT:
 ./scripts/generate-marketplace.sh --dry-run
 
 # Validate output
-jq '.plugins | length' .claude-plugin/marketplace.json  # Should be 37
-jq '.metadata.total_skills' .claude-plugin/marketplace.json  # Should be 37
+jq '.plugins | length' .claude-plugin/marketplace.json  # Should be 38
+jq '.metadata.total_skills' .claude-plugin/marketplace.json  # Should be 38
 ```
 
 ---

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedForRepositoryVersion": "2.3.0",
+  "generatedForRepositoryVersion": "2.3.2",
   "policy": {
     "lastVerifiedRule": "metadata.last_verified in SKILL.md must not be advanced beyond the matching ledger entry's supportedLastVerified date.",
     "productionRule": "Evidence type public_docs, package_registry, source_repo, archival_status, or audit_only_pending must not be used to claim live tenant or live system verification.",
@@ -35,6 +35,7 @@
     {"plugin": "sap-btp-job-scheduling", "supportedLastVerified": "2025-11-27", "evidenceType": "audit_only_pending", "evidenceDate": "2026-06-14", "scope": "Stale metadata documented; live scheduler service checks remain pending.", "source": "docs/project/plugin-skills-audit-2026-06-14.md"},
     {"plugin": "sap-btp-master-data-integration", "supportedLastVerified": "2025-11-27", "evidenceType": "audit_only_pending", "evidenceDate": "2026-06-14", "scope": "Stale metadata documented; live replication and subscription checks remain pending.", "source": "docs/project/plugin-skills-audit-2026-06-14.md"},
     {"plugin": "sap-btp-service-manager", "supportedLastVerified": "2025-11-27", "evidenceType": "audit_only_pending", "evidenceDate": "2026-06-14", "scope": "Stale metadata documented; SMCTL/BTP CLI docs refresh and live checks remain pending.", "source": "docs/project/plugin-skills-audit-2026-06-14.md"},
+    {"plugin": "sap-bw-query", "supportedLastVerified": "2026-07-13", "evidenceType": "public_docs", "evidenceDate": "2026-07-13", "scope": "Official/fixed Eclipse, SAP BWMT, SapMachine, and Node source evidence plus local Windows bundle build, Eclipse compilation, signed deployment, and safety tests; live BW, query execution, SSO, authorization, transport, and backend-save validation remain pending.", "source": "docs/project/sap-bw-query-source-review-2026-07-13.md"},
     {"plugin": "sap-cap-capire", "supportedLastVerified": "2026-02-22", "evidenceType": "audit_only_pending", "evidenceDate": "2026-06-14", "scope": "Stale metadata documented; CAP CLI/LSP/MCP and deployment checks require representative projects.", "source": "docs/project/plugin-skills-audit-2026-06-14.md"},
     {"plugin": "sap-cloud-sdk-ai", "supportedLastVerified": "2026-06-15", "evidenceType": "package_registry", "evidenceDate": "2026-06-15", "scope": "Public npm and Maven registry evidence for @sap-ai-sdk/orchestration 2.11.0 and com.sap.ai.sdk:orchestration 1.19.0; AI Core execution checks require tenant evidence.", "source": "docs/project/package-evidence/2026-06-15.json"},
     {"plugin": "sap-cloud-sdk-ai-python", "supportedLastVerified": "2026-06-15", "evidenceType": "package_registry", "evidenceDate": "2026-06-15", "scope": "Public PyPI registry evidence for sap-ai-sdk-gen 6.10.0; AI Core Python execution checks require tenant evidence.", "source": "docs/project/package-evidence/2026-06-15.json"},

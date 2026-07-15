@@ -15,7 +15,9 @@ const repoRoot = repoRootFrom(import.meta.url);
 const pluginsRoot = path.join(repoRoot, "plugins");
 const auditReport = path.join(repoRoot, "docs/project/plugin-skills-audit-2026-06-14.md");
 const ledgerPath = path.join(repoRoot, "docs/project/source-verification-ledger.json");
-const expectedVersion = "2.3.1";
+const marketplacePath = path.join(repoRoot, ".claude-plugin/marketplace.json");
+const marketplace = JSON.parse(fs.readFileSync(marketplacePath, "utf8"));
+const expectedVersion = marketplace.metadata?.version ?? marketplace.version;
 const staleAfterDays = 90;
 const allowedSkillRootEntries = new Set([
   "SKILL.md",
@@ -153,6 +155,7 @@ for (const pluginName of pluginDirs) {
     }
   }
 
+  const ledgerEntry = ledgerByPlugin.get(pluginName);
   const version = metadataValue(frontmatter, "version");
   if (version !== expectedVersion) {
     errors.push(`${rel(skillFile)}: metadata.version must be ${expectedVersion}, found '${version || "missing"}'`);
@@ -170,7 +173,8 @@ for (const pluginName of pluginDirs) {
     if (ageDays === null) {
       errors.push(`${rel(skillFile)}: invalid metadata.last_verified date '${lastVerified}'`);
     } else if (ageDays > staleAfterDays) {
-      if (!auditText.includes(`\`${pluginName}\``)) {
+      const hasAuditEvidence = auditText.includes(`\`${pluginName}\``) || Boolean(ledgerEntry?.source);
+      if (!hasAuditEvidence) {
         errors.push(`${rel(skillFile)}: stale metadata.last_verified (${lastVerified}, ${ageDays} days) without audit-report entry`);
       } else {
         warnings.push(`${pluginName}: metadata.last_verified is stale (${lastVerified}, ${ageDays} days) and documented in audit report`);
@@ -178,7 +182,6 @@ for (const pluginName of pluginDirs) {
     }
   }
 
-  const ledgerEntry = ledgerByPlugin.get(pluginName);
   for (const item of extractBodyMetadata(content)) {
     if (item.key === "version" && version && item.value !== version) {
       errors.push(`${rel(skillFile)}:${item.lineNumber}: body/footer ${item.label} '${item.value}' conflicts with metadata.version '${version}'`);

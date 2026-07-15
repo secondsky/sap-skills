@@ -25,13 +25,13 @@
   ],
   "category": "data-analytics",
   "agents": [
-    "./agents/widget-debugger.md",
+    "./agents/widget-api-assistant.md",
     "./agents/widget-architect.md",
-    "./agents/widget-api-assistant.md"
+    "./agents/widget-debugger.md"
   ],
   "commands": [
-    "./commands/widget-validate.md",
+    "./commands/widget-generate.md",
     "./commands/widget-lint.md",
-    "./commands/widget-generate.md"
+    "./commands/widget-validate.md"
   ]
 }

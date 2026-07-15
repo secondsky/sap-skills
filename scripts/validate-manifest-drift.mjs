@@ -25,7 +25,9 @@ function copyFilter(src) {
 }
 
 function read(file) {
-  return fs.existsSync(file) ? fs.readFileSync(file, "utf8") : null;
+  return fs.existsSync(file)
+    ? fs.readFileSync(file, "utf8").replaceAll("\r\n", "\n")
+    : null;
 }
 
 function trackedManifestFiles() {
@@ -37,12 +39,27 @@ function trackedManifestFiles() {
   return files;
 }
 
+function manifestGeneratorCommand() {
+  if (process.platform !== "win32") {
+    return { command: "./scripts/sync-plugins.sh", args: [] };
+  }
+
+  const candidates = [
+    process.env.GIT_BASH,
+    process.env.ProgramFiles ? path.join(process.env.ProgramFiles, "Git", "bin", "bash.exe") : null,
+    process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, "Programs", "Git", "bin", "bash.exe") : null,
+  ].filter(Boolean);
+  const bash = candidates.find((candidate) => fs.existsSync(candidate)) || "bash.exe";
+  return { command: bash, args: ["./scripts/sync-plugins.sh"] };
+}
+
 try {
   fs.cpSync(repoRoot, tmpRepo, { recursive: true, filter: copyFilter });
 
   const marketplace = JSON.parse(fs.readFileSync(path.join(repoRoot, ".claude-plugin/marketplace.json"), "utf8"));
   const lastUpdated = marketplace?.metadata?.last_updated || new Date().toISOString().slice(0, 10);
-  const result = spawnSync("./scripts/sync-plugins.sh", {
+  const generator = manifestGeneratorCommand();
+  const result = spawnSync(generator.command, generator.args, {
     cwd: tmpRepo,
     env: { ...process.env, MARKETPLACE_LAST_UPDATED: lastUpdated },
     encoding: "utf8",

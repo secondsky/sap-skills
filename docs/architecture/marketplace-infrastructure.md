@@ -8,13 +8,13 @@ Technical documentation for the SAP Skills marketplace system.
 
 ## Overview
 
-The SAP skills repository uses a **marketplace system** to manage 37 production plugins with:
+The SAP skills repository uses a **marketplace system** to manage 38 production plugins with:
 - Coordinated versioning (all at v2.3.2)
 - Cross-references between related skills
 - Central registry (.claude-plugin/marketplace.json)
 - Single root manifest architecture
 
-**Scale**: 37 plugins across 8 manifest categories (`abap`, `ai`, `btp`, `cap`, `data-analytics`, `hana`, `tooling`, `ui-development`)
+**Scale**: 38 plugins across 8 manifest categories (`abap`, `ai`, `btp`, `cap`, `data-analytics`, `hana`, `tooling`, `ui-development`)
 
 ---
 
@@ -109,7 +109,7 @@ plugins/sap-cap-capire/
 ### marketplace.json Structure
 
 **Location**: `.claude-plugin/marketplace.json`
-**Size**: ~40KB (37 plugins)
+**Size**: ~40KB (38 plugins)
 **Auto-Generated**: By `generate-marketplace.sh`
 
 **Structure**:
@@ -120,7 +120,7 @@ plugins/sap-cap-capire/
   "metadata": {
     "version": "2.3.2",
     "last_updated": "2026-06-20",
-    "total_skills": 37,
+    "total_skills": 38,
     "categories": [
       "abap", "ai", "btp", "cap",
       "data-analytics", "hana",
