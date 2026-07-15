@@ -1,0 +1,26 @@
+{
+  "name": "sap-browser-automation",
+  "description": "Use when an agent must inspect or operate an authenticated SAP web UI through the Codex or Claude Desktop Browser, Microsoft Edge CDP, or an existing Playwright client, especially when SAP SSO reuse, isolated Edge profiles, deterministic target selection, screenshots, or browser bootstrap recovery is required.",
+  "version": "2.3.2",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "license": "GPL-3.0",
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "keywords": [
+    "authentication",
+    "automation",
+    "browser",
+    "cdp",
+    "edge",
+    "playwright",
+    "sap",
+    "sap-browser-automation",
+    "sso",
+    "web"
+  ],
+  "category": "tooling"
+}

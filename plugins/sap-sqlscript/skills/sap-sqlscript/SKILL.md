@@ -23,7 +23,7 @@ metadata:
 
 Use this skill when writing SQLScript procedures, anonymous blocks, table/scalar functions, AMDP methods, exception handlers, cursor logic, bulk operations, or HANA performance-sensitive database logic that should run close to the data.
 
-For browser-based Datasphere or HANA Cloud SQL editor triage in Microsoft Edge, load `references/edge-cdp-control.md`. Use CDP only for local UI inspection, console diagnostics, deployment messages, and approved screenshots; default database validation still belongs in SQL/HANA tooling.
+For browser-based Datasphere or HANA Cloud SQL editor triage, use `sap-browser-automation` for manual in-app authentication, consent-gated Edge profile reuse, fresh Edge/CDP startup, auth-state bootstrap, and recovery. Load local `references/edge-cdp-control.md` for SQLScript-specific boundaries. Use CDP only for local UI inspection, console diagnostics, deployment messages, and approved screenshots; default database validation still belongs in SQL/HANA tooling.
 
 ## Overview
 
@@ -575,7 +575,7 @@ For comprehensive SAP development, combine this skill with:
 - `references/performance-guide.md` - Optimization techniques
 - `references/advanced-features.md` - Lateral joins, JSON, query hints, currency conversion
 - `references/troubleshooting.md` - Common errors and solutions
-- `references/edge-cdp-control.md` - Microsoft Edge CDP setup, `DevToolsActivePort` fallback, browser-based SQL editor triage, and safety rules
+- `references/edge-cdp-control.md` - SQLScript-specific add-on for the shared `sap-browser-automation` Edge/CDP and authentication layer
 
 ### Production-Ready Templates
 Copy and customize these templates for common patterns:

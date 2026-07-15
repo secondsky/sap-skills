@@ -9,8 +9,8 @@
   },
   "metadata": {
     "version": "2.3.2",
-    "last_updated": "2026-06-20",
-    "total_skills": 37,
+    "last_updated": "2026-07-14",
+    "total_skills": 39,
     "categories": [
       "abap",
       "ai",
@@ -89,6 +89,26 @@
       ]
     },
     {
+      "name": "sap-api-policy",
+      "source": "./plugins/sap-api-policy",
+      "description": "Evidence-based assessment of whether an SAP API/interface usage scenario aligns with the SAP API Policy (v.4.2026a). Use whenever someone asks whether a way of calling SAP is allowed/compliant — e.g. Published API vs internal/private/\"confidential\" API status, \"Documented Use\", whether a third-party tool / iPaaS / middleware / RPA bot / AI agent / MCP server may call SAP APIs, agentic or generative-AI access to SAP, bulk data extraction or replication into a lake/warehouse, custom Z/Y OData or RFC/BAPI wrappers and Clean Core, ADT/developer-tooling boundaries, ODP-RFC and other \"not permitted\" interfaces, partner Integration Certification, or RISE integration remediation. Trigger even when the policy is not named, e.g. \"are we allowed to…\", \"is it compliant to…\", \"can we connect X to SAP…\", \"will this break under the new API policy\". Produces a sourced technical assessment with a confidence level — explicitly NOT legal advice and NOT a final SAP compliance decision.",
+      "version": "2.3.2",
+      "category": "tooling",
+      "keywords": [
+        "api",
+        "automation",
+        "cli",
+        "development",
+        "odata",
+        "policy",
+        "productivity",
+        "sap",
+        "sap-api-policy",
+        "tools"
+      ],
+      "license": "GPL-3.0"
+    },
+    {
       "name": "sap-api-style",
       "source": "./plugins/sap-api-style",
       "description": "This skill provides comprehensive guidance for documenting SAP APIs following the SAP API Style Guide standards. It should be used when creating or reviewing API documentation for REST, OData, Java, JavaScript, .NET, or C/C++ APIs. The skill covers naming conventions, documentation comments, OpenAPI specifications, quality checklists, deprecation policies, and manual documentation templates. It ensures consistency with SAP API Business Hub standards and industry best practices. Keywords: SAP API, REST, OData, OpenAPI, Swagger, Javadoc, JSDoc, XML documentation, API Business Hub, API naming, API deprecation, x-sap-stateInfo, Entity Data Model, EDM, documentation tags, API quality, API templates",
@@ -117,6 +137,26 @@
       "commands": [
         "./commands/api-style-review.md"
       ]
+    },
+    {
+      "name": "sap-browser-automation",
+      "source": "./plugins/sap-browser-automation",
+      "description": "Use when an agent must inspect or operate an authenticated SAP web UI through the Codex or Claude Desktop Browser, Microsoft Edge CDP, or an existing Playwright client, especially when SAP SSO reuse, isolated Edge profiles, deterministic target selection, screenshots, or browser bootstrap recovery is required.",
+      "version": "2.3.2",
+      "category": "tooling",
+      "keywords": [
+        "authentication",
+        "automation",
+        "browser",
+        "cdp",
+        "edge",
+        "playwright",
+        "sap",
+        "sap-browser-automation",
+        "sso",
+        "web"
+      ],
+      "license": "GPL-3.0"
     },
     {
       "name": "sap-btp-best-practices",

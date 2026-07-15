@@ -3,13 +3,13 @@
 
 **Repository**: https://github.com/secondsky/sap-skills
 **Purpose**: SAP development skills for AI coding assistants with evidence-tracked verification
-**Version**: 2.3.2 | **Plugins**: 37 | **Last Updated**: 2026-06-20
+**Version**: 2.3.2 | **Plugins**: 39 | **Last Updated**: 2026-07-14
 
 ---
 
 ## What This Repository Is
 
-37 SAP development skills for SAP technologies: BTP, CAP, Fiori, ABAP,
+39 SAP development skills for SAP technologies: BTP, CAP, Fiori, ABAP,
 Analytics, and more. Public-source/package-registry verification is tracked
 where available; live tenant/system validation is tracked per plugin in
 `docs/project/source-verification-ledger.json`.
@@ -121,10 +121,10 @@ prefer `preset: "chatgpt-pro-heavy"` or explicit `engine: "browser"`.
 
 ### Marketplace System
 
-**Scale**: 37 plugins with coordinated versioning
+**Scale**: 39 plugins with coordinated versioning
 **Structure**: Single root manifest per plugin (`plugins/*/.claude-plugin/plugin.json`)
 **Registry**: Central marketplace.json (~40KB, auto-generated)
-**Cross-References**: 15 plugins reference related skills
+**Cross-References**: 17 plugins reference related skills
 
 **Categories**:
 - Category counts are maintained in [README.md](README.md)
