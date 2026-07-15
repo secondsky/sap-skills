@@ -15,6 +15,7 @@
     "api",
     "dashboard",
     "data",
+    "edge",
     "planning",
     "sac",
     "sap",
@@ -23,13 +24,13 @@
   ],
   "category": "data-analytics",
   "agents": [
-    "./agents/planning-api-assistant.md",
     "./agents/data-action-debugger.md",
+    "./agents/planning-api-assistant.md",
     "./agents/planning-model-architect.md"
   ],
   "commands": [
-    "./commands/sac-planning-checklist.md",
     "./commands/data-action-template.md",
+    "./commands/sac-planning-checklist.md",
     "./commands/seamless-planning-guide.md"
   ]
 }

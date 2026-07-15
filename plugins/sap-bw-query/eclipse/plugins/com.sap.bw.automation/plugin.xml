@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.ui.views">
+      <category id="com.sap.bw.automation.category" name="BW Automation"/>
+      <view
+            id="com.sap.bw.automation.view"
+            name="BW Automation"
+            category="com.sap.bw.automation.category"
+            class="com.sap.bw.automation.ui.AutomationView"
+            restorable="true"/>
+   </extension>
+   <extension point="org.eclipse.ui.startup">
+      <startup class="com.sap.bw.automation.AutomationStartup"/>
+   </extension>
+</plugin>

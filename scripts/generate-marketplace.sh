@@ -231,19 +231,30 @@ $category"
   echo "Unique categories: $unique_categories" >&2
   echo "Count: $count" >&2
 
+  # Read the large arrays from files instead of argv. Windows has a much lower
+  # command-line length limit and the marketplace catalog can exceed it.
+  local plugins_file
+  local categories_file
+  plugins_file=$(mktemp)
+  categories_file=$(mktemp)
+  printf '%s\n' "$plugins" > "$plugins_file"
+  printf '%s\n' "$unique_categories" > "$categories_file"
+
   # Return as JSON object
   local result
   if ! result=$(jq -n \
-    --argjson plugins "$plugins" \
-    --argjson categories "$unique_categories" \
+    --slurpfile plugins_file "$plugins_file" \
+    --slurpfile categories_file "$categories_file" \
     --arg count_str "$count" \
-    '{plugins: $plugins, categories: $categories, count: ($count_str | tonumber)}'); then
+    '{plugins: $plugins_file[0], categories: $categories_file[0], count: ($count_str | tonumber)}'); then
+    rm -f "$plugins_file" "$categories_file"
     echo "ERROR: Failed to create final JSON" >&2
     echo "Plugins length: $(echo "$plugins" | jq 'length')" >&2
     echo "Categories: $unique_categories" >&2
     echo "Count: $count" >&2
     return 1
   fi
+  rm -f "$plugins_file" "$categories_file"
 
   echo "$result"
 }
@@ -300,6 +311,13 @@ generate_marketplace() {
   local current_date
   current_date=$(get_current_date)
 
+  local plugins_file
+  local categories_file
+  plugins_file=$(mktemp)
+  categories_file=$(mktemp)
+  printf '%s\n' "$plugins" > "$plugins_file"
+  printf '%s\n' "$categories" > "$categories_file"
+
   # Build marketplace.json
   local marketplace_content
   marketplace_content=$(jq -n \
@@ -311,8 +329,8 @@ generate_marketplace() {
     --arg owner_email "hello@sap-ai-skills.com" \
     --arg last_updated "$current_date" \
     --arg total_skills "$total_skills" \
-    --argjson categories "$categories" \
-    --argjson plugins "$plugins" \
+    --slurpfile categories_file "$categories_file" \
+    --slurpfile plugins_file "$plugins_file" \
     '{
       name: $name,
       version: $version,
@@ -326,11 +344,12 @@ generate_marketplace() {
         version: $version,
         last_updated: $last_updated,
         total_skills: ($total_skills | tonumber),
-        categories: $categories
+        categories: $categories_file[0]
       },
-      plugins: $plugins
+      plugins: $plugins_file[0]
     }'
   )
+  rm -f "$plugins_file" "$categories_file"
 
   # Pretty-print JSON
   local formatted_json

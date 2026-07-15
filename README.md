@@ -1,9 +1,9 @@
 # SAP Skills for AI Coding Assistants
 
-37 SAP development plugins with evidence-tracked verification
+38 SAP development plugins with evidence-tracked verification
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENSE)
-[![Plugins](https://img.shields.io/badge/Plugins-37-brightgreen.svg)](.claude-plugin/marketplace.json)
+[![Plugins](https://img.shields.io/badge/Plugins-38-brightgreen.svg)](.claude-plugin/marketplace.json)
 [![Version](https://img.shields.io/badge/Version-2.3.2-orange.svg)](CHANGELOG.md)
 
 SAP development plugins for AI coding assistants, with public-source or package-registry verification tracked where available. Live tenant and system validation is tracked per plugin in `docs/project/source-verification-ledger.json`.
@@ -18,7 +18,7 @@ recipes unless that client supports them natively.
 
 - [Quick Start](#quick-start) — Install for supported AI coding assistants
 - [How It Works](#how-it-works) — Auto-activation examples
-- [Available Plugins](#available-plugins-37) — 37 plugins by category
+- [Available Plugins](#available-plugins-38) — 38 plugins by category
 - [Repository Structure](#repository-structure) — Architecture overview
 - [Building New Plugins](#building-new-plugins) — Contribution workflow
 - [Documentation](#documentation) — Guides and references
@@ -98,7 +98,7 @@ arguments, environment variables, and safety notes.
 
 ---
 
-## Available Plugins (37)
+## Available Plugins (38)
 
 Feature icons: ⌘ = commands · 🤖 = agents · 🛡 = hooks · 🔌 = MCP · LSP = language server
 
@@ -139,10 +139,11 @@ Feature icons: ⌘ = commands · 🤖 = agents · 🛡 = hooks · 🔌 = MCP · 
 | **sapui5-cli** | ⌘2 | SAPUI5 CLI tools and commands |
 | **sapui5-linter** | ⌘2 | SAPUI5 code quality and linting |
 
-### 📊 Data & Analytics (6)
+### 📊 Data & Analytics (7)
 
 | Plugin | Features | Description |
 |--------|----------|-------------|
+| **sap-bw-query** | ⌘3 · 🔌MCP | Password-safe portable Eclipse/BWMT query inspection, specification review, and unsaved local drafts |
 | **sap-datasphere** | ⌘5 · 🤖3 · 🛡 · 🔌MCP | SAP Datasphere data modeling and management |
 | **sap-hana-cloud-data-intelligence** | ⌘1 | SAP HANA Cloud Data Intelligence |
 | **sap-sac-custom-widget** | ⌘3 · 🤖3 · 🛡 | SAP Analytics Cloud custom widget development |
@@ -173,7 +174,7 @@ sap-skills/
 ├── .claude-plugin/
 │   └── marketplace.json          # Marketplace catalog
 │
-└── plugins/                       # All plugins (37)
+└── plugins/                       # All plugins (38)
     └── [plugin-name]/
         ├── .claude-plugin/
         │   └── plugin.json       # Plugin manifest
@@ -189,7 +190,7 @@ sap-skills/
         └── hooks/                # Optional: Event hooks
 ```
 
-**Key features**: 37 plugins include commands (64 total), 14 with agents (31 total), 8 with hooks, 6 with MCP integration, and 1 with LSP support. 15 plugins cross-reference related plugins.
+**Key features**: 38 plugins include commands (67 total), 14 with agents (31 total), 8 with hooks, 7 with MCP integration, and 1 with LSP support. 16 plugins cross-reference related plugins.
 
 ---
 

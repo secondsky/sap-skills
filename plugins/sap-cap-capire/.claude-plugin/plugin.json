@@ -32,16 +32,16 @@
   "category": "cap",
   "agents": [
     "./agents/cap-cds-modeler.md",
-    "./agents/cap-service-developer.md",
     "./agents/cap-performance-debugger.md",
-    "./agents/cap-project-architect.md"
+    "./agents/cap-project-architect.md",
+    "./agents/cap-service-developer.md"
   ],
   "commands": [
-    "./commands/cap-setup-wizard.md",
-    "./commands/cap-troubleshooter.md",
-    "./commands/cap-mcp-tools.md",
     "./commands/cap-cds-reference.md",
-    "./commands/cap-deployment-checklist.md"
+    "./commands/cap-deployment-checklist.md",
+    "./commands/cap-mcp-tools.md",
+    "./commands/cap-setup-wizard.md",
+    "./commands/cap-troubleshooter.md"
   ],
   "mcpServers": "./.mcp.json",
   "lspServers": "./.lsp.json"

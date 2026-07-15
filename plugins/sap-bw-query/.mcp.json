@@ -1,0 +1,16 @@
+{
+  "bw-automation-studio": {
+    "command": "powershell.exe",
+    "args": [
+      "-NoProfile",
+      "-NonInteractive",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "${CLAUDE_PLUGIN_ROOT}/scripts/Start-BwMcp.ps1"
+    ],
+    "env": {
+      "BW_AUTOMATION_PLUGIN_COMMIT": "source-commit"
+    }
+  }
+}

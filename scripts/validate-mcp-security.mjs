@@ -153,6 +153,11 @@ function validateSourceServer(relPath, serverName, serverConfig, inventory) {
   referencedSources.add(sourceKey);
   validateOperationPolicy(sourceKey, sourcePolicy);
 
+  const expectedCommand = sourcePolicy.command ?? "node";
+  if (serverConfig.command !== expectedCommand) {
+    fail(`${sourceKey}: local-source MCP command must be ${expectedCommand}`);
+  }
+
   const args = Array.isArray(serverConfig.args) ? serverConfig.args : [];
   const env = serverConfig.env && typeof serverConfig.env === "object" ? serverConfig.env : {};
   const expectedPathToken = `\${${sourcePolicy.pathEnv}}`;
@@ -165,13 +170,24 @@ function validateSourceServer(relPath, serverName, serverConfig, inventory) {
   if (env[sourcePolicy.commitEnv] !== sourcePolicy.commit) {
     fail(`${sourceKey}: ${sourcePolicy.commitEnv} must equal ${sourcePolicy.commit}`);
   }
+
+  if (expectedCommand === "powershell.exe") {
+    const requiredPrefix = ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File"];
+    if (args.length !== requiredPrefix.length + 1 || requiredPrefix.some((arg, index) => args[index] !== arg)) {
+      fail(`${sourceKey}: PowerShell MCP bootstrap must use the exact non-interactive file invocation`);
+    }
+    const expectedLauncher = `\${${sourcePolicy.pathEnv}}/${sourcePolicy.launcherPath}`;
+    if (args.at(-1) !== expectedLauncher) {
+      fail(`${sourceKey}: PowerShell MCP bootstrap must reference ${expectedLauncher}`);
+    }
+  }
 }
 
 const inventory = readJson(inventoryPath);
 if (!inventory) process.exit(1);
 
 for (const mcpPath of listMcpFiles()) {
-  const relPath = path.relative(repoRoot, mcpPath);
+  const relPath = path.relative(repoRoot, mcpPath).replaceAll(path.sep, "/");
   const config = readJson(mcpPath);
   if (!config) continue;
 
@@ -183,7 +199,7 @@ for (const mcpPath of listMcpFiles()) {
 
     if (serverConfig.command === "npx") {
       validateNpxServer(relPath, serverName, serverConfig, inventory);
-    } else if (serverConfig.command === "node") {
+    } else if (["node", "powershell.exe"].includes(serverConfig.command)) {
       validateSourceServer(relPath, serverName, serverConfig, inventory);
     } else {
       fail(`${relPath}:${serverName}: unsupported MCP command ${serverConfig.command}`);

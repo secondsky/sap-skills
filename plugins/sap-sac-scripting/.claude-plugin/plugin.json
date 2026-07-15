@@ -15,6 +15,7 @@
     "api",
     "dashboard",
     "data",
+    "edge",
     "sac",
     "sap",
     "sap-sac-scripting",
@@ -24,15 +25,15 @@
   "category": "data-analytics",
   "agents": [
     "./agents/sac-api-helper.md",
-    "./agents/sac-planning-assistant.md",
     "./agents/sac-performance-optimizer.md",
+    "./agents/sac-planning-assistant.md",
     "./agents/sac-script-debugger.md"
   ],
   "commands": [
-    "./commands/sac-optimize.md",
     "./commands/sac-debug.md",
-    "./commands/sac-script-template.md",
-    "./commands/sac-planning.md"
+    "./commands/sac-optimize.md",
+    "./commands/sac-planning.md",
+    "./commands/sac-script-template.md"
   ],
   "mcpServers": "./.mcp.json"
 }

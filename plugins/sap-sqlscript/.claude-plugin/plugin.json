@@ -15,6 +15,7 @@
     "analytics",
     "dashboard",
     "data",
+    "edge",
     "hana",
     "sac",
     "sap",
@@ -30,9 +31,9 @@
     "./agents/sqlscript-analyzer.md"
   ],
   "commands": [
-    "./commands/sqlscript-validate.md",
     "./commands/sqlscript-convert.md",
     "./commands/sqlscript-optimize.md",
-    "./commands/sqlscript-setup.md"
+    "./commands/sqlscript-setup.md",
+    "./commands/sqlscript-validate.md"
   ]
 }

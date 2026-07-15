@@ -1,0 +1,51 @@
+name: Build signed BW Automation Studio bundle
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.18.0
+          cache: npm
+          cache-dependency-path: plugins/sap-bw-query/mcp/package-lock.json
+      - name: Install and test MCP
+        shell: pwsh
+        run: |
+          npm --prefix plugins/sap-bw-query/mcp ci --ignore-scripts
+          npm --prefix plugins/sap-bw-query/mcp audit --audit-level=high
+          npm --prefix plugins/sap-bw-query/mcp run build
+          node --test tests/sap-bw-query/*.test.mjs
+      - name: Materialize release signing key
+        shell: pwsh
+        env:
+          BW_STUDIO_SIGNING_PRIVATE_KEY: ${{ secrets.BW_STUDIO_SIGNING_PRIVATE_KEY }}
+        run: |
+          if (-not $env:BW_STUDIO_SIGNING_PRIVATE_KEY) { throw "BW_STUDIO_SIGNING_PRIVATE_KEY is required" }
+          [System.IO.File]::WriteAllText((Join-Path $env:RUNNER_TEMP "bw-studio-signing.pem"), $env:BW_STUDIO_SIGNING_PRIVATE_KEY)
+      - name: Build and sign portable bundle
+        shell: pwsh
+        run: |
+          & plugins/sap-bw-query/bundle/Build-BwStudio.ps1 `
+            -OutputDirectory (Join-Path $env:RUNNER_TEMP "bw-release") `
+            -SigningPrivateKeyPath (Join-Path $env:RUNNER_TEMP "bw-studio-signing.pem") `
+            -SigningKeyId "${{ vars.BW_STUDIO_SIGNING_KEY_ID }}"
+      - name: Upload signed release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bw-automation-studio-0.1.0-windows-x64.zip
+          path: |
+            ${{ runner.temp }}/bw-release/bw-automation-studio-0.1.0-windows-x64.zip
+            ${{ runner.temp }}/bw-release/bw-automation-studio-0.1.0-windows-x64.zip.manifest.json
+            ${{ runner.temp }}/bw-release/bw-automation-studio-0.1.0-windows-x64.zip.manifest.json.sig
+            ${{ runner.temp }}/bw-release/trusted-publishers.release.json
+          if-no-files-found: error

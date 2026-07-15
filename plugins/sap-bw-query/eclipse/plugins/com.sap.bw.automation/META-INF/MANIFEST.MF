@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BW Automation Studio
+Bundle-SymbolicName: com.sap.bw.automation;singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Bundle-Activator: com.sap.bw.automation.Activator
+Bundle-Vendor: sap-skills contributors
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Automatic-Module-Name: com.sap.bw.automation
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.equinox.common,
+ org.eclipse.jface,
+ org.eclipse.swt,
+ org.eclipse.ui,
+ com.google.gson,
+ com.sap.bw.qd.model;bundle-version="[1.27.36,1.27.37)";resolution:=optional,
+ com.sap.bw.qd.ui;bundle-version="[1.27.36,1.27.37)";resolution:=optional
+Export-Package: com.sap.bw.automation.core
+Bundle-ActivationPolicy: lazy
