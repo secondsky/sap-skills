@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "target": {
+    "system": "PLACEHOLDER_SYSTEM",
+    "client": "PLACEHOLDER_CLIENT",
+    "project": "PLACEHOLDER_PROJECT",
+    "provider": "PLACEHOLDER_PROVIDER"
+  },
+  "technicalName": "ZPLACEHOLDER_PLAN_ACTUAL",
+  "businessPurpose": "Compare plan and actual amounts for the reporting period and show the variance, so the controller can explain deviations by PLACEHOLDER_ROW_CHAR.",
+  "axes": {
+    "rows": [
+      { "technicalName": "PLACEHOLDER_ROW_CHAR", "kind": "characteristic" }
+    ],
+    "columns": [
+      { "technicalName": "ZSTR_PLAN_ACTUAL", "kind": "structure" }
+    ]
+  },
+  "structures": [
+    {
+      "technicalName": "ZSTR_PLAN_ACTUAL",
+      "kind": "keyFigure",
+      "description": "Plan, actual, and variance",
+      "members": ["ZRK_PLAN", "ZRK_ACTUAL", "ZCF_VARIANCE"]
+    }
+  ],
+  "keyFigures": [
+    {
+      "technicalName": "ZRK_PLAN",
+      "kind": "restricted",
+      "description": "Plan amount",
+      "baseKeyFigure": "PLACEHOLDER_AMOUNT_KF",
+      "restrictions": [
+        { "characteristic": "PLACEHOLDER_VERSION_CHAR", "operator": "EQUAL", "values": ["PLACEHOLDER_PLAN_VERSION"] }
+      ]
+    },
+    {
+      "technicalName": "ZRK_ACTUAL",
+      "kind": "restricted",
+      "description": "Actual amount",
+      "baseKeyFigure": "PLACEHOLDER_AMOUNT_KF",
+      "restrictions": [
+        { "characteristic": "PLACEHOLDER_VERSION_CHAR", "operator": "EQUAL", "values": ["PLACEHOLDER_ACTUAL_VERSION"] }
+      ]
+    },
+    {
+      "technicalName": "ZCF_VARIANCE",
+      "kind": "formula",
+      "description": "Actual minus plan variance",
+      "formula": { "expression": "'ZRK_ACTUAL' - 'ZRK_PLAN'" },
+      "aggregation": { "exception": "TOTAL", "referenceCharacteristic": "PLACEHOLDER_ROW_CHAR" }
+    }
+  ],
+  "variables": [
+    {
+      "technicalName": "ZVAR_FISCPER",
+      "characteristic": "0FISCPER",
+      "processingType": "manual",
+      "readyForInput": true,
+      "defaultValue": "PLACEHOLDER_PERIOD"
+    }
+  ],
+  "display": {
+    "zeroSuppression": { "rows": true, "columns": false, "mode": "FOR_RESULTS_ONLY" }
+  },
+  "aggregation": {
+    "confirmed": false,
+    "notes": "Confirm the exception aggregation for ZCF_VARIANCE against the provider before relying on subtotals and the overall result."
+  },
+  "acceptanceCriteria": [
+    "Actual total for the period reconciles to the approved actuals control total.",
+    "Plan total for the period reconciles to the approved plan control total.",
+    "Variance equals actual minus plan on every row and on the result row."
+  ],
+  "evidence": [
+    { "source": "PLACEHOLDER_SPEC_SOURCE", "reference": "PLACEHOLDER_SPEC_REFERENCE", "checkedAt": "PLACEHOLDER_DATE" }
+  ]
+}

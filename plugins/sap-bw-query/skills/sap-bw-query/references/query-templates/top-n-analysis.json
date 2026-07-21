@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "target": {
+    "system": "PLACEHOLDER_SYSTEM",
+    "client": "PLACEHOLDER_CLIENT",
+    "project": "PLACEHOLDER_PROJECT",
+    "provider": "PLACEHOLDER_PROVIDER"
+  },
+  "technicalName": "ZPLACEHOLDER_TOP_N",
+  "businessPurpose": "Show the top 10 PLACEHOLDER_RANKED_CHAR by PLACEHOLDER_MEASURE_KF for the entered period, so the analyst can focus on the largest contributors.",
+  "axes": {
+    "rows": [
+      { "technicalName": "PLACEHOLDER_RANKED_CHAR", "kind": "characteristic" }
+    ],
+    "columns": [
+      { "technicalName": "PLACEHOLDER_MEASURE_KF", "kind": "keyFigure" }
+    ],
+    "free": [
+      { "technicalName": "PLACEHOLDER_FREE_CHAR", "kind": "characteristic" }
+    ]
+  },
+  "variables": [
+    {
+      "technicalName": "ZVAR_PERIOD",
+      "characteristic": "0CALMONTH",
+      "processingType": "manual",
+      "readyForInput": true,
+      "defaultValue": "PLACEHOLDER_PERIOD"
+    }
+  ],
+  "conditions": [
+    {
+      "description": "Top 10 by PLACEHOLDER_MEASURE_KF",
+      "keyFigure": "PLACEHOLDER_MEASURE_KF",
+      "operator": "TOP_N",
+      "threshold": 10,
+      "characteristics": ["PLACEHOLDER_RANKED_CHAR"],
+      "active": true
+    }
+  ],
+  "acceptanceCriteria": [
+    "Exactly the top 10 PLACEHOLDER_RANKED_CHAR values appear, ranked by PLACEHOLDER_MEASURE_KF for the entered period.",
+    "The condition is assigned to PLACEHOLDER_RANKED_CHAR so the ranking follows the intended drilldown.",
+    "Removing the condition restores the full list, confirming the condition only limits display."
+  ],
+  "evidence": [
+    { "source": "PLACEHOLDER_SPEC_SOURCE", "reference": "PLACEHOLDER_SPEC_REFERENCE", "checkedAt": "PLACEHOLDER_DATE" }
+  ]
+}

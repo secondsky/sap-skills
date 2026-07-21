@@ -9,7 +9,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   last_verified: "2026-05-31"
   production_tested: "No; documentation and community references only, no live HANA runtime evidence"
   sap_hana_version: "2.0 SPS08"

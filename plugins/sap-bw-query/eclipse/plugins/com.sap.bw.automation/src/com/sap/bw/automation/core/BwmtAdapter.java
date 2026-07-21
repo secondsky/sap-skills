@@ -25,6 +25,7 @@ public final class BwmtAdapter {
     private static final String QUERY_EDITOR = "com.sap.bw.qd.ui.editor.QueryEditor";
     private static final String QUERY_WIZARD = "com.sap.bw.qd.QueryNewWizard";
     private final CapabilityProbe probe = new CapabilityProbe();
+    private final ProviderMetadataGateway metadataGateway = new ProviderMetadataGateway();
     private final StepJournal journal;
     private final Map<String, JsonObject> localDrafts = new ConcurrentHashMap<>();
 
@@ -38,13 +39,43 @@ public final class BwmtAdapter {
             case "describeProvider" -> describeProvider(payload);
             case "listQueries" -> listQueries(payload);
             case "readQuery" -> readQuery(payload);
+            case "readQueryModel" -> readQueryModel(payload);
             case "projectCreateOrOpen" -> projectCreateOrOpen(payload);
             case "createLocalDraft" -> createLocalDraft(payload);
             case "applySpecToDraft" -> applySpecToDraft(payload);
             case "previewDraft" -> previewDraft(payload);
             case "prepareNewQuerySave" -> prepareNewQuerySave(payload);
+            case "populateQueryEditor" -> populateQueryEditor(payload);
             default -> throw new IllegalArgumentException("Method is not allow-listed");
         };
+    }
+
+    private JsonObject populateQueryEditor(JsonObject payload) {
+        JsonObject support = probe.populateSupport();
+        if (!support.get("supported").getAsBoolean()) {
+            JsonObject result = new JsonObject();
+            result.addProperty("populated", false);
+            result.addProperty("saved", false);
+            result.addProperty("instruction",
+                    "Draft population is capability-gated off for this BWMT installation; run bw_inspect_capabilities for details.");
+            result.add("issues", support.getAsJsonArray("issues"));
+            journal.append("populateQueryEditor", "BLOCKED",
+                    "Draft population capability is gated off for this BWMT installation", VisualClass.AMBER, false);
+            return result;
+        }
+        try {
+            return new QueryEditorGateway(journal).populate(payload);
+        } catch (LinkageError error) {
+            JsonObject result = new JsonObject();
+            result.addProperty("populated", false);
+            result.addProperty("saved", false);
+            result.addProperty("instruction",
+                    "The BWMT model API could not be linked (" + error.getClass().getSimpleName()
+                            + "); the query stays untouched. Build it in the native editor.");
+            journal.append("populateQueryEditor", "BLOCKED", "BWMT model linkage failed during population",
+                    VisualClass.RED, true);
+            return result;
+        }
     }
 
     private JsonObject projectCreateOrOpen(JsonObject payload) {
@@ -79,6 +110,41 @@ public final class BwmtAdapter {
         return result;
     }
 
+    private JsonObject readQueryModel(JsonObject payload) {
+        JsonObject support = probe.modelReadSupport();
+        if (!support.get("supported").getAsBoolean()) {
+            JsonObject result = new JsonObject();
+            result.addProperty("found", false);
+            result.addProperty("readOnlyInspection", true);
+            result.addProperty("reason", "CAPABILITY_GATED");
+            result.addProperty("instruction",
+                    "The installed BWMT does not expose the query model read APIs; run bw_inspect_capabilities for details.");
+            result.add("issues", support.getAsJsonArray("issues"));
+            result.add("serializationIssues", new JsonArray());
+            journal.append("readQueryModel", "DEGRADED",
+                    "Query model read capability is gated off for this BWMT installation", VisualClass.AMBER, false);
+            return result;
+        }
+        try {
+            JsonObject result = QueryEditorGateway.readModel(payload);
+            if (result.has("found") && result.get("found").getAsBoolean()) {
+                journal.append("readQueryModel", "COMPLETED",
+                        "Read-only deep query model read for " + string(payload, "technicalName"), VisualClass.GREEN, false);
+            }
+            return result;
+        } catch (LinkageError error) {
+            JsonObject result = new JsonObject();
+            result.addProperty("found", false);
+            result.addProperty("readOnlyInspection", true);
+            result.addProperty("instruction", "The BWMT model API could not be linked ("
+                    + error.getClass().getSimpleName() + "); no model was read.");
+            result.add("serializationIssues", new JsonArray());
+            journal.append("readQueryModel", "BLOCKED", "BWMT model linkage failed during query model read",
+                    VisualClass.RED, true);
+            return result;
+        }
+    }
+
     private JsonObject describeProvider(JsonObject payload) {
         String provider = string(payload, "provider");
         JsonObject result = new JsonObject();
@@ -89,6 +155,27 @@ public final class BwmtAdapter {
         }
         result.add("openQueries", openQueries);
         result.addProperty("readOnly", true);
+        JsonObject support = probe.providerMetadataSupport();
+        if (support.get("supported").getAsBoolean()) {
+            JsonObject metadata = metadataGateway.fetch(payload);
+            result.add("metadata", metadata);
+            boolean available = metadata.get("available").getAsBoolean();
+            journal.append("describeProvider", available ? "COMPLETED" : "DEGRADED",
+                    available
+                            ? "Read-only InfoProvider metadata loaded for " + provider
+                            : "InfoProvider metadata unavailable: " + string(metadata, "reason"),
+                    available ? VisualClass.GREEN : VisualClass.AMBER, false);
+        } else {
+            JsonObject metadata = new JsonObject();
+            metadata.addProperty("available", false);
+            metadata.addProperty("reason", "CAPABILITY_GATED");
+            metadata.addProperty("instruction",
+                    "The installed BWMT does not expose the probed metadata APIs; run bw_inspect_capabilities for details.");
+            metadata.add("issues", support.getAsJsonArray("issues"));
+            result.add("metadata", metadata);
+            journal.append("describeProvider", "DEGRADED",
+                    "InfoProvider metadata capability is gated off for this BWMT installation", VisualClass.AMBER, false);
+        }
         return result;
     }
 
@@ -152,20 +239,23 @@ public final class BwmtAdapter {
     }
 
     private List<Object> openQueries() {
+        // Workbench window lookups return null off the UI thread, so the scan runs via syncExec.
         List<Object> queries = new ArrayList<>();
-        var window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-        if (window == null || window.getActivePage() == null) return queries;
-        for (IEditorReference reference : window.getActivePage().getEditorReferences()) {
-            try {
-                Object editor = reference.getEditor(false);
-                if (editor == null || !QUERY_EDITOR.equals(editor.getClass().getName())) continue;
-                Method getQuery = editor.getClass().getMethod("getQuery");
-                Object query = getQuery.invoke(editor);
-                if (query != null) queries.add(query);
-            } catch (ReflectiveOperationException ignored) {
-                // An incompatible editor is excluded by the capability gate.
+        Display.getDefault().syncExec(() -> {
+            var window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+            if (window == null || window.getActivePage() == null) return;
+            for (IEditorReference reference : window.getActivePage().getEditorReferences()) {
+                try {
+                    Object editor = reference.getEditor(false);
+                    if (editor == null || !QUERY_EDITOR.equals(editor.getClass().getName())) continue;
+                    Method getQuery = editor.getClass().getMethod("getQuery");
+                    Object query = getQuery.invoke(editor);
+                    if (query != null) queries.add(query);
+                } catch (ReflectiveOperationException ignored) {
+                    // An incompatible editor is excluded by the capability gate.
+                }
             }
-        }
+        });
         return queries;
     }
 

@@ -29,7 +29,10 @@ foreach ($file in Get-ChildItem -LiteralPath $activationRoot -File -Filter "*.js
 if ($records.Count -eq 0) { throw "No valid BW Automation Studio activation exists." }
 
 $active = $records[-1]
-$versionRoot = Join-Path (Join-Path $studioRoot "versions") $active.version
+# Prefer the content-addressed install folder recorded at deploy time; fall back to the version
+# for activation records written before content-addressed installs existed.
+$installDir = if ($active.PSObject.Properties.Name -contains "installDir" -and $active.installDir) { [string]$active.installDir } else { [string]$active.version }
+$versionRoot = Join-Path (Join-Path $studioRoot "versions") $installDir
 $lockPath = Join-Path $versionRoot "bundle.lock.json"
 if (-not (Test-Path -LiteralPath $lockPath -PathType Leaf)) { throw "Active bundle.lock.json is missing." }
 $lock = Get-Content -Raw -LiteralPath $lockPath | ConvertFrom-Json

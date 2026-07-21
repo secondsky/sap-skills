@@ -6,7 +6,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   last_verified: 2026-07-14
   documentation_source: "docs/project/sap-browser-automation-source-review-2026-07-14.md"
   status: docs_audited_runtime_pending

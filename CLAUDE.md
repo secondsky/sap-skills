@@ -3,7 +3,7 @@
 
 **Repository**: https://github.com/secondsky/sap-skills
 **Purpose**: SAP development skills for AI coding assistants with evidence-tracked verification
-**Version**: 2.3.2 | **Plugins**: 40 | **Last Updated**: 2026-07-15
+**Version**: 2.4.0 | **Plugins**: 40 | **Last Updated**: 2026-07-17
 
 ---
 
@@ -154,7 +154,7 @@ prefer `preset: "chatgpt-pro-heavy"` or explicit `engine: "browser"`.
 **Version Tracking**: SAP SDK versions documented in metadata
 ```yaml
 metadata:
-  version: "2.3.2"
+  version: "2.4.0"
   cap_version: "@sap/cds 9.4.x"
   last_verified: "2025-12-28"
 ```

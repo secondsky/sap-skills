@@ -7,11 +7,13 @@ export const ECLIPSE_METHODS = Object.freeze([
   "describeProvider",
   "listQueries",
   "readQuery",
+  "readQueryModel",
   "projectCreateOrOpen",
   "createLocalDraft",
   "applySpecToDraft",
   "previewDraft",
   "prepareNewQuerySave",
+  "populateQueryEditor",
 ]);
 
 const ALLOWED_METHODS = new Set(ECLIPSE_METHODS);

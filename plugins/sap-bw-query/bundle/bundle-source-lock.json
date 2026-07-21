@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "bundleVersion": "0.1.0",
+  "bundleVersion": "0.3.0",
   "platform": "windows-x64",
   "eclipse": {
     "version": "4.40",
@@ -47,6 +47,6 @@
   },
   "eclipsePlugin": {
     "symbolicName": "com.sap.bw.automation",
-    "version": "0.1.0"
+    "version": "0.3.0"
   }
 }

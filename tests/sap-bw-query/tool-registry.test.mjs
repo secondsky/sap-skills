@@ -17,8 +17,9 @@ async function loadRegistry() {
 const expectedTools = [
   "bw_studio_status", "bw_studio_deploy", "bw_studio_launch", "bw_studio_rollback", "bw_studio_diagnostics",
   "bw_connection_prepare", "bw_connection_import_landscape", "bw_connection_test_reachability", "bw_project_create_or_open", "bw_connection_status",
-  "bw_inspect_capabilities", "bw_describe_provider", "bw_list_queries", "bw_read_query", "bw_resolve_and_validate_spec",
+  "bw_inspect_capabilities", "bw_describe_provider", "bw_list_queries", "bw_read_query", "bw_read_query_model", "bw_review_query", "bw_resolve_and_validate_spec",
   "bw_create_local_draft", "bw_apply_spec_to_draft", "bw_preview_draft", "bw_prepare_new_query_save",
+  "bw_populate_query_editor",
 ];
 
 test("tool registry exposes the approved surface and no final-save/delete surface", async () => {

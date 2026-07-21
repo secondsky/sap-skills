@@ -21,7 +21,7 @@ function studioHome() {
 
 export function createMcpServer(handlers) {
   const server = new Server(
-    { name: "sap-bw-query", version: "0.1.0" },
+    { name: "sap-bw-query", version: "0.3.0" },
     { capabilities: { tools: {} } },
   );
   server.setRequestHandler(ListToolsRequestSchema, async () => ({

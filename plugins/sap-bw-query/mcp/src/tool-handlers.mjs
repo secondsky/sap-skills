@@ -1,6 +1,9 @@
 import { assertNoSecrets, sanitizeForLog, SecretRejectedError } from "./secret-guard.mjs";
 import { resolveAndValidateSpec } from "./query-spec.mjs";
+import { normalizeProviderMetadata } from "./provider-metadata.mjs";
 import { connectionEndpoint, testReachability } from "./connection-store.mjs";
+import { verifyPopulation, summarizeVerification } from "./populate-verify.mjs";
+import { runRules, normalizeFromSpec, normalizeFromModel } from "./query-rules.mjs";
 import { TOOL_DEFINITIONS } from "./tool-registry.mjs";
 
 function wrap(name, steps, handler) {
@@ -48,7 +51,47 @@ export function createToolHandlers({ studio, connections, drafts, bridge, steps 
     bw_describe_provider: (input) => bridge.call("describeProvider", input),
     bw_list_queries: (input) => bridge.call("listQueries", input),
     bw_read_query: (input) => bridge.call("readQuery", input),
-    bw_resolve_and_validate_spec: ({ spec }) => resolveAndValidateSpec(spec),
+    bw_read_query_model: (input) => bridge.call("readQueryModel", input),
+    bw_review_query: async ({ alias, project, technicalName }) => {
+      // Read-only best-practices review of an OPEN query. Reuses the Task-A deep-read bridge
+      // call (no new bridge method) and runs the shared rule engine over the deep model.
+      const model = await bridge.call("readQueryModel", { alias, project, technicalName });
+      if (!model || model.found !== true) {
+        return {
+          found: false,
+          userActionRequired: model?.userActionRequired,
+          instruction: model?.instruction,
+          findings: [],
+        };
+      }
+      return {
+        found: true,
+        technicalName: model.technicalName ?? technicalName ?? null,
+        provider: model.provider ?? null,
+        findings: runRules(normalizeFromModel(model)),
+        serializationIssues: model.serializationIssues ?? [],
+        readOnly: true,
+      };
+    },
+    bw_resolve_and_validate_spec: async ({ spec, alias }) => {
+      let providerMetadata = null;
+      if (alias !== undefined) {
+        try {
+          const described = await bridge.call("describeProvider", {
+            alias,
+            project: spec?.target?.project,
+            provider: spec?.target?.provider,
+          });
+          providerMetadata = normalizeProviderMetadata(described);
+        } catch {
+          providerMetadata = { available: false, reason: "BRIDGE_UNAVAILABLE", instruction: "Launch the studio and open the BW project, then rerun validation with the alias to verify names against the provider." };
+        }
+      }
+      const result = resolveAndValidateSpec(spec, { providerMetadata });
+      // Additive best-practices review of a draft spec; only meaningful for a valid spec.
+      const bestPractices = result.valid === true ? runRules(normalizeFromSpec(spec)) : [];
+      return { ...result, bestPractices };
+    },
     bw_create_local_draft: async ({ spec }) => {
       const draft = drafts.create(spec);
       await bridge.call("createLocalDraft", draft);
@@ -73,6 +116,36 @@ export function createToolHandlers({ studio, connections, drafts, bridge, steps 
       const prepared = drafts.prepareSave(draftId, { existingTechnicalNames: existing.technicalNames ?? [] });
       await bridge.call("prepareNewQuerySave", prepared);
       return prepared;
+    },
+    bw_populate_query_editor: async ({ draftId }) => {
+      const draft = drafts.get(draftId);
+      if (draft.state !== "SAVE_PENDING_HUMAN") {
+        throw new Error("Run bw_prepare_new_query_save first, confirm in Eclipse, and finish the native wizard before populating the editor.");
+      }
+      const result = await bridge.call("populateQueryEditor", {
+        id: draft.id,
+        spec: draft.spec,
+        specHash: draft.specHash,
+        confirmationBinding: {
+          technicalName: draft.spec.technicalName,
+          provider: draft.spec.target.provider,
+          specHash: draft.specHash,
+        },
+      });
+      const output = { ...result, saved: false };
+      if (result?.populated === true) {
+        try {
+          const model = await bridge.call("readQueryModel", {
+            alias: null,
+            project: draft.spec.target.project,
+            technicalName: draft.spec.technicalName,
+          });
+          output.verification = summarizeVerification(verifyPopulation(draft.spec, model));
+        } catch {
+          output.verification = { status: "UNAVAILABLE", checks: [] };
+        }
+      }
+      return output;
     },
   };
 

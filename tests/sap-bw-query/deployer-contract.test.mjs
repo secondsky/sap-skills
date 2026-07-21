@@ -24,14 +24,16 @@ function fileSha512(file) {
   return crypto.createHash("sha512").update(fs.readFileSync(file)).digest("hex");
 }
 
-function createSignedBundle(version) {
+function createSignedBundle(version, salt = "") {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), `bw-studio-fixture-${version}-`));
   const bundle = path.join(root, "bundle");
+  // `salt` alters file contents so two bundles with the SAME version produce a different
+  // artifact hash — used to exercise same-version-different-content deploys.
   const files = [
-    ["eclipse/eclipse.exe", `eclipse-${version}`],
-    ["jre/bin/javaw.exe", `java-${version}`],
-    ["node/node.exe", `node-${version}`],
-    ["mcp/server.mjs", `server-${version}`],
+    ["eclipse/eclipse.exe", `eclipse-${version}-${salt}`],
+    ["jre/bin/javaw.exe", `java-${version}-${salt}`],
+    ["node/node.exe", `node-${version}-${salt}`],
+    ["mcp/server.mjs", `server-${version}-${salt}`],
   ];
   for (const [relative, content] of files) {
     const target = path.join(bundle, ...relative.split("/"));
@@ -169,6 +171,43 @@ test("deployment rejects corrupted artifacts and leaves no active version", () =
   assert.doesNotMatch(`${result.stdout}${result.stderr}`, /corruption/);
   const status = runStudio(home, ["-Action", "Status"]);
   assert.equal(JSON.parse(status.stdout).installed, false);
+});
+
+test("same-version redeploy with changed content installs a content-addressed folder, preserving the old", () => {
+  const first = createSignedBundle("3.0.0", "a");
+  const second = createSignedBundle("3.0.0", "b");
+  const home = fs.mkdtempSync(path.join(os.tmpdir(), "bw-studio-home-supersede-"));
+  const deploy = (fixture) => runStudio(home, [
+    "-Action", "Deploy", "-ArtifactPath", fixture.artifact, "-ManifestPath", fixture.manifestPath,
+    "-SignaturePath", fixture.signaturePath, "-TrustPolicyPath", fixture.trustPolicyPath,
+  ]);
+
+  const firstResult = deploy(first);
+  assert.equal(firstResult.status, 0, firstResult.stderr || firstResult.stdout);
+  const firstJson = JSON.parse(firstResult.stdout);
+  assert.equal(firstJson.installDir, "3.0.0");
+  assert.equal(firstJson.supersededExistingVersion, false);
+
+  const secondResult = deploy(second);
+  assert.equal(secondResult.status, 0, secondResult.stderr || secondResult.stdout);
+  const secondJson = JSON.parse(secondResult.stdout);
+  // Same version, different content -> a NEW content-addressed folder, old one untouched.
+  assert.notEqual(secondJson.installDir, "3.0.0");
+  assert.match(secondJson.installDir, /^3\.0\.0\+/);
+  assert.equal(secondJson.supersededExistingVersion, true);
+  assert.equal(fs.existsSync(path.join(home, "versions/3.0.0/eclipse/eclipse.exe")), true);
+  assert.equal(fs.existsSync(path.join(home, "versions", secondJson.installDir, "eclipse/eclipse.exe")), true);
+
+  const status = JSON.parse(runStudio(home, ["-Action", "Status"]).stdout);
+  assert.equal(status.activeVersion, "3.0.0");
+  assert.equal(status.activeInstallDir, secondJson.installDir);
+
+  // Redeploying identical content is idempotent: no new folder, marked as reused.
+  const thirdJson = JSON.parse(deploy(second).stdout);
+  assert.equal(thirdJson.installDir, secondJson.installDir);
+  assert.equal(thirdJson.reusedExistingInstall, true);
+  const versionFolders = fs.readdirSync(path.join(home, "versions"));
+  assert.equal(versionFolders.length, 2, `expected 2 version folders, got ${versionFolders.join(", ")}`);
 });
 
 test("rollback appends an activation and preserves every installed version", () => {

@@ -13,4 +13,11 @@
    <extension point="org.eclipse.ui.startup">
       <startup class="com.sap.bw.automation.AutomationStartup"/>
    </extension>
+   <extension
+         id="smoke"
+         point="org.eclipse.core.runtime.applications">
+      <application cardinality="singleton-global" thread="main" visible="true">
+         <run class="com.sap.bw.automation.core.SmokeApplication"/>
+      </application>
+   </extension>
 </plugin>

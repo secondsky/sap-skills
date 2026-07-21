@@ -1,7 +1,7 @@
 {
   "name": "sap-bw-query",
-  "description": "Use when automating SAP BW query inspection, specification review, or unsaved draft preparation through Eclipse or HANA Studio with BW Modeling Tools.",
-  "version": "2.3.2",
+  "description": "Use when automating SAP BW query inspection, InfoProvider metadata reads (characteristics, key figures), metadata-verified specification review, unsaved draft preparation, or human-confirmed query draft population through Eclipse or HANA Studio with BW Modeling Tools.",
+  "version": "2.4.0",
   "author": {
     "name": "Eduard Jiglau",
     "email": "hello@sap-ai-skills.com",
@@ -24,6 +24,8 @@
   "category": "data-analytics",
   "commands": [
     "./commands/bw-query-draft.md",
+    "./commands/bw-query-explain.md",
+    "./commands/bw-query-review.md",
     "./commands/bw-query-spec-review.md",
     "./commands/bw-studio-deploy.md"
   ],

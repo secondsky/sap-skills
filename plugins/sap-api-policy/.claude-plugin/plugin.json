@@ -1,7 +1,7 @@
 {
   "name": "sap-api-policy",
   "description": "Evidence-based assessment of whether an SAP API/interface usage scenario aligns with the SAP API Policy (v.4.2026a). Use whenever someone asks whether a way of calling SAP is allowed/compliant — e.g. Published API vs internal/private/\"confidential\" API status, \"Documented Use\", whether a third-party tool / iPaaS / middleware / RPA bot / AI agent / MCP server may call SAP APIs, agentic or generative-AI access to SAP, bulk data extraction or replication into a lake/warehouse, custom Z/Y OData or RFC/BAPI wrappers and Clean Core, ADT/developer-tooling boundaries, ODP-RFC and other \"not permitted\" interfaces, partner Integration Certification, or RISE integration remediation. Trigger even when the policy is not named, e.g. \"are we allowed to…\", \"is it compliant to…\", \"can we connect X to SAP…\", \"will this break under the new API policy\". Produces a sourced technical assessment with a confidence level — explicitly NOT legal advice and NOT a final SAP compliance decision.",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "author": {
     "name": "Eduard Jiglau",
     "email": "hello@sap-ai-skills.com",

@@ -65,6 +65,7 @@ function Get-Status([string]$StudioRoot) {
     return @{
         installed = ($null -ne $active)
         activeVersion = if ($active) { $active.version } else { $null }
+        activeInstallDir = if ($active) { Get-RecordProperty $active "installDir" ([string]$active.version) } else { $null }
         versions = $versions
         home = $StudioRoot
         requiresAdministrator = $false
@@ -200,20 +201,58 @@ function Test-ManifestSignature([string]$ManifestFile, [string]$SignatureFile, [
     return $manifest
 }
 
-function New-Activation([string]$StudioRoot, [string]$Version, [string]$Kind, [string]$ManifestSha512) {
+function New-Activation([string]$StudioRoot, [string]$Version, [string]$Kind, [string]$ManifestSha512, [string]$InstallDir = "", [string]$ArtifactSha512 = "") {
     $root = Join-Path $StudioRoot "activations"
     New-Directory $root
     $timestamp = [DateTime]::UtcNow.ToString("yyyyMMddTHHmmssfffffffZ")
+    # installDir is the physical folder under versions/ that carries this build. It equals the
+    # version for a first install, but a same-version redeploy with different content lands in a
+    # content-addressed sibling folder, so the runtime resolves installDir (not version).
     $record = [ordered]@{
         schemaVersion = 1
         version = $Version
+        installDir = if ($InstallDir) { $InstallDir } else { $Version }
         action = $Kind
         timestamp = [DateTime]::UtcNow.ToString("o")
         manifestSha512 = $ManifestSha512
+        artifactSha512 = $ArtifactSha512
     }
     $path = Join-Path $root "$timestamp-$([Guid]::NewGuid().ToString('N')).json"
     [System.IO.File]::WriteAllText($path, ($record | ConvertTo-Json -Compress), [System.Text.UTF8Encoding]::new($false))
     return $record
+}
+
+function Get-RecordProperty($Record, [string]$Name, [string]$Fallback) {
+    if ($Record.PSObject.Properties.Name -contains $Name -and $Record.$Name) { return [string]$Record.$Name }
+    return $Fallback
+}
+
+# Decides which folder under versions/ a deploy installs into, without ever touching existing
+# folders (the deployer is strictly append-only). If this exact artifact was installed before and
+# its folder still exists, reuse it (idempotent no-op). Otherwise use the version folder when free,
+# or a content-addressed sibling "<version>+<sha>" when the version folder already holds a
+# different build — so a same-version redeploy of fixed content installs cleanly alongside the old.
+function Get-InstallTarget([string]$StudioRoot, [string]$Version, [string]$ArtifactSha512) {
+    $versionsRoot = Join-Path $StudioRoot "versions"
+    $incoming = $ArtifactSha512.ToLowerInvariant()
+    foreach ($record in Get-ActivationRecords $StudioRoot) {
+        $recorded = (Get-RecordProperty $record "artifactSha512" "").ToLowerInvariant()
+        if ($recorded -and $recorded -eq $incoming) {
+            $dir = Get-RecordProperty $record "installDir" (Get-RecordProperty $record "version" $Version)
+            if (Test-Path -LiteralPath (Join-Path $versionsRoot $dir) -PathType Container) {
+                return @{ dir = $dir; installed = $true }
+            }
+        }
+    }
+    if (-not (Test-Path -LiteralPath (Join-Path $versionsRoot $Version) -PathType Container)) {
+        return @{ dir = $Version; installed = $false }
+    }
+    $shortSha = $incoming.Substring(0, [Math]::Min(12, $incoming.Length))
+    $candidate = "$Version+$shortSha"
+    if (Test-Path -LiteralPath (Join-Path $versionsRoot $candidate) -PathType Container) {
+        $candidate = "$candidate-$([Guid]::NewGuid().ToString('N').Substring(0, 8))"
+    }
+    return @{ dir = $candidate; installed = $false }
 }
 
 function Resolve-ReleaseInputs([string]$StudioRoot) {
@@ -299,11 +338,14 @@ function Install-Studio([string]$StudioRoot) {
 
     $versionsRoot = Join-Path $StudioRoot "versions"
     New-Directory $versionsRoot
-    $versionRoot = Join-Path $versionsRoot $manifest.version
-    if (-not (Test-Path -LiteralPath $versionRoot -PathType Container)) {
+    $target = Get-InstallTarget $StudioRoot $manifest.version $manifest.artifactSha512
+    $installDir = $target.dir
+    $versionRoot = Join-Path $versionsRoot $installDir
+    $reused = [bool]$target.installed
+    if (-not $reused) {
         $stagingParent = Join-Path $StudioRoot "staging"
         New-Directory $stagingParent
-        $stagingRoot = Join-Path $stagingParent "$($manifest.version)-$([Guid]::NewGuid().ToString('N'))"
+        $stagingRoot = Join-Path $stagingParent "$installDir-$([Guid]::NewGuid().ToString('N'))"
         New-Directory $stagingRoot
         & tar.exe -xf $inputs.artifact -C $stagingRoot
         if ($LASTEXITCODE -ne 0) { throw "Bundle archive extraction failed" }
@@ -326,11 +368,14 @@ function Install-Studio([string]$StudioRoot) {
     }
 
     $manifestSha = Get-NormalizedSha512 $inputs.manifest
-    New-Activation $StudioRoot $manifest.version "deploy" $manifestSha | Out-Null
+    New-Activation $StudioRoot $manifest.version "deploy" $manifestSha $installDir $manifest.artifactSha512.ToLowerInvariant() | Out-Null
     return @{
         deployed = $true
         verified = $true
         version = $manifest.version
+        installDir = $installDir
+        supersededExistingVersion = ($installDir -ne $manifest.version)
+        reusedExistingInstall = $reused
         home = $StudioRoot
         appendOnly = $true
         trustMode = $trust.trustMode
@@ -339,9 +384,21 @@ function Install-Studio([string]$StudioRoot) {
 
 function Set-Rollback([string]$StudioRoot, [string]$Version) {
     if ([string]::IsNullOrWhiteSpace($Version)) { throw "TargetVersion is required" }
-    $versionRoot = Join-Path (Join-Path $StudioRoot "versions") $Version
-    if (-not (Test-Path -LiteralPath $versionRoot -PathType Container)) { throw "Requested rollback version is not installed" }
-    New-Activation $StudioRoot $Version "rollback" "" | Out-Null
+    $versionsRoot = Join-Path $StudioRoot "versions"
+    # Resolve the physical folder for this version, preferring the most recent recorded install
+    # (so a superseded, content-addressed folder is honored) and falling back to versions/<version>.
+    $installDir = ""
+    foreach ($record in Get-ActivationRecords $StudioRoot) {
+        if ((Get-RecordProperty $record "version" "") -eq $Version) {
+            $dir = Get-RecordProperty $record "installDir" $Version
+            if (Test-Path -LiteralPath (Join-Path $versionsRoot $dir) -PathType Container) { $installDir = $dir }
+        }
+    }
+    if (-not $installDir) {
+        if (Test-Path -LiteralPath (Join-Path $versionsRoot $Version) -PathType Container) { $installDir = $Version }
+        else { throw "Requested rollback version is not installed" }
+    }
+    New-Activation $StudioRoot $Version "rollback" "" $installDir "" | Out-Null
     $status = Get-Status $StudioRoot
     $status.rollbackRecorded = $true
     return $status
@@ -350,7 +407,7 @@ function Set-Rollback([string]$StudioRoot, [string]$Version) {
 function Start-Studio([string]$StudioRoot) {
     $status = Get-Status $StudioRoot
     if (-not $status.installed) { throw "BW Automation Studio is not deployed" }
-    $versionRoot = Join-Path (Join-Path $StudioRoot "versions") $status.activeVersion
+    $versionRoot = Join-Path (Join-Path $StudioRoot "versions") $status.activeInstallDir
     $lock = Get-Content -Raw -LiteralPath (Join-Path $versionRoot "bundle.lock.json") | ConvertFrom-Json
     $eclipse = Resolve-SafeChild $versionRoot $lock.entrypoints.eclipse
     $java = Resolve-SafeChild $versionRoot $lock.entrypoints.java

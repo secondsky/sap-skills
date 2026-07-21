@@ -11,7 +11,6 @@ agent, hook, template, and reference resources only.
 - `plugin-skills-third-pass-audit-2026-06-14.md` - effectiveness audit, capability indexes, output contracts, and oversized-reference routing.
 - `source-verification-ledger.json` - current fourth-pass freshness ledger that guards `metadata.last_verified`.
 - `package-evidence/2026-06-15.json` - public registry evidence for MCP/package freshness candidates.
-- `sapui5-validation-report-2025-12-28.md` - historical SAPUI5 audit report moved out of packaged plugin content.
 
 ## Policy
 

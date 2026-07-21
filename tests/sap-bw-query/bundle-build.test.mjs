@@ -17,7 +17,7 @@ function read(relative) {
 test("bundle source lock pins every executable component and never uses latest", () => {
   const lock = JSON.parse(read("bundle/bundle-source-lock.json"));
   assert.equal(lock.schemaVersion, 1);
-  assert.equal(lock.bundleVersion, "0.1.0");
+  assert.equal(lock.bundleVersion, "0.3.0");
   assert.equal(lock.eclipse.version, "4.40");
   assert.equal(lock.eclipse.distribution, "Eclipse Modeling Tools 2026-06 R");
   assert.equal(lock.eclipse.profile, "epp.package.modeling");
@@ -56,7 +56,7 @@ test("builder verifies downloads before extraction and creates all release evide
   assert.match(script, /LOCAL-UNSIGNED/);
   assert.match(script, /signedReleaseRequiredForRemoteDeployment/);
   assert.match(script, /org\.eclipse\.equinox\.simpleconfigurator[\\/]bundles\.info/);
-  assert.match(script, /com\.sap\.bw\.automation,0\.1\.0,plugins[\\/]com\.sap\.bw\.automation_0\.1\.0\.jar,4,true/);
+  assert.match(script, /com\.sap\.bw\.automation,0\.3\.0,plugins[\\/]com\.sap\.bw\.automation_0\.3\.0\.jar,4,true/);
   assert.doesNotMatch(script, /Join-Path \$eclipseRoot "dropins"/);
   assert.match(script, /-noPwdStore/);
   assert.match(script, /PSObject\.Properties\["sha512"\]/);
@@ -72,6 +72,28 @@ test("builder verifies downloads before extraction and creates all release evide
   assert.doesNotMatch(script, /Expand-Archive/);
   assert.doesNotMatch(script, /Compress-Archive/);
   assert.doesNotMatch(script, /Remove-Item|Clear-Content|rmdir|rimraf/i);
+});
+
+test("builder publishes release artifacts to the Desktop with an opt-out and stays non-fatal", () => {
+  const script = read("bundle/Build-BwStudio.ps1");
+  assert.match(script, /PublishDirectory/);
+  assert.match(script, /Join-Path \$env:USERPROFILE 'Desktop'/);
+  assert.doesNotMatch(script, /GetFolderPath\('Desktop'\)/);
+  assert.match(script, /SkipPublish/);
+  assert.match(script, /Test-OneDrivePath/);
+  assert.match(script, /OneDriveCommercial/);
+  assert.match(script, /PSBoundParameters/);
+  assert.match(script, /Write-Warning/);
+  assert.doesNotMatch(script, /Remove-Item/);
+});
+
+test("builder opens File Explorer on the output artifact but skips headless and CI sessions", () => {
+  const script = read("bundle/Build-BwStudio.ps1");
+  assert.match(script, /SkipExplorer/);
+  assert.match(script, /explorer\.exe/);
+  assert.match(script, /\/select,/);
+  assert.match(script, /env:CI|UserInteractive/);
+  assert.doesNotMatch(script, /Remove-Item/);
 });
 
 test("release signing is fail-closed and does not ship a private key", () => {
@@ -94,4 +116,15 @@ test("Windows release workflow builds, tests, signs, and publishes the portable 
   assert.match(workflow, /Build-BwStudio\.ps1/);
   assert.match(workflow, /bw-automation-studio-.*windows-x64\.zip/);
   assert.match(workflow, /upload-artifact/);
+  // Round-trip smoke: deploy the just-built bundle into a job-temp home, then run the
+  // reflective builder+reader round-trip as plain Java (StandaloneSmoke) against a curated
+  // BWMT model classpath, failing on a non-zero exit or a FAIL verdict.
+  assert.match(workflow, /BwStudio\.ps1 -Action Deploy/);
+  assert.match(workflow, /BW_AUTOMATION_HOME/);
+  assert.match(workflow, /com\.sap\.bw\.automation\.core\.StandaloneSmoke/);
+  assert.match(workflow, /jre\\bin\\java\.exe/);
+  // Version is derived from the source lock, not hardcoded, so a version bump stays green.
+  assert.match(workflow, /bundle-source-lock\.json/);
+  // The job fails on a non-zero exit or a FAIL verdict line.
+  assert.match(workflow, /reported FAIL/);
 });

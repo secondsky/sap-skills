@@ -7,7 +7,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   last_verified: 2026-06-11
   sac_version: "Q2 2026 (2026.8)"
   api_reference_version: "2025.20 (OSE Q2 2026)"

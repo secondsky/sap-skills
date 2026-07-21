@@ -17,7 +17,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   last_verified: "2026-07-14"
   source_license: "MIT"
   keywords: [sap api policy, published api, documented use, clean core, agentic ai, mcp gateway, odp-rfc, bulk extraction, rise, integration certification, api hub, sap notes]

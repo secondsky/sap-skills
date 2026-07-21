@@ -15,7 +15,6 @@ installable plugins do not carry audit-only artifacts.
 
 - Corrected `sapui5-linter` command typo from `ui5ling` to `ui5lint`.
 - Removed packaged backup file `sap-cap-capire/skills/sap-cap-capire/SKILL.md.backup`.
-- Moved `sapui5-linter` audit-only reports into `docs/project/sapui5-linter-audit/`.
 - Normalized all skill `metadata.version` values to repository release `2.3.0`.
 - Standardized missing UI5 metadata from `lastUpdated`/`last_updated` to `last_verified`.
 - Removed Markdown-link corruption from fenced code examples.

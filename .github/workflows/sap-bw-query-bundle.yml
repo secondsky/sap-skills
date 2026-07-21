@@ -25,6 +25,13 @@ jobs:
           npm --prefix plugins/sap-bw-query/mcp audit --audit-level=high
           npm --prefix plugins/sap-bw-query/mcp run build
           node --test tests/sap-bw-query/*.test.mjs
+      - name: Resolve bundle version from the source lock
+        id: bundle
+        shell: pwsh
+        run: |
+          $version = (Get-Content -Raw plugins/sap-bw-query/bundle/bundle-source-lock.json | ConvertFrom-Json).bundleVersion
+          if (-not $version) { throw "bundleVersion missing from bundle-source-lock.json" }
+          "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
       - name: Materialize release signing key
         shell: pwsh
         env:
@@ -39,13 +46,61 @@ jobs:
             -OutputDirectory (Join-Path $env:RUNNER_TEMP "bw-release") `
             -SigningPrivateKeyPath (Join-Path $env:RUNNER_TEMP "bw-studio-signing.pem") `
             -SigningKeyId "${{ vars.BW_STUDIO_SIGNING_KEY_ID }}"
+      - name: Deploy bundle and run standalone round-trip smoke
+        shell: pwsh
+        env:
+          BW_AUTOMATION_HOME: ${{ runner.temp }}/bw-smoke-home
+        run: |
+          $ErrorActionPreference = "Stop"
+          # Derive the bundle version from the source lock so a version bump keeps CI green.
+          $version = (Get-Content -Raw plugins/sap-bw-query/bundle/bundle-source-lock.json | ConvertFrom-Json).bundleVersion
+          $release = Join-Path $env:RUNNER_TEMP "bw-release"
+          $artifact = Join-Path $release "bw-automation-studio-$version-windows-x64.zip"
+          $manifest = "$artifact.manifest.json"
+          # Deploy the just-built signed bundle into a throwaway job-temp home.
+          & plugins/sap-bw-query/scripts/BwStudio.ps1 -Action Deploy -Json `
+            -ArtifactPath $artifact `
+            -ManifestPath $manifest `
+            -SignaturePath "$manifest.sig" `
+            -TrustPolicyPath (Join-Path $release "trusted-publishers.release.json")
+          # Run the reflective builder+reader round-trip as PLAIN JAVA against a curated
+          # classpath of the BWMT model bundles. This deliberately avoids launching the full
+          # Eclipse product (eclipsec headless start is slow and environment-sensitive); the
+          # model round-trip needs only the EMF + BWMT model jars, not the OSGi runtime.
+          $home = Join-Path $env:BW_AUTOMATION_HOME "versions\$version"
+          $pluginsDir = Join-Path $home "eclipse\plugins"
+          $java = Join-Path $home "jre\bin\java.exe"
+          # Bundle symbolic-name prefixes the EMF model init chain requires (patch-version robust).
+          $prefixes = @(
+            "com.sap.bw.automation_", "com.sap.bw.qd.model_", "com.sap.bw.model.core_",
+            "com.sap.bw.connectivity_", "com.sap.adt.tools.core.base_",
+            "com.sap.ndb.studio.model.base_", "com.sap.ndb.studio.model.data_",
+            "com.sap.ndb.studio.repository.model.resource_", "com.sap.ndb.studio.view.model_",
+            "com.sap.ndb.studio.sdk.base_", "com.sap.ndb.studio.search.model_",
+            "org.eclipse.emf.common_", "org.eclipse.emf.ecore_", "org.eclipse.emf.ecore.xmi_",
+            "com.google.gson_", "org.eclipse.core.runtime_", "org.eclipse.core.jobs_",
+            "org.eclipse.core.resources_", "org.eclipse.core.contenttype_",
+            "org.eclipse.equinox.common_", "org.eclipse.equinox.registry_",
+            "org.eclipse.equinox.preferences_", "org.eclipse.osgi_"
+          )
+          $jars = foreach ($p in $prefixes) {
+            $hit = Get-ChildItem -LiteralPath $pluginsDir -Filter "$p*.jar" | Select-Object -First 1
+            if ($hit) { $hit.FullName } else { throw "Smoke classpath jar not found for prefix $p" }
+          }
+          $cp = ($jars -join ';')
+          $output = & $java -cp $cp com.sap.bw.automation.core.StandaloneSmoke 2>&1
+          $exit = $LASTEXITCODE
+          $output | ForEach-Object { Write-Host $_ }
+          if ($exit -ne 0) { throw "Standalone round-trip smoke exited with code $exit" }
+          if (($output -join "`n") -match '"smoke"\s*:\s*"FAIL"') { throw "Standalone round-trip smoke reported FAIL" }
+          Write-Host "Standalone round-trip smoke passed."
       - name: Upload signed release artifact
         uses: actions/upload-artifact@v4
         with:
-          name: bw-automation-studio-0.1.0-windows-x64.zip
+          name: bw-automation-studio-${{ steps.bundle.outputs.version }}-windows-x64.zip
           path: |
-            ${{ runner.temp }}/bw-release/bw-automation-studio-0.1.0-windows-x64.zip
-            ${{ runner.temp }}/bw-release/bw-automation-studio-0.1.0-windows-x64.zip.manifest.json
-            ${{ runner.temp }}/bw-release/bw-automation-studio-0.1.0-windows-x64.zip.manifest.json.sig
+            ${{ runner.temp }}/bw-release/bw-automation-studio-${{ steps.bundle.outputs.version }}-windows-x64.zip
+            ${{ runner.temp }}/bw-release/bw-automation-studio-${{ steps.bundle.outputs.version }}-windows-x64.zip.manifest.json
+            ${{ runner.temp }}/bw-release/bw-automation-studio-${{ steps.bundle.outputs.version }}-windows-x64.zip.manifest.json.sig
             ${{ runner.temp }}/bw-release/trusted-publishers.release.json
           if-no-files-found: error

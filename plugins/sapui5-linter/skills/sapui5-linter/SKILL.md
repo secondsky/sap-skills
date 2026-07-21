@@ -6,7 +6,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   last_verified: "2026-06-14"
   ui5_linter_version: "1.22.0"
   source: "https://github.com/UI5/linter"
@@ -341,6 +341,6 @@ ui5lint --perf
 
 ---
 
-**Last Updated**: 2026-06-14 | **Version**: 2.3.2
+**Last Updated**: 2026-06-14 | **Version**: 2.4.0
 **Previous Restructure Version**: 1.0.1 | **Lines Reduced**: 376 (from 827)
 **Next Review**: 2026-02-25

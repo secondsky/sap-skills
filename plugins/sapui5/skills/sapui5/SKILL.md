@@ -6,7 +6,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   last_verified: 2026-05-31
   framework_version: "1.148.1 latest verified, 1.120.0+ baseline"
   documentation_source: "https://github.com/SAP-docs/sapui5"

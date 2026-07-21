@@ -3,7 +3,10 @@ param(
     [string]$OutputDirectory = (Join-Path $PSScriptRoot "output"),
     [string]$CacheDirectory = (Join-Path $env:LOCALAPPDATA "BWAutomationStudioBuildCache"),
     [string]$SigningPrivateKeyPath,
-    [string]$SigningKeyId
+    [string]$SigningKeyId,
+    [string]$PublishDirectory = (Join-Path $env:USERPROFILE 'Desktop'),
+    [switch]$SkipPublish,
+    [switch]$SkipExplorer
 )
 
 $ErrorActionPreference = "Stop"
@@ -18,6 +21,18 @@ if ($sourceLock.bwmt.installUnits -notcontains "com.sap.bw.feature.query.feature
 
 function New-Directory([string]$Path) {
     if (-not (Test-Path -LiteralPath $Path -PathType Container)) { [System.IO.Directory]::CreateDirectory($Path) | Out-Null }
+}
+
+function Test-OneDrivePath([string]$Path) {
+    if ([string]::IsNullOrWhiteSpace($Path)) { return $false }
+    $full = [System.IO.Path]::GetFullPath($Path)
+    foreach ($root in @($env:OneDrive, $env:OneDriveCommercial, $env:OneDriveConsumer)) {
+        if (-not [string]::IsNullOrWhiteSpace($root)) {
+            $normalized = $root.TrimEnd("\")
+            if ($full.Equals($normalized, [System.StringComparison]::OrdinalIgnoreCase) -or $full.StartsWith($normalized + "\", [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
+        }
+    }
+    return $full -match '\\OneDrive( |$|\\|-)'
 }
 
 function Get-Hash([string]$Path, [string]$Algorithm) {
@@ -140,13 +155,13 @@ $sources = Get-ChildItem -LiteralPath $sourceRoot -Recurse -Filter "*.java" | Se
 & (Join-Path $jdkRoot "bin\javac.exe") --release 21 -encoding UTF-8 --source-path $sourceRoot `
     -classpath "$eclipseRoot\plugins\*" -d $classes $sources
 if ($LASTEXITCODE -ne 0) { throw "BW Automation Eclipse plug-in compilation failed" }
-$pluginJar = Join-Path $eclipseRoot "plugins\com.sap.bw.automation_0.1.0.jar"
+$pluginJar = Join-Path $eclipseRoot "plugins\com.sap.bw.automation_0.3.0.jar"
 & (Join-Path $jdkRoot "bin\jar.exe") cfm $pluginJar (Join-Path $eclipsePluginRoot "META-INF\MANIFEST.MF") `
     -C $classes . -C $eclipsePluginRoot plugin.xml
 if ($LASTEXITCODE -ne 0) { throw "BW Automation Eclipse plug-in packaging failed" }
 $bundlesInfo = Join-Path $eclipseRoot "configuration\org.eclipse.equinox.simpleconfigurator\bundles.info"
 if (-not (Test-Path -LiteralPath $bundlesInfo -PathType Leaf)) { throw "Eclipse bundle registry is missing" }
-$automationBundleEntry = "com.sap.bw.automation,0.1.0,plugins/com.sap.bw.automation_0.1.0.jar,4,true"
+$automationBundleEntry = "com.sap.bw.automation,0.3.0,plugins/com.sap.bw.automation_0.3.0.jar,4,true"
 if (-not (Select-String -LiteralPath $bundlesInfo -SimpleMatch $automationBundleEntry -Quiet)) {
     [System.IO.File]::AppendAllText($bundlesInfo, [Environment]::NewLine + $automationBundleEntry, [System.Text.UTF8Encoding]::new($false))
 }
@@ -236,4 +251,46 @@ else {
     Write-Host "Local runnable build created. Remote distribution requires signing."
 }
 
-[ordered]@{ artifact = $artifact; manifest = $manifestPath; signed = [bool]($SigningPrivateKeyPath -and $SigningKeyId); workRoot = $workRoot } | ConvertTo-Json
+$published = @()
+$publishSkippedReason = $null
+if (-not $SkipPublish -and $PublishDirectory) {
+    try {
+        $publishExplicit = $PSBoundParameters.ContainsKey('PublishDirectory')
+        $publishOneDrive = Test-OneDrivePath $PublishDirectory
+        if ($publishOneDrive -and -not $publishExplicit) {
+            $publishSkippedReason = "ONEDRIVE_MANAGED"
+            Write-Warning "Skipping auto-publish: the default Desktop '$PublishDirectory' is OneDrive-managed and large bundles should not sync to the cloud. The build succeeded and the artifacts remain in '$OutputDirectory'; pass an explicit -PublishDirectory to override."
+        }
+        else {
+            if ($publishOneDrive) {
+                Write-Warning "Publish target '$PublishDirectory' appears to be OneDrive-managed; publishing there because it was requested explicitly via -PublishDirectory."
+            }
+            New-Directory $PublishDirectory
+            $publishSources = @($artifact, $manifestPath, "$manifestPath.sig", (Join-Path $OutputDirectory "trusted-publishers.release.json"))
+            foreach ($source in $publishSources) {
+                if (Test-Path -LiteralPath $source -PathType Leaf) {
+                    $destination = Join-Path $PublishDirectory (Split-Path -Leaf $source)
+                    Copy-Item -LiteralPath $source -Destination $destination -Force
+                    $published += $destination
+                }
+            }
+        }
+    }
+    catch {
+        $published = @()
+        Write-Warning "Publishing build artifacts to '$PublishDirectory' failed ($($_.Exception.Message)); the build itself succeeded and the files remain in '$OutputDirectory'."
+    }
+}
+
+$explorerOpened = $false
+if (-not $SkipExplorer -and -not $env:CI -and [Environment]::UserInteractive) {
+    try {
+        Start-Process -FilePath explorer.exe -ArgumentList "/select,`"$artifact`""
+        $explorerOpened = $true
+    }
+    catch {
+        Write-Warning "Opening File Explorer on '$OutputDirectory' failed ($($_.Exception.Message)); the build itself succeeded and the artifacts remain there."
+    }
+}
+
+[ordered]@{ artifact = $artifact; manifest = $manifestPath; signed = [bool]($SigningPrivateKeyPath -and $SigningKeyId); workRoot = $workRoot; published = @($published); publishDirectory = if ($SkipPublish) { $null } else { $PublishDirectory }; publishSkippedReason = $publishSkippedReason; explorerOpened = $explorerOpened } | ConvertTo-Json

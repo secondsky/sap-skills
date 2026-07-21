@@ -15,8 +15,8 @@ import com.sap.bw.automation.core.VisualClass;
 
 public final class BridgeLoop implements AutoCloseable {
     private static final Set<String> ALLOWED_METHODS = Set.of(
-            "inspectCapabilities", "describeProvider", "listQueries", "readQuery", "projectCreateOrOpen",
-            "createLocalDraft", "applySpecToDraft", "previewDraft", "prepareNewQuerySave");
+            "inspectCapabilities", "describeProvider", "listQueries", "readQuery", "readQueryModel", "projectCreateOrOpen",
+            "createLocalDraft", "applySpecToDraft", "previewDraft", "prepareNewQuerySave", "populateQueryEditor");
     private static final Set<String> SECRET_KEYS = Set.of(
             "password", "passwd", "pwd", "secret", "token", "apikey", "credential");
     private final AtomicBoolean running = new AtomicBoolean();

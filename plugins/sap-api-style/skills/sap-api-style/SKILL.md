@@ -14,7 +14,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   last_verified: "2026-02-25"
   source_version: "2025.01"
   source_commit: "902247f3afb6a0cb3fa110b284bb5d93a65c1268"
@@ -439,7 +439,7 @@ See individual reference files for complete anti-patterns and fixes.
 
 ---
 
-**Skill Version**: 2.3.2
+**Skill Version**: 2.4.0
 **Last Updated**: 2026-06-14
 **License**: GPL-3.0
 **Maintainer**: Eduard Jiglau | [hello@sap-ai-skills.com](mailto:hello@sap-ai-skills.com) | [sap-ai-skills.com](https://sap-ai-skills.com) | [https://github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)

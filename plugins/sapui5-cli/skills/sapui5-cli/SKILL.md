@@ -6,7 +6,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   ui5_cli_version: "4.0.55"
   last_verified: "2026-05-31"
   official_docs: "https://ui5.github.io/cli/stable/"

@@ -1,7 +1,7 @@
 {
   "name": "sap-rpt1",
   "description": "SAP-RPT-1-OSS local tabular prediction workflows for FI/CO prototype datasets. Use when preparing SAP finance CSV exports for classification or regression experiments with source-verified setup, leakage checks, and governance review.",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "author": {
     "name": "Eduard Jiglau",
     "email": "hello@sap-ai-skills.com",

@@ -6,7 +6,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   last_verified: "2025-11-27"
   source: "https://github.com/SAP-docs/sap-btp-cloud-platform"
   keywords: [SAP BTP, Business Technology Platform, Cloud Foundry, Kyma, ABAP environment, subaccount, global account, entitlements, btp CLI, CF CLI, MTA, multi-target application, XSUAA, Cloud Identity Services, destinations, Cloud Connector, service binding, Kubernetes, serverless, RAP, CDS, CAP, CI/CD, extensions, trial account, free tier, enterprise account, CPEA, BTPEA, role collections, Neo environment, Helm, Docker, Istio, API Gateway, Eventing]
