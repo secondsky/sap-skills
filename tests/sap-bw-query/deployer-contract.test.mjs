@@ -16,7 +16,9 @@ function runStudio(home, args) {
     "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", deployer, ...args, "-Json",
   ], {
     encoding: "utf8",
-    env: { ...process.env, BW_AUTOMATION_HOME: home },
+    // BW_STUDIO_NO_SHORTCUT keeps a deploy under test from writing launch shortcuts onto the
+    // real desktop; the shortcut behavior itself is asserted from the script source below.
+    env: { ...process.env, BW_AUTOMATION_HOME: home, BW_STUDIO_NO_SHORTCUT: "1" },
   });
 }
 
@@ -109,6 +111,34 @@ test("deployer is append-only: source contains no filesystem deletion primitive"
   assert.doesNotMatch(text, /Expand-Archive/);
   assert.match(text, /Get-ExtendedPath/);
   assert.match(text, /\[System\.IO\.File\]::Exists/);
+});
+
+test("deploy creates two visible-desktop launch shortcuts (password-store opt-in), guarded and non-destructive", () => {
+  const text = fs.readFileSync(deployer, "utf8");
+  assert.match(text, /Set-DesktopShortcuts/);
+  assert.match(text, /WScript\.Shell/);
+  assert.match(text, /GetFolderPath\("Desktop"\)/);
+  assert.match(text, /kein Passwortspeicher/);
+  assert.match(text, /mit Passwortspeicher/);
+  assert.match(text, /-noPwdStore/);
+  // Skipped in CI/test so a deploy never writes onto the real desktop.
+  assert.match(text, /BW_STUDIO_NO_SHORTCUT/);
+  // Shortcut creation must not introduce any deletion primitive (append-only contract).
+  assert.doesNotMatch(text, /Remove-Item|Directory\.Delete|DeleteFile/i);
+});
+
+test("deploy with BW_STUDIO_NO_SHORTCUT creates no launch shortcuts", () => {
+  const fixture = createSignedBundle("4.0.0");
+  const home = fs.mkdtempSync(path.join(os.tmpdir(), "bw-studio-home-noshortcut-"));
+  const result = runStudio(home, [
+    "-Action", "Deploy", "-ArtifactPath", fixture.artifact, "-ManifestPath", fixture.manifestPath,
+    "-SignaturePath", fixture.signaturePath, "-TrustPolicyPath", fixture.trustPolicyPath,
+  ]);
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  // runStudio sets BW_STUDIO_NO_SHORTCUT, so the guard writes nothing to the real desktop.
+  // Assert on the deterministic integer count (Windows PowerShell serializes empty arrays
+  // unreliably, so desktopShortcuts itself is not a stable shape to check).
+  assert.equal(JSON.parse(result.stdout).desktopShortcutCount, 0);
 });
 
 test("online deployment uses HTTPS-only curl downloads", () => {

@@ -253,6 +253,7 @@ else {
 
 $published = @()
 $publishSkippedReason = $null
+$zipShortcut = $null
 if (-not $SkipPublish -and $PublishDirectory) {
     try {
         $publishExplicit = $PSBoundParameters.ContainsKey('PublishDirectory')
@@ -267,11 +268,40 @@ if (-not $SkipPublish -and $PublishDirectory) {
             }
             New-Directory $PublishDirectory
             $publishSources = @($artifact, $manifestPath, "$manifestPath.sig", (Join-Path $OutputDirectory "trusted-publishers.release.json"))
+            $publishedArtifact = $null
             foreach ($source in $publishSources) {
                 if (Test-Path -LiteralPath $source -PathType Leaf) {
                     $destination = Join-Path $PublishDirectory (Split-Path -Leaf $source)
                     Copy-Item -LiteralPath $source -Destination $destination -Force
                     $published += $destination
+                    if ($source -eq $artifact) { $publishedArtifact = $destination }
+                }
+            }
+            # The 1 GB ZIP stays on the (local) publish directory to avoid a cloud upload, but the
+            # user's VISIBLE desktop is often OneDrive-redirected. Drop a small .lnk there pointing
+            # at the local ZIP so it is visible/clickable while only a few KB sync. Non-fatal.
+            $visibleDesktop = [Environment]::GetFolderPath("Desktop")
+            if ($publishedArtifact -and -not [string]::IsNullOrWhiteSpace($visibleDesktop)) {
+                try {
+                    New-Directory $visibleDesktop
+                    if ([System.IO.Path]::GetFullPath($visibleDesktop) -ne [System.IO.Path]::GetFullPath($PublishDirectory)) {
+                        $shell = New-Object -ComObject WScript.Shell
+                        try {
+                            $linkPath = Join-Path $visibleDesktop ((Split-Path -Leaf $publishedArtifact) + ".lnk")
+                            $shortcut = $shell.CreateShortcut($linkPath)
+                            $shortcut.TargetPath = $publishedArtifact
+                            $shortcut.WorkingDirectory = (Split-Path -Parent $publishedArtifact)
+                            $shortcut.Description = "SAP BW Automation Studio bundle ($artifactName)"
+                            $shortcut.Save()
+                            $zipShortcut = $linkPath
+                        }
+                        finally {
+                            [System.Runtime.InteropServices.Marshal]::ReleaseComObject($shell) | Out-Null
+                        }
+                    }
+                }
+                catch {
+                    Write-Warning "Creating the visible-desktop shortcut to the bundle ZIP failed ($($_.Exception.Message)); the build and local publish succeeded."
                 }
             }
         }
@@ -293,4 +323,4 @@ if (-not $SkipExplorer -and -not $env:CI -and [Environment]::UserInteractive) {
     }
 }
 
-[ordered]@{ artifact = $artifact; manifest = $manifestPath; signed = [bool]($SigningPrivateKeyPath -and $SigningKeyId); workRoot = $workRoot; published = @($published); publishDirectory = if ($SkipPublish) { $null } else { $PublishDirectory }; publishSkippedReason = $publishSkippedReason; explorerOpened = $explorerOpened } | ConvertTo-Json
+[ordered]@{ artifact = $artifact; manifest = $manifestPath; signed = [bool]($SigningPrivateKeyPath -and $SigningKeyId); workRoot = $workRoot; published = @($published); publishDirectory = if ($SkipPublish) { $null } else { $PublishDirectory }; publishSkippedReason = $publishSkippedReason; zipShortcut = $zipShortcut; explorerOpened = $explorerOpened } | ConvertTo-Json

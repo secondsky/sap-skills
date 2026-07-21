@@ -321,6 +321,51 @@ function Resolve-ManifestTrust($Inputs) {
     }
 }
 
+# Creates/refreshes two Desktop launch shortcuts for the active studio on the VISIBLE desktop
+# ([Environment]::GetFolderPath('Desktop'), which follows OneDrive/Known-Folder-Move). Both point
+# at the bundle's eclipse.exe; one passes -noPwdStore (no password storage, recommended), the other
+# leaves it off so Eclipse's own secure store may remember credentials (optional, user choice).
+# Only the manual, human launch is affected — the automation/MCP surface never handles passwords.
+# Writes only (COM WScript.Shell); never deletes. Non-fatal and skipped in CI/test via
+# BW_STUDIO_NO_SHORTCUT so `node --test` deploys never touch the real desktop.
+function Set-DesktopShortcuts([string]$VersionRoot) {
+    $created = @()
+    if ($env:BW_STUDIO_NO_SHORTCUT -or $env:CI) { return $created }
+    try {
+        $desktop = [Environment]::GetFolderPath("Desktop")
+        if ([string]::IsNullOrWhiteSpace($desktop)) { return $created }
+        New-Directory $desktop
+        $eclipseExe = Join-Path $VersionRoot "eclipse\eclipse.exe"
+        if (-not (Test-Path -LiteralPath $eclipseExe -PathType Leaf)) { return $created }
+        $shell = New-Object -ComObject WScript.Shell
+        try {
+            $variants = @(
+                @{ name = "SAP BW Automation Studio (kein Passwortspeicher).lnk"; arguments = "-noPwdStore" },
+                @{ name = "SAP BW Automation Studio (mit Passwortspeicher).lnk"; arguments = "" }
+            )
+            foreach ($variant in $variants) {
+                $linkPath = Join-Path $desktop $variant.name
+                $shortcut = $shell.CreateShortcut($linkPath)
+                $shortcut.TargetPath = $eclipseExe
+                $shortcut.Arguments = $variant.arguments
+                $shortcut.WorkingDirectory = $VersionRoot
+                $shortcut.IconLocation = "$eclipseExe,0"
+                $shortcut.Description = "SAP BW Automation Studio"
+                $shortcut.Save()
+                $created += $linkPath
+            }
+        }
+        finally {
+            [System.Runtime.InteropServices.Marshal]::ReleaseComObject($shell) | Out-Null
+        }
+    }
+    catch {
+        Write-Warning "Creating the desktop launch shortcuts failed ($($_.Exception.Message)); the deployment itself succeeded. Launch via BwStudio.ps1 -Action Launch."
+        return @()
+    }
+    return $created
+}
+
 function Install-Studio([string]$StudioRoot) {
     $inputs = Resolve-ReleaseInputs $StudioRoot
     $trust = Resolve-ManifestTrust $inputs
@@ -369,6 +414,7 @@ function Install-Studio([string]$StudioRoot) {
 
     $manifestSha = Get-NormalizedSha512 $inputs.manifest
     New-Activation $StudioRoot $manifest.version "deploy" $manifestSha $installDir $manifest.artifactSha512.ToLowerInvariant() | Out-Null
+    $shortcuts = @(Set-DesktopShortcuts $versionRoot | Where-Object { $_ })
     return @{
         deployed = $true
         verified = $true
@@ -376,6 +422,8 @@ function Install-Studio([string]$StudioRoot) {
         installDir = $installDir
         supersededExistingVersion = ($installDir -ne $manifest.version)
         reusedExistingInstall = $reused
+        desktopShortcuts = $shortcuts
+        desktopShortcutCount = $shortcuts.Count
         home = $StudioRoot
         appendOnly = $true
         trustMode = $trust.trustMode

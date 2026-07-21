@@ -77,14 +77,19 @@ test("builder verifies downloads before extraction and creates all release evide
 test("builder publishes release artifacts to the Desktop with an opt-out and stays non-fatal", () => {
   const script = read("bundle/Build-BwStudio.ps1");
   assert.match(script, /PublishDirectory/);
+  // The 1 GB ZIP defaults to the LOCAL desktop (no cloud sync)...
   assert.match(script, /Join-Path \$env:USERPROFILE 'Desktop'/);
-  assert.doesNotMatch(script, /GetFolderPath\('Desktop'\)/);
   assert.match(script, /SkipPublish/);
   assert.match(script, /Test-OneDrivePath/);
   assert.match(script, /OneDriveCommercial/);
   assert.match(script, /PSBoundParameters/);
   assert.match(script, /Write-Warning/);
   assert.doesNotMatch(script, /Remove-Item/);
+  // ...and a small .lnk to that local ZIP is placed on the VISIBLE desktop (OneDrive-redirected
+  // via Known-Folder-Move) so it is discoverable while only a few KB sync.
+  assert.match(script, /GetFolderPath\(["']Desktop["']\)/);
+  assert.match(script, /WScript\.Shell/);
+  assert.match(script, /zipShortcut/);
 });
 
 test("builder opens File Explorer on the output artifact but skips headless and CI sessions", () => {
