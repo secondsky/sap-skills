@@ -1,0 +1,45 @@
+{
+  "name": "sap-btp-cloud-transport-management",
+  "version": "2.4.0",
+  "description": "Comprehensive skill for SAP Cloud Transport Management service on SAP BTP. Use when setting up transport landscapes, configuring transport nodes and routes, managing import queues, deploying MTAs across Cloud Foundry environments, integrating with CI/CD pipelines, configuring ABAP environment transports, troubleshooting deployment errors, or implementing change management workflows. Covers entitlements, subscriptions, role collections, service instances, destinations, and API integrations.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "abap",
+    "api",
+    "btp",
+    "cap",
+    "cloud",
+    "cloud foundry",
+    "cloud platform",
+    "deployment",
+    "kyma",
+    "management",
+    "sap",
+    "sap-btp-cloud-transport-management",
+    "transport"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP BTP Cloud Transport Management",
+    "shortDescription": "Comprehensive skill for SAP Cloud Transport Management servic...",
+    "longDescription": "Comprehensive skill for SAP Cloud Transport Management service on SAP BTP. Use when setting up transport landscapes, configuring transport nodes and routes, managing import queues, deploying MTAs across Cloud Foundry environments, integrating with CI/CD pipelines, configuring ABAP environment transports, troubleshooting deployment errors, or implementing change management workflows. Covers entitlements, subscriptions, role collections, service instances, destinations, and API integrations.",
+    "developerName": "Eduard Jiglau",
+    "category": "BTP",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP BTP Cloud Transport Management for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

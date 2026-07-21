@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP BTP Integration Suite"
+  short_description: "Enterprise integration solutions using SAP Integration Suite..."
+  default_prompt: "Use SAP BTP Integration Suite for SAP guidance."

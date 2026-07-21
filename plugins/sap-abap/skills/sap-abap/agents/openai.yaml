@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP ABAP"
+  short_description: "Comprehensive ABAP development skill for SAP systems"
+  default_prompt: "Use $sap-abap to work with SAP ABAP."
+policy:
+  allow_implicit_invocation: true

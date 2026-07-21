@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAPUI5"
+  short_description: "This skill should be used when developing SAP UI5 application..."
+  default_prompt: "Use SAPUI5 for SAP guidance."

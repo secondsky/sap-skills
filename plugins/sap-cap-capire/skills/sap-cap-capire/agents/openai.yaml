@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP CAP Capire"
+  short_description: "SAP Cloud Application Programming Model (CAP) development ski..."
+  default_prompt: "Use $sap-cap-capire to work with SAP CAP Capire."
+policy:
+  allow_implicit_invocation: true

@@ -1,8 +1,8 @@
 # SAP Skills Contributor Guide
 
-Comprehensive guide for developing, maintaining, and publishing SAP skills for Claude Code.
+Comprehensive guide for developing, maintaining, and publishing SAP skills for Claude Code and Codex.
 
-**Version**: 2.3.2 | **Last Updated**: 2026-06-20
+**Version**: 2.4.0 | **Last Updated**: 2026-07-21
 
 ---
 
@@ -16,6 +16,7 @@ Comprehensive guide for developing, maintaining, and publishing SAP skills for C
 - [Quality Assurance →](quality-assurance.md) - manual quality review process
 - [Common Mistakes →](common-mistakes.md) - Patterns to avoid
 - [Multi-Harness Portability →](multi-harness-portability.md) - keeping skills usable beyond one assistant runtime
+- [Manual MCP Connections →](mcp-manual-connections.md) - configuring optional MCP recipes safely
 - [Marketplace Infrastructure →](../architecture/marketplace-infrastructure.md) - Technical architecture
 
 **External Resources**:
@@ -43,20 +44,20 @@ Comprehensive guide for developing, maintaining, and publishing SAP skills for C
 ### Purpose
 
 This guide covers **SAP-specific development patterns** for SAP skills packaged
-for the Claude marketplace and reused by Markdown-capable AI coding assistants.
-It complements the official **plugin-dev skills** from Anthropic with
-domain-specific guidance for SAP technologies.
+for the Claude and Codex marketplaces and reused by Markdown-capable AI coding
+assistants. It complements the official **plugin-dev skills** from Anthropic
+with domain-specific guidance for SAP technologies.
 
 ### Who This Guide Is For
 
 - **Skill Contributors**: Creating new SAP skills
-- **Maintainers**: Managing the 33-skill portfolio
+- **Maintainers**: Managing the 40-plugin portfolio
 - **Reviewers**: Ensuring quality standards
 
 ### Prerequisites
 
 Before using this guide:
-- ✅ Familiarity with Claude Code and skills
+- ✅ Familiarity with Claude Code, Codex CLI, and skills
 - ✅ Understanding of plugin-dev basics (or willingness to learn)
 - ✅ Knowledge of at least one SAP technology (BTP, CAP, HANA, ABAP, Fiori)
 - ✅ Access to SAP development environment (BTP trial/production)
@@ -71,7 +72,8 @@ SAP skills require:
 - **Quarterly maintenance** cycles
 - **Multi-harness portability** so command bodies, references, and safety
   guidance still work when Claude-specific agents, hooks, or MCP activation are
-  unavailable
+  unavailable. Native Codex manifests and UI metadata are maintained as a
+  parallel activation layer.
 
 ---
 
@@ -208,8 +210,8 @@ npm outdated  # Check for SAP package updates
 
 ### Overview
 
-The SAP skills repository manages **38 production plugins** using a marketplace system with:
-- Coordinated versioning (all at v2.3.2)
+The SAP skills repository manages **40 production plugins** using a dual-harness marketplace system with:
+- Coordinated versioning (all at v2.4.0)
 - Cross-references between related skills
 - Central registry (.claude-plugin/marketplace.json)
 - Single root manifest architecture
@@ -247,7 +249,7 @@ This enables Claude to discover complementary skills automatically.
 
 **Single Source of Truth**: `marketplace.json` metadata.version field
 
-All plugins share the same version (currently 2.3.2) and are updated together:
+All plugins share the same version (currently 2.4.0) and are updated together:
 ```bash
 # Update version in marketplace.json
 vim .claude-plugin/marketplace.json
@@ -332,7 +334,7 @@ Every SAP skill must document SDK versions:
 ---
 name: sap-cap-capire
 metadata:
-  version: "2.3.2"
+  version: "2.4.0"
   cap_version: "@sap/cds 9.4.x"
   last_verified: "2025-12-28"
   sap_btp_compatible: true
@@ -710,7 +712,7 @@ jq '.metadata.total_skills' .claude-plugin/marketplace.json  # Should be 38
 3. **Update skill metadata**:
    ```yaml
    metadata:
-     version: "2.3.2"
+     version: "2.4.0"
      cap_version: "@sap/cds 9.5.x"  # Updated
      last_verified: "2026-03-28"     # Updated
    ```
@@ -857,5 +859,5 @@ https://github.com/secondsky/sap-skills/issues
 
 **Last Updated**: 2026-06-20
 **Next Review**: 2026-08-31 (Quarterly)
-**Version**: 2.3.2
+**Version**: 2.4.0
 **Maintainer**: Eduard Jiglau | [hello@sap-ai-skills.com](mailto:hello@sap-ai-skills.com) | [sap-ai-skills.com](https://sap-ai-skills.com) | [github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills)

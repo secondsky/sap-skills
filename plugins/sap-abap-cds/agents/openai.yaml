@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP ABAP CDS"
+  short_description: "Comprehensive SAP ABAP CDS (Core Data Services) reference for..."
+  default_prompt: "Use SAP ABAP CDS for SAP guidance."

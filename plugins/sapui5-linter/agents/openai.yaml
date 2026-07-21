@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sapui5 Linter"
+  short_description: "Use this skill when working with the UI5 Linter (@ui5/linter)..."
+  default_prompt: "Use Sapui5 Linter for SAP guidance."

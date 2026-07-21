@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP BTP Cloud Platform"
+  short_description: "Comprehensive SAP Business Technology Platform (BTP) referenc..."
+  default_prompt: "Use $sap-btp-cloud-platform to work with SAP BTP Cloud Platform."
+policy:
+  allow_implicit_invocation: true

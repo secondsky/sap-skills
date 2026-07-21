@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP Cloud Sdk AI"
+  short_description: "Integrates SAP Cloud SDK for AI into JavaScript/TypeScript an..."
+  default_prompt: "Use $sap-cloud-sdk-ai to work with SAP Cloud Sdk AI."
+policy:
+  allow_implicit_invocation: true

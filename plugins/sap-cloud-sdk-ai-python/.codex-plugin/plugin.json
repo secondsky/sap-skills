@@ -1,0 +1,42 @@
+{
+  "name": "sap-cloud-sdk-ai-python",
+  "version": "2.4.0",
+  "description": "Integrates the SAP Cloud SDK for AI for Python (sap-ai-sdk-gen, formerly generative-ai-hub-sdk) into Python applications. Use when building Python apps with SAP AI Core, Generative AI Hub, or the Orchestration Service: chat completion, embeddings, streaming, LangChain integration, templating, content filtering, data masking, and document grounding. Supports OpenAI GPT models, Llama, Gemini, Amazon Nova, and other foundation models via SAP BTP.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "artificial intelligence",
+    "btp",
+    "cloud",
+    "llm",
+    "machine learning",
+    "python",
+    "sap",
+    "sap-cloud-sdk-ai-python",
+    "sdk",
+    "streaming"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP Cloud Sdk AI Python",
+    "shortDescription": "Integrates the SAP Cloud SDK for AI for Python (sap-ai-sdk-ge...",
+    "longDescription": "Integrates the SAP Cloud SDK for AI for Python (sap-ai-sdk-gen, formerly generative-ai-hub-sdk) into Python applications. Use when building Python apps with SAP AI Core, Generative AI Hub, or the Orchestration Service: chat completion, embeddings, streaming, LangChain integration, templating, content filtering, data masking, and document grounding. Supports OpenAI GPT models, Llama, Gemini, Amazon Nova, and other foundation models via SAP BTP.",
+    "developerName": "Eduard Jiglau",
+    "category": "AI",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP Cloud Sdk AI Python for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

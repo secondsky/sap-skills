@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP Dependency Security"
+  short_description: "SAP dependency security and MCP executable trust policy with..."
+  default_prompt: "Use SAP Dependency Security for SAP guidance."

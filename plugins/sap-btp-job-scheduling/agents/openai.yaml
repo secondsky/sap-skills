@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP BTP Job Scheduling"
+  short_description: "This skill provides comprehensive guidance for SAP BTP Job Sc..."
+  default_prompt: "Use SAP BTP Job Scheduling for SAP guidance."

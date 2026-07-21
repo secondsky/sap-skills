@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/secondsky/sap-skills/schemas/codex-marketplace.schema.json",
+  "title": "Codex Plugin Marketplace",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "plugins"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "interface": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "plugins": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/pluginEntry"
+      }
+    }
+  },
+  "$defs": {
+    "pluginEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "source", "policy", "category"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "path"],
+          "properties": {
+            "source": {
+              "const": "local"
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^\\./plugins/[a-z0-9][a-z0-9-]*$"
+            }
+          }
+        },
+        "policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["installation", "authentication"],
+          "properties": {
+            "installation": {
+              "const": "AVAILABLE"
+            },
+            "authentication": {
+              "const": "ON_INSTALL"
+            }
+          }
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

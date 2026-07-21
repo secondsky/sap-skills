@@ -1,0 +1,45 @@
+{
+  "name": "sap-sac-test-automation",
+  "version": "2.4.0",
+  "description": "SAP Analytics Cloud (SAC) automated testing skill for designing capability-gated browser discovery and deterministic Playwright test suites for SAC stories, dashboards, reports, planning workflows, comments, permissions, visual regression, and reusable QA automation. This skill should be used when building SAC end-to-end tests, onboarding SAC dashboards into Playwright, creating dashboard profiles or scenario YAML, using Microsoft Edge/CDP, Chrome DevTools MCP, Vercel Labs agent-browser, or manual discovery for SAC components, testing SAC optimized stories, configuring SAC auth storage state, managing visual/data baselines, testing comments, planning writeback, data actions, multi actions, role-based views, restricted Windows/company environments, or creating SAC failure triage artifacts.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "analytics",
+    "automation",
+    "cap",
+    "dashboard",
+    "data",
+    "edge",
+    "rest",
+    "sac",
+    "sap",
+    "sap-sac-test-automation",
+    "test",
+    "visualization",
+    "yaml"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP SAC Test Automation",
+    "shortDescription": "SAP Analytics Cloud (SAC) automated testing skill for designi...",
+    "longDescription": "SAP Analytics Cloud (SAC) automated testing skill for designing capability-gated browser discovery and deterministic Playwright test suites for SAC stories, dashboards, reports, planning workflows, comments, permissions, visual regression, and reusable QA automation. This skill should be used when building SAC end-to-end tests, onboarding SAC dashboards into Playwright, creating dashboard profiles or scenario YAML, using Microsoft Edge/CDP, Chrome DevTools MCP, Vercel Labs agent-browser, or manual discovery for SAC components, testing SAC optimized stories, configuring SAC auth storage state, managing visual/data baselines, testing comments, planning writeback, data actions, multi actions, role-based views, restricted Windows/company environments, or creating SAC failure triage artifacts.",
+    "developerName": "Eduard Jiglau",
+    "category": "Data Analytics",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP SAC Test Automation for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

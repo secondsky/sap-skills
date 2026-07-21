@@ -1,0 +1,44 @@
+{
+  "name": "sap-sqlscript",
+  "version": "2.4.0",
+  "description": "This skill should be used when the user asks to \"write a SQLScript procedure\", \"create HANA stored procedure\", \"implement AMDP method\", \"optimize SQLScript performance\", \"handle SQLScript exceptions\", \"debug HANA procedure\", \"create table function\", \"inspect a browser-based Datasphere SQL editor with Microsoft Edge CDP\", or mentions SQLScript, SAP HANA procedures, AMDP, EXIT HANDLER, or code-to-data paradigm. Comprehensive SQLScript development guidance for SAP HANA database programming including syntax patterns, built-in functions, exception handling, performance optimization, cursor management, and ABAP Managed Database Procedure (AMDP) integration.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "abap",
+    "analytics",
+    "dashboard",
+    "data",
+    "edge",
+    "hana",
+    "sac",
+    "sap",
+    "sap-sqlscript",
+    "sql",
+    "sqlscript",
+    "visualization"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP SQLScript",
+    "shortDescription": "This skill should be used when the user asks to \"write a SQLS...",
+    "longDescription": "This skill should be used when the user asks to \"write a SQLScript procedure\", \"create HANA stored procedure\", \"implement AMDP method\", \"optimize SQLScript performance\", \"handle SQLScript exceptions\", \"debug HANA procedure\", \"create table function\", \"inspect a browser-based Datasphere SQL editor with Microsoft Edge CDP\", or mentions SQLScript, SAP HANA procedures, AMDP, EXIT HANDLER, or code-to-data paradigm. Comprehensive SQLScript development guidance for SAP HANA database programming including syntax patterns, built-in functions, exception handling, performance optimization, cursor management, and ABAP Managed Database Procedure (AMDP) integration.",
+    "developerName": "Eduard Jiglau",
+    "category": "Data Analytics",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP SQLScript for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

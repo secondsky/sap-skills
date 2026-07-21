@@ -26,6 +26,7 @@ const allowedSkillRootEntries = new Set([
   "templates",
   "scripts",
   "assets",
+  "agents",
 ]);
 const requiredSkillSections = [
   ["Related Skills", /## Related Skills/i],

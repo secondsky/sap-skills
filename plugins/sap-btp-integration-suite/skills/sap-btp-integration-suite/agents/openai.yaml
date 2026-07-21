@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP BTP Integration Suite"
+  short_description: "Enterprise integration solutions using SAP Integration Suite..."
+  default_prompt: "Use $sap-btp-integration-suite to work with SAP BTP Integration Suite."
+policy:
+  allow_implicit_invocation: true

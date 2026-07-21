@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP BTP Business Application Studio"
+  short_description: "This skill provides comprehensive guidance for SAP Business A..."
+  default_prompt: "Use $sap-btp-business-application-studio to work with SAP BTP Business Application Studio."
+policy:
+  allow_implicit_invocation: true

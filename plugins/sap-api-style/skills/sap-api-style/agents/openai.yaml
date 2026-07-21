@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP API Style"
+  short_description: "This skill provides comprehensive guidance for documenting SA..."
+  default_prompt: "Use $sap-api-style to work with SAP API Style."
+policy:
+  allow_implicit_invocation: true

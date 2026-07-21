@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP BTP Developer Guide"
+  short_description: "Develops business applications on SAP Business Technology Pla..."
+  default_prompt: "Use $sap-btp-developer-guide to work with SAP BTP Developer Guide."
+policy:
+  allow_implicit_invocation: true

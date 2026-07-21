@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP BTP Best Practices"
+  short_description: "SAP BTP best practices for enterprise architecture, account m..."
+  default_prompt: "Use $sap-btp-best-practices to work with SAP BTP Best Practices."
+policy:
+  allow_implicit_invocation: true

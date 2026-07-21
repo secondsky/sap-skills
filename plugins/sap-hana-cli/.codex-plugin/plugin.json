@@ -1,0 +1,44 @@
+{
+  "name": "sap-hana-cli",
+  "version": "2.4.0",
+  "description": "Assists with SAP HANA Developer CLI (hana-cli) for database development and administration. Use when: installing hana-cli, connecting to SAP HANA databases, inspecting database objects (tables, views, procedures, functions), managing HDI containers, executing SQL queries, converting metadata to CDS/EDMX/OpenAPI formats, managing SAP HANA Cloud instances, working with BTP CLI integration, or troubleshooting hana-cli commands. Covers: 91 commands, 17+ output formats, HDI container management, cloud operations.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "api",
+    "btp",
+    "cds",
+    "cli",
+    "cloud",
+    "database",
+    "hana",
+    "hdi",
+    "sap",
+    "sap-hana-cli",
+    "sql",
+    "sqlscript"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP HANA CLI",
+    "shortDescription": "Assists with SAP HANA Developer CLI (hana-cli) for database d...",
+    "longDescription": "Assists with SAP HANA Developer CLI (hana-cli) for database development and administration. Use when: installing hana-cli, connecting to SAP HANA databases, inspecting database objects (tables, views, procedures, functions), managing HDI containers, executing SQL queries, converting metadata to CDS/EDMX/OpenAPI formats, managing SAP HANA Cloud instances, working with BTP CLI integration, or troubleshooting hana-cli commands. Covers: 91 commands, 17+ output formats, HDI container management, cloud operations.",
+    "developerName": "Eduard Jiglau",
+    "category": "HANA",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP HANA CLI for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

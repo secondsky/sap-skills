@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP SAC Test Automation"
+  short_description: "SAP Analytics Cloud (SAC) automated testing skill for designi..."
+  default_prompt: "Use $sap-sac-test-automation to work with SAP SAC Test Automation."
+policy:
+  allow_implicit_invocation: true

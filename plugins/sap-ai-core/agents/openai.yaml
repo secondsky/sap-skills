@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP AI Core"
+  short_description: "Guides development with SAP AI Core and SAP AI Launchpad for..."
+  default_prompt: "Use SAP AI Core for SAP guidance."

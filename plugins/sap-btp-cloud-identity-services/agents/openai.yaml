@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP BTP Cloud Identity Services"
+  short_description: "SAP Cloud Identity Services for BTP applications: Identity Au..."
+  default_prompt: "Use SAP BTP Cloud Identity Services for SAP guidance."

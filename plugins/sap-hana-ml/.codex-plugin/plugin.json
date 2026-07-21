@@ -1,0 +1,41 @@
+{
+  "name": "sap-hana-ml",
+  "version": "2.4.0",
+  "description": "SAP HANA Machine Learning Python Client (hana-ml) development skill. Use when: Building ML solutions with SAP HANA's in-database machine learning using Python hana-ml library for PAL/APL algorithms, DataFrame operations, AutoML, model persistence, and visualization. Keywords: hana-ml, SAP HANA, machine learning, PAL, APL, predictive analytics, HANA DataFrame, ConnectionContext, classification, regression, clustering, time series, ARIMA, gradient boosting, AutoML, SHAP, model storage",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "cloud",
+    "database",
+    "hana",
+    "hdi",
+    "python",
+    "sap",
+    "sap-hana-ml",
+    "sql",
+    "sqlscript"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP HANA Ml",
+    "shortDescription": "SAP HANA Machine Learning Python Client (hana-ml) development...",
+    "longDescription": "SAP HANA Machine Learning Python Client (hana-ml) development skill. Use when: Building ML solutions with SAP HANA's in-database machine learning using Python hana-ml library for PAL/APL algorithms, DataFrame operations, AutoML, model persistence, and visualization. Keywords: hana-ml, SAP HANA, machine learning, PAL, APL, predictive analytics, HANA DataFrame, ConnectionContext, classification, regression, clustering, time series, ARIMA, gradient boosting, AutoML, SHAP, model storage",
+    "developerName": "Eduard Jiglau",
+    "category": "HANA",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP HANA Ml for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

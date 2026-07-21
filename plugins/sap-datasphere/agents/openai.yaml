@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP Datasphere"
+  short_description: "SAP Datasphere development skill with 3 specialized agents, 5..."
+  default_prompt: "Use SAP Datasphere for SAP guidance."

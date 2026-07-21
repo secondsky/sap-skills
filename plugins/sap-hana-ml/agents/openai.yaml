@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP HANA Ml"
+  short_description: "SAP HANA Machine Learning Python Client (hana-ml) development..."
+  default_prompt: "Use SAP HANA Ml for SAP guidance."

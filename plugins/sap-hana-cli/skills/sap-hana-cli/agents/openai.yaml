@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP HANA CLI"
+  short_description: "Assists with SAP HANA Developer CLI (hana-cli) for database d..."
+  default_prompt: "Use $sap-hana-cli to work with SAP HANA CLI."
+policy:
+  allow_implicit_invocation: true

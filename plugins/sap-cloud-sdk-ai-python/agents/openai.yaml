@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP Cloud Sdk AI Python"
+  short_description: "Integrates the SAP Cloud SDK for AI for Python (sap-ai-sdk-ge..."
+  default_prompt: "Use SAP Cloud Sdk AI Python for SAP guidance."

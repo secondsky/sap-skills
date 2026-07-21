@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP BTP Service Manager"
+  short_description: "This skill provides comprehensive knowledge for SAP Service M..."
+  default_prompt: "Use SAP BTP Service Manager for SAP guidance."

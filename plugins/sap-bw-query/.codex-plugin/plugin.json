@@ -1,5 +1,41 @@
 {
   "name": "sap-bw-query",
-  "version": "2.3.2",
-  "description": "Password-safe SAP BW query inspection and local draft automation through a portable Eclipse/BW Modeling Tools workspace."
+  "version": "2.4.0",
+  "description": "Use when automating SAP BW query inspection, InfoProvider metadata reads (characteristics, key figures), metadata-verified specification review, unsaved draft preparation, or human-confirmed query draft population through Eclipse or HANA Studio with BW Modeling Tools.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "analytics",
+    "dashboard",
+    "data",
+    "hana",
+    "query",
+    "sac",
+    "sap",
+    "sap-bw-query",
+    "visualization"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP BW Query",
+    "shortDescription": "Use when automating SAP BW query inspection, InfoProvider met...",
+    "longDescription": "Use when automating SAP BW query inspection, InfoProvider metadata reads (characteristics, key figures), metadata-verified specification review, unsaved draft preparation, or human-confirmed query draft population through Eclipse or HANA Studio with BW Modeling Tools.",
+    "developerName": "Eduard Jiglau",
+    "category": "Data Analytics",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP BW Query for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
 }

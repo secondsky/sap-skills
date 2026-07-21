@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP BTP Developer Guide"
+  short_description: "Develops business applications on SAP Business Technology Pla..."
+  default_prompt: "Use SAP BTP Developer Guide for SAP guidance."

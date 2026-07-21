@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP BTP Intelligent Situation Automation"
+  short_description: "This archived skill provides legacy guidance for SAP BTP Inte..."
+  default_prompt: "Use $sap-btp-intelligent-situation-automation to work with SAP BTP Intelligent Situation Automation."
+policy:
+  allow_implicit_invocation: true

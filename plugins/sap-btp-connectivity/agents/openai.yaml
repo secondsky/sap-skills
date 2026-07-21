@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP BTP Connectivity"
+  short_description: "SAP BTP Connectivity skill covering Destination Service, Conn..."
+  default_prompt: "Use SAP BTP Connectivity for SAP guidance."

@@ -1,0 +1,40 @@
+{
+  "name": "sap-ai-core",
+  "version": "2.4.0",
+  "description": "Guides development with SAP AI Core and SAP AI Launchpad for enterprise AI/ML workloads on SAP BTP. Use when: deploying generative AI models, building orchestration workflows with templating/filtering/grounding, implementing RAG with vector databases, managing ML training pipelines with Argo Workflows, configuring content filtering and data masking for PII protection, using the Generative AI Hub for prompt experimentation, managing prompt templates via the Prompt Registry, or integrating AI capabilities into SAP applications. Covers service plans (Free/Standard/Extended), model providers (Azure OpenAI, AWS Bedrock, GCP Vertex AI, Mistral, IBM, Perplexity), orchestration modules, embeddings, tool calling, and structured outputs.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "artificial intelligence",
+    "btp",
+    "cap",
+    "core",
+    "llm",
+    "machine learning",
+    "sap",
+    "sap-ai-core"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP AI Core",
+    "shortDescription": "Guides development with SAP AI Core and SAP AI Launchpad for...",
+    "longDescription": "Guides development with SAP AI Core and SAP AI Launchpad for enterprise AI/ML workloads on SAP BTP. Use when: deploying generative AI models, building orchestration workflows with templating/filtering/grounding, implementing RAG with vector databases, managing ML training pipelines with Argo Workflows, configuring content filtering and data masking for PII protection, using the Generative AI Hub for prompt experimentation, managing prompt templates via the Prompt Registry, or integrating AI capabilities into SAP applications. Covers service plans (Free/Standard/Extended), model providers (Azure OpenAI, AWS Bedrock, GCP Vertex AI, Mistral, IBM, Perplexity), orchestration modules, embeddings, tool calling, and structured outputs.",
+    "developerName": "Eduard Jiglau",
+    "category": "AI",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP AI Core for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

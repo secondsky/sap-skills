@@ -1,0 +1,45 @@
+{
+  "name": "sap-hana-cloud-data-intelligence",
+  "version": "2.4.0",
+  "description": "Develops data processing pipelines, integrations, and machine learning scenarios in SAP Data Intelligence Cloud. Use when building graphs/pipelines with operators, integrating ABAP/S4HANA systems, creating replication flows, developing ML scenarios with JupyterLab, or using Data Transformation Language functions. Covers Gen1/Gen2 operators, subengines (Python, Node.js, C++), structured data operators, and repository objects.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "abap",
+    "cloud",
+    "data",
+    "database",
+    "hana",
+    "hdi",
+    "intelligence",
+    "node.js",
+    "python",
+    "sap",
+    "sap-hana-cloud-data-intelligence",
+    "sql",
+    "sqlscript"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP HANA Cloud Data Intelligence",
+    "shortDescription": "Develops data processing pipelines, integrations, and machine...",
+    "longDescription": "Develops data processing pipelines, integrations, and machine learning scenarios in SAP Data Intelligence Cloud. Use when building graphs/pipelines with operators, integrating ABAP/S4HANA systems, creating replication flows, developing ML scenarios with JupyterLab, or using Data Transformation Language functions. Covers Gen1/Gen2 operators, subengines (Python, Node.js, C++), structured data operators, and repository objects.",
+    "developerName": "Eduard Jiglau",
+    "category": "HANA",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP HANA Cloud Data Intelligence for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

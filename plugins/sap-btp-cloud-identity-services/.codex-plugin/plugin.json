@@ -1,0 +1,44 @@
+{
+  "name": "sap-btp-cloud-identity-services",
+  "version": "2.4.0",
+  "description": "SAP Cloud Identity Services for BTP applications: Identity Authentication (IAS), Identity Provisioning (IPS), and Authorization Management (AMS). Use when configuring authentication for BTP apps, setting up OIDC or SAML app registrations, federating corporate identity providers, establishing subaccount trust, provisioning users, writing AMS authorization policies, migrating from XSUAA to IAS-based authentication, or troubleshooting token and trust errors.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "authentication",
+    "authorization",
+    "btp",
+    "cloud",
+    "cloud foundry",
+    "cloud platform",
+    "identity",
+    "kyma",
+    "saml",
+    "sap",
+    "sap-btp-cloud-identity-services",
+    "services"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP BTP Cloud Identity Services",
+    "shortDescription": "SAP Cloud Identity Services for BTP applications: Identity Au...",
+    "longDescription": "SAP Cloud Identity Services for BTP applications: Identity Authentication (IAS), Identity Provisioning (IPS), and Authorization Management (AMS). Use when configuring authentication for BTP apps, setting up OIDC or SAML app registrations, federating corporate identity providers, establishing subaccount trust, provisioning users, writing AMS authorization policies, migrating from XSUAA to IAS-based authentication, or troubleshooting token and trust errors.",
+    "developerName": "Eduard Jiglau",
+    "category": "BTP",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP BTP Cloud Identity Services for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

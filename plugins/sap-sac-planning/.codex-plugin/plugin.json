@@ -1,0 +1,42 @@
+{
+  "name": "sap-sac-planning",
+  "version": "2.4.0",
+  "description": "SAP Analytics Cloud (SAC) planning guidance for planning models, planning-enabled stories, data actions, multi actions, version management, data locking, calendar/input workflows, allocations, value driver trees, BPC live planning, and Seamless Planning with SAP Datasphere. Use this for planning design, planning APIs, data action debugging, planning performance reviews, and authenticated SAC planning story triage in Microsoft Edge via CDP; use sap-sac-scripting for non-planning SAC scripts and sap-datasphere for Datasphere modeling.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "analytics",
+    "api",
+    "dashboard",
+    "data",
+    "edge",
+    "planning",
+    "sac",
+    "sap",
+    "sap-sac-planning",
+    "visualization"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP SAC Planning",
+    "shortDescription": "SAP Analytics Cloud (SAC) planning guidance for planning mode...",
+    "longDescription": "SAP Analytics Cloud (SAC) planning guidance for planning models, planning-enabled stories, data actions, multi actions, version management, data locking, calendar/input workflows, allocations, value driver trees, BPC live planning, and Seamless Planning with SAP Datasphere. Use this for planning design, planning APIs, data action debugging, planning performance reviews, and authenticated SAC planning story triage in Microsoft Edge via CDP; use sap-sac-scripting for non-planning SAC scripts and sap-datasphere for Datasphere modeling.",
+    "developerName": "Eduard Jiglau",
+    "category": "Data Analytics",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP SAC Planning for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

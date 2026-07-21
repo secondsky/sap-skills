@@ -1,0 +1,488 @@
+{
+  "name": "sap-skills",
+  "interface": {
+    "displayName": "SAP Skills"
+  },
+  "plugins": [
+    {
+      "name": "sap-abap",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-abap"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "ABAP"
+    },
+    {
+      "name": "sap-abap-cds",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-abap-cds"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "ABAP"
+    },
+    {
+      "name": "sap-ai-core",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-ai-core"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "AI"
+    },
+    {
+      "name": "sap-api-policy",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-api-policy"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Tooling"
+    },
+    {
+      "name": "sap-api-style",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-api-style"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Tooling"
+    },
+    {
+      "name": "sap-browser-automation",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-browser-automation"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Tooling"
+    },
+    {
+      "name": "sap-btp-best-practices",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-best-practices"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-btp-build-work-zone-advanced",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-build-work-zone-advanced"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-btp-business-application-studio",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-business-application-studio"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-btp-cias",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-cias"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-btp-cloud-identity-services",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-cloud-identity-services"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-btp-cloud-logging",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-cloud-logging"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-btp-cloud-platform",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-cloud-platform"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-btp-cloud-transport-management",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-cloud-transport-management"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-btp-connectivity",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-connectivity"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-btp-developer-guide",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-developer-guide"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-btp-integration-suite",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-integration-suite"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-btp-intelligent-situation-automation",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-intelligent-situation-automation"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-btp-job-scheduling",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-job-scheduling"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-btp-master-data-integration",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-master-data-integration"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-btp-service-manager",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-btp-service-manager"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "BTP"
+    },
+    {
+      "name": "sap-bw-query",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-bw-query"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Analytics"
+    },
+    {
+      "name": "sap-cap-capire",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-cap-capire"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "CAP"
+    },
+    {
+      "name": "sap-cloud-sdk-ai",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-cloud-sdk-ai"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "AI"
+    },
+    {
+      "name": "sap-cloud-sdk-ai-python",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-cloud-sdk-ai-python"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "AI"
+    },
+    {
+      "name": "sap-datasphere",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-datasphere"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Analytics"
+    },
+    {
+      "name": "sap-dependency-security",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-dependency-security"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Tooling"
+    },
+    {
+      "name": "sap-fiori-tools",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-fiori-tools"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "UI Development"
+    },
+    {
+      "name": "sap-hana-cli",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-hana-cli"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "HANA"
+    },
+    {
+      "name": "sap-hana-cloud-data-intelligence",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-hana-cloud-data-intelligence"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "HANA"
+    },
+    {
+      "name": "sap-hana-ml",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-hana-ml"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "HANA"
+    },
+    {
+      "name": "sap-rpt1",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-rpt1"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "AI"
+    },
+    {
+      "name": "sap-sac-custom-widget",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-sac-custom-widget"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Analytics"
+    },
+    {
+      "name": "sap-sac-planning",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-sac-planning"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Analytics"
+    },
+    {
+      "name": "sap-sac-scripting",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-sac-scripting"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Analytics"
+    },
+    {
+      "name": "sap-sac-test-automation",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-sac-test-automation"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Analytics"
+    },
+    {
+      "name": "sap-sqlscript",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sap-sqlscript"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Analytics"
+    },
+    {
+      "name": "sapui5",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sapui5"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "UI Development"
+    },
+    {
+      "name": "sapui5-cli",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sapui5-cli"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "UI Development"
+    },
+    {
+      "name": "sapui5-linter",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sapui5-linter"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "UI Development"
+    }
+  ]
+}

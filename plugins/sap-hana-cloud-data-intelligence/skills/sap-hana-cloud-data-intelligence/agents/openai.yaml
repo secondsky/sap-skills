@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP HANA Cloud Data Intelligence"
+  short_description: "Develops data processing pipelines, integrations, and machine..."
+  default_prompt: "Use $sap-hana-cloud-data-intelligence to work with SAP HANA Cloud Data Intelligence."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Sapui5 CLI"
+  short_description: "Manages SAPUI5/OpenUI5 projects using the UI5 Tooling CLI (@u..."
+  default_prompt: "Use $sapui5-cli to work with Sapui5 CLI."
+policy:
+  allow_implicit_invocation: true

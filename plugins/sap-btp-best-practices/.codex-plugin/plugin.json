@@ -1,0 +1,43 @@
+{
+  "name": "sap-btp-best-practices",
+  "version": "2.4.0",
+  "description": "SAP BTP best practices for enterprise architecture, account management, security, and operations, with verification evidence tracked in the repository ledger. Use when planning BTP implementations, setting up account hierarchies, configuring environments, implementing authentication, designing CI/CD pipelines, establishing governance, building Platform Engineering teams, implementing failover strategies, or managing application lifecycle on SAP BTP. Keywords: SAP BTP, account hierarchy, global account, directory, subaccount, Cloud Foundry, Kyma, ABAP, SAP Identity Authentication, CI/CD, governance, Platform Engineering, failover, multi-region, SAP BTP best practices",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "abap",
+    "authentication",
+    "best",
+    "btp",
+    "cloud foundry",
+    "cloud platform",
+    "edge",
+    "kyma",
+    "practices",
+    "sap",
+    "sap-btp-best-practices"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP BTP Best Practices",
+    "shortDescription": "SAP BTP best practices for enterprise architecture, account m...",
+    "longDescription": "SAP BTP best practices for enterprise architecture, account management, security, and operations, with verification evidence tracked in the repository ledger. Use when planning BTP implementations, setting up account hierarchies, configuring environments, implementing authentication, designing CI/CD pipelines, establishing governance, building Platform Engineering teams, implementing failover strategies, or managing application lifecycle on SAP BTP. Keywords: SAP BTP, account hierarchy, global account, directory, subaccount, Cloud Foundry, Kyma, ABAP, SAP Identity Authentication, CI/CD, governance, Platform Engineering, failover, multi-region, SAP BTP best practices",
+    "developerName": "Eduard Jiglau",
+    "category": "BTP",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP BTP Best Practices for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}
