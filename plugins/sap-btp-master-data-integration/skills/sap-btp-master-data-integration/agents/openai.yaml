@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP BTP Master Data Integration"
+  short_description: "Configures and integrates SAP Master Data Integration (MDI) s..."
+  default_prompt: "Use $sap-btp-master-data-integration to work with SAP BTP Master Data Integration."
+policy:
+  allow_implicit_invocation: true

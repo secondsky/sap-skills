@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAPUI5"
+  short_description: "This skill should be used when developing SAP UI5 application..."
+  default_prompt: "Use $sapui5 to work with SAPUI5."
+policy:
+  allow_implicit_invocation: true

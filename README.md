@@ -1,15 +1,15 @@
 # SAP Skills for AI Coding Assistants
 
-37 SAP development plugins with evidence-tracked verification
+40 SAP development plugins with evidence-tracked verification
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENSE)
-[![Plugins](https://img.shields.io/badge/Plugins-37-brightgreen.svg)](.claude-plugin/marketplace.json)
-[![Version](https://img.shields.io/badge/Version-2.3.2-orange.svg)](CHANGELOG.md)
+[![Plugins](https://img.shields.io/badge/Plugins-40-brightgreen.svg)](.claude-plugin/marketplace.json)
+[![Version](https://img.shields.io/badge/Version-2.4.0-orange.svg)](CHANGELOG.md)
 
 SAP development plugins for AI coding assistants, with public-source or package-registry verification tracked where available. Live tenant and system validation is tracked per plugin in `docs/project/source-verification-ledger.json`.
 
-The repository is packaged for the Claude marketplace, but the SAP skill content
-is written to be portable. In clients such as Codex, OpenCode, Cursor, or Gemini
+The repository is packaged for the Claude and Codex marketplaces, and the SAP
+skill content is written to be portable. In clients such as OpenCode, Cursor, or Gemini
 CLI, Claude-specific agents, hooks, slash commands, and MCP configs should be
 treated as role guidance, optional validators, prompt templates, and connection
 recipes unless that client supports them natively.
@@ -18,7 +18,7 @@ recipes unless that client supports them natively.
 
 - [Quick Start](#quick-start) — Install for supported AI coding assistants
 - [How It Works](#how-it-works) — Auto-activation examples
-- [Available Plugins](#available-plugins-37) — 37 plugins by category
+- [Available Plugins](#available-plugins-40) — 40 plugins by category
 - [Repository Structure](#repository-structure) — Architecture overview
 - [Building New Plugins](#building-new-plugins) — Contribution workflow
 - [Documentation](#documentation) — Guides and references
@@ -35,6 +35,29 @@ Install via [vercel-labs/skills](https://github.com/vercel-labs/skills). Support
 ```bash
 npx skills add secondsky/sap-skills
 ```
+
+### Codex CLI (native marketplace)
+
+Codex reads the repository marketplace from `.agents/plugins/marketplace.json` and
+uses the shared `SKILL.md` content. From a local checkout:
+
+```bash
+codex plugin marketplace add .
+codex plugin add sap-abap@sap-skills
+```
+
+From GitHub, use sparse checkout to include the Codex registry and plugin
+payloads:
+
+```bash
+codex plugin marketplace add https://github.com/secondsky/sap-skills.git --sparse .agents/plugins --sparse plugins
+```
+
+The native Codex layer is skills-first. Claude commands, agents, hooks, LSP
+configuration, and MCP recipes remain available as optional Claude or manual
+fallback resources. See the [manual MCP connection guide](docs/contributor-guide/mcp-manual-connections.md)
+before configuring any server. The generic `npx skills add` command above
+remains a portable installation option.
 
 ### Claude Code (native marketplace)
 
@@ -98,15 +121,17 @@ arguments, environment variables, and safety notes.
 
 ---
 
-## Available Plugins (37)
+## Available Plugins (40)
 
 Feature icons: ⌘ = commands · 🤖 = agents · 🛡 = hooks · 🔌 = MCP · LSP = language server
 
-### 🔧 Tooling & Development (3)
+### 🔧 Tooling & Development (5)
 
 | Plugin | Features | Description |
 |--------|----------|-------------|
+| **sap-api-policy** | — | Evidence-based assessment of SAP API/interface usage against the SAP API Policy (v.4.2026a) |
 | **sap-api-style** | ⌘1 · 🤖1 | API documentation standards following SAP guidelines |
+| **sap-browser-automation** | — | Shared authenticated SAP browser automation, Edge/CDP, profile reuse, and recovery |
 | **sap-dependency-security** | ⌘1 · 🛡 | SAP dependency security, MCP executable trust, cooldown policies, lockfile hardening, supply-chain safeguards |
 | **sap-hana-cli** | ⌘2 · 🤖1 · 🔌MCP | SAP HANA Developer CLI for database operations |
 
@@ -139,10 +164,11 @@ Feature icons: ⌘ = commands · 🤖 = agents · 🛡 = hooks · 🔌 = MCP · 
 | **sapui5-cli** | ⌘2 | SAPUI5 CLI tools and commands |
 | **sapui5-linter** | ⌘2 | SAPUI5 code quality and linting |
 
-### 📊 Data & Analytics (6)
+### 📊 Data & Analytics (7)
 
 | Plugin | Features | Description |
 |--------|----------|-------------|
+| **sap-bw-query** | ⌘3 · 🔌MCP | Password-safe portable Eclipse/BWMT query inspection, specification review, and unsaved local drafts |
 | **sap-datasphere** | ⌘5 · 🤖3 · 🛡 · 🔌MCP | SAP Datasphere data modeling and management |
 | **sap-hana-cloud-data-intelligence** | ⌘1 | SAP HANA Cloud Data Intelligence |
 | **sap-sac-custom-widget** | ⌘3 · 🤖3 · 🛡 | SAP Analytics Cloud custom widget development |
@@ -170,17 +196,27 @@ Feature icons: ⌘ = commands · 🤖 = agents · 🛡 = hooks · 🔌 = MCP · 
 
 ```
 sap-skills/
+├── .agents/
+│   └── plugins/
+│       └── marketplace.json      # Codex marketplace catalog
+│
 ├── .claude-plugin/
 │   └── marketplace.json          # Marketplace catalog
 │
-└── plugins/                       # All plugins (37)
+└── plugins/                       # All plugins (40)
     └── [plugin-name]/
+        ├── .codex-plugin/
+        │   └── plugin.json       # Codex plugin manifest
+        ├── agents/
+        │   └── openai.yaml       # Codex plugin UI metadata
         ├── .claude-plugin/
         │   └── plugin.json       # Plugin manifest
         │
         ├── skills/
         │   └── [skill-name]/
         │       ├── SKILL.md      # Main skill content
+        │       ├── agents/
+        │       │   └── openai.yaml # Codex skill UI metadata
         │       ├── README.md     # Keywords for auto-discovery
         │       └── references/   # Documentation files
         │
@@ -189,7 +225,7 @@ sap-skills/
         └── hooks/                # Optional: Event hooks
 ```
 
-**Key features**: 37 plugins include commands (64 total), 14 with agents (31 total), 8 with hooks, 6 with MCP integration, and 1 with LSP support. 15 plugins cross-reference related plugins.
+**Key features**: 40 plugins include commands (67 total), 14 with agents (31 total), 8 with hooks, 7 with MCP integration, and 1 with LSP support. 17 plugins cross-reference related plugins.
 
 ---
 
@@ -211,11 +247,17 @@ sap-skills/
    - Check [Workflow Checklist](docs/contributor-guide/workflow-checklist.md)
    - Run `npm run audit:skills` for capability inventory and stale verification reporting
    - Run `npm run audit:effectiveness` for README drift, routing, command-contract, and skill-effectiveness reporting
+   - Run `npm run validate:codex` for Codex manifest, marketplace, and UI metadata checks
    - Run `npm run validate` before opening a PR
+
+The sync script regenerates both manifest layers and the Codex UI metadata:
+`.claude-plugin/marketplace.json` and Claude manifests remain the Claude
+contract, while `.agents/plugins/marketplace.json`, `.codex-plugin/plugin.json`,
+and `agents/openai.yaml` provide the parallel Codex contract.
 
 5. **Submit**:
    ```bash
-   git add plugins/your-plugin .claude-plugin/marketplace.json
+   git add plugins/your-plugin .claude-plugin/marketplace.json .agents/plugins
    git commit -m "Add your-plugin for [use case]"
    ```
 
@@ -251,4 +293,4 @@ Open source under **GPL-3.0**. Contributions welcome:
 
 ---
 
-**Maintained by**: Eduard Jiglau · **Email**: [hello@sap-ai-skills.com](mailto:hello@sap-ai-skills.com) · **Website**: [sap-ai-skills.com](https://sap-ai-skills.com) · **Repository**: [github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills) · **Last Updated**: 2026-06-20 (v2.3.2)
+**Maintained by**: Eduard Jiglau · **Email**: [hello@sap-ai-skills.com](mailto:hello@sap-ai-skills.com) · **Website**: [sap-ai-skills.com](https://sap-ai-skills.com) · **Repository**: [github.com/secondsky/sap-skills](https://github.com/secondsky/sap-skills) · **Last Updated**: 2026-07-21 (v2.4.0)

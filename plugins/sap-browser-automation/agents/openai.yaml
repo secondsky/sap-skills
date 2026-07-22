@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP Browser Automation"
+  short_description: "Use when an agent must inspect or operate an authenticated SA..."
+  default_prompt: "Use SAP Browser Automation for SAP guidance."

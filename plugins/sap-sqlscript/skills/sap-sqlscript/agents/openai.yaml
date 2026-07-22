@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP SQLScript"
+  short_description: "This skill should be used when the user asks to \"write a SQLS..."
+  default_prompt: "Use $sap-sqlscript to work with SAP SQLScript."
+policy:
+  allow_implicit_invocation: true

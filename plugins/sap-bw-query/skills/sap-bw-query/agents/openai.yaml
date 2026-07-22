@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP BW Query"
+  short_description: "Use when automating SAP BW query inspection, InfoProvider met..."
+  default_prompt: "Use $sap-bw-query to work with SAP BW Query."
+policy:
+  allow_implicit_invocation: true

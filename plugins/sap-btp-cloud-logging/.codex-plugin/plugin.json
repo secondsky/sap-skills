@@ -1,0 +1,44 @@
+{
+  "name": "sap-btp-cloud-logging",
+  "version": "2.4.0",
+  "description": "This skill provides comprehensive guidance for SAP Cloud Logging service on SAP BTP. Use when setting up Cloud Logging instances, configuring log ingestion from Cloud Foundry or Kyma runtimes, implementing OpenTelemetry observability, analyzing logs/metrics/traces in OpenSearch Dashboards, configuring SAML authentication, managing certificates, or troubleshooting ingestion issues. Covers service plans (dev/standard/large), all 4 instance creation methods (BTP Cockpit, CF CLI, BTP CLI, Service Operator), all 4 ingestion methods (Cloud Foundry, Kyma, OpenTelemetry, JSON API), and security best practices.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "api",
+    "authentication",
+    "btp",
+    "cloud",
+    "cloud foundry",
+    "cloud platform",
+    "json",
+    "kyma",
+    "logging",
+    "saml",
+    "sap",
+    "sap-btp-cloud-logging"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP BTP Cloud Logging",
+    "shortDescription": "This skill provides comprehensive guidance for SAP Cloud Logg...",
+    "longDescription": "This skill provides comprehensive guidance for SAP Cloud Logging service on SAP BTP. Use when setting up Cloud Logging instances, configuring log ingestion from Cloud Foundry or Kyma runtimes, implementing OpenTelemetry observability, analyzing logs/metrics/traces in OpenSearch Dashboards, configuring SAML authentication, managing certificates, or troubleshooting ingestion issues. Covers service plans (dev/standard/large), all 4 instance creation methods (BTP Cockpit, CF CLI, BTP CLI, Service Operator), all 4 ingestion methods (Cloud Foundry, Kyma, OpenTelemetry, JSON API), and security best practices.",
+    "developerName": "Eduard Jiglau",
+    "category": "BTP",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP BTP Cloud Logging for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP HANA Cloud Data Intelligence"
+  short_description: "Develops data processing pipelines, integrations, and machine..."
+  default_prompt: "Use SAP HANA Cloud Data Intelligence for SAP guidance."

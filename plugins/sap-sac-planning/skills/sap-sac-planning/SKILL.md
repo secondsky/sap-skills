@@ -7,7 +7,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   last_verified: 2026-06-11
   sac_version: "2026.8"
   documentation_source: "https://help.sap.com/docs/SAP_ANALYTICS_CLOUD/00f68c2e08b941f081002fd3691d86a7"
@@ -35,14 +35,14 @@ Comprehensive skill for building enterprise planning applications with SAP Analy
 - Modeling & governance: `references/modeling-basics.md`, `references/version-management.md`, `references/version-edit-modes.md`, `references/version-publishing-notes.md`
 - Calculations & intelligence: `references/advanced-formulas.md`, `references/predictive-conversion.md`, `references/ai-planning-analytics.md`, `references/api-snippets.md`
 - Workflow aids: `references/input-tasks.md`, `references/job-monitoring.md`
-- Browser triage: `references/edge-cdp-control.md` for Microsoft Edge CDP setup, `DevToolsActivePort` fallback, planning writeback safety, and target selection
+- Browser triage: shared `sap-browser-automation` for manual in-app authentication, approved Edge profile copying, fresh Edge/CDP setup, `DevToolsActivePort` fallback, and target selection; local `references/edge-cdp-control.md` retains planning writeback safety
 - **Added in 2025**: `references/seamless-planning-datasphere.md`, `references/bpc-live-connection.md`, `references/value-driver-trees.md`, `references/data-action-tracing.md`
 - **New in 2026**: `references/whats-new-2026-planning.md`
 - Ready-to-use templates: `templates/data-action-checklist.md`, `templates/multi-action-checklist.md`, `templates/parameter-table.md`
 
 Use these to keep instructions concise in this file while deep-dives remain one click away.
 
-For authenticated SAC planning browser inspection in Microsoft Edge, load `references/edge-cdp-control.md`. Use CDP for local read-only triage of planning tables, console errors, data action status, and approved screenshots; require explicit approval before any writeback, publish, data action, multi action, or lock-changing interaction.
+For authenticated SAC planning browser inspection, use `sap-browser-automation` for the browser/authentication layer and load local `references/edge-cdp-control.md` for planning-specific boundaries. Use CDP for local read-only triage of planning tables, console errors, data action status, and approved screenshots; require explicit approval before any writeback, publish, data action, multi action, or lock-changing interaction.
 
 ---
 
@@ -959,7 +959,7 @@ This skill includes comprehensive reference documentation (26 files):
 18. **references/javascript-patterns.md**: Code snippets, patterns, best practices
 19. **references/modeling-basics.md**: Planning model fundamentals
 20. **references/data-locking.md**: Configure and manage data locks
-21. **references/edge-cdp-control.md**: Microsoft Edge CDP setup, `DevToolsActivePort` fallback, and SAC planning browser triage safety
+21. **references/edge-cdp-control.md**: SAC planning browser add-on for the shared `sap-browser-automation` authentication, Edge/CDP, and recovery layer
 
 **New in 2025**:
 22. **references/seamless-planning-datasphere.md**: Seamless Planning architecture, prerequisites, configuration with SAP Datasphere
@@ -1029,7 +1029,7 @@ For troubleshooting:
 - `references/version-management.md` - Version management best practices
 - `references/api-reference.md` - Planning API reference
 - `references/javascript-patterns.md` - JavaScript scripting patterns
-- `references/edge-cdp-control.md` - Microsoft Edge CDP browser triage and safety rules
+- `references/edge-cdp-control.md` - Planning-specific add-on for the shared `sap-browser-automation` Edge/CDP and authentication layer
 
 ### Templates
 - `templates/data-action-checklist.md` - Data action implementation checklist

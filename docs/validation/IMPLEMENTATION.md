@@ -287,7 +287,7 @@ Fix the validation errors above, or bypass with: git commit --no-verify
 ### For Maintainers
 - **Prevents Invalid Data**: Bad data never enters Git history
 - **Automated Quality Gates**: No manual schema checking needed
-- **Consistent Standards**: All 37 plugins follow same structure
+- **Consistent Standards**: All 38 plugins follow same structure
 - **Self-Documenting**: Schemas serve as structure documentation
 
 ### For the Project

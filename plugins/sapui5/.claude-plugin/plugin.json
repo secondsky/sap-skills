@@ -1,7 +1,7 @@
 {
   "name": "sapui5",
   "description": "This skill should be used when developing SAP UI5 applications, including creating freestyle apps, Fiori Elements apps, custom controls, testing, data binding, OData integration, routing, and troubleshooting. Use when building enterprise web applications with SAP UI5 framework, implementing MVC patterns, configuring manifest.json, creating XML views, writing controllers, setting up data models (JSON, OData v2/v4), implementing responsive UI with sap.m controls, building Fiori Elements apps, writing unit tests with QUnit, integration tests with OPA5, setting up mock servers, handling security (XSS, CSP), optimizing performance, implementing accessibility features, or debugging UI5 applications. Also covers sap.ui.mdc controls and TypeScript control libraries.",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "author": {
     "name": "Eduard Jiglau",
     "email": "hello@sap-ai-skills.com",
@@ -23,16 +23,16 @@
   ],
   "category": "ui-development",
   "agents": [
-    "./agents/ui5-migration-specialist.md",
     "./agents/ui5-api-explorer.md",
+    "./agents/ui5-app-scaffolder.md",
     "./agents/ui5-code-quality-advisor.md",
-    "./agents/ui5-app-scaffolder.md"
+    "./agents/ui5-migration-specialist.md"
   ],
   "commands": [
+    "./commands/ui5-api.md",
+    "./commands/ui5-lint.md",
     "./commands/ui5-mcp-tools.md",
     "./commands/ui5-scaffold.md",
-    "./commands/ui5-lint.md",
-    "./commands/ui5-api.md",
     "./commands/ui5-version.md"
   ],
   "mcpServers": "./.mcp.json"

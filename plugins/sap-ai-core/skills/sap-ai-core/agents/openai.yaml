@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP AI Core"
+  short_description: "Guides development with SAP AI Core and SAP AI Launchpad for..."
+  default_prompt: "Use $sap-ai-core to work with SAP AI Core."
+policy:
+  allow_implicit_invocation: true

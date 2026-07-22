@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP BTP Cloud Logging"
+  short_description: "This skill provides comprehensive guidance for SAP Cloud Logg..."
+  default_prompt: "Use $sap-btp-cloud-logging to work with SAP BTP Cloud Logging."
+policy:
+  allow_implicit_invocation: true

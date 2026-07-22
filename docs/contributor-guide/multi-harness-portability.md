@@ -1,8 +1,8 @@
 # Multi-Harness Portability
 
-SAP skills in this repository are packaged for the Claude marketplace, but the
-skill content must remain useful in Codex, OpenCode, and other AI coding
-assistants that can read Markdown instructions.
+SAP skills in this repository are packaged for both the Claude and Codex
+marketplaces. The shared skill content must also remain useful in OpenCode and
+other AI coding assistants that can read Markdown instructions.
 
 ## Portability Model
 
@@ -16,16 +16,47 @@ Treat every plugin as two layers:
   frontmatter, agents, hooks, `.mcp.json`, and `.lsp.json`. These files improve
   activation in Claude-compatible clients but must not be the only place where
   safety or usage rules are documented.
+- **Codex activation layer**: `.agents/plugins/marketplace.json`,
+  `.codex-plugin/plugin.json`, and `agents/openai.yaml`. These files provide
+  native Codex marketplace discovery and skill UI metadata without copying
+  Claude-only activation fields.
+
+## Native Codex Packaging
+
+Codex marketplace repositories use the `.agents/plugins/marketplace.json`
+registry. Each local entry points to `./plugins/<plugin-name>`, and each plugin
+contains a `.codex-plugin/plugin.json` manifest with `skills: "./skills/"`.
+Every skill has an `agents/openai.yaml` file whose default prompt invokes the
+skill by name, for example `$sap-abap`.
+
+The Codex manifests intentionally omit `commands`, `agents`, `hooks`,
+`lspServers`, and the current Claude `.mcp.json` definitions. MCP is documented
+as a manual connection recipe until a Codex-specific smoke test verifies the
+server format and path conventions. See [Manual MCP Connections](mcp-manual-connections.md)
+for the current recipes and safety checks.
+
+Local installation:
+
+```bash
+codex plugin marketplace add .
+codex plugin add sap-abap@sap-skills
+```
+
+GitHub installation:
+
+```bash
+codex plugin marketplace add https://github.com/secondsky/sap-skills.git --sparse .agents/plugins --sparse plugins
+```
 
 ## Harness Behavior
 
 | Component | Claude-compatible harness | Codex/OpenCode/other harness |
 | --- | --- | --- |
-| Skills | Auto-activated from metadata and descriptions | Read as Markdown instructions or imported skill content |
+| Skills | Auto-activated from metadata and descriptions | Native `agents/openai.yaml` metadata plus shared Markdown instructions |
 | Commands | Slash commands with `allowed-tools` preapproval | Prompt templates; body text must carry safety defaults |
 | Agents | Specialized subagents when supported | Main-thread guidance or role descriptions |
 | Hooks | Automatic PreToolUse/PostToolUse checks | Manual validators or optional scripts |
-| MCP configs | Plugin MCP activation recipes | Connection recipes; user/client must configure MCP support |
+| MCP configs | Plugin MCP activation recipes | Connection recipes; user/client must configure MCP support manually |
 | LSP configs | Plugin language server activation recipes | Manual LSP client configuration or direct launcher commands |
 
 ## Authoring Rules
@@ -56,3 +87,5 @@ Treat every plugin as two layers:
 - MCP sections list command, arguments, required environment variables,
   operation safety, approved pins, and fallback behavior.
 - Claude-specific activation files remain valid after portability edits.
+- `npm run validate:codex` passes and Codex manifests contain no Claude-only
+  activation fields.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP BTP Best Practices"
+  short_description: "SAP BTP best practices for enterprise architecture, account m..."
+  default_prompt: "Use SAP BTP Best Practices for SAP guidance."

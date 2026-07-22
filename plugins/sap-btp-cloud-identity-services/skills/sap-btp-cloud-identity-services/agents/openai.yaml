@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP BTP Cloud Identity Services"
+  short_description: "SAP Cloud Identity Services for BTP applications: Identity Au..."
+  default_prompt: "Use $sap-btp-cloud-identity-services to work with SAP BTP Cloud Identity Services."
+policy:
+  allow_implicit_invocation: true

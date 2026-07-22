@@ -6,7 +6,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   last_verified: 2026-06-11
   keywords: [sap datasphere, data warehouse cloud, dwc, data builder, business builder, analytic model, graphical view, sql view, transformation flow, replication flow, data flow, task chain, remote table, local table, datasphere connection, datasphere space, data access control, elastic compute node, datasphere cli, data products, data marketplace, catalog, governance, business data cloud, bdc, sap databricks]
 ---
@@ -61,7 +61,7 @@ This skill provides comprehensive guidance for data acquisition, preparation, mo
 - Monitoring data integration tasks
 - Inspecting authenticated Datasphere browser UI state in Microsoft Edge when MCP, CLI, logs, or exported artifacts cannot observe the needed state
 
-For Datasphere browser triage in Microsoft Edge, load `references/edge-cdp-control.md`. Use CDP for local read-only inspection of Data Builder, Business Builder, monitoring, connection, catalog, and admin UI state; ask before saving, deploying, deleting, importing, exporting, running task chains, or changing users/roles.
+For Datasphere browser triage, use the shared `sap-browser-automation` skill for manual in-app authentication, consent-gated authenticated Edge profile copying, fresh loopback CDP startup, target selection, and recovery. The local `references/edge-cdp-control.md` add-on retains Datasphere-specific boundaries. Use CDP for local read-only inspection of Data Builder, Business Builder, monitoring, connection, catalog, and admin UI state; ask before saving, deploying, deleting, importing, exporting, running task chains, or changing users/roles.
 
 ---
 
@@ -611,7 +611,7 @@ For transport procedures, see `references/content-transport.md`.
 **MCP Integration:**
 16. **`references/mcp-tools-reference.md`** - Complete MCP tool reference, 45 tools across 8 categories, API documentation, authentication patterns
 17. **`references/mcp-use-cases.md`** - 8 illustrative source-material use cases with personas and planning assumptions
-18. **`references/edge-cdp-control.md`** - Microsoft Edge CDP setup, `DevToolsActivePort` fallback, Datasphere browser UI triage, and safety rules
+18. **`references/edge-cdp-control.md`** - Datasphere-specific add-on for the shared `sap-browser-automation` Edge/CDP and authentication layer
 
 ### MCP Reference Routing
 

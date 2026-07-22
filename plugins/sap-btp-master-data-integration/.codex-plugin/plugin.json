@@ -1,0 +1,45 @@
+{
+  "name": "sap-btp-master-data-integration",
+  "version": "2.4.0",
+  "description": "Configures and integrates SAP Master Data Integration (MDI) service on SAP Business Technology Platform. Use when setting up MDI tenants, connecting applications (S/4HANA, SuccessFactors, Ariba, Fieldglass, etc.), configuring distribution models, SOAP APIs for business partners, extensibility, or troubleshooting master data replication. Covers One Domain Model integration, Business Data Orchestration, client authentication (OAuth2, mTLS), and security configurations.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "api",
+    "authentication",
+    "btp",
+    "cloud foundry",
+    "cloud platform",
+    "data",
+    "hana",
+    "integration",
+    "kyma",
+    "master",
+    "oauth",
+    "sap",
+    "sap-btp-master-data-integration"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP BTP Master Data Integration",
+    "shortDescription": "Configures and integrates SAP Master Data Integration (MDI) s...",
+    "longDescription": "Configures and integrates SAP Master Data Integration (MDI) service on SAP Business Technology Platform. Use when setting up MDI tenants, connecting applications (S/4HANA, SuccessFactors, Ariba, Fieldglass, etc.), configuring distribution models, SOAP APIs for business partners, extensibility, or troubleshooting master data replication. Covers One Domain Model integration, Business Data Orchestration, client authentication (OAuth2, mTLS), and security configurations.",
+    "developerName": "Eduard Jiglau",
+    "category": "BTP",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP BTP Master Data Integration for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

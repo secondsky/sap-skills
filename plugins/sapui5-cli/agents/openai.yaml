@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sapui5 CLI"
+  short_description: "Manages SAPUI5/OpenUI5 projects using the UI5 Tooling CLI (@u..."
+  default_prompt: "Use Sapui5 CLI for SAP guidance."

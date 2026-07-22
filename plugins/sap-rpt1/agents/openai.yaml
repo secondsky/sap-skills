@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP RPT1"
+  short_description: "SAP-RPT-1-OSS local tabular prediction workflows for FI/CO pr..."
+  default_prompt: "Use SAP RPT1 for SAP guidance."

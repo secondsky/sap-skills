@@ -7,7 +7,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   last_verified: 2026-06-11
   sac_version: "Q2 2026 (2026.8)"
   api_reference_version: "2025.20 (OSE Q2 2026)"
@@ -26,6 +26,7 @@ metadata:
 ## Related Skills
 
 - **sap-dependency-security**: Use when securing dependency, SDK/tooling, and source-pinned SAC MCP upgrades used in story automation pipelines
+- **sap-browser-automation**: Use for in-app manual authentication, consent-gated Edge profile reuse, fresh Edge/CDP startup, auth-state bootstrap, and browser recovery
 
 ## When to Use This Skill
 
@@ -33,7 +34,7 @@ Use this skill when writing or debugging SAC Analytics Designer scripts, Optimiz
 
 Comprehensive skill for scripting in SAP Analytics Cloud (SAC) Analytics Designer and Optimized Story Experience.
 
-For authenticated SAC browser runtime inspection in Microsoft Edge, load `references/edge-cdp-control.md`. Use it for local CDP console/runtime triage, widget-state checks, and approved screenshots; do not use CDP to bypass permissions or touch unrelated tabs.
+For authenticated SAC browser runtime inspection, use `sap-browser-automation` for manual in-app authentication, consent-gated Edge profile reuse, fresh Edge/CDP startup, auth-state bootstrap, and recovery. Load local `references/edge-cdp-control.md` for SAC scripting-specific boundaries. Use CDP for local runtime triage, widget-state checks, and approved screenshots; do not touch unrelated tabs.
 
 ## Getting Started
 
@@ -152,6 +153,42 @@ Do not ask again after the user answers.
 - **OSE** → `references/ose-api-*.md` (8 files, Q2 2026, v2025.20)
 - **Analytics Designer** → `references/api-*.md` (existing files)
 
+## Reporting Story Workflow
+
+Use this workflow for read-only SAC stories, dashboards, and management reports. It is separate from planning: route writeback, version publishing, data actions, allocations, data locking, and other planning operations to `sap-sac-planning`.
+
+1. **Establish the contract**: identify the tenant, story, data source, intended audience, and whether the user forbids model changes. Treat a reporting-only request as story-layer work unless the user explicitly authorizes a broader scope.
+2. **Inspect actual metadata**: confirm the selected model and use only its exposed dimensions, measures, hierarchies, time fields, currencies, and comparison categories. Never invent a field because it would be useful for a proposed chart or KPI.
+3. **Design at the story layer**: define pages, widgets, filters, selections, navigation, and supported story calculations. Label comparisons explicitly as actual-versus-budget, forecast, or another available category.
+4. **Implement safely**: before saving, verify that the current SAC area is Story Designer rather than Modeler. Keep common filters and dependent-widget interactions read-only and non-destructive.
+5. **Verify or hand off**: validate page and widget readiness with `sap-sac-test-automation`. If authenticated tenant control is unavailable, follow `sap-browser-automation` and the local `references/edge-cdp-control.md` recovery path. If access still fails, do not claim that the story was created; provide the complete story specification for manual execution or a later connected session.
+
+### Read-Only Story Contract
+
+When the model must not change, the following are allowed:
+
+- create or edit story pages, charts, tables, KPI cards, filters, navigation, and story-layer calculations supported by SAC;
+- rename story objects and save the story;
+- inspect model metadata and perform read-only validation.
+
+The following are forbidden without explicit scope and approval:
+
+- editing model dimensions, measures, properties, connections, calendars, allocations, or settings;
+- creating model-level calculated measures or changing master data, roles, or permissions;
+- publishing planning versions, executing data actions, changing locks, or writing back planning data.
+
+If a required field or measure is not exposed by the model, omit the dependent widget and record the omission. Do not change the model to make the design fit.
+
+### Implementation-Ready Handoff
+
+When tenant interaction is blocked, return a usable specification containing:
+
+- story purpose, audience, data source, and confirmed model metadata;
+- page-by-page widgets using only resolved fields;
+- filters, comparison semantics, selections, and drilldowns;
+- omitted widgets or unresolved fields with the reason for each;
+- read-only safety constraints and the verification evidence still required.
+
 ## Large Reference Search Routing
 
 Search large OSE API references with `rg` before opening them. Use patterns such as `rg -n "class Chart|interface DataSource|enum Feed|setDimensionFilter|getPlanning|PlanningModel" references/ose-api-*.md`, then read only the matching section.
@@ -251,7 +288,7 @@ console.log("Selections:", JSON.stringify(Chart_1.getSelections()));
 - Best Practices: `references/best-practices-developer.md`, `references/best-practices-planning-stories.md`
 - Language: `references/scripting-language-fundamentals.md`
 - Q2 2026-relevant API updates: `references/whats-new-qrc2-2026.md`, `references/whats-new-2025.23.md`, `references/chart-variance-apis.md`
-- Browser runtime triage: `references/edge-cdp-control.md` for Microsoft Edge CDP setup, `DevToolsActivePort` fallback, target selection, and SAC safety rules
+- Browser runtime triage: `references/edge-cdp-control.md` for SAC-specific boundaries; use shared `sap-browser-automation` for authentication, Edge/CDP setup, `DevToolsActivePort`, target selection, and recovery
 - **OSE API (Q2 2026, v2025.20)** — complete method/parameter/return documentation:
   - `references/ose-api-application-core.md` — Application, PageBook, Panel, Popup, Widget (15 classes)
   - `references/ose-api-widgets.md` — Button, Dropdown, InputField, Slider, Switch, Text, TextArea (15 classes)

@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "target": {
+    "system": "PLACEHOLDER_SYSTEM",
+    "client": "PLACEHOLDER_CLIENT",
+    "project": "PLACEHOLDER_PROJECT",
+    "provider": "PLACEHOLDER_PROVIDER"
+  },
+  "technicalName": "ZPLACEHOLDER_YTD_COMPARISON",
+  "businessPurpose": "Compare year-to-date amounts for the current and prior year by PLACEHOLDER_ROW_CHAR, so the analyst can see the year-over-year movement for the entered year.",
+  "axes": {
+    "rows": [
+      { "technicalName": "PLACEHOLDER_ROW_CHAR", "kind": "characteristic" }
+    ],
+    "columns": [
+      { "technicalName": "ZSTR_YTD", "kind": "structure" }
+    ]
+  },
+  "structures": [
+    {
+      "technicalName": "ZSTR_YTD",
+      "kind": "keyFigure",
+      "description": "YTD current vs prior year",
+      "members": ["ZRK_YTD_CURR", "ZRK_YTD_PRIOR"]
+    }
+  ],
+  "keyFigures": [
+    {
+      "technicalName": "ZRK_YTD_CURR",
+      "kind": "restricted",
+      "description": "YTD current year",
+      "baseKeyFigure": "PLACEHOLDER_AMOUNT_KF",
+      "restrictions": [
+        { "characteristic": "0CALMONTH", "operator": "BETWEEN", "values": ["PLACEHOLDER_CY_START"], "high": "PLACEHOLDER_CY_END" }
+      ]
+    },
+    {
+      "technicalName": "ZRK_YTD_PRIOR",
+      "kind": "restricted",
+      "description": "YTD prior year",
+      "baseKeyFigure": "PLACEHOLDER_AMOUNT_KF",
+      "restrictions": [
+        { "characteristic": "0CALMONTH", "operator": "BETWEEN", "values": ["PLACEHOLDER_PY_START"], "high": "PLACEHOLDER_PY_END" }
+      ]
+    }
+  ],
+  "variables": [
+    {
+      "technicalName": "ZVAR_CURR_YEAR",
+      "characteristic": "0CALYEAR",
+      "processingType": "manual",
+      "readyForInput": true,
+      "defaultValue": "PLACEHOLDER_YEAR"
+    }
+  ],
+  "display": {
+    "zeroSuppression": { "rows": true, "columns": false, "mode": "FOR_RESULTS_ONLY" }
+  },
+  "acceptanceCriteria": [
+    "YTD current-year column reconciles to the approved current-year control total for the range.",
+    "YTD prior-year column reconciles to the approved prior-year control total for the range.",
+    "Current and prior ranges cover the same number of periods so the comparison is like-for-like."
+  ],
+  "evidence": [
+    { "source": "PLACEHOLDER_SPEC_SOURCE", "reference": "PLACEHOLDER_SPEC_REFERENCE", "checkedAt": "PLACEHOLDER_DATE" }
+  ]
+}

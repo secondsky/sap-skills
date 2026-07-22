@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP Fiori Tools"
+  short_description: "Develops SAP Fiori applications using SAP Fiori tools extensi..."
+  default_prompt: "Use $sap-fiori-tools to work with SAP Fiori Tools."
+policy:
+  allow_implicit_invocation: true

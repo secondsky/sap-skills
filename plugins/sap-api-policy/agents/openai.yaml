@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP API Policy"
+  short_description: "Evidence-based assessment of whether an SAP API/interface usa..."
+  default_prompt: "Use SAP API Policy for SAP guidance."

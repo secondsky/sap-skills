@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "bundleVersion": "0.3.0",
+  "platform": "windows-x64",
+  "eclipse": {
+    "version": "4.40",
+    "distribution": "Eclipse Modeling Tools 2026-06 R",
+    "profile": "epp.package.modeling",
+    "sourcePage": "https://www.eclipse.org/downloads/packages/release/2026-06/r/eclipse-modeling-tools",
+    "repository": "https://download.eclipse.org/releases/2026-06",
+    "prerequisiteUnits": [
+      "org.eclipse.emf.databinding.edit.feature.group/1.12.0.v20250910-1205",
+      "org.eclipse.emf.workspace.feature.group/1.14.3.202605251143"
+    ],
+    "url": "https://ftp.fau.de/eclipse/technology/epp/downloads/release/2026-06/R/eclipse-modeling-2026-06-R-win32-x86_64.zip",
+    "fileName": "eclipse-modeling-2026-06-R-win32-x86_64.zip",
+    "sha512": "bd618ccbfa4e5d0f11c8ebee2ff22f59aad1824875a792887b26a12977d725d18438515d558b651000e86ed3c51dd16e33ffd5f47dabebe7423dad1e80f8f025"
+  },
+  "sapMachineJre": {
+    "version": "21.0.11",
+    "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-21.0.11/sapmachine-jre-21.0.11_windows-x64_bin.zip",
+    "fileName": "sapmachine-jre-21.0.11_windows-x64_bin.zip",
+    "sha256": "b7bf063bd473c4656ce5ab2ae1e65bfaa88ae611cfc5f6e20a779e5395abe3a8"
+  },
+  "sapMachineJdk": {
+    "version": "21.0.11",
+    "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-21.0.11/sapmachine-jdk-21.0.11_windows-x64_bin.zip",
+    "fileName": "sapmachine-jdk-21.0.11_windows-x64_bin.zip",
+    "sha256": "32d8d2b5d8fe4c761a625d6d8f51cd5e3cf3e427c715f8c8a828c668e00839be"
+  },
+  "node": {
+    "version": "24.18.0",
+    "url": "https://nodejs.org/dist/v24.18.0/node-v24.18.0-win-x64.zip",
+    "fileName": "node-v24.18.0-win-x64.zip",
+    "sha256": "0ae68406b42d7725661da979b1403ec9926da205c6770827f33aac9d8f26e821"
+  },
+  "bwmt": {
+    "version": "1.27.36",
+    "repository": "https://tools.hana.ondemand.com/2026-06",
+    "installUnits": [
+      "com.sap.bw.feature.query.feature.group/1.27.36"
+    ]
+  },
+  "mcp": {
+    "sdk": "1.29.0",
+    "esbuild": "0.28.1"
+  },
+  "eclipsePlugin": {
+    "symbolicName": "com.sap.bw.automation",
+    "version": "0.3.0"
+  }
+}

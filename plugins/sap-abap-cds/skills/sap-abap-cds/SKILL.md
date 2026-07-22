@@ -6,7 +6,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   last_verified: "2026-04-02"
   abap_release: "7.4 SP8+ / 7.50+ / ABAP Cloud"
   sources:

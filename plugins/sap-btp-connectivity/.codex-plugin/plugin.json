@@ -1,0 +1,41 @@
+{
+  "name": "sap-btp-connectivity",
+  "version": "2.4.0",
+  "description": "SAP BTP Connectivity skill covering Destination Service, Connectivity Service, Cloud Connector, Connectivity Proxy, and Transparent Proxy for Kubernetes. Use when configuring destinations (HTTP, RFC, LDAP, MAIL, TCP), setting up cloud-to-on-premise connectivity, implementing OAuth and principal propagation, deploying connectivity proxies in Kubernetes/Kyma, troubleshooting connectivity errors (405, 407, 503), or configuring multitenancy.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "btp",
+    "cloud foundry",
+    "cloud platform",
+    "connectivity",
+    "http",
+    "kyma",
+    "oauth",
+    "sap",
+    "sap-btp-connectivity"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP BTP Connectivity",
+    "shortDescription": "SAP BTP Connectivity skill covering Destination Service, Conn...",
+    "longDescription": "SAP BTP Connectivity skill covering Destination Service, Connectivity Service, Cloud Connector, Connectivity Proxy, and Transparent Proxy for Kubernetes. Use when configuring destinations (HTTP, RFC, LDAP, MAIL, TCP), setting up cloud-to-on-premise connectivity, implementing OAuth and principal propagation, deploying connectivity proxies in Kubernetes/Kyma, troubleshooting connectivity errors (405, 407, 503), or configuring multitenancy.",
+    "developerName": "Eduard Jiglau",
+    "category": "BTP",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP BTP Connectivity for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

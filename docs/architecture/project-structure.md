@@ -33,7 +33,6 @@
 │   ├── [1;34m  getting-started/[0m [2m(3 files, 12.6KB, all .md)[0m
 │   │   └── [32mREADME[0m[2m[0m          [32minstallation[0m[2m[0m    [32mquick-reference[0m[2m[0m 
 │   ├── [1;34m  project/[0m [2m(30.2KB)[0m
-│   │   └── [32mskills-review-progress.md[0m[2m[0m 
 │   ├── [1;34m  reference/[0m [2m(25.1KB)[0m
 │   │   └── [32msap-development-patterns.md[0m[2m[0m 
 │   └── [1;34m  validation/[0m [2m(3 files, 22.0KB, all .md)[0m

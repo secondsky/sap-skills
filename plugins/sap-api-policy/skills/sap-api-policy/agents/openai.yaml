@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP API Policy"
+  short_description: "Evidence-based assessment of whether an SAP API/interface usa..."
+  default_prompt: "Use $sap-api-policy to work with SAP API Policy."
+policy:
+  allow_implicit_invocation: true

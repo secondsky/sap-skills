@@ -7,7 +7,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   last_verified: "2026-06-15"
   sdk_package: "sap-ai-sdk-gen 6.10.0"
   package_evidence: "docs/project/package-evidence/2026-06-15.json"

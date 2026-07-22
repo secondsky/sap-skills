@@ -100,7 +100,7 @@ for (const mcpFile of listMcpFiles()) {
         continue;
       }
       validateContract(relPath, serverName, serverConfig, policy);
-    } else if (serverConfig.command === "node") {
+    } else if (["node", "powershell.exe"].includes(serverConfig.command)) {
       const key = `${relPath}:${serverName}`;
       const policy = inventory.sourceServers?.[key];
       if (!policy) {

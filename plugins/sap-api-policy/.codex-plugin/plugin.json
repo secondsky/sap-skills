@@ -1,0 +1,42 @@
+{
+  "name": "sap-api-policy",
+  "version": "2.4.0",
+  "description": "Evidence-based assessment of whether an SAP API/interface usage scenario aligns with the SAP API Policy (v.4.2026a). Use whenever someone asks whether a way of calling SAP is allowed/compliant — e.g. Published API vs internal/private/\"confidential\" API status, \"Documented Use\", whether a third-party tool / iPaaS / middleware / RPA bot / AI agent / MCP server may call SAP APIs, agentic or generative-AI access to SAP, bulk data extraction or replication into a lake/warehouse, custom Z/Y OData or RFC/BAPI wrappers and Clean Core, ADT/developer-tooling boundaries, ODP-RFC and other \"not permitted\" interfaces, partner Integration Certification, or RISE integration remediation. Trigger even when the policy is not named, e.g. \"are we allowed to…\", \"is it compliant to…\", \"can we connect X to SAP…\", \"will this break under the new API policy\". Produces a sourced technical assessment with a confidence level — explicitly NOT legal advice and NOT a final SAP compliance decision.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "api",
+    "automation",
+    "cli",
+    "development",
+    "odata",
+    "policy",
+    "productivity",
+    "sap",
+    "sap-api-policy",
+    "tools"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP API Policy",
+    "shortDescription": "Evidence-based assessment of whether an SAP API/interface usa...",
+    "longDescription": "Evidence-based assessment of whether an SAP API/interface usage scenario aligns with the SAP API Policy (v.4.2026a). Use whenever someone asks whether a way of calling SAP is allowed/compliant — e.g. Published API vs internal/private/\"confidential\" API status, \"Documented Use\", whether a third-party tool / iPaaS / middleware / RPA bot / AI agent / MCP server may call SAP APIs, agentic or generative-AI access to SAP, bulk data extraction or replication into a lake/warehouse, custom Z/Y OData or RFC/BAPI wrappers and Clean Core, ADT/developer-tooling boundaries, ODP-RFC and other \"not permitted\" interfaces, partner Integration Certification, or RISE integration remediation. Trigger even when the policy is not named, e.g. \"are we allowed to…\", \"is it compliant to…\", \"can we connect X to SAP…\", \"will this break under the new API policy\". Produces a sourced technical assessment with a confidence level — explicitly NOT legal advice and NOT a final SAP compliance decision.",
+    "developerName": "Eduard Jiglau",
+    "category": "Tooling",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP API Policy for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

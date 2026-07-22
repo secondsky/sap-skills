@@ -7,7 +7,7 @@ metadata:
   maintainer: "Eduard Jiglau"
   maintainer_email: "hello@sap-ai-skills.com"
   website: "https://sap-ai-skills.com"
-  version: "2.3.2"
+  version: "2.4.0"
   last_verified: 2026-06-17
   sac_version: "2026.8"
   documentation_source: "docs/project/sac-test-automation-source-review-2026-06-17.md"
@@ -34,6 +34,7 @@ Apply the core rule: **discovery proposes, humans approve, Playwright executes, 
 - **sap-sac-planning**: Use for planning models, private/public versions, data actions, multi actions, validation rules, and writeback risk analysis.
 - **sap-sac-custom-widget**: Use when dashboards include owned custom widgets that need stable ARIA labels, public test hooks, lifecycle fixes, or black-box test contracts.
 - **sap-dependency-security**: Use before adding source-pinned browser tools, MCP servers, CI dependencies, or executable automation that handles SAC credentials.
+- **sap-browser-automation**: Use for in-app manual authentication, consent-gated Edge profile reuse, fresh Edge/CDP startup, auth-state bootstrap, and browser recovery.
 - **agent-browser**: Optionally load when the Vercel Labs agent-browser CLI is available and exact command syntax, snapshot/ref usage, screenshots, console, or network inspection is needed.
 - **playwright**: Optionally load for CLI-based browser driving and debugging. For durable `@playwright/test` suites, use this SAC skill as the test architecture guide and follow the local project's Playwright conventions.
 - **chrome-devtools**: Optionally load when Chrome DevTools MCP is installed and approved for read-only browser discovery, console/network inspection, screenshots, Lighthouse, or performance traces. Use `references/chrome-devtools-mcp.md` for SAC-safe defaults and Edge boundaries.
@@ -72,6 +73,41 @@ Do not use this skill as the main guide for generic web applications. Use genera
 7. Gate only safe packs in CI first: auth check, read-only smoke, navigation, and critical widget readiness. Move planning, comments, data actions, visual baselines, and full permissions to controlled/nightly stages.
 8. Emit reviewer-friendly failure evidence: HTML report, trace, screenshots, video, visual diff, widget metadata, expected vs actual values, and failure category.
 
+## Read-Only Story Acceptance
+
+Apply this contract to reporting-only SAC stories and dashboards. It complements the profile-driven smoke scenario and does not authorize planning or model changes.
+
+### Tenant and Model Safety
+
+- Confirm the approved tenant, story, and data source/model before interaction.
+- Verify that the current SAC area is Story Designer, not Modeler.
+- Confirm that no model edit dialog, model save, master-data change, permission change, planning writeback, version publish, data action, multi action, or lock change occurred.
+- Bind assertions only to dimensions, measures, hierarchies, filters, and comparison categories exposed by the approved model. If a required field is unavailable, omit the dependent widget and record the omission.
+
+### Story Readiness
+
+- Open each page and wait for page-specific readiness markers, spinner disappearance, stable widget state, and the absence of visible SAC error messages.
+- Verify that every KPI, chart, and table displays values or an explicit no-data state; loading completion alone is not sufficient.
+- Confirm that filters populate, accept valid values, and update dependent widgets without changing the model.
+- Exercise approved selections, navigation, and drilldowns where configured; verify that the resulting table or chart state is consistent.
+- Record unresolved widgets, invalid bindings, unavailable fields, relevant console or network errors, and tenant-specific limitations.
+
+### Evidence
+
+- Capture an approved screenshot or equivalent artifact for each story page and retain the story name and location.
+- Pair visual evidence with KPI, table, or data assertions; do not use chart pixels as the only business-value check.
+- Redact tenant identifiers, story IDs, session-like URL parameters, credentials, cookies, private screenshots, and unrelated tab content.
+
+## Browser Failure and Honest Handoff
+
+Browser access is an execution prerequisite, not evidence that the story exists. If browser initialization or discovery fails, including runtime errors such as `agent is not defined`:
+
+1. Read the selected browser troubleshooting guidance and retry discovery without bypassing authentication or tenant permissions.
+2. If the normal browser path remains unavailable, use `sap-browser-automation` and the approved Microsoft Edge/CDP recovery guidance in `references/edge-cdp-enterprise.md`.
+3. If Edge/CDP is unavailable or blocked by policy, use approved desktop/manual assistance when available; ask the user to sign in interactively and never automate MFA.
+4. If authenticated tenant control still cannot be established, mark execution as blocked. Do not claim that the story was created or verified.
+5. Hand off an implementation-ready specification containing the story purpose and audience, confirmed model metadata, page-by-page widgets and filters, interactions, omitted or unresolved fields, read-only constraints, and the verification evidence still required.
+
 ## Operating Model
 
 Treat AI/browser-agent output as a draft, not as the source of truth. Require human review for profile creation, selector approval, expected business values, visual/data baseline changes, permission matrices, and any destructive/writeback scenario.
@@ -90,7 +126,7 @@ Load these references only as needed:
 - `references/architecture.md`: hybrid architecture, feasibility boundaries, reliable SAC test categories, and reusable project shape.
 - `references/tool-availability-and-deployment.md`: backend decision matrix, Windows/restricted-environment checks, Firecrawl public-research policy, and no-tool fallbacks.
 - `references/chrome-devtools-mcp.md`: Chrome DevTools MCP modes, SAC-safe configuration, tool categories, CLI usage, Windows/restricted deployment, and enterprise safety boundaries.
-- `references/edge-cdp-enterprise.md`: installed Microsoft Edge/CDP discovery, Chrome DevTools MCP Edge patterns, profile safety, loopback-only CDP, Windows/macOS launch checks, and `DevToolsActivePort` fallback when Edge reports a running server but `/json/version` or `/json/list` returns `404`.
+- `references/edge-cdp-enterprise.md`: SAC test-automation add-on for the shared `sap-browser-automation` authentication, profile-copy, Edge/CDP, and recovery layer.
 - `references/dashboard-profiles-and-scenarios.md`: dashboard profile contract, scenario contract, adapter responsibilities, and onboarding flow.
 - `references/agent-browser-discovery.md`: optional agent-browser read-only discovery workflow, command patterns, output artifacts, and human review checklist.
 - `references/playwright-execution.md`: Playwright test runner guidance, auth, readiness, CI stages, and test category policy.
@@ -113,7 +149,7 @@ When implementing against a live project, also inspect the project's existing Pl
 - Do not assume agent-browser, Playwright CLI, Chrome DevTools MCP, Firecrawl MCP, public npm, browser downloads, or remote debugging are available in company environments. Use the capability gate and document fallbacks.
 - Do not use Chrome DevTools MCP as the audited CI release gate. Use it for discovery/debugging; convert approved findings into profile-driven Playwright tests.
 - Do not run Chrome DevTools MCP against private SAC without disabling usage statistics, update checks, and CrUX field-data lookups, and without applying profile, URL, screenshot, and network-output controls.
-- Do not expose CDP beyond loopback, publish `webSocketDebuggerUrl`, attach to a daily user browser profile, or bypass Edge `RemoteDebuggingAllowed` policy.
+- Do not expose CDP beyond loopback, publish `webSocketDebuggerUrl`, or bypass Edge `RemoteDebuggingAllowed` policy. Attaching to or copying a daily user profile requires explicit approval and the shared skill's isolated-profile procedure.
 - Do not treat `/json/version` or `/json/list` returning `404` as proof that Edge CDP is unusable; read `DevToolsActivePort` and use the direct browser WebSocket only when the harness supports it.
 - Do not send authenticated SAC tenant pages, screenshots, HARs, cookies, storage state, internal URLs, customer data, or private company docs to Firecrawl unless the exact deployment and retention mode are approved.
 - Do not assume SAC optimized story features, tenant configuration, live data, localization, or prompt persistence behave identically across customers.

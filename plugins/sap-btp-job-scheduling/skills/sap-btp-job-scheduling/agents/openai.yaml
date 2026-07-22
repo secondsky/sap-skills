@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP BTP Job Scheduling"
+  short_description: "This skill provides comprehensive guidance for SAP BTP Job Sc..."
+  default_prompt: "Use $sap-btp-job-scheduling to work with SAP BTP Job Scheduling."
+policy:
+  allow_implicit_invocation: true

@@ -1,7 +1,7 @@
 {
   "name": "sap-sac-custom-widget",
   "description": "SAP Analytics Cloud (SAC) Custom Widget development. Use when building custom visualizations, extending SAC with Web Components, or creating Widget Add-Ons. Covers JSON metadata, JavaScript Web Components, lifecycle functions, data binding with feeds, styling/builder panels, property/event/method definitions, third-party library integration, hosting, security, performance, and debugging. Includes Widget Add-On feature (QRC Q4 2023+) and templates for widgets, charts, and KPI cards.",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "author": {
     "name": "Eduard Jiglau",
     "email": "hello@sap-ai-skills.com",
@@ -25,13 +25,13 @@
   ],
   "category": "data-analytics",
   "agents": [
-    "./agents/widget-debugger.md",
+    "./agents/widget-api-assistant.md",
     "./agents/widget-architect.md",
-    "./agents/widget-api-assistant.md"
+    "./agents/widget-debugger.md"
   ],
   "commands": [
-    "./commands/widget-validate.md",
+    "./commands/widget-generate.md",
     "./commands/widget-lint.md",
-    "./commands/widget-generate.md"
+    "./commands/widget-validate.md"
   ]
 }

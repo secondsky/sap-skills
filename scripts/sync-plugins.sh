@@ -9,12 +9,14 @@ set -euo pipefail
 # 1. Reads global version from marketplace.json metadata
 # 2. Generates/updates plugin.json for each skill
 # 3. Regenerates marketplace.json with all updated data
+# 4. Regenerates the parallel Codex marketplace and UI metadata layer
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 MARKETPLACE_JSON="$REPO_ROOT/.claude-plugin/marketplace.json"
 GENERATE_MANIFESTS="$SCRIPT_DIR/generate-plugin-manifests.sh"
 GENERATE_MARKETPLACE="$SCRIPT_DIR/generate-marketplace.sh"
+GENERATE_CODEX="$SCRIPT_DIR/generate-codex-layer.mjs"
 
 # Default values
 DRY_RUN=false
@@ -38,6 +40,7 @@ This script orchestrates the complete plugin sync workflow:
   1. Reads global version from marketplace.json metadata
   2. Generates/updates all plugin.json files via generate-plugin-manifests.sh
   3. Regenerates marketplace.json via generate-marketplace.sh
+  4. Regenerates Codex manifests and agents/openai.yaml via generate-codex-layer.mjs
 
 OPTIONS:
   --dry-run     Preview changes without modifying files
@@ -47,6 +50,7 @@ WORKFLOW:
   Phase 1: Read global version from marketplace.json
   Phase 2: Generate/update plugin.json for all skills
   Phase 3: Regenerate marketplace.json from plugin.json files
+  Phase 4: Generate Codex manifests and agents/openai.yaml
 
 EXAMPLES:
   # Full sync
@@ -58,6 +62,7 @@ EXAMPLES:
 RELATED SCRIPTS:
   generate-plugin-manifests.sh  - Generate plugin.json from SKILL.md
   generate-marketplace.sh       - Generate marketplace.json from plugin.json files
+  generate-codex-layer.mjs      - Generate Codex manifests and UI metadata
 EOF
   exit "$exit_code"
 }
@@ -94,6 +99,11 @@ check_dependencies() {
 
   if [ ! -f "$GENERATE_MARKETPLACE" ]; then
     echo -e "${RED}Error: generate-marketplace.sh not found at: $GENERATE_MARKETPLACE${NC}" >&2
+    missing=$((missing + 1))
+  fi
+
+  if [ ! -f "$GENERATE_CODEX" ]; then
+    echo -e "${RED}Error: generate-codex-layer.mjs not found at: $GENERATE_CODEX${NC}" >&2
     missing=$((missing + 1))
   fi
 
@@ -170,6 +180,21 @@ main() {
   fi
   echo ""
 
+  # Phase 4: Generate the parallel Codex layer
+  echo -e "${BLUE}[Phase 4]${NC} Generating Codex manifests and UI metadata..."
+  if [ "$DRY_RUN" = true ]; then
+    if ! node "$GENERATE_CODEX" --dry-run; then
+      echo -e "${RED}Error: Codex metadata generation failed${NC}" >&2
+      exit 1
+    fi
+  else
+    if ! node "$GENERATE_CODEX"; then
+      echo -e "${RED}Error: Codex metadata generation failed${NC}" >&2
+      exit 1
+    fi
+  fi
+  echo ""
+
   # Summary
   echo "==================================================="
   echo "=== Sync Complete ==="
@@ -180,6 +205,7 @@ main() {
   else
     echo -e "${GREEN}✓ All plugin.json files synchronized${NC}"
     echo -e "${GREEN}✓ marketplace.json regenerated${NC}"
+    echo -e "${GREEN}✓ Codex manifests and UI metadata regenerated${NC}"
     echo ""
     echo "Next steps:"
     echo "  1. Review changes: git diff"

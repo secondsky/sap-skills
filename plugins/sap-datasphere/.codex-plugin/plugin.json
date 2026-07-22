@@ -1,0 +1,42 @@
+{
+  "name": "sap-datasphere",
+  "version": "2.4.0",
+  "description": "SAP Datasphere development skill with 3 specialized agents, 5 slash commands, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections, managing spaces and users, implementing data access controls, using the datasphere CLI, or inspecting authenticated Datasphere browser UI state with Microsoft Edge CDP. Covers Data Builder, Business Builder, analytic models, 40+ connection types, real-time replication, task chains, content transport, and data marketplace.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "analytics",
+    "btp",
+    "dashboard",
+    "data",
+    "datasphere",
+    "edge",
+    "sac",
+    "sap",
+    "sap-datasphere",
+    "visualization"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP Datasphere",
+    "shortDescription": "SAP Datasphere development skill with 3 specialized agents, 5...",
+    "longDescription": "SAP Datasphere development skill with 3 specialized agents, 5 slash commands, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections, managing spaces and users, implementing data access controls, using the datasphere CLI, or inspecting authenticated Datasphere browser UI state with Microsoft Edge CDP. Covers Data Builder, Business Builder, analytic models, 40+ connection types, real-time replication, task chains, content transport, and data marketplace.",
+    "developerName": "Eduard Jiglau",
+    "category": "Data Analytics",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP Datasphere for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

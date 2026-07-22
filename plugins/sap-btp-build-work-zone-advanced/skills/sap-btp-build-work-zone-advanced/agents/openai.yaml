@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP BTP Build Work Zone Advanced"
+  short_description: "Develops and administers SAP Build Work Zone, advanced editio..."
+  default_prompt: "Use $sap-btp-build-work-zone-advanced to work with SAP BTP Build Work Zone Advanced."
+policy:
+  allow_implicit_invocation: true

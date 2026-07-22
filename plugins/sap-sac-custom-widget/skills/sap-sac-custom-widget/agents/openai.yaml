@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP SAC Custom Widget"
+  short_description: "SAP Analytics Cloud (SAC) Custom Widget development"
+  default_prompt: "Use $sap-sac-custom-widget to work with SAP SAC Custom Widget."
+policy:
+  allow_implicit_invocation: true

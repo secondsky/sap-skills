@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP BTP Cloud Transport Management"
+  short_description: "Comprehensive skill for SAP Cloud Transport Management servic..."
+  default_prompt: "Use SAP BTP Cloud Transport Management for SAP guidance."

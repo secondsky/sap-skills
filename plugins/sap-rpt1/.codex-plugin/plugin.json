@@ -1,0 +1,38 @@
+{
+  "name": "sap-rpt1",
+  "version": "2.4.0",
+  "description": "SAP-RPT-1-OSS local tabular prediction workflows for FI/CO prototype datasets. Use when preparing SAP finance CSV exports for classification or regression experiments with source-verified setup, leakage checks, and governance review.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "artificial intelligence",
+    "llm",
+    "machine learning",
+    "rpt1",
+    "sap",
+    "sap-rpt1"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP RPT1",
+    "shortDescription": "SAP-RPT-1-OSS local tabular prediction workflows for FI/CO pr...",
+    "longDescription": "SAP-RPT-1-OSS local tabular prediction workflows for FI/CO prototype datasets. Use when preparing SAP finance CSV exports for classification or regression experiments with source-verified setup, leakage checks, and governance review.",
+    "developerName": "Eduard Jiglau",
+    "category": "AI",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP RPT1 for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

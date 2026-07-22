@@ -1,0 +1,6 @@
+interface:
+  display_name: "Sapui5 Linter"
+  short_description: "Use this skill when working with the UI5 Linter (@ui5/linter)..."
+  default_prompt: "Use $sapui5-linter to work with Sapui5 Linter."
+policy:
+  allow_implicit_invocation: true

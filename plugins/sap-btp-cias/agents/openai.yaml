@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP BTP CIAS"
+  short_description: "SAP BTP Cloud Integration Automation Service (CIAS) skill for..."
+  default_prompt: "Use SAP BTP CIAS for SAP guidance."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP SAC Custom Widget"
+  short_description: "SAP Analytics Cloud (SAC) Custom Widget development"
+  default_prompt: "Use SAP SAC Custom Widget for SAP guidance."

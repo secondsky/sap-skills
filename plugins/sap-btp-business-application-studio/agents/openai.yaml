@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP BTP Business Application Studio"
+  short_description: "This skill provides comprehensive guidance for SAP Business A..."
+  default_prompt: "Use SAP BTP Business Application Studio for SAP guidance."

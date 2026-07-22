@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP SAC Planning"
+  short_description: "SAP Analytics Cloud (SAC) planning guidance for planning mode..."
+  default_prompt: "Use SAP SAC Planning for SAP guidance."

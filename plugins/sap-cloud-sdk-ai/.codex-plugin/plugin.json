@@ -1,0 +1,44 @@
+{
+  "name": "sap-cloud-sdk-ai",
+  "version": "2.4.0",
+  "description": "Integrates SAP Cloud SDK for AI into JavaScript/TypeScript and Java applications. Use when building applications with SAP AI Core, Generative AI Hub, or Orchestration Service. Covers chat completion, embedding, streaming, function calling, content filtering, data masking, document grounding, prompt registry, and LangChain/Spring AI integration. Supports OpenAI GPT-4o, Llama, Gemini, Amazon Nova, and other foundation models via SAP BTP.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "artificial intelligence",
+    "btp",
+    "cloud",
+    "java",
+    "javascript",
+    "llm",
+    "machine learning",
+    "sap",
+    "sap-cloud-sdk-ai",
+    "sdk",
+    "streaming",
+    "typescript"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP Cloud Sdk AI",
+    "shortDescription": "Integrates SAP Cloud SDK for AI into JavaScript/TypeScript an...",
+    "longDescription": "Integrates SAP Cloud SDK for AI into JavaScript/TypeScript and Java applications. Use when building applications with SAP AI Core, Generative AI Hub, or Orchestration Service. Covers chat completion, embedding, streaming, function calling, content filtering, data masking, document grounding, prompt registry, and LangChain/Spring AI integration. Supports OpenAI GPT-4o, Llama, Gemini, Amazon Nova, and other foundation models via SAP BTP.",
+    "developerName": "Eduard Jiglau",
+    "category": "AI",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP Cloud Sdk AI for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

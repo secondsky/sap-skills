@@ -1,0 +1,44 @@
+{
+  "name": "sap-btp-cloud-platform",
+  "version": "2.4.0",
+  "description": "Comprehensive SAP Business Technology Platform (BTP) reference for cloud development, deployment, and operations. Use when setting up BTP accounts, working with Cloud Foundry environment, deploying to Kyma (Kubernetes, serverless), developing in ABAP environment (RAP, CDS), managing entitlements and quotas, configuring identity providers (XSUAA), using btp CLI or CF CLI, deploying multi-target applications (MTA), setting up connectivity (destinations, Cloud Connector), implementing CI/CD pipelines, extending SAP solutions, or troubleshooting BTP services. Covers all three runtime environments.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "abap",
+    "btp",
+    "cds",
+    "cloud",
+    "cloud foundry",
+    "cloud platform",
+    "deployment",
+    "kyma",
+    "platform",
+    "sap",
+    "sap-btp-cloud-platform",
+    "serverless"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP BTP Cloud Platform",
+    "shortDescription": "Comprehensive SAP Business Technology Platform (BTP) referenc...",
+    "longDescription": "Comprehensive SAP Business Technology Platform (BTP) reference for cloud development, deployment, and operations. Use when setting up BTP accounts, working with Cloud Foundry environment, deploying to Kyma (Kubernetes, serverless), developing in ABAP environment (RAP, CDS), managing entitlements and quotas, configuring identity providers (XSUAA), using btp CLI or CF CLI, deploying multi-target applications (MTA), setting up connectivity (destinations, Cloud Connector), implementing CI/CD pipelines, extending SAP solutions, or troubleshooting BTP services. Covers all three runtime environments.",
+    "developerName": "Eduard Jiglau",
+    "category": "BTP",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP BTP Cloud Platform for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

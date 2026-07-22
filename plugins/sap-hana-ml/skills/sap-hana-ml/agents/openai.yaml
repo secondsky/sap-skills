@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP HANA Ml"
+  short_description: "SAP HANA Machine Learning Python Client (hana-ml) development..."
+  default_prompt: "Use $sap-hana-ml to work with SAP HANA Ml."
+policy:
+  allow_implicit_invocation: true

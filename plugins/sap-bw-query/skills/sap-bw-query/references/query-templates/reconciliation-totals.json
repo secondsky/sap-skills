@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "target": {
+    "system": "PLACEHOLDER_SYSTEM",
+    "client": "PLACEHOLDER_CLIENT",
+    "project": "PLACEHOLDER_PROJECT",
+    "provider": "PLACEHOLDER_PROVIDER"
+  },
+  "technicalName": "ZPLACEHOLDER_RECON_TOTALS",
+  "businessPurpose": "Produce a tightly scoped control-total report of PLACEHOLDER_AMOUNT_KF by PLACEHOLDER_GROUP_CHAR for one period and entity, so the total can be reconciled against the source ledger.",
+  "axes": {
+    "rows": [
+      { "technicalName": "PLACEHOLDER_GROUP_CHAR", "kind": "characteristic" }
+    ],
+    "columns": [
+      { "technicalName": "PLACEHOLDER_AMOUNT_KF", "kind": "keyFigure" }
+    ]
+  },
+  "filters": [
+    { "characteristic": "0CALMONTH", "operator": "EQ", "value": "PLACEHOLDER_PERIOD" },
+    { "characteristic": "PLACEHOLDER_ENTITY_CHAR", "operator": "EQ", "value": "PLACEHOLDER_ENTITY_VALUE" },
+    { "characteristic": "0CURTYPE", "operator": "EQ", "value": "10" }
+  ],
+  "acceptanceCriteria": [
+    "The grand total of PLACEHOLDER_AMOUNT_KF equals the approved control total for the period and entity.",
+    "Subtotals by PLACEHOLDER_GROUP_CHAR reconcile line by line to the source ledger.",
+    "Zero-balance rows stay visible: no display setting removes rows that a reconciliation must account for."
+  ],
+  "evidence": [
+    { "source": "PLACEHOLDER_SPEC_SOURCE", "reference": "PLACEHOLDER_SPEC_REFERENCE", "checkedAt": "PLACEHOLDER_DATE" }
+  ]
+}

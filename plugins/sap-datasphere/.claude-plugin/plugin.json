@@ -1,7 +1,7 @@
 {
   "name": "sap-datasphere",
   "description": "SAP Datasphere development skill with 3 specialized agents, 5 slash commands, and validation hooks. Use when building data warehouses on SAP BTP, creating analytic models, configuring data flows and replication flows, setting up connections, managing spaces and users, implementing data access controls, using the datasphere CLI, or inspecting authenticated Datasphere browser UI state with Microsoft Edge CDP. Covers Data Builder, Business Builder, analytic models, 40+ connection types, real-time replication, task chains, content transport, and data marketplace.",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "author": {
     "name": "Eduard Jiglau",
     "email": "hello@sap-ai-skills.com",
@@ -16,6 +16,7 @@
     "dashboard",
     "data",
     "datasphere",
+    "edge",
     "sac",
     "sap",
     "sap-datasphere",
@@ -23,16 +24,16 @@
   ],
   "category": "data-analytics",
   "agents": [
-    "./agents/datasphere-integration-advisor.md",
     "./agents/datasphere-admin-helper.md",
+    "./agents/datasphere-integration-advisor.md",
     "./agents/datasphere-modeler.md"
   ],
   "commands": [
     "./commands/datasphere-cli.md",
     "./commands/datasphere-connection-guide.md",
+    "./commands/datasphere-mcp-tools.md",
     "./commands/datasphere-space-template.md",
-    "./commands/datasphere-view-template.md",
-    "./commands/datasphere-mcp-tools.md"
+    "./commands/datasphere-view-template.md"
   ],
   "mcpServers": "./.mcp.json"
 }

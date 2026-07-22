@@ -1,7 +1,7 @@
 {
   "name": "sap-sac-planning",
   "description": "SAP Analytics Cloud (SAC) planning guidance for planning models, planning-enabled stories, data actions, multi actions, version management, data locking, calendar/input workflows, allocations, value driver trees, BPC live planning, and Seamless Planning with SAP Datasphere. Use this for planning design, planning APIs, data action debugging, planning performance reviews, and authenticated SAC planning story triage in Microsoft Edge via CDP; use sap-sac-scripting for non-planning SAC scripts and sap-datasphere for Datasphere modeling.",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "author": {
     "name": "Eduard Jiglau",
     "email": "hello@sap-ai-skills.com",
@@ -15,6 +15,7 @@
     "api",
     "dashboard",
     "data",
+    "edge",
     "planning",
     "sac",
     "sap",
@@ -23,13 +24,13 @@
   ],
   "category": "data-analytics",
   "agents": [
-    "./agents/planning-api-assistant.md",
     "./agents/data-action-debugger.md",
+    "./agents/planning-api-assistant.md",
     "./agents/planning-model-architect.md"
   ],
   "commands": [
-    "./commands/sac-planning-checklist.md",
     "./commands/data-action-template.md",
+    "./commands/sac-planning-checklist.md",
     "./commands/seamless-planning-guide.md"
   ]
 }

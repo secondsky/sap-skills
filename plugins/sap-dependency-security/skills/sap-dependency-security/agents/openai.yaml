@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP Dependency Security"
+  short_description: "SAP dependency security and MCP executable trust policy with..."
+  default_prompt: "Use $sap-dependency-security to work with SAP Dependency Security."
+policy:
+  allow_implicit_invocation: true

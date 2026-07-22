@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP Datasphere"
+  short_description: "SAP Datasphere development skill with 3 specialized agents, 5..."
+  default_prompt: "Use $sap-datasphere to work with SAP Datasphere."
+policy:
+  allow_implicit_invocation: true

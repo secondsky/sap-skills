@@ -1,0 +1,6 @@
+interface:
+  display_name: "SAP RPT1"
+  short_description: "SAP-RPT-1-OSS local tabular prediction workflows for FI/CO pr..."
+  default_prompt: "Use $sap-rpt1 to work with SAP RPT1."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP Fiori Tools"
+  short_description: "Develops SAP Fiori applications using SAP Fiori tools extensi..."
+  default_prompt: "Use SAP Fiori Tools for SAP guidance."

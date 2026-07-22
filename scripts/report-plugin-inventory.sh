@@ -31,6 +31,6 @@ echo ""
 
 echo "Freshness markers"
 echo "-----------------"
-rg -n --glob '*.md' --glob '!docs/vendor/**' --glob '!docs/project/skills-review-progress.md' \
+rg -n --glob '*.md' \\
   'last_verified|lastUpdated|Last Updated|latest|current|QRC [0-9]/20[0-9]{2}|SPS0[0-9]' \
   plugins docs README.md CLAUDE.md || true

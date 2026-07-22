@@ -1,0 +1,49 @@
+{
+  "name": "sap-cap-capire",
+  "version": "2.4.0",
+  "description": "SAP Cloud Application Programming Model (CAP) development skill using Capire documentation. Use when: building CAP applications, defining CDS models, implementing services, working with SAP HANA/SQLite/PostgreSQL databases, deploying to SAP BTP Cloud Foundry or Kyma, implementing Fiori UIs, handling authorization, multitenancy, or messaging. Covers CDL/CQL/CSN syntax, Node.js and Java runtimes, event handlers, OData services, and CAP plugins.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "api",
+    "authorization",
+    "btp",
+    "cap",
+    "capire",
+    "cds",
+    "cloud application programming",
+    "cloud foundry",
+    "fiori",
+    "hana",
+    "java",
+    "kyma",
+    "node.js",
+    "odata",
+    "sap",
+    "sap-cap-capire",
+    "sql"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP CAP Capire",
+    "shortDescription": "SAP Cloud Application Programming Model (CAP) development ski...",
+    "longDescription": "SAP Cloud Application Programming Model (CAP) development skill using Capire documentation. Use when: building CAP applications, defining CDS models, implementing services, working with SAP HANA/SQLite/PostgreSQL databases, deploying to SAP BTP Cloud Foundry or Kyma, implementing Fiori UIs, handling authorization, multitenancy, or messaging. Covers CDL/CQL/CSN syntax, Node.js and Java runtimes, event handlers, OData services, and CAP plugins.",
+    "developerName": "Eduard Jiglau",
+    "category": "CAP",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP CAP Capire for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

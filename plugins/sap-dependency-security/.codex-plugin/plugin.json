@@ -1,0 +1,46 @@
+{
+  "name": "sap-dependency-security",
+  "version": "2.4.0",
+  "description": "SAP dependency security and MCP executable trust policy with secure upgrades, cooldowns, staged rollout, and supply-chain protection. Use when upgrading deps, configuring security policies, preventing supply chain attacks, pinning SAP MCP servers, or reviewing SAP CAP/UI5/Fiori/HANA/Datasphere/SAC/BTP/ABAP dependency workflows.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "abap",
+    "automation",
+    "btp",
+    "cap",
+    "cli",
+    "dependency",
+    "development",
+    "fiori",
+    "hana",
+    "productivity",
+    "sap",
+    "sap-dependency-security",
+    "security",
+    "tools"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP Dependency Security",
+    "shortDescription": "SAP dependency security and MCP executable trust policy with...",
+    "longDescription": "SAP dependency security and MCP executable trust policy with secure upgrades, cooldowns, staged rollout, and supply-chain protection. Use when upgrading deps, configuring security policies, preventing supply chain attacks, pinning SAP MCP servers, or reviewing SAP CAP/UI5/Fiori/HANA/Datasphere/SAC/BTP/ABAP dependency workflows.",
+    "developerName": "Eduard Jiglau",
+    "category": "Tooling",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP Dependency Security for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

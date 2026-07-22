@@ -1,0 +1,4 @@
+interface:
+  display_name: "SAP SAC Scripting"
+  short_description: "Comprehensive SAC scripting skill for SAP Analytics Cloud Ana..."
+  default_prompt: "Use SAP SAC Scripting for SAP guidance."

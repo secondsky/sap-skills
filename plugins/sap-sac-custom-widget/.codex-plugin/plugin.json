@@ -1,0 +1,43 @@
+{
+  "name": "sap-sac-custom-widget",
+  "version": "2.4.0",
+  "description": "SAP Analytics Cloud (SAC) Custom Widget development. Use when building custom visualizations, extending SAC with Web Components, or creating Widget Add-Ons. Covers JSON metadata, JavaScript Web Components, lifecycle functions, data binding with feeds, styling/builder panels, property/event/method definitions, third-party library integration, hosting, security, performance, and debugging. Includes Widget Add-On feature (QRC Q4 2023+) and templates for widgets, charts, and KPI cards.",
+  "author": {
+    "name": "Eduard Jiglau",
+    "email": "hello@sap-ai-skills.com",
+    "url": "https://sap-ai-skills.com"
+  },
+  "homepage": "https://sap-ai-skills.com",
+  "repository": "https://github.com/secondsky/sap-skills",
+  "license": "GPL-3.0",
+  "keywords": [
+    "analytics",
+    "custom",
+    "dashboard",
+    "data",
+    "javascript",
+    "json",
+    "sac",
+    "sap",
+    "sap-sac-custom-widget",
+    "visualization",
+    "widget"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SAP SAC Custom Widget",
+    "shortDescription": "SAP Analytics Cloud (SAC) Custom Widget development",
+    "longDescription": "SAP Analytics Cloud (SAC) Custom Widget development. Use when building custom visualizations, extending SAC with Web Components, or creating Widget Add-Ons. Covers JSON metadata, JavaScript Web Components, lifecycle functions, data binding with feeds, styling/builder panels, property/event/method definitions, third-party library integration, hosting, security, performance, and debugging. Includes Widget Add-On feature (QRC Q4 2023+) and templates for widgets, charts, and KPI cards.",
+    "developerName": "Eduard Jiglau",
+    "category": "Data Analytics",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use SAP SAC Custom Widget for SAP guidance."
+    ],
+    "websiteURL": "https://sap-ai-skills.com"
+  }
+}

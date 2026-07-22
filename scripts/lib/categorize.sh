@@ -22,7 +22,7 @@ categorize_skill() {
     sap-hana-*) echo "hana" ;;
 
     # Data & Analytics
-    sap-sac-*|sap-datasphere) echo "data-analytics" ;;
+    sap-sac-*|sap-datasphere|sap-bw-*) echo "data-analytics" ;;
 
     # AI & Machine Learning
     sap-ai-*|sap-cloud-sdk-ai*|sap-rpt1|sap-rpt1-*|sap-rpt-*) echo "ai" ;;
