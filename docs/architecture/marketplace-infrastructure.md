@@ -8,13 +8,13 @@ Technical documentation for the SAP Skills marketplace system.
 
 ## Overview
 
-The SAP skills repository uses a **marketplace system** to manage 38 production plugins with:
-- Coordinated versioning (all at v2.3.2)
+The SAP skills repository uses a **marketplace system** to manage 40 production plugins with:
+- Coordinated versioning (all at v2.4.1)
 - Cross-references between related skills
 - Central registry (.claude-plugin/marketplace.json)
 - Single root manifest architecture
 
-**Scale**: 38 plugins across 8 manifest categories (`abap`, `ai`, `btp`, `cap`, `data-analytics`, `hana`, `tooling`, `ui-development`)
+**Scale**: 40 plugins across 8 manifest categories (`abap`, `ai`, `btp`, `cap`, `data-analytics`, `hana`, `tooling`, `ui-development`)
 
 ---
 
@@ -22,8 +22,8 @@ The SAP skills repository uses a **marketplace system** to manage 38 production 
 
 ### Skill Families
 
-**Tooling & Development** (3 plugins):
-- sap-api-style, sap-dependency-security, sap-hana-cli
+**Tooling & Development** (5 plugins):
+- sap-api-policy, sap-api-style, sap-bw-query, sap-dependency-security, sap-hana-cli
 
 **SAP BTP Platform** (15 plugins):
 - sap-btp-best-practices, sap-btp-build-work-zone-advanced, sap-btp-business-application-studio,
@@ -35,9 +35,9 @@ The SAP skills repository uses a **marketplace system** to manage 38 production 
 **UI Development** (4 plugins):
 - sap-fiori-tools, sapui5, sapui5-cli, sapui5-linter
 
-**Data & Analytics** (6 plugins):
-- sap-datasphere, sap-sac-custom-widget, sap-sac-planning, sap-sac-scripting,
-  sap-hana-cloud-data-intelligence, sap-sac-test-automation
+**Data & Analytics** (7 plugins):
+- sap-browser-automation, sap-datasphere, sap-sac-custom-widget, sap-sac-planning,
+  sap-sac-scripting, sap-hana-cloud-data-intelligence, sap-sac-test-automation
 
 **Core Technologies** (9 plugins):
 - sap-abap, sap-abap-cds, sap-cap-capire, sap-sqlscript, sap-ai-core, sap-cloud-sdk-ai,
@@ -70,8 +70,8 @@ This enables Claude to:
 3. Script propagates version to all plugin.json files
 4. Commit all changes together
 
-**Current Version**: 2.3.2
-**Last Updated**: 2026-06-20
+**Current Version**: 2.4.1
+**Last Updated**: 2026-09-17
 
 ---
 
@@ -109,18 +109,18 @@ plugins/sap-cap-capire/
 ### marketplace.json Structure
 
 **Location**: `.claude-plugin/marketplace.json`
-**Size**: ~40KB (38 plugins)
+**Size**: ~49KB (40 plugins)
 **Auto-Generated**: By `generate-marketplace.sh`
 
 **Structure**:
 ```json
 {
   "name": "sap-skills",
-  "version": "2.3.2",
+  "version": "2.4.1",
   "metadata": {
-    "version": "2.3.2",
-    "last_updated": "2026-06-20",
-    "total_skills": 38,
+    "version": "2.4.1",
+    "last_updated": "2026-08-08",
+    "total_skills": 40,
     "categories": [
       "abap", "ai", "btp", "cap",
       "data-analytics", "hana",
@@ -131,7 +131,7 @@ plugins/sap-cap-capire/
     {
       "name": "sap-cap-capire",
       "description": "...",
-      "version": "2.3.2",
+      "version": "2.4.1",
       "source": "plugins/sap-cap-capire",
       "license": "GPL-3.0",
       "keywords": [...],
@@ -160,7 +160,7 @@ cd sap-skills
 
 ### Cross-References Between Skills
 
-**15 skills** have marketplace cross-references via keywords:
+**17 skills** have marketplace cross-references via keywords:
 
 Example from sap-cap-capire:
 ```yaml
@@ -183,7 +183,7 @@ This enables portfolio-wide skill discovery.
 
 ---
 
-**Last Updated**: 2026-06-20
+**Last Updated**: 2026-09-17
 **Maintainer**: Eduard Jiglau
 **Email**: hello@sap-ai-skills.com
 **Website**: https://sap-ai-skills.com
