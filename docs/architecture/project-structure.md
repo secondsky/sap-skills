@@ -315,10 +315,10 @@
 │   │   │   └── [2m... 1 directory, 3 files[0m
 │   │   ├── [1;34m  scripts/[0m [2m(2 files, 31.7KB, all .ps1)[0m
 │   │   │   └── [2m... 2 files[0m
-│   │   ├── [1;34m  skills/sap-bw-query/[0m [2m(15 files, 93.2KB, all .md)[0m
+│   │   ├── [1;34m  skills/sap-bw-query/[0m [2m(15 files, 93.2KB)[0m
 │   │   │   └── [2m... 2 directories, 2 files[0m
 │   │   └── [31m.mcp.json[0m[2m[0m 
-│   ├── [1;34m  sap-cap-capire/[0m [2m(52 files, 386.3KB, all .json)[0m
+│   ├── [1;34m  sap-cap-capire/[0m [2m(52 files, 386.3KB)[0m
 │   │   ├── [1;34m  .claude-plugin/[0m [2m(1.5KB)[0m
 │   │   │   └── [2m... 1 file[0m
 │   │   ├── [1;34m  .codex-plugin/[0m [2m(1.9KB)[0m
