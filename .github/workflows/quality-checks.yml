@@ -83,23 +83,26 @@ jobs:
 
           print("Checking for broken internal links in markdown files...")
           errors = 0
-          for root, dirs, files in os.walk('plugins'):
-              for f in files:
-                  if not f.endswith('.md'):
+          def iter_md_files():
+              for scan_root in ('plugins', 'docs'):
+                  for root, dirs, files in os.walk(scan_root):
+                      dirs[:] = [d for d in dirs if d != 'node_modules']
+                      for f in files:
+                          if f.endswith('.md'):
+                              yield os.path.join(root, f)
+          for filepath in iter_md_files():
+              with open(filepath, 'r', encoding='utf-8', errors='replace') as fh:
+                  content = fh.read()
+              for link in extract_links_outside_code_blocks(content):
+                  if link.startswith(('http://', 'https://', '#', 'mailto:')):
                       continue
-                  filepath = os.path.join(root, f)
-                  with open(filepath, 'r', encoding='utf-8', errors='replace') as fh:
-                      content = fh.read()
-                  for link in extract_links_outside_code_blocks(content):
-                      if link.startswith(('http://', 'https://', '#', 'mailto:')):
-                          continue
-                      clean = link.split('#')[0]
-                      if not clean:
-                          continue
-                      target = os.path.normpath(os.path.join(os.path.dirname(filepath), clean))
-                      if not os.path.exists(target):
-                          errors += 1
-                          print(f"ERROR: Broken link in {filepath} -> {link} (resolved: {target})")
+                  clean = link.split('#')[0]
+                  if not clean:
+                      continue
+                  target = os.path.normpath(os.path.join(os.path.dirname(filepath), clean))
+                  if not os.path.exists(target):
+                      errors += 1
+                      print(f"ERROR: Broken link in {filepath} -> {link} (resolved: {target})")
 
           if errors:
               print(f"\nFAILED: {errors} broken internal link(s) found")

@@ -16,7 +16,7 @@ Run: `/use plugin-dev:skill-development`
 ## For SAP-Specific Development
 
 See the **[Contributor Guide](../contributor-guide/README.md)** for:
-- Marketplace infrastructure (33 plugins)
+- Marketplace infrastructure (40 plugins)
 - Quality assurance (manual review)
 - SAP SDK version management
 - Domain-specific patterns
@@ -30,4 +30,4 @@ See the **[Contributor Guide](../contributor-guide/README.md)** for:
 
 ---
 
-**Last Updated**: 2026-05-31
+**Last Updated**: 2026-09-17

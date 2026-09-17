@@ -7,7 +7,6 @@ agent, hook, template, and reference resources only.
 ## Audit Trail
 
 - `plugin-skills-audit-2026-06-14.md` - baseline quality pass and stale verification handling.
-- `plugin-skills-second-pass-audit-2026-06-14.md` - capability expansion, manifest sidecars, and command/agent standardization.
 - `plugin-skills-third-pass-audit-2026-06-14.md` - effectiveness audit, capability indexes, output contracts, and oversized-reference routing.
 - `source-verification-ledger.json` - current fourth-pass freshness ledger that guards `metadata.last_verified`.
 - `package-evidence/2026-06-15.json` - public registry evidence for MCP/package freshness candidates.

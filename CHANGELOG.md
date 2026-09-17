@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Removed orphaned documentation with no inbound references: `docs/reference/sap-development-patterns.md` (a stale duplicate of the contributor guide), the `docs/validation/` cluster (README, IMPLEMENTATION, json-schema-validation — self-contained and partially obsolete), and `docs/project/plugin-skills-second-pass-audit-2026-06-14.md` (not cited by the verification ledger; its line was dropped from `docs/project/audit-index.md`).
+
+### Changed
+
+- Refreshed stale repository documentation: regenerated `docs/architecture/project-structure.md` with codemap (1,231 files, depth 3), and corrected counts and versions in `docs/architecture/marketplace-infrastructure.md` (40 plugins, v2.4.1, plus the previously missing sap-api-policy, sap-bw-query, and sap-browser-automation family entries) and `docs/getting-started/README.md`.
+- Extended the broken-internal-link check in `quality-checks.yml` to scan `docs/` alongside `plugins/` (skipping `node_modules`), so orphaned documentation links fail CI instead of accumulating silently.
+
 ### Security
 
 - Hardened all 8 GitHub Actions workflows against supply-chain attacks: pinned all 20 action references to verified commit SHAs with `persist-credentials: false` on all 9 checkout steps, declared least-privilege `permissions:` plus per-job `timeout-minutes` and concurrency groups in every workflow, removed all `${{ }}` template expressions from `run:` shell bodies (values now arrive through step `env:` mappings), and disabled npm package-manager caching in the release-signing workflow (`package-manager-cache: false`) to close the cache-poisoning exposure.
