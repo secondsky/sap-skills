@@ -69,19 +69,19 @@ jobs:
           persist-credentials: false
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
+        uses: github/codeql-action/init@1c5b675653bb5c22dbe9b12b556ec555138e09fd # v4.38.1
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
           config-file: ./.github/codeql/codeql-config.yml
 
       - name: Autobuild
-        uses: github/codeql-action/autobuild@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
+        uses: github/codeql-action/autobuild@1c5b675653bb5c22dbe9b12b556ec555138e09fd # v4.38.1
 
       # analyze@v4 builds the database, runs the queries, and uploads SARIF to
       # the Security tab — no separate upload-sarif step is needed (that action
       # is only for results produced by external tools).
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
+        uses: github/codeql-action/analyze@1c5b675653bb5c22dbe9b12b556ec555138e09fd # v4.38.1
         with:
           category: "/language:${{ matrix.language }}"
