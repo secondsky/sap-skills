@@ -42,7 +42,7 @@
     "lint:workflows": "actionlint .github/workflows/*.y*ml; a=$?; zizmor .github/workflows/; z=$?; [ \"$a\" -eq 0 ] && [ \"$z\" -eq 0 ]"
   },
   "devDependencies": {
-    "@steipete/oracle": "0.18.0",
+    "@steipete/oracle": "0.21.1",
     "ajv-cli": "^5.0.0",
     "ajv-formats": "^3.0.1"
   }
